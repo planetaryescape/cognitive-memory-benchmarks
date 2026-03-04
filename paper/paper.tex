@@ -1,0 +1,421 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\title{Cognitive Memory for AI Agents:\\Decay Floors, Emergent Core Memories, and Retrieval-Driven Reinforcement}
+
+\author{
+  Bhekani Khumalo\\
+  Independent Researcher\\
+  \texttt{hello@bhekani.com}\\
+  \url{https://github.com/planetaryescape/blah.chat}
+}
+
+\date{February 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Most AI memory systems innovate at the edges of the memory lifecycle: deciding what to extract and how to retrieve it. The middle---what happens to a memory after it is stored and before it is retrieved---remains comparatively underexplored. Memories persist at the same weight they had on day one, whether they are an hour old or a month old, accessed fifty times or never. This paper presents \texttt{cognitive-memory}, an open-source memory architecture for LLM-based agents that draws on cognitive science to address this gap. We\footnote{This paper uses the editorial ``we'' throughout, following common convention in computer science. The work is solely that of the listed author.} introduce six design contributions: (1)~\emph{decay floors}, where memories fade according to Ebbinghaus-inspired exponential decay but never reach zero, preserving the possibility of future reactivation; (2)~\emph{emergent core memory detection}, where memories earn protected status through repeated access and cross-session stability rather than only through explicit tagging; (3)~\emph{two-tier retrieval boosting}, where direct retrieval and associative co-retrieval produce different reinforcement magnitudes, modelling the distinction between active recall and passive priming; (4)~\emph{associative memory linking} with differential reinforcement, where co-retrieved memories form and strengthen bidirectional connections; (5)~\emph{tiered hot/cold storage} inspired by the Complementary Learning Systems framework and Tulving's availability--accessibility distinction, where faint memories migrate out of the vector index but remain recoverable through associative retrieval or explicit deep recall; and (6)~\emph{reversible consolidation}, where superseded originals are preserved in cold storage rather than deleted, accessible as associated children of their summaries or via a deep recall retrieval mode analogous to the reactivation of silent engrams. We situate these mechanisms within the broader landscape of agent memory research, contrast our design philosophy with recent work such as FadeMem, and describe a production deployment backing a consumer chat application. An empirical evaluation with user data is planned as a follow-up study.
+\end{abstract}
+
+\section{Introduction}
+
+Large language models are stateless. Every inference is a fresh start. To build agents that maintain continuity across sessions, developers must bolt on external memory systems---and a growing ecosystem of tools exists to do exactly that \citep{chhikara2024mem0, packer2023memgpt, sumers2024coala}. These systems have gotten quite good at two things: extracting salient information from conversations, and retrieving relevant memories when prompted. But between extraction and retrieval lies a dead zone. Once stored, memories sit in a database with the same weight and accessibility they had on the day they were created.
+
+This is not how biological memory works. Human memory is dynamic: it strengthens with use, weakens with neglect, and selectively preserves information that has proven important over time \citep{ebbinghaus1885, bjork1992new}. Crucially, forgetting is not a failure mode but an adaptive feature. Richards and Frankland~\citeyearpar{richards2017persistence} argue that the goal of memory is not faithful information transmission but rather guiding intelligent decision-making in noisy, changing environments. Partial forgetting enables generalization by stripping away context-specific details and preserving underlying patterns.
+
+For AI agents, the engineering consequences of ignoring this middle phase are concrete. A memory system that retains everything at full strength produces context windows bloated with noise, stale facts weighted equally to fresh ones, and no way to distinguish a recurring preference from a passing remark. Consolidation---compressing old memories into summaries---is the field's most common response, but it is lossy and irreversible: the original memories are destroyed, and with them the ability to recover details that may become relevant again.
+
+This paper presents an alternative approach. Our system, \texttt{cognitive-memory}, implements biologically-inspired decay that dims memories without destroying them, retrieval-driven reinforcement that strengthens memories through use, and emergent core memory detection that protects critical information. The key philosophical commitment is that \textbf{no memory should ever be fully deleted}. Instead, memories fade to a floor: regular memories to a faint but non-zero level, core memories to a high floor that keeps them always accessible. This preserves the possibility of reactivation---the everyday experience of a forgotten detail flooding back when triggered by the right cue.
+
+We contribute: (1) a formal architecture grounded in specific cognitive science mechanisms; (2) several design elements not present in related work, particularly decay floors, emergent core memory promotion, and two-tier retrieval boosting; (3) an open-source implementation available as an npm package and Python SDK; and (4) a description of its deployment in a production chat application, \texttt{blah.chat}.\footnote{\url{https://blah.chat}} An empirical evaluation using production data is planned as follow-up work.
+
+\section{Related Work}
+
+\subsection{Taxonomic Foundations}
+
+The CoALA framework \citep{sumers2024coala} provides the most influential taxonomy for agent memory, distinguishing working memory (short-term, in-context) from long-term memory (episodic, semantic, procedural). CoALA draws on the SOAR cognitive architecture and identifies memory management as a key area for future development, though its focus is primarily on the structural organization of memory rather than temporal dynamics.
+
+\subsection{Memory Architectures for Agents}
+
+Park et al.~\citeyearpar{park2023generative} introduced the generative agents architecture, where agents maintain a ``memory stream'' of observations and synthesize higher-level reflections over time. Their retrieval function combines recency, importance, and relevance---an early recognition that not all memories should be weighted equally. However, the recency signal is a simple time-based decay with no mechanism for retrieval-driven strengthening or differentiated decay rates.
+
+MemGPT \citep{packer2023memgpt} models agent memory on an operating system's virtual memory hierarchy, with a core memory (in-context) and archival memory (out-of-context) layer. The agent manages its own context through explicit read/write operations. This is an architectural innovation in \emph{how} memory is organized, but it does not address the temporal dynamics of what happens to memories over time.
+
+Mem0 \citep{chhikara2024mem0} provides a unified memory layer with extraction, deduplication, and retrieval. Recent versions describe decay mechanisms where ``memories strengthen when recalled and naturally decay over time if unused,'' though the implementation details and decay model are not fully specified in published materials.
+
+\subsection{Forgetting Mechanisms}
+
+The most directly related work is FadeMem \citep{wei2026fademem}, published in January 2026. FadeMem implements Ebbinghaus-inspired exponential decay across a dual-layer (short-term/long-term) memory hierarchy, with retention modulated by semantic relevance, access frequency, and temporal patterns. It incorporates LLM-guided conflict resolution and memory fusion, and demonstrates improvements over Mem0 and MemGPT on multiple benchmarks. Our work shares the same cognitive science inspiration but differs in several design choices detailed in Section~\ref{sec:comparison}.
+
+MemoryBank \citep{zhong2024memorybank} incorporates the Ebbinghaus forgetting curve to model memory strength decay and supports continual memory updating and user profile construction. SAGE \citep{sage2024} combines the Ebbinghaus curve with linguistic knowledge to optimize memory management, applying part-of-speech priority to determine information retention. Memoria \citep{memoria2023} addresses what it calls the ``fateful forgetting problem'' through a human-inspired memory architecture. MemOS \citep{kang2025memos} introduces TTL-based lifespan policies and state transitions (Generated $\rightarrow$ Activated $\rightarrow$ Merged $\rightarrow$ Archived $\rightarrow$ Expired).
+
+The ``Memory in the Age of AI Agents'' survey \citep{liu2025memory} provides the most comprehensive recent overview, categorizing forgetting as one of three branches of memory evolution alongside consolidation and updating. That survey's taxonomy distinguishes memory by \emph{form} (token-level, parametric, latent) and \emph{function} (factual, experiential, working). Our system operates entirely at the token level---memories are discrete text records in an external store---and primarily serves the factual memory function, maintaining persistent knowledge about users and their preferences across sessions. This confirms that forgetting is an active area of research, though one still in its early stages with no dominant approach.
+
+\subsection{Cognitive Science Foundations}
+
+Our architecture draws on several established results from cognitive science and neuroscience:
+
+\begin{itemize}
+    \item \textbf{Ebbinghaus forgetting curves} \citep{ebbinghaus1885, murre2015replication}: Memory retention follows exponential decay, with the steepest drop occurring shortly after encoding.
+    \item \textbf{Spaced repetition effects} \citep{cepeda2006distributed}: Memories accessed at increasing intervals develop greater long-term stability than those accessed in massed practice.
+    \item \textbf{Spreading activation} \citep{collins1975spreading}: Retrieving one memory activates semantically related memories, with activation strength decreasing with associative distance.
+    \item \textbf{Synaptic tagging} \citep{frey1997synaptic}: Certain memories receive biochemical tags during encoding that mark them for preferential long-term consolidation, independent of subsequent access patterns.
+    \item \textbf{Adaptive forgetting} \citep{richards2017persistence}: The interaction between persistence and transience optimizes memory-guided decision-making. The goal of memory is not accurate recording but flexible behaviour in changing environments.
+    \item \textbf{Intentional forgetting} \citep{popov2019forgetting}: Forgetting can be an effortful, resource-consuming process that actively aids memory for target items. Our system implements only passive decay rather than directed forgetting, but this work motivates the broader view that forgetting is functional rather than merely a failure of retention.
+    \item \textbf{Availability vs.\ accessibility} \citep{tulving1966availability}: Apparent forgetting often reflects a failure of retrieval (accessibility) rather than a loss of stored information (availability). Memories may be intact in storage but inaccessible without appropriate cues.
+    \item \textbf{Complementary Learning Systems} \citep{mcclelland1995complementary}: The brain maintains two complementary memory stores---a fast-learning, fast-decaying hippocampal system and a slow-learning, stable neocortical system---with gradual migration of memories between them.
+    \item \textbf{Silent engrams} \citep{ryan2022forgetting}: Forgotten memories may persist as engram ensembles that are available but inaccessible through natural retrieval cues, recoverable only through artificial stimulation. This suggests that much natural forgetting is a state change in accessibility rather than erasure.
+\end{itemize}
+
+\section{Architecture}
+
+The \texttt{cognitive-memory} system operates as a middleware layer between an LLM-based agent and its vector store. When the agent produces or encounters information worth remembering, the system extracts structured memory objects, assigns initial parameters, stores them with embeddings, and manages their lifecycle over time. On retrieval, the system queries semantically, applies retention-weighted scoring, boosts accessed memories, and returns results ordered by composite relevance.
+
+\subsection{Memory Representation}
+
+Each memory is represented as a structured object with the following fields:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Field} & \textbf{Type} & \textbf{Description} \\
+\midrule
+\texttt{content} & string & Natural language content \\
+\texttt{category} & enum & \texttt{episodic}, \texttt{semantic}, \texttt{procedural}, \texttt{core} \\
+\texttt{importance} & float [0,1] & LLM-assessed salience at extraction \\
+\texttt{stability} & float [0,1] & Resistance to decay; increases with use \\
+\texttt{accessCount} & int & Number of times retrieved \\
+\texttt{lastAccessedAt} & datetime & Timestamp of most recent retrieval \\
+\texttt{createdAt} & datetime & Timestamp of creation \\
+\texttt{associations} & list & Links to related memories with weights \\
+\bottomrule
+\end{tabular}
+\caption{Memory object schema. The \texttt{core} category triggers elevated decay floors and is assigned either by LLM classification at extraction or by emergent promotion (Section~\ref{sec:core}).}
+\label{tab:schema}
+\end{table}
+
+\subsection{Decay Model}
+\label{sec:decay}
+
+Retention is computed as a modified exponential decay function:
+
+\begin{equation}
+R(m) = \max\left(f_m,\; \exp\!\left(\frac{-\Delta t(m)}{S(m) \cdot B(m) \cdot \beta_c}\right)\right)
+\label{eq:retention}
+\end{equation}
+
+\noindent where:
+\begin{itemize}
+    \item $R(m) \in [f_m, 1]$ is the retention score for memory $m$
+    \item $f_m$ is the \emph{decay floor} (see Section~\ref{sec:floors})
+    \item $\Delta t(m)$ is days since last access
+    \item $S(m) \in [0, 1]$ is the stability parameter, representing resistance to decay
+    \item $B(m) = 1 + (\text{importance}(m) \times 2)$, capped at 3, is the importance boost
+    \item $\beta_c$ is the base decay rate, dependent on memory category
+\end{itemize}
+
+Base decay rates are differentiated by category to reflect the different temporal profiles of memory types documented in cognitive science \citep{finley2025expanded}:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lrl@{}}
+\toprule
+\textbf{Category} & \textbf{$\beta_c$ (days)} & \textbf{Rationale} \\
+\midrule
+Episodic & 30 & Event memories fade relatively quickly \\
+Semantic & 90 & Factual knowledge persists longer \\
+Procedural & $\infty$ & Skills and procedures do not decay \\
+Core & 90 & High floor dominates; base rate matters less \\
+\bottomrule
+\end{tabular}
+\caption{Base decay rates by memory category.}
+\label{tab:decay}
+\end{table}
+
+\subsection{Decay Floors: Never Delete}
+\label{sec:floors}
+
+The central design commitment of this architecture is that \textbf{no memory reaches zero}. The decay floor $f_m$ enforces a minimum retention score:
+
+\begin{equation}
+f_m = \begin{cases}
+0.60 & \text{if } \texttt{category}(m) = \texttt{core} \\
+0.02 & \text{otherwise}
+\end{cases}
+\end{equation}
+
+A regular memory at its floor (2\% retention) is extremely unlikely to surface in normal retrieval, since the retrieval score multiplies retention by semantic relevance. But if a highly specific query happens to match it closely, the memory can still be returned and, through the retrieval boost mechanism, begin recovering. We term memories below 15\% retention \emph{faint}---they are ghostly presences in the memory store, rarely surfaced but never gone.
+
+This stands in deliberate contrast to systems that prune memories below a threshold. FadeMem, for instance, imposes hard capacity caps (1000 long-term memories, 500 short-term) and allows memories to decay to removal \citep{wei2026fademem}. Our position is that deletion destroys information that may become relevant in unpredictable future contexts. The cost of storing faint memories is negligible (they are small text records); the cost of permanently losing them is hard to predict.
+
+This mirrors the neurobiological reality that memories are rarely truly erased. Rather, they become increasingly difficult to access as retrieval pathways weaken, while the underlying traces persist \citep{wixted2004psychology}. The common experience of a long-forgotten detail returning vividly when triggered by the right cue---a smell, a name, a location---is evidence that the memory was dimmed, not deleted.
+
+To make this concrete: consider a user who mentions their cat's name in session 3, then never references it again. By session 20, that memory has decayed to its 2\% floor. In a deletion-based system, it is gone. In ours, it persists as a faint memory, invisible to normal retrieval. But when the user asks in session 47, ``what was my cat called?''---a query with high semantic similarity to exactly that memory---the retention floor allows it to surface. The retrieval boost then begins restoring its stability, and the memory re-enters active circulation. This is the specific behaviour that decay floors are designed to preserve, and it is not recoverable once a memory has been pruned.
+
+\subsection{Core Memory Detection}
+\label{sec:core}
+
+Core memories are those that should remain highly accessible regardless of access patterns: a user's name, critical allergies, fundamental preferences. We implement two complementary pathways to core status. The first is loosely analogous to synaptic tagging \citep{frey1997synaptic}, in that certain memories receive preferential treatment at encoding time, though our mechanism (LLM classification) is far simpler than the biological process. The second pathway mirrors use-dependent consolidation:
+
+\paragraph{Explicit tagging.} At extraction time, the LLM classifies whether a memory represents identity-critical information (names, medical conditions, family relationships). If so, it is immediately assigned \texttt{category = core} with the 60\% floor.
+
+\paragraph{Emergent promotion.} Memories that were not initially tagged as core can earn core status through sustained use. A memory is promoted to core when it meets three criteria simultaneously:
+
+\begin{enumerate}
+    \item \textbf{High access count}: retrieved more than a configurable threshold number of times (default: 10)
+    \item \textbf{High stability}: the stability parameter exceeds a threshold (default: 0.85)
+    \item \textbf{Cross-session persistence}: the memory has been accessed across at least 3 distinct sessions
+\end{enumerate}
+
+This emergent pathway reflects the cognitive science observation that core memories in humans are not all tagged at encoding. Many become central to identity through repeated retrieval and emotional reinforcement over time \citep{bjork1992new}. A user's preference for a particular communication style might not seem identity-critical when first expressed, but after being accessed in dozens of conversations, it has functionally become core knowledge about that user.
+
+\subsection{Retrieval Scoring}
+
+When the agent queries memory, results are scored by the product of semantic relevance and retention:
+
+\begin{equation}
+\text{score}(m, q) = \text{sim}(m, q) \times R(m)
+\label{eq:score}
+\end{equation}
+
+\noindent where $\text{sim}(m, q)$ is the cosine similarity between the memory embedding and the query embedding, and $R(m)$ is the retention score from Equation~\ref{eq:retention}. This means two memories with identical semantic content can produce very different retrieval scores based on their temporal profiles. A memory accessed yesterday with high stability might score 0.89 on a query, while a semantically identical memory untouched for three weeks might score 0.41.
+
+This multiplicative interaction is the mechanism by which the system implements what Richards and Frankland~\citeyearpar{richards2017persistence} describe as memory's role in guiding intelligent decisions: recent, repeatedly-accessed information is foregrounded, while stale or rarely-used information recedes without being eliminated.
+
+\subsection{Two-Tier Retrieval Boosting}
+\label{sec:boost}
+
+When a memory is retrieved, its temporal parameters are updated to reflect the access event. We distinguish two tiers of retrieval, inspired by the cognitive distinction between active recall and passive priming via spreading activation \citep{collins1975spreading}:
+
+\paragraph{Direct retrieval.} When a memory is returned as a primary result for a query, it receives a full boost:
+\begin{align}
+\text{accessCount}(m) &\leftarrow \text{accessCount}(m) + 1 \\
+\text{stability}(m) &\leftarrow \min\!\left(1.0,\; \text{stability}(m) + 0.1 \times \min\!\left(2.0,\; \frac{\Delta t(m)}{7}\right)\right)
+\end{align}
+
+The stability update implements a spaced repetition effect: memories accessed after a longer gap receive a larger stability increment (up to a cap at 14 days), while memories accessed in rapid succession gain less stability per access \citep{cepeda2006distributed}. Stability is clamped to $[0, 1]$, so a memory that has been frequently accessed over a long period saturates at $S(m) = 1.0$, representing maximum resistance to decay. Figure~\ref{fig:boosting} illustrates the divergence: two memories with identical starting conditions, both retrieved every 7 days, develop markedly different stability and retention profiles depending on whether retrieval is direct or associative. Critically, only the directly retrieved memory accumulates enough stability to cross the core promotion threshold, gaining permanent floor protection that the associatively retrieved memory never earns.
+
+\paragraph{Associative retrieval.} When a memory is not a direct match but is \emph{associated} with a directly retrieved memory (see Section~\ref{sec:associations}), it receives a smaller boost:
+\begin{align}
+\text{accessCount}(m) &\leftarrow \text{accessCount}(m) + 1 \\
+\text{stability}(m) &\leftarrow \min\!\left(1.0,\; \text{stability}(m) + 0.03 \times \min\!\left(2.0,\; \frac{\Delta t(m)}{7}\right)\right)
+\end{align}
+
+This two-tier structure captures the observation that being directly recalled strengthens a memory more than being passively activated through association, while still acknowledging that any activation at all has a reinforcing effect.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{boosting_divergence.pdf}
+\caption{Simulated divergence between direct and associative retrieval over 90 days. Both memories start with identical parameters ($S = 0.1$, importance $= 0.5$, episodic category) and are retrieved every 7 days, with new sessions every 14 days. \textbf{Top:} Stability growth. The directly retrieved memory crosses the core promotion threshold ($S \geq 0.85$) at day 70 (green shaded region), while the associatively retrieved memory reaches only $S = 0.46$ and never qualifies. \textbf{Bottom:} Retention between retrieval events. At day 70, the directly retrieved memory's decay floor jumps from 0.02 to 0.60 upon core promotion (blue dashed line), guaranteeing it can never fade below 60\% retention. The associatively retrieved memory's floor remains at 0.02 throughout. The same 12 retrieval events, differentiated only by boost magnitude, produce fundamentally different long-term outcomes: one memory earns permanent protection, the other does not.}
+\label{fig:boosting}
+\end{figure}
+
+To test whether this divergence is robust to realistic variation in access patterns, we conducted a Monte Carlo analysis with 500 simulation runs. In each run, both memories received the same randomised retrieval schedule: approximately 12 retrieval events (Poisson-distributed) placed at random days within the 90-day window, with new sessions every 14 days. All other parameters were identical to the deterministic case.
+
+The results (Figure~\ref{fig:monte_carlo}) confirm that the divergence is structural rather than an artefact of regular scheduling. Directly retrieved memories achieved core promotion in 76.8\% of runs (384/500), with a median promotion day of 68 (IQR: 60--76). Associatively retrieved memories achieved core promotion in 0\% of runs. At day 90, directly retrieved memories had mean stability $0.985 \pm 0.052$, while associatively retrieved memories reached only $0.417 \pm 0.044$. The confidence bands in Figure~\ref{fig:monte_carlo} show that even the 10th-percentile direct retrieval trajectory exceeds the 90th-percentile associative trajectory by approximately day 40. This separation is a consequence of the 3.3$\times$ boost ratio (0.1 vs.\ 0.03) compounding over repeated access events; it is not sensitive to the specific scheduling of those events.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{monte_carlo.pdf}
+\caption{Monte Carlo analysis of two-tier boosting across 500 randomised retrieval schedules ($\sim$12 Poisson-distributed events per run, sessions every 14 days). \textbf{Top left:} Mean stability trajectories with 10th--90th percentile bands. The direct retrieval mean crosses the core threshold around day 60; the associative mean never approaches it. \textbf{Top right:} Distribution of final stability at day 90, showing near-complete separation between the two tiers. \textbf{Bottom left:} Distribution of core promotion timing for direct retrieval (median: day 68). \textbf{Bottom right:} Core promotion rates: 76.8\% for direct, 0\% for associative.}
+\label{fig:monte_carlo}
+\end{figure}
+
+\subsection{Associative Memory Graph}
+\label{sec:associations}
+
+Memories form bidirectional associations when they are retrieved together or created in the same context. Each association has a weight $w \in [0, 1]$ that strengthens with co-retrieval:
+
+\begin{equation}
+w(a, b) \leftarrow \min(1.0,\; w(a, b) + 0.1)
+\end{equation}
+
+When memory $a$ is directly retrieved, the system checks its associations and returns any associated memory $b$ where $w(a, b)$ exceeds a threshold (default: 0.3), provided $b$'s own retention score is above a minimum. Associated memories are marked as such in the results and receive the smaller associative boost described above.
+
+This mechanism models spreading activation \citep{collins1975spreading}: retrieving a concept activates related concepts, with activation strength proportional to association weight. Over time, frequently co-retrieved memories develop strong bidirectional links, while associations between rarely co-accessed memories weaken. Specifically, association weights decay exponentially based on time since last co-retrieval:
+
+\begin{equation}
+w(a, b) \leftarrow w(a, b) \times \exp\!\left(\frac{-\Delta t_w}{90}\right)
+\end{equation}
+
+\noindent where $\Delta t_w$ is days since the association was last strengthened (i.e., since $a$ and $b$ were last co-retrieved). The 90-day time constant means unused associations fade slowly but steadily: after 90 days without co-retrieval, an association retains approximately 37\% of its weight; after 180 days, approximately 13\%. Associations that fall below the retrieval threshold (0.3) no longer trigger associative retrieval, though they are not deleted and can be restored if co-retrieval resumes.
+
+\subsection{Consolidation}
+\label{sec:consolidation}
+
+The system includes a consolidation process that clusters fading memories (retention below 0.2) by semantic similarity and compresses groups of five or more into summary memories. However, unlike typical consolidation approaches that discard originals after compression, our revised policy preserves them through the tiered storage mechanism described below. Original memories are clamped to the regular floor (0.02), marked with metadata linking them to their superseding summary (\texttt{supersededBy=<summaryId>}), and migrated to cold storage. In normal retrieval, superseded originals are not eligible as direct hits. They surface only as associated children when their superseding summary is retrieved, providing a lossless path back to the raw details when needed.
+
+\subsection{Tiered Storage}
+\label{sec:tiered}
+
+A fundamental tension exists in any memory system that never deletes: the index grows monotonically. While individual text records are cheap to store, vector similarity search degrades as the candidate pool expands. We address this with a two-tier architecture inspired by the neuroscientific distinction between memory \emph{availability} and \emph{accessibility} \citep{tulving1966availability}.
+
+Tulving and Pearlstone's foundational finding demonstrated that memories can be intact in storage (available) yet fail to be retrieved (inaccessible) without appropriate cues. Recent neuroscience has reinforced this view: engrams corresponding to apparently forgotten memories persist in ``silent'' states that resist natural reactivation but can be recovered through artificial stimulation \citep{ryan2022forgetting, guskjolen2024forgetting}. At the systems level, the Complementary Learning Systems framework \citep{mcclelland1995complementary} posits a fast-learning, fast-decaying hippocampal store that gradually transfers memories to a slower, more stable neocortical store---a two-tier architecture with migration driven by time and consolidation.
+
+Our tiered storage implements a computational analogue. The \textbf{hot store} is a vector-indexed table supporting embedding similarity search: this is the agent's working memory, containing all active, recently accessed, and core memories. The \textbf{cold store} is a plain key-value table in the same database---no embeddings indexed, no similarity search, accessed only by ID. Memories migrate from hot to cold when their retention has remained at floor for a configurable threshold (default: 7 consecutive days with zero retrievals). Core memories are exempt from migration. Superseded originals from consolidation are migrated to cold storage immediately.
+
+The cold store is not a graveyard. When a hot memory is retrieved and has associations pointing to cold IDs, the system performs an O(1) lookup by identifier and applies associative scoring. If a cold memory surfaces through this path and receives a retrieval boost, it is migrated back to the hot store---re-indexed for similarity search and fully reactivated. This bidirectional migration mirrors the concept of silent engrams: memories that are available but not accessible through normal retrieval, yet recoverable when the right associative cue provides a path back.
+
+\paragraph{Deep recall mode.} In neuroscience, ``silent engrams'' are memory traces that persist biologically but cannot be reactivated through natural retrieval cues; they require artificial stimulation (e.g., optogenetic activation of dentate gyrus neurons) to produce memory expression \citep{ryan2022forgetting, guskjolen2024forgetting}. Our superseded originals in cold storage are computationally analogous: they exist, they are available in Tulving's sense, but they are inaccessible through normal similarity search because they have been removed from the vector index.
+
+Deep recall mode provides the artificial stimulation. The system exposes an optional retrieval parameter (\texttt{deep\_recall: true}) that temporarily includes superseded originals in the direct candidate set, with a multiplicative penalty (default: $0.5\times$ their normal score) to ensure they surface only when the query strongly matches. This is implemented as a parameter on the search function rather than a system-wide mode, keeping the API stateless and allowing the calling agent (or user) to decide when exhaustive recall is warranted---for example, when the user asks ``what exactly did I say about X three months ago?'' and a consolidated summary is insufficient. The penalty ensures that when deep recall is active, current memories still rank above superseded originals unless the query specifically targets archived content.
+
+This design reflects the broader principle from Tulving and Pearlstone's work that apparent forgetting often represents a retrieval problem, not a storage problem \citep{tulving1966availability}. By changing the retrieval conditions (expanding the candidate set), information that was functionally forgotten becomes accessible again---without requiring that it pollute normal retrieval at all other times.
+
+\paragraph{Scaling behaviour.} To evaluate whether tiered storage bounds the hot index across realistic usage patterns, we simulated one year of operation under six scenarios varying the memory ingestion rate (2--10 memories/day), query frequency (1--12 queries/day), and results per query (3--4). Figure~\ref{fig:cold_storage} shows the results. Across all scenarios, the hot index stabilises at 7--11\% of total memories by day 365. In the moderate case (4 memories/day, 3 queries/day), the hot index settles at 124 entries (7.0\% of 1,774 total). Even in the most challenging scenario---bursty ingestion at 10 memories/day with only 2 queries/day---the hot index reaches 394 (8.7\% of 4,529 total) and plateaus. The consistency of this range across diverse access patterns suggests that the bounded hot index is a structural property of the architecture rather than an artefact of any particular usage profile.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{cold_storage.pdf}
+\caption{Tiered storage scaling across six access patterns over one simulated year. \textbf{Left:} Hot index size over time. All scenarios plateau; absolute size scales with ingestion rate but growth converges to zero. The bursty ingest scenario (10 memories/day, 2 queries/day) shows the most variance but still stabilises. \textbf{Right:} Hot index as percentage of total memories at day 365. All scenarios converge to the 7--11\% range, indicating that bounded hot index size is robust to access pattern variation.}
+\label{fig:cold_storage}
+\end{figure}
+
+\paragraph{Caveats.} The never-delete assumption underlying this architecture is debatable; we discuss the counterevidence from intrinsic forgetting research in Section~\ref{sec:limitations}.
+
+\section{Design Comparison with FadeMem}
+\label{sec:comparison}
+
+FadeMem \citep{wei2026fademem} is the most closely related system, sharing our Ebbinghaus-inspired foundation. Table~\ref{tab:comparison} summarises the key differences.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}p{3cm}p{5.5cm}p{5.5cm}@{}}
+\toprule
+\textbf{Design Choice} & \textbf{FadeMem} & \textbf{cognitive-memory (ours)} \\
+\midrule
+Decay endpoint & Memories can decay to removal; hard capacity caps (1000 LTM, 500 STM) & Memories never reach zero; decay floors at 2\% (regular) and 60\% (core) \\
+\addlinespace
+Memory hierarchy & Dual-layer (STM/LTM) with promotion criteria & Flat store with category-based decay rates; core as a category, not a layer \\
+\addlinespace
+Core memory & Not implemented as an explicit category; high-importance memories receive elevated retention through scoring but without guaranteed floor protection & Dual-path: LLM tagging at extraction + emergent promotion through use \\
+\addlinespace
+Retrieval reinforcement & Access strengthens retention & Two-tier: direct retrieval (+full boost) vs.\ associative drag-along (+partial boost) \\
+\addlinespace
+Associative linking & Not described as a separate mechanism; memory fusion serves a related consolidation role & Bidirectional weighted associations with co-retrieval strengthening \\
+\addlinespace
+Index scaling & Hard capacity caps (1000 LTM, 500 STM); excess memories pruned & Tiered hot/cold storage; hot index bounded at $\sim$10\% of total (Figure~\ref{fig:cold_storage}) \\
+\addlinespace
+Conflict resolution & LLM-guided classification into contradiction, update, overlap & LLM-guided detection adopting FadeMem's taxonomy; contradicted core memories are demoted to regular floor (Section~\ref{sec:limitations}) \\
+\addlinespace
+Evaluation & Benchmark-based (MSC, LoCoMo, LTI-Bench) & Production deployment; benchmark evaluation planned \\
+\bottomrule
+\end{tabular}
+\caption{Design comparison between FadeMem and \texttt{cognitive-memory}.}
+\label{tab:comparison}
+\end{table}
+
+The most significant philosophical difference is about deletion. FadeMem treats memory removal as a feature: by pruning irrelevant memories, it reduces storage by 45\% and improves retrieval precision. Our position is that the storage cost of retaining faint memories is negligible for text-based agent memory (unlike, say, multimedia storage), and the unpredictability of future relevance makes deletion a risky optimisation. We optimise retrieval precision not by removing faint memories but by down-weighting them through the multiplicative scoring in Equation~\ref{eq:score}, which achieves a similar practical effect without permanent information loss.
+
+FadeMem's strengths relative to our system include its LLM-guided conflict resolution (which we have not yet implemented), its benchmark evaluations demonstrating empirical improvements, and its memory fusion mechanism for consolidating related information. These are areas where our architecture is less mature.
+
+\section{Implementation}
+
+The architecture is implemented as \texttt{@blah.chat/cognitive-memory}, an open-source TypeScript package with a Python SDK wrapper. The system is adapter-based: it defines interfaces for vector storage and embedding providers, with default implementations for common backends.
+
+\subsection{Adapter Pattern}
+
+\begin{verbatim}
+interface MemoryStore {
+  store(memory: Memory): Promise<void>
+  query(embedding: number[], limit: number): Promise<Memory[]>
+  update(id: string, fields: Partial<Memory>): Promise<void>
+}
+
+interface EmbeddingProvider {
+  embed(text: string): Promise<number[]>
+}
+\end{verbatim}
+
+This allows the core decay, boosting, and association logic to remain independent of the storage backend. The system has been tested with Pinecone, pgvector, and in-memory stores.
+
+\subsection{Production Deployment}
+
+The system is deployed in \texttt{blah.chat}, a consumer chat application where users interact with LLM-based agents across multiple sessions. In this deployment, the memory system:
+
+\begin{itemize}
+    \item Extracts memories from each conversation turn using an LLM call
+    \item Stores them with initial importance scores and category assignments
+    \item Retrieves relevant memories at the start of each agent turn, injecting them into the system prompt
+    \item Runs decay recalculation periodically (currently on each retrieval event)
+    \item Checks for emergent core memory promotion after each retrieval cycle
+\end{itemize}
+
+The system is currently serving real users and includes an append-only audit log that records every state change: retrieval boosts, decay recalculations, association updates, core memory promotions, and consolidation events. Each log entry captures the memory ID, event type, old and new values, and a timestamp. This instrumentation enables post-hoc analysis of individual memory lifecycles and will form the empirical basis for a follow-up study.
+
+\section{Limitations and Open Questions}
+\label{sec:limitations}
+
+We are candid about the current limitations of this work:
+
+\paragraph{Parameter choices are heuristic.} The specific values used throughout---stability increments of 0.1 (direct) and 0.03 (associative), decay floors of 2\% and 60\%, base decay rates of 30 and 90 days, core promotion thresholds of 0.85 stability and 10 accesses across 3 sessions, the 0.5$\times$ deep recall penalty, the 90-day association decay constant, and the consolidation similarity threshold of 0.7---are informed guesses based on cognitive science analogies and manual tuning. They are not derived from principled optimisation. This paper is an architecture description; a subsequent empirical study using production audit logs will examine whether these values are reasonable and where they need adjustment.
+
+\paragraph{Conflict resolution.} Our system currently lacks automated conflict resolution: if a user states contradictory facts across sessions, both memories persist. This interacts dangerously with decay floors. Consider: a user says ``I'm allergic to peanuts'' in session 2 (classified as core, 60\% floor), then corrects themselves in session 8 with ``actually I'm not allergic to peanuts.'' Without conflict resolution, the original false claim persists at 60\% retention indefinitely. We are adopting FadeMem's LLM-guided approach, which classifies incoming memories against existing ones as contradiction, update, or overlap \citep{wei2026fademem}. In our system, a contradicted memory---even a core memory---will be demoted: its category reverts to regular (dropping the floor from 60\% to 2\%), a \texttt{contradictedBy} reference is added to its metadata, and it is allowed to decay naturally. The correction inherits the original's importance score and, if applicable, its core status. This ensures that the system self-corrects through the same decay and reinforcement mechanisms that govern all other memory dynamics.
+
+\paragraph{No benchmark evaluation yet.} Unlike FadeMem, we have not evaluated on standard benchmarks such as LoCoMo, MSC, or LTI-Bench. While the Monte Carlo analysis in Section~\ref{sec:boost} validates the internal dynamics of the architecture under realistic conditions, it does not measure downstream task performance. The system's merits on end-to-end metrics remain argued on architectural and theoretical grounds, not empirical ones.
+
+\paragraph{Consolidation clustering is underspecified.} As noted in Section~\ref{sec:consolidation}, the consolidation mechanism clusters fading memories by semantic similarity and compresses groups into summaries. The current implementation computes pairwise cosine similarity between embeddings of fading memories and groups those exceeding a threshold (default: 0.7); the grouping size of five is a configurable parameter chosen to balance summary coherence against information density. However, the LLM that performs compression lacks a principled framework for deciding what to preserve and what to discard. It is making editorial judgments about salience without ground truth, and the resulting summaries are lossy even though the originals are now retained in cold storage.
+
+\paragraph{The never-delete assumption is debatable.} As noted in Section~\ref{sec:tiered}, our never-delete policy is grounded in the accessibility hypothesis---the view that forgetting primarily reflects retrieval failure rather than storage loss \citep{tulving1966availability}. This view is currently dominant, but there is evidence for genuine \emph{intrinsic forgetting}: active molecular mechanisms that degrade memory traces at the synaptic level \citep{davis2017biology}. Some memories may be truly erased, not merely made inaccessible. Our policy is a pragmatic engineering choice: for an AI system where storage is cheap and information loss is irreversible, erring on the side of preservation is defensible even if the biological analogy is imperfect.
+
+\paragraph{Core memory thresholds are arbitrary.} The thresholds for emergent core promotion (10 accesses, stability $\geq 0.85$, 3 distinct sessions) are configurable but not empirically validated. Too low, and trivial memories get promoted; too high, and genuinely important memories remain unprotected.
+
+\paragraph{Scalability of associative graph.} The associative linking mechanism could produce a dense graph over time. Association weight decay (Section~\ref{sec:associations}) mitigates unbounded growth by allowing unused associations to fall below the retrieval threshold, but we have not yet characterised the scaling behaviour at production volumes or determined whether explicit pruning of weak associations is necessary.
+
+\section{Future Work}
+
+Our immediate priorities are:
+
+\begin{enumerate}
+    \item \textbf{Empirical validation.} Using audit logs from production to validate or invalidate parameter choices: Do memories actually follow Ebbinghaus-like curves? How many retrievals does it take for stability to plateau? What is the revival rate for faint memories?
+    \item \textbf{Benchmark evaluation.} Evaluating on MSC, LoCoMo, and LTI-Bench for direct comparison with FadeMem and other systems.
+    \item \textbf{Conflict resolution.} Implementing and evaluating the contradiction detection and demotion mechanism described in Section~\ref{sec:limitations}, and comparing its effectiveness to FadeMem's approach on contradictory-statement benchmarks.
+\end{enumerate}
+
+\section{Conclusion}
+
+Forgetting in agent memory is not unsolved, but it is unsettled. Multiple systems now implement decay mechanisms inspired by cognitive science, and no single approach has emerged as dominant. This paper contributes to that active conversation by describing an architecture with several specific design commitments: that memories should never be fully deleted, that core status should be earnable through use rather than only assignable at extraction, that retrieval should produce differentiated reinforcement depending on whether access was direct or associative, and that associative links between memories should themselves be dynamic.
+
+These commitments are grounded in specific cognitive science mechanisms, implemented in open-source software, and deployed in a production application. Whether they produce better outcomes than the alternatives is an empirical question we have not yet answered. We look forward to answering it.
+
+\subsection*{Code Availability}
+
+The \texttt{cognitive-memory} package and the simulation code used to generate Figures~\ref{fig:boosting}, \ref{fig:monte_carlo}, and~\ref{fig:cold_storage} are available at:
+
+\begin{itemize}
+    \item TypeScript: \url{https://github.com/planetaryescape/blah.chat/tree/main/packages/cognitive-memory}
+    \item npm: \texttt{@blah.chat/cognitive-memory}
+\end{itemize}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
