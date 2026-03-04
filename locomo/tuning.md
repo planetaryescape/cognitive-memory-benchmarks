@@ -1670,3 +1670,66 @@ Full 10-conv Run H launched. Conv 0 shows +7.3pp overall and +7.6pp multi-hop ov
 4. **Three-stage retrieval pipeline** — embedding recall → temporal scoring → semantic re-ranking
 5. **Full reproducibility** — complete pipeline published, no opaque server-side processing
 
+---
+
+## Multi-Benchmark Strategy
+
+### Repository Structure
+
+- **SDK**: [github.com/bhekanik/cognitive-memory-py](https://github.com/bhekanik/cognitive-memory-py) — PyPI-ready package, tagged `v0.1.0-benchmark`
+- **Benchmarks**: [github.com/bhekanik/cognitive-memory-benchmarks](https://github.com/bhekanik/cognitive-memory-benchmarks) — all evaluation infrastructure + results
+
+### Target Benchmarks
+
+| Benchmark | Questions | Why | Priority |
+|-----------|----------|-----|----------|
+| **LoCoMo** | 1540 | Done. 42.4% F1, 47.1% MH. Established baseline. | Complete |
+| **LongMemEval** (ICLR 2025) | 500 | Simpler pipeline, JSONL output, tests abilities that map to our strengths (abstention, knowledge updates, temporal). ENGRAM holds SOTA at 71.40%. | Next |
+| **MemoryBench** (2025) | 20K+ | 11 datasets. Claims no memory system beats RAG. Debunking this is high-impact. Heavier infra (vLLM). | After LongMemEval |
+
+### Three Run Types Per Benchmark
+
+1. **Apples-to-apples**: Match competitor's exact model, k, embeddings, prompt
+2. **Benchmark pure**: Follow official evaluation protocol exactly
+3. **Best tuned**: Our optimal config (Mem0 prompt, k=60, deep recall, LLM re-rank)
+
+### Competitor Parameters
+
+#### LongMemEval — ENGRAM (SOTA: 71.40%)
+- Embedding: text-embedding-3-small
+- Top-k per memory type: 25, final evidence budget K: 25
+- Answer LLM: gpt-4o-mini
+- Judge: GPT-4o (binary yes/no)
+- Storage: SQLite
+- Baseline: 56.20% (full-context)
+
+#### MemoryBench — Mem0
+- Backbone: Qwen3-8B (vLLM)
+- Embedding: Qwen3-Embedding-0.6B (1024 dims)
+- Temperature: 0.1, retrieve_k: 10
+- Note: Failed on Open-Domain and LiSo tasks (context length)
+
+#### MemoryBench — RAG Baselines
+- BM25-S/M and Embed-S/M: k=5, Qwen3-8B backbone
+- These are what we need to beat to debunk "no memory system beats RAG"
+
+#### FadeMem
+- Not evaluated on MemoryBench or LongMemEval
+- Only evaluated on LoCoMo, MSC, LTI-Bench
+
+### Our Strengths by Benchmark Ability
+
+**LongMemEval abilities we're strong on:**
+- Knowledge Update — our conflict detection + supersession handles this natively
+- Temporal Reasoning — retention decay is time-aware by design
+- Abstention — cold storage + low retention = natural "I don't know"
+
+**MemoryBench datasets where Mem0 failed:**
+- Open-Domain — our system handles this (no context length limit)
+- LiSo — opportunity to differentiate where competitor dropped out
+
+### Priority Order
+
+1. **LongMemEval first** — simpler (500 questions, JSONL, binary judge), quicker turnaround
+2. **MemoryBench second** — heavier infra (vLLM setup), 20K+ questions, but highest impact claim
+
