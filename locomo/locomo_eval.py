@@ -499,6 +499,7 @@ def run_evaluation(
     custom_extraction_instructions: str = None,
     rerank: bool = False,
     rerank_factor: int = 2,
+    start_from: int = 0,
 ):
     """
     Run full LoCoMo evaluation.
@@ -552,6 +553,9 @@ def run_evaluation(
     total_start = time.time()
 
     for i, conversation in enumerate(data):
+        if i < start_from:
+            print(f"\n--- Skipping conversation {i} (resuming from {start_from}) ---")
+            continue
         conv_results = evaluate_conversation(
             conversation=conversation,
             adapter=adapter,
@@ -578,7 +582,7 @@ def run_evaluation(
         overall_f1_mem0 = sum(r["f1_mem0"] for r in mem0_valid) / len(mem0_valid)
         overall_bleu1 = sum(r["bleu1"] for r in mem0_valid) / len(mem0_valid)
         by_cat_mem0 = {}
-        from metrics import LOCOMO_CATEGORIES as _cats
+        _cats = LOCOMO_CATEGORIES
         for cat_id, cat_name in _cats.items():
             if cat_id == 5:
                 continue
@@ -734,6 +738,10 @@ def main():
         "--rerank-factor", type=int, default=2,
         help="Re-rank oversampling factor (default: 2, so retrieve 2x top_k then re-rank to top_k)"
     )
+    parser.add_argument(
+        "--start-from", type=int, default=0,
+        help="Skip conversations before this index (for resuming interrupted runs)"
+    )
 
     args = parser.parse_args()
 
@@ -766,6 +774,7 @@ def main():
         custom_extraction_instructions=custom_extraction_instructions,
         rerank=args.rerank,
         rerank_factor=args.rerank_factor,
+        start_from=args.start_from,
     )
 
 

@@ -1,0 +1,80 @@
+{
+  "per_question": [
+    {
+      "question_id": "e47becba",
+      "question_type": "single-session-user",
+      "question": "What degree did I graduate with?",
+      "ground_truth": "Business Administration",
+      "prediction": "You graduated with a degree in Business Administration.",
+      "correct": true,
+      "judge_model": "gpt-4o-2024-08-06",
+      "judge_raw": "yes",
+      "is_abstention": false,
+      "num_sessions": 53,
+      "num_retrieved": 20,
+      "retrieval_time_ms": 4511.520862579346,
+      "ingest_time_s": 227.70427179336548
+    },
+    {
+      "question_id": "118b2229",
+      "question_type": "single-session-user",
+      "question": "How long is my daily commute to work?",
+      "ground_truth": "45 minutes each way",
+      "prediction": "Your daily commute to work takes 45 minutes each way.",
+      "correct": true,
+      "judge_model": "gpt-4o-2024-08-06",
+      "judge_raw": "Yes.",
+      "is_abstention": false,
+      "num_sessions": 45,
+      "num_retrieved": 20,
+      "retrieval_time_ms": 5250.87308883667,
+      "ingest_time_s": 191.499009847641
+    },
+    {
+      "question_id": "51a45a95",
+      "question_type": "single-session-user",
+      "question": "Where did I redeem a $5 coupon on coffee creamer?",
+      "ground_truth": "Target",
+      "prediction": "You redeemed a $5 coupon on coffee creamer at Target.",
+      "correct": true,
+      "judge_model": "gpt-4o-2024-08-06",
+      "judge_raw": "yes",
+      "is_abstention": false,
+      "num_sessions": 50,
+      "num_retrieved": 20,
+      "retrieval_time_ms": 5985.406875610352,
+      "ingest_time_s": 304.292387008667
+    }
+  ],
+  "meta": {
+    "adapter": "cognitive_memory",
+    "model": "gpt-4o-mini",
+    "top_k": 20,
+    "deep_recall": true,
+    "rerank": true,
+    "total_questions": 3,
+    "elapsed_seconds": 743.4387650489807
+  },
+  "aggregate": {
+    "task_averaged_accuracy": 1.0,
+    "overall_accuracy": 1.0,
+    "abstention_accuracy": null,
+    "by_type": {
+      "single-session-user": {
+        "accuracy": 1.0,
+        "count": 3
+      }
+    },
+    "meta": {
+      "adapter": "cognitive_memory",
+      "model": "gpt-4o-mini",
+      "judge_model": "gpt-4o-2024-08-06",
+      "top_k": 20,
+      "deep_recall": true,
+      "rerank": true,
+      "total_questions": 3,
+      "total_time_seconds": 743.4387650489807,
+      "timestamp": "2026-03-05T12:52:40.736582"
+    }
+  }
+}

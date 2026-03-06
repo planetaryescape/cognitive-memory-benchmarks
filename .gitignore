@@ -11,3 +11,4 @@ venv/
 .env
 .pytest_cache/
 .ruff_cache/
+longmemeval/data/longmemeval_s_cleaned.json

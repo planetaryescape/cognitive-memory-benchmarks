@@ -1,0 +1,50 @@
+{
+  "per_question": [
+    {
+      "question_id": "e47becba",
+      "question_type": "single-session-user",
+      "question": "What degree did I graduate with?",
+      "ground_truth": "Business Administration",
+      "prediction": "You graduated with a degree in Business Administration.",
+      "correct": true,
+      "judge_model": "gpt-4o-2024-08-06",
+      "judge_raw": "Yes.",
+      "is_abstention": false,
+      "num_sessions": 53,
+      "num_retrieved": 20,
+      "retrieval_time_ms": 4120.170831680298,
+      "ingest_time_s": 234.3963098526001
+    }
+  ],
+  "meta": {
+    "adapter": "cognitive_memory",
+    "model": "gpt-4o-mini",
+    "top_k": 20,
+    "deep_recall": true,
+    "rerank": true,
+    "total_questions": 1,
+    "elapsed_seconds": 240.43401288986206
+  },
+  "aggregate": {
+    "task_averaged_accuracy": 1.0,
+    "overall_accuracy": 1.0,
+    "abstention_accuracy": null,
+    "by_type": {
+      "single-session-user": {
+        "accuracy": 1.0,
+        "count": 1
+      }
+    },
+    "meta": {
+      "adapter": "cognitive_memory",
+      "model": "gpt-4o-mini",
+      "judge_model": "gpt-4o-2024-08-06",
+      "top_k": 20,
+      "deep_recall": true,
+      "rerank": true,
+      "total_questions": 1,
+      "total_time_seconds": 240.43401288986206,
+      "timestamp": "2026-03-05T12:40:02.948049"
+    }
+  }
+}

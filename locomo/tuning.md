@@ -1717,6 +1717,66 @@ Full 10-conv Run H launched. Conv 0 shows +7.3pp overall and +7.6pp multi-hop ov
 - Not evaluated on MemoryBench or LongMemEval
 - Only evaluated on LoCoMo, MSC, LTI-Bench
 
+---
+
+## Paper Writing Notes
+
+### Presenting the Tuning Journey
+
+The tuning.md chronological log is the paper's strongest differentiator — most papers present final numbers like they fell from the sky. Ours can show the systematic 4.2% → 47.8% process with documented failures. But restructure it for the paper:
+
+**Don't** dump raw chronology. **Do** present as an ablation study:
+
+| Component | Cumulative F1 | Delta |
+|-----------|:---:|:---:|
+| Baseline (naive RAG) | ~15% | — |
+| + Ebbinghaus decay + floors | ~18% | +3 |
+| + R^alpha scoring | 28% | +10 |
+| + Narrator extraction | 32% | +4 |
+| + Synaptic tagging | 34% | +2 |
+| + top_k=60 + Mem0 prompt | 42% | +8 |
+| + Deep recall + LLM re-ranking | 48% | +6 |
+
+*Note: these are approximate cumulative numbers — need clean ablation runs with final codebase to get exact figures for publication.*
+
+**Negative results deserve a dedicated subsection:**
+- Run G: dual-perspective ingestion hurt by 4.7pp (retrieval dilution)
+- Run B: FadeMem-style temp=0.7 hurt F1 precision
+- Deep recall + conservative prompt caused multi-hop regression (fixed in v7b)
+
+These are genuine contributions — they save the next person from trying the same things.
+
+### Clean Runs for Publication
+
+The current numbers come from iterative development where code changed between runs. For publication:
+1. Run H finishes → validates that the full pipeline works at scale
+2. Then do ONE clean full run (convs 0-9) with final frozen code → published number
+3. The `--start-from 1` hack means conv 0 ran with different adapter code — a reviewer could question this
+4. Ablation runs: systematically disable each component and re-run to get exact delta per feature
+
+### Empirically Validated Heuristics (Key Paper Section)
+
+The benchmarking transformed magic numbers into empirically justified parameters. Frame this explicitly in the paper:
+
+> "Prior work on memory decay for agents relies on theoretically-motivated but empirically unjustified parameters. We use LoCoMo evaluation to validate each design choice:"
+
+| Parameter | Value | Justification |
+|-----------|-------|---------------|
+| alpha (R^alpha exponent) | 0.3 | Tested 0.2/0.3/0.5 — 0.3 empirically optimal (Iteration 1) |
+| Core retention floor | 0.60 | Without floors, core identity facts vanish after 200+ days. 0.60 ensures retrievability |
+| Regular retention floor | 0.02 | Prevents complete memory loss; keeps faded memories available for deep recall |
+| Episodic decay rate | 45 days | Faster decay needed — stale episodes dilute retrieval |
+| Semantic decay rate | 120 days | Facts need persistence; slower decay preserves knowledge |
+| Deep recall penalty | 0.5 | Balances candidate expansion with noise. Too low → superseded memories dominate; too high → no benefit |
+| Consolidation threshold | 0.20 | Memories below 20% retention are compression candidates. Validated by checking consolidated summaries preserve multi-hop answering |
+| top_k | 60 | Consistent improvement from k=10→20→40→60. Optimal for verbose Mem0 prompt style |
+
+**This flips the narrative:** we're not presenting a system with arbitrary constants — we're presenting one where every constant was stress-tested against 1540 questions. The numbers say "our system works." The validated heuristics say "here's *why* it works, and here's what breaks if you change them."
+
+### Supplementary Material
+
+Keep tuning.md as supplementary material — link from paper as "full experimental log" in public repo. Readers who want the deep story can find it. The paper gets the clean ablation table.
+
 ### Our Strengths by Benchmark Ability
 
 **LongMemEval abilities we're strong on:**
