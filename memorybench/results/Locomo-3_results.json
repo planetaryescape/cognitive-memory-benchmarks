@@ -1,0 +1,65 @@
+{
+  "aggregate": {
+    "dataset": "Locomo-3",
+    "overall_f1": 0.11076923076923077,
+    "num_questions": 5,
+    "by_category": {
+      "4": {
+        "mean_f1": 0.13846153846153847,
+        "count": 4
+      },
+      "2": {
+        "mean_f1": 0.0,
+        "count": 1
+      }
+    },
+    "total_time_s": 3.884146213531494
+  },
+  "per_question": [
+    {
+      "test_idx": 129,
+      "question": "Above is a conversation between two people: Nate and Joanna. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "Iron Man",
+      "prediction": "Nate shares a photo of a superhero toy figure.",
+      "f1": 0.0,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 125,
+      "question": "Above is a conversation between two people: Nate and Joanna. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "Tournament friends, old friends, teammates",
+      "prediction": "Joanna",
+      "f1": 0.0,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 57,
+      "question": "Above is a conversation between two people: Nate and Joanna. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "5 November, 2022.",
+      "prediction": "Joanna planned to go over to Nate's and share recipes on \"the weekend.\"",
+      "f1": 0.0,
+      "category": 2,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 143,
+      "question": "Above is a conversation between two people: Nate and Joanna. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "Touched",
+      "prediction": "Joanna felt \"really touched.\"",
+      "f1": 0.4,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 173,
+      "question": "Above is a conversation between two people: Nate and Joanna. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "rejections don't define her, keep grinding and she'll find the perfect opportunity",
+      "prediction": "\"Keep pushing through.\"",
+      "f1": 0.15384615384615383,
+      "category": 4,
+      "num_retrieved": 0
+    }
+  ]
+}

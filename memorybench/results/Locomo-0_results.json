@@ -1,0 +1,65 @@
+{
+  "aggregate": {
+    "dataset": "Locomo-0",
+    "overall_f1": 0.25,
+    "num_questions": 5,
+    "by_category": {
+      "4": {
+        "mean_f1": 0.125,
+        "count": 2
+      },
+      "5": {
+        "mean_f1": 0.3333333333333333,
+        "count": 3
+      }
+    },
+    "total_time_s": 3.5778160095214844
+  },
+  "per_question": [
+    {
+      "test_idx": 129,
+      "question": "Above is a conversation between two people: Melanie and Caroline. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nB",
+      "ground_truth": "Brave by Sara Bareilles",
+      "prediction": "\"Fight Song\"",
+      "f1": 0.0,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 189,
+      "question": "Above is a conversation between two people: Melanie and Caroline. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nB",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'Read a book and paint.'}",
+      "prediction": "(b) Not mentioned in the conversation.",
+      "f1": 1.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 163,
+      "question": "Above is a conversation between two people: Melanie and Caroline. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nB",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'working with trans people, helping them accept themselves and supporting their mental health'}",
+      "prediction": "(a) working with trans people, helping them accept themselves and supporting their mental health",
+      "f1": 0.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 143,
+      "question": "Above is a conversation between two people: Melanie and Caroline. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nB",
+      "ground_truth": "He got into an accident",
+      "prediction": "Melanie's son got sick.",
+      "f1": 0.25,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 188,
+      "question": "Above is a conversation between two people: Melanie and Caroline. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nB",
+      "ground_truth": "{'a': 'Not mentioned in the conversation', 'b': 'She got hurt and had to take a break from pottery.'}",
+      "prediction": "(b) She got hurt and had to take a break from pottery.",
+      "f1": 0.0,
+      "category": 5,
+      "num_retrieved": 0
+    }
+  ]
+}

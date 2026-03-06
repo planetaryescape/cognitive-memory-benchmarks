@@ -135,8 +135,9 @@ class CognitiveMemoryAdapter(MemoryAdapter):
         custom_extraction_instructions: Optional[str] = None,
         rerank: bool = False,
         rerank_factor: int = 2,
+        extraction_mode: str = "semantic",
     ):
-        from cognitive_memory import CognitiveMemory, CognitiveMemoryConfig
+        from cognitive_memory import SyncCognitiveMemory, CognitiveMemoryConfig
 
         self.llm_model = llm_model
         self.embedding_model = embedding_model
@@ -156,10 +157,11 @@ class CognitiveMemoryAdapter(MemoryAdapter):
             core_stability_threshold=0.50,
             core_session_threshold=2,
             custom_extraction_instructions=custom_extraction_instructions,
+            extraction_mode=extraction_mode,
         )
 
         embedder = "hash" if use_hash_embeddings else "openai"
-        self.memory = CognitiveMemory(config=config, embedder=embedder)
+        self.memory = SyncCognitiveMemory(config=config, embedder=embedder)
 
     def reset(self):
         self.memory.clear()
@@ -319,7 +321,7 @@ class CognitiveMemoryAdapter(MemoryAdapter):
         return QueryResult(
             retrieved_memories=retrieved,
             retrieval_time_ms=(time.time() - start) * 1000,
-            memories_considered=self.memory.store.hot_count,
+            memories_considered=len(self.memory.adapter.hot),
         )
 
     def get_stats(self):
@@ -372,7 +374,7 @@ Respond with just a number between 0.0 and 1.0."""
         llm_model: str = "gpt-4o-mini",
         embedding_model: str = "text-embedding-3-small",
     ):
-        from cognitive_memory import CognitiveMemory, CognitiveMemoryConfig
+        from cognitive_memory import SyncCognitiveMemory, CognitiveMemoryConfig
         from cognitive_memory.types import MemoryCategory
         from cognitive_memory.embeddings import cosine_similarity as _cosine_sim
 
@@ -392,7 +394,7 @@ Respond with just a number between 0.0 and 1.0."""
             core_session_threshold=2,
         )
 
-        self.memory = CognitiveMemory(config=config, embedder="openai")
+        self.memory = SyncCognitiveMemory(config=config, embedder="openai")
 
     def _get_client(self):
         if self._client is None:
@@ -459,9 +461,11 @@ Respond with just a number between 0.0 and 1.0."""
 
             # Ingestion-time similarity boost (repeated exposure reinforcement)
             if mem.embedding is not None:
-                similar = self.memory.store.search_similar(mem.embedding, top_k=3)
-                for existing_mem, sim in similar:
-                    if sim > 0.75 and existing_mem.id != mem.id:
+                for existing_mem in list(self.memory.adapter.hot.values()):
+                    if existing_mem.id == mem.id or existing_mem.embedding is None:
+                        continue
+                    sim = self._cosine_sim(mem.embedding, existing_mem.embedding)
+                    if sim > 0.75:
                         existing_mem.stability = min(1.0, existing_mem.stability + 0.05)
 
         # Run maintenance after each session: consolidation, cold migration, TTL
@@ -504,7 +508,7 @@ Respond with just a number between 0.0 and 1.0."""
         return QueryResult(
             retrieved_memories=retrieved,
             retrieval_time_ms=(time.time() - start) * 1000,
-            memories_considered=self.memory.store.hot_count,
+            memories_considered=len(self.memory.adapter.hot),
         )
 
     def get_stats(self):
@@ -647,6 +651,366 @@ class FullContextAdapter(MemoryAdapter):
             total_memories=1,
             hot_memories=1,
             storage_bytes=len(self.full_text.encode()),
+        )
+
+
+# ---------------------------------------------------------------------------
+# Hybrid Memory Adapter (raw turns + extracted facts + BM25)
+# ---------------------------------------------------------------------------
+
+class HybridMemoryAdapter(MemoryAdapter):
+    """
+    Combines extracted facts (CognitiveMemoryAdapter) with raw turn storage
+    and BM25 retrieval. Designed for dialog-heavy benchmarks like DialSim
+    where granular episodic details matter.
+
+    Retrieval merges three signals:
+    1. Embedding similarity on extracted memories (semantic understanding)
+    2. Embedding similarity on raw turns (exact detail preservation)
+    3. BM25 keyword matching on raw turns (keyword recall)
+
+    Results are fused via reciprocal rank fusion (RRF).
+    """
+
+    def __init__(
+        self,
+        llm_model: str = "gpt-4o-mini",
+        embedding_model: str = "text-embedding-3-small",
+        deep_recall: bool = False,
+        rerank: bool = False,
+        rerank_factor: int = 2,
+        bm25_weight: float = 0.4,
+        raw_turn_weight: float = 0.3,
+        extracted_weight: float = 0.3,
+        rrf_k: int = 60,
+        context_window: int = 2,  # include ±N neighboring turns around hits
+        extract: bool = True,
+    ):
+        self.llm_model = llm_model
+        self.embedding_model = embedding_model
+        self.deep_recall = deep_recall
+        self.rerank = rerank
+        self.rerank_factor = rerank_factor
+        self.bm25_weight = bm25_weight
+        self.raw_turn_weight = raw_turn_weight
+        self.extracted_weight = extracted_weight
+        self.rrf_k = rrf_k
+        self.context_window = context_window
+        self.extract = extract
+
+        # Extracted facts adapter (full cognitive memory pipeline)
+        # Only created if extraction is enabled
+        self._extracted = None
+        if self.extract:
+            self._extracted = CognitiveMemoryAdapter(
+                llm_model=llm_model,
+                embedding_model=embedding_model,
+                deep_recall=deep_recall,
+                rerank=False,  # we do our own fusion-then-rerank
+            )
+
+        # Raw turn storage
+        self._raw_turns: list[dict] = []  # {"text": str, "embedding": list, "session_id": str, "timestamp": str}
+        self._embed_client = None
+
+        # BM25 index (built lazily at query time)
+        self._bm25 = None
+        self._bm25_dirty = True  # needs rebuild
+        self._bm25_corpus: list[str] = []
+
+        # Reranking
+        self._rerank_client = None
+
+    def _get_embed_client(self):
+        if self._embed_client is None:
+            from openai import OpenAI
+            self._embed_client = OpenAI()
+        return self._embed_client
+
+    def _embed(self, text: str) -> list[float]:
+        client = self._get_embed_client()
+        resp = client.embeddings.create(input=text, model=self.embedding_model)
+        return resp.data[0].embedding
+
+    def _embed_batch(self, texts: list[str]) -> list[list[float]]:
+        """Batch embed for efficiency. OpenAI supports up to 2048 inputs."""
+        if not texts:
+            return []
+        client = self._get_embed_client()
+        # Process in batches of 512
+        all_embeddings = []
+        for i in range(0, len(texts), 512):
+            batch = texts[i:i + 512]
+            resp = client.embeddings.create(input=batch, model=self.embedding_model)
+            all_embeddings.extend([d.embedding for d in resp.data])
+        return all_embeddings
+
+    def _cosine_sim(self, a: list[float], b: list[float]) -> float:
+        import numpy as np
+        a_arr, b_arr = np.array(a), np.array(b)
+        return float(np.dot(a_arr, b_arr) / (np.linalg.norm(a_arr) * np.linalg.norm(b_arr) + 1e-9))
+
+    def _tokenize(self, text: str) -> list[str]:
+        """Tokenize text for BM25: lowercase, strip punctuation, split."""
+        import re
+        text = text.lower()
+        # Strip punctuation (keep alphanumeric and spaces)
+        text = re.sub(r"[^\w\s]", " ", text)
+        # Collapse whitespace
+        return text.split()
+
+    def _build_bm25(self):
+        """Rebuild BM25 index from raw turns."""
+        from rank_bm25 import BM25Okapi
+        tokenized = [self._tokenize(text) for text in self._bm25_corpus]
+        self._bm25 = BM25Okapi(tokenized) if tokenized else None
+
+    def reset(self):
+        if self._extracted:
+            self._extracted.reset()
+        self._raw_turns = []
+        self._bm25 = None
+        self._bm25_dirty = True
+        self._bm25_corpus = []
+
+    def ingest_session(self, turns, session_id, timestamp, speaker_a, speaker_b):
+        # 1. Extract structured facts via cognitive memory (if enabled)
+        if self._extracted:
+            self._extracted.ingest_session(turns, session_id, timestamp, speaker_a, speaker_b)
+
+        # 2. Store raw turns with embeddings for direct retrieval
+        turn_texts = [f"[{timestamp}] {t['speaker']}: {t['text']}" for t in turns]
+        embeddings = self._embed_batch(turn_texts)
+
+        for text, emb in zip(turn_texts, embeddings):
+            self._raw_turns.append({
+                "text": text,
+                "embedding": emb,
+                "session_id": session_id,
+                "timestamp": timestamp,
+            })
+            self._bm25_corpus.append(text)
+
+        # Mark BM25 as needing rebuild (built lazily at query time)
+        self._bm25_dirty = True
+
+    def _get_rerank_client(self):
+        if self._rerank_client is None:
+            from openai import OpenAI
+            self._rerank_client = OpenAI()
+        return self._rerank_client
+
+    def _rerank_results(self, question: str, results: list[RetrievalResult], top_k: int) -> list[RetrievalResult]:
+        """Re-rank fused results using LLM."""
+        if not results or len(results) <= top_k:
+            return results
+
+        client = self._get_rerank_client()
+        memory_lines = []
+        for i, mem in enumerate(results, 1):
+            memory_lines.append(f"{i}. {mem.content[:300]}")
+        memories_text = "\n".join(memory_lines)
+
+        prompt = (
+            f'Given this question: "{question}"\n\n'
+            f"Rate how relevant each item below is to answering this question. "
+            f"Score each from 0.0 (irrelevant) to 1.0 (directly answers or contains key facts needed).\n\n"
+            f"Items:\n{memories_text}\n\n"
+            f"Return ONLY a JSON array of {len(results)} scores: [0.8, 0.2, ...]"
+        )
+
+        try:
+            resp = client.chat.completions.create(
+                model=self.llm_model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0,
+                max_tokens=len(results) * 5,
+            )
+            raw = resp.choices[0].message.content.strip()
+            scores = json.loads(raw)
+            if len(scores) == len(results):
+                for mem, score in zip(results, scores):
+                    mem.combined_score = float(score)
+        except Exception:
+            pass
+
+        results.sort(key=lambda x: x.combined_score, reverse=True)
+        return results[:top_k]
+
+    def _extract_date_from_question(self, question: str) -> Optional[str]:
+        """Extract a date reference from a question for temporal filtering."""
+        import re
+        # Match patterns like "December 25, 1995", "May 11, 1995", "October 10, 1994"
+        date_match = re.search(
+            r'(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}',
+            question
+        )
+        if date_match:
+            return date_match.group(0).replace(",", "")
+        return None
+
+    def query(self, question, timestamp=None, top_k=10):
+        start = time.time()
+        ts = _parse_timestamp(timestamp) if timestamp else datetime.now()
+
+        # Retrieve more candidates for fusion
+        fusion_k = top_k * 3
+
+        # Extract date from question for temporal boosting
+        question_date = self._extract_date_from_question(question)
+
+        # --- Signal 1: Extracted memories (embedding + cognitive scoring) ---
+        extracted_ranked = []
+        if self._extracted:
+            extracted_result = self._extracted.query(question, timestamp=timestamp, top_k=fusion_k)
+            extracted_ranked = [(i, mem) for i, mem in enumerate(extracted_result.retrieved_memories)]
+
+        # --- Signal 2: Raw turns by embedding similarity (with temporal boost) ---
+        q_emb = self._embed(question)
+        raw_scored = []
+        for turn in self._raw_turns:
+            sim = self._cosine_sim(q_emb, turn["embedding"])
+            # Temporal boost: if question mentions a date, boost turns from that date
+            if question_date and question_date.lower().replace(",", "") in turn.get("timestamp", "").lower().replace(",", ""):
+                sim = min(1.0, sim + 0.3)  # significant boost for date-matching turns
+            raw_scored.append((sim, turn))
+        raw_scored.sort(key=lambda x: x[0], reverse=True)
+        raw_ranked = raw_scored[:fusion_k]
+
+        # --- Signal 3: BM25 on raw turns ---
+        bm25_ranked = []
+        if self._bm25_dirty and self._bm25_corpus:
+            self._build_bm25()
+            self._bm25_dirty = False
+        if self._bm25 and self._bm25_corpus:
+            query_tokens = self._tokenize(question)
+            bm25_scores = self._bm25.get_scores(query_tokens)
+            # Apply temporal boost to BM25 scores
+            if question_date:
+                date_norm = question_date.lower().replace(",", "")
+                for i, text in enumerate(self._bm25_corpus):
+                    if date_norm in text.lower().replace(",", ""):
+                        bm25_scores[i] += 5.0  # significant boost
+            bm25_indexed = sorted(enumerate(bm25_scores), key=lambda x: x[1], reverse=True)[:fusion_k]
+            bm25_ranked = [(idx, score) for idx, score in bm25_indexed if score > 0]
+
+        # --- Reciprocal Rank Fusion ---
+        # Build a unified content -> score map
+        content_scores: dict[str, float] = {}
+        content_meta: dict[str, RetrievalResult] = {}
+
+        # Extracted memories
+        for rank, (_, mem) in enumerate(extracted_ranked):
+            rrf_score = self.extracted_weight / (self.rrf_k + rank + 1)
+            key = mem.content
+            content_scores[key] = content_scores.get(key, 0) + rrf_score
+            if key not in content_meta:
+                content_meta[key] = mem
+
+        # Raw turns by embedding
+        for rank, (sim, turn) in enumerate(raw_ranked):
+            rrf_score = self.raw_turn_weight / (self.rrf_k + rank + 1)
+            key = turn["text"]
+            content_scores[key] = content_scores.get(key, 0) + rrf_score
+            if key not in content_meta:
+                content_meta[key] = RetrievalResult(
+                    content=turn["text"],
+                    relevance_score=sim,
+                    retention_score=1.0,
+                    combined_score=sim,
+                    memory_type="raw_turn",
+                )
+
+        # BM25 raw turns
+        for rank, (idx, bm25_score) in enumerate(bm25_ranked):
+            rrf_score = self.bm25_weight / (self.rrf_k + rank + 1)
+            key = self._bm25_corpus[idx]
+            content_scores[key] = content_scores.get(key, 0) + rrf_score
+            if key not in content_meta:
+                content_meta[key] = RetrievalResult(
+                    content=key,
+                    relevance_score=bm25_score,
+                    retention_score=1.0,
+                    combined_score=bm25_score,
+                    memory_type="raw_turn",
+                )
+
+        # Sort by fused score
+        fused = sorted(content_scores.items(), key=lambda x: x[1], reverse=True)
+
+        # Context window expansion: include neighboring turns around top hits
+        if self.context_window > 0 and self._raw_turns:
+            # Build a set of raw turn texts in order for index lookup
+            raw_texts = [t["text"] for t in self._raw_turns]
+            raw_text_set = set(raw_texts)
+            # Find indices of top hits that are raw turns
+            neighbor_contents = set()
+            for content, _ in fused[:top_k]:
+                if content in raw_text_set:
+                    try:
+                        idx = raw_texts.index(content)
+                    except ValueError:
+                        continue
+                    for offset in range(-self.context_window, self.context_window + 1):
+                        ni = idx + offset
+                        if 0 <= ni < len(raw_texts) and raw_texts[ni] not in content_scores:
+                            neighbor_contents.add(raw_texts[ni])
+            # Add neighbors with a small bonus score
+            for nc in neighbor_contents:
+                content_scores[nc] = 0.001  # low score, just ensures inclusion
+                content_meta[nc] = RetrievalResult(
+                    content=nc,
+                    relevance_score=0.0,
+                    retention_score=1.0,
+                    combined_score=0.001,
+                    memory_type="context_neighbor",
+                )
+            # Re-sort after adding neighbors
+            fused = sorted(content_scores.items(), key=lambda x: x[1], reverse=True)
+
+        # Build final results
+        retrieved = []
+        for content, fused_score in fused[:fusion_k]:
+            mem = content_meta[content]
+            retrieved.append(RetrievalResult(
+                content=mem.content,
+                relevance_score=mem.relevance_score,
+                retention_score=mem.retention_score,
+                combined_score=fused_score,
+                memory_type=mem.memory_type,
+                is_core=mem.is_core,
+                access_count=mem.access_count,
+                age_days=mem.age_days,
+                created_at=mem.created_at,
+            ))
+
+        # Optionally rerank
+        if self.rerank and len(retrieved) > top_k:
+            retrieved = self._rerank_results(question, retrieved, top_k)
+        else:
+            retrieved = retrieved[:top_k]
+
+        return QueryResult(
+            retrieved_memories=retrieved,
+            retrieval_time_ms=(time.time() - start) * 1000,
+            memories_considered=len(self._raw_turns) + (len(self._extracted.memory.adapter.hot) if self._extracted else 0),
+        )
+
+    def get_stats(self):
+        if self._extracted:
+            extracted_stats = self._extracted.get_stats()
+            return MemoryStats(
+                total_memories=extracted_stats.total_memories + len(self._raw_turns),
+                hot_memories=extracted_stats.hot_memories,
+                cold_memories=extracted_stats.cold_memories,
+                core_memories=extracted_stats.core_memories,
+                faint_memories=extracted_stats.faint_memories,
+                avg_retention=extracted_stats.avg_retention,
+            )
+        return MemoryStats(
+            total_memories=len(self._raw_turns),
+            hot_memories=len(self._raw_turns),
+            avg_retention=1.0,
         )
 
 

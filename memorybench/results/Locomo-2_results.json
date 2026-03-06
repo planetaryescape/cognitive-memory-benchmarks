@@ -1,0 +1,69 @@
+{
+  "aggregate": {
+    "dataset": "Locomo-2",
+    "overall_f1": 0.2,
+    "num_questions": 5,
+    "by_category": {
+      "5": {
+        "mean_f1": 0.3333333333333333,
+        "count": 3
+      },
+      "3": {
+        "mean_f1": 0.0,
+        "count": 1
+      },
+      "1": {
+        "mean_f1": 0.0,
+        "count": 1
+      }
+    },
+    "total_time_s": 3.4513142108917236
+  },
+  "per_question": [
+    {
+      "test_idx": 154,
+      "question": "Above is a conversation between two people: John and Maria. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "{'a': 'Not mentioned in the conversation', 'b': 'His aunt'}",
+      "prediction": "(b) His aunt.",
+      "f1": 0.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 189,
+      "question": "Above is a conversation between two people: John and Maria. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'Coco'}",
+      "prediction": "(b) Not mentioned in the conversation.",
+      "f1": 1.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 163,
+      "question": "Above is a conversation between two people: John and Maria. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'raise awareness and start conversations to create positive change'}",
+      "prediction": "(a) raise awareness and start conversations to create positive change",
+      "f1": 0.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 50,
+      "question": "Above is a conversation between two people: John and Maria. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "Selfless, family-oriented, passionate, rational",
+      "prediction": "(No memories)",
+      "f1": 0.0,
+      "category": 3,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 26,
+      "question": "Above is a conversation between two people: John and Maria. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "Join a local church, buy a cross necklace",
+      "prediction": "Maria has been praying more.",
+      "f1": 0.0,
+      "category": 1,
+      "num_retrieved": 0
+    }
+  ]
+}

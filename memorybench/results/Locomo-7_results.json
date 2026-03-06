@@ -1,0 +1,65 @@
+{
+  "aggregate": {
+    "dataset": "Locomo-7",
+    "overall_f1": 0.3726190476190476,
+    "num_questions": 5,
+    "by_category": {
+      "4": {
+        "mean_f1": 0.21577380952380953,
+        "count": 4
+      },
+      "5": {
+        "mean_f1": 1.0,
+        "count": 1
+      }
+    },
+    "total_time_s": 4.150464057922363
+  },
+  "per_question": [
+    {
+      "test_idx": 59,
+      "question": "Above is a conversation between two people: Deborah and Jolene. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBas",
+      "ground_truth": "play detective games together, spend time outdoors and explore nature",
+      "prediction": "Deborah and her husband go on walks together.",
+      "f1": 0.125,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 189,
+      "question": "Above is a conversation between two people: Deborah and Jolene. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBas",
+      "ground_truth": "Dancing and bopping around",
+      "prediction": "Deborah enjoyed \"dancing\" at the music festival with their pals.",
+      "f1": 0.16666666666666666,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 163,
+      "question": "Above is a conversation between two people: Deborah and Jolene. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBas",
+      "ground_truth": "From the shelter",
+      "prediction": "Deborah got Luna from a shelter.",
+      "f1": 0.5714285714285715,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 236,
+      "question": "Above is a conversation between two people: Deborah and Jolene. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBas",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'Pineapple cakes'}",
+      "prediction": "(b) Not mentioned in the conversation.",
+      "f1": 1.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 188,
+      "question": "Above is a conversation between two people: Deborah and Jolene. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBas",
+      "ground_truth": "Surfing",
+      "prediction": "Jolene suggested going hiking together.",
+      "f1": 0.0,
+      "category": 4,
+      "num_retrieved": 0
+    }
+  ]
+}

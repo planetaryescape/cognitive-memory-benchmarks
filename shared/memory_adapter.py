@@ -12,6 +12,7 @@ from .adapter import (
     QueryResult,
     CognitiveMemoryAdapter,
     CognitiveMemoryRawTurnAdapter,
+    HybridMemoryAdapter,
     NaiveRAGAdapter,
     FullContextAdapter,
 )
@@ -23,6 +24,7 @@ __all__ = [
     "QueryResult",
     "CognitiveMemoryAdapter",
     "CognitiveMemoryRawTurnAdapter",
+    "HybridMemoryAdapter",
     "NaiveRAGAdapter",
     "FullContextAdapter",
 ]

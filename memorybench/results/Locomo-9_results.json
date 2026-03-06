@@ -1,0 +1,65 @@
+{
+  "aggregate": {
+    "dataset": "Locomo-9",
+    "overall_f1": 0.4,
+    "num_questions": 5,
+    "by_category": {
+      "1": {
+        "mean_f1": 0.0,
+        "count": 1
+      },
+      "5": {
+        "mean_f1": 0.5,
+        "count": 4
+      }
+    },
+    "total_time_s": 4.146610975265503
+  },
+  "per_question": [
+    {
+      "test_idx": 59,
+      "question": "Above is a conversation between two people: Dave and Calvin. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "two",
+      "prediction": "(No memories)",
+      "f1": 0.0,
+      "category": 1,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 189,
+      "question": "Above is a conversation between two people: Dave and Calvin. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'Shinjuku'}",
+      "prediction": "(b) Not mentioned in the conversation.",
+      "f1": 1.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 163,
+      "question": "Above is a conversation between two people: Dave and Calvin. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'why he keeps hustling as a musician'}",
+      "prediction": "(a) why he keeps hustling as a musician",
+      "f1": 0.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 201,
+      "question": "Above is a conversation between two people: Dave and Calvin. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'Nature - sunsets, beaches, waves'}",
+      "prediction": "(b) Not mentioned in the conversation.",
+      "f1": 1.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 188,
+      "question": "Above is a conversation between two people: Dave and Calvin. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased ",
+      "ground_truth": "{'a': 'Not mentioned in the conversation', 'b': 'Shibuya Crossing'}",
+      "prediction": "(b) Shibuya Crossing.",
+      "f1": 0.0,
+      "category": 5,
+      "num_retrieved": 0
+    }
+  ]
+}

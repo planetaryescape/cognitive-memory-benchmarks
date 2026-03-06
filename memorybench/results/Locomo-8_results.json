@@ -1,0 +1,69 @@
+{
+  "aggregate": {
+    "dataset": "Locomo-8",
+    "overall_f1": 0.23333333333333334,
+    "num_questions": 5,
+    "by_category": {
+      "4": {
+        "mean_f1": 0.16666666666666666,
+        "count": 1
+      },
+      "5": {
+        "mean_f1": 0.5,
+        "count": 2
+      },
+      "1": {
+        "mean_f1": 0.0,
+        "count": 2
+      }
+    },
+    "total_time_s": 4.081240177154541
+  },
+  "per_question": [
+    {
+      "test_idx": 154,
+      "question": "Above is a conversation between two people: Sam and Evan. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased on ",
+      "ground_truth": "for a drunken night",
+      "prediction": "Evan apologized to his partner for \"not being there.\"",
+      "f1": 0.16666666666666666,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 189,
+      "question": "Above is a conversation between two people: Sam and Evan. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased on ",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'their marriage'}",
+      "prediction": "(a) their marriage",
+      "f1": 0.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 163,
+      "question": "Above is a conversation between two people: Sam and Evan. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased on ",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'The Great Gatsby'}",
+      "prediction": "(b) Not mentioned in the conversation.",
+      "f1": 1.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 50,
+      "question": "Above is a conversation between two people: Sam and Evan. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased on ",
+      "ground_truth": "painting, hiking, reading books, biking, skiing, snowboarding, ice skating, swimming, camping, kayaking",
+      "prediction": "(No memories)",
+      "f1": 0.0,
+      "category": 1,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 26,
+      "question": "Above is a conversation between two people: Sam and Evan. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased on ",
+      "ground_truth": "family, fitness tracker, thirst for adventure on interesting hikes",
+      "prediction": "Evan's motivation to take care of his health is not provided in the context.",
+      "f1": 0.0,
+      "category": 1,
+      "num_retrieved": 0
+    }
+  ]
+}

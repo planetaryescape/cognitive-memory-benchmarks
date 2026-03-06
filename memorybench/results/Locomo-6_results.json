@@ -1,0 +1,65 @@
+{
+  "aggregate": {
+    "dataset": "Locomo-6",
+    "overall_f1": 0.6,
+    "num_questions": 5,
+    "by_category": {
+      "5": {
+        "mean_f1": 0.75,
+        "count": 4
+      },
+      "4": {
+        "mean_f1": 0.0,
+        "count": 1
+      }
+    },
+    "total_time_s": 4.3562281131744385
+  },
+  "per_question": [
+    {
+      "test_idx": 187,
+      "question": "Above is a conversation between two people: James and John. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'FIFA 23'}",
+      "prediction": "(b) Not mentioned in the conversation.",
+      "f1": 1.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 70,
+      "question": "Above is a conversation between two people: James and John. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "bottle caps",
+      "prediction": "John has mostly found \"coins and some old jewelry.\"",
+      "f1": 0.0,
+      "category": 4,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 163,
+      "question": "Above is a conversation between two people: James and John. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'Extreme sports'}",
+      "prediction": "(b) Not mentioned in the conversation.",
+      "f1": 1.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 166,
+      "question": "Above is a conversation between two people: James and John. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "{'a': 'Not mentioned in the conversation', 'b': 'Fortnite competitions'}",
+      "prediction": "(a) Not mentioned in the conversation",
+      "f1": 1.0,
+      "category": 5,
+      "num_retrieved": 0
+    },
+    {
+      "test_idx": 173,
+      "question": "Above is a conversation between two people: James and John. The conversation takes place over multiple days and the date of each conversation is wriiten at the beginning of the conversation.\n\n\nBased o",
+      "ground_truth": "{'b': 'Not mentioned in the conversation', 'a': 'He wanted to learn something new'}",
+      "prediction": "(a) He wanted to learn something new.",
+      "f1": 0.0,
+      "category": 5,
+      "num_retrieved": 0
+    }
+  ]
+}
