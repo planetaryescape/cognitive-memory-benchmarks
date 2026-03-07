@@ -1832,12 +1832,39 @@ Keep tuning.md as supplementary material — link from paper as "full experiment
 
 ### Summary: All Benchmark Results
 
-| Benchmark | Score | Metric | Questions |
-|-----------|-------|--------|-----------|
-| LoCoMo (10 convs) | 47.8% | F1 | ~500 |
-| LongMemEval | 69.7% | Accuracy | 390 |
-| DialSim-friends | 35.3% | Accuracy | 17 |
-| DialSim-bigbang | 41.2% | Accuracy | 17 |
-| DialSim-theoffice | 29.4% | Accuracy | 17 |
-| NFCats | 100.0% | Accuracy | 50 |
+| Benchmark | Token F1 / Acc | LLM-as-Judge | Metric | Questions |
+|-----------|---------------|-------------|--------|-----------|
+| LoCoMo (Run H, 10 convs) | 43.7% | **56.6%** | F1 / Judge | 1388 |
+| LongMemEval | 69.7% | — | Accuracy | 390 |
+| DialSim-friends | 35.3% | — | Accuracy | 17 |
+| DialSim-bigbang | 41.2% | — | Accuracy | 17 |
+| DialSim-theoffice | 29.4% | — | Accuracy | 17 |
+| NFCats | 100.0% | — | Accuracy | 50 |
+
+### LoCoMo LLM-as-Judge Breakdown (Run H)
+
+| Category | Token F1 | LLM-as-Judge | vs Mem0 (reported) |
+|----------|----------|-------------|-------------------|
+| Overall | 43.7% | **56.6%** | Mem0: 66.9% (judge) |
+| Multi-hop | 46.1% | **50.7%** | Mem0: 28.6% (F1 only) |
+| Open-domain | 48.7% | **64.6%** | Mem0: 47.7% (F1 only) |
+| Single-hop | 33.6% | 46.0% | Mem0: 38.7% (F1 only) |
+| Temporal | 19.4% | 34.9% | Mem0: 48.9% (F1 only) |
+
+Note: Mem0 reports 66.9% as LLM-judge overall. Per-category they only report F1. Our 56.6% judge is behind their 66.9% but the gap is smaller than F1 suggested. Our multi-hop (50.7% judge) crushes their 28.6% F1.
+
+### Competitor Analysis: TiMem & EverMemOS
+
+**TiMem** (76.9% LongMemEval-S):
+- 2 LLM calls per query (complexity planner + gating) — more expensive
+- GPT-4o-mini, open source (SSPL), cloud service coming
+- LoCoMo: 75.3% (LLM-as-judge, not F1 — different metric than our 43.7% F1)
+- Replicability: code exists but eval instructions thin
+
+**EverMemOS** (82% LongMemEval-S, claims 92.3% LoCoMo):
+- Heavy infra (Docker: MongoDB + Elasticsearch + Milvus + Redis)
+- "Agentic retrieval" = multiple LLM calls per query
+- LLM model unspecified in eval
+- 92.3% LoCoMo is suspiciously high (full-context GPT-4 gets ~73% judge)
+- Replicability: eval CLI exists, but exact model and config unclear
 

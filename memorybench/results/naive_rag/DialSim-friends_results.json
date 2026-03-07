@@ -1,0 +1,148 @@
+{
+  "aggregate": {
+    "dataset": "DialSim-friends",
+    "overall_accuracy": 0.4117647058823529,
+    "overall_f1": 0.4117647058823529,
+    "num_questions": 17,
+    "metric": "accuracy",
+    "total_time_s": 34.44603490829468
+  },
+  "per_question": [
+    {
+      "test_idx": 298,
+      "question": "Oh, hey, remember that time Ross and Rachel were chatting on December 25, 1995? Any idea what gift Ross surprised her with?\n[Answer]",
+      "ground_truth": "Slinky",
+      "prediction": "A gold necklace",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 119,
+      "question": "Hey, so you remember that chat Monica had back on May 11, 1995? What juicy info did she uncover about Ethan?\n[Answer]",
+      "ground_truth": "He is a high school senior",
+      "prediction": "Ethan is actually 30, has a wife, and is Monica's Congressman.",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 125,
+      "question": "So, you remember that gossip sesh we had back on June 1, 1996? Who was it that spilled the beans to Joey about his kissing game needing work?\n[Answer]",
+      "ground_truth": "Warren Beatty",
+      "prediction": "Chandler",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 235,
+      "question": "So, you remember that chat we had back on November 18, 1995, right? What was the number one thing that Rachel totally loved doing?\n[Answer]",
+      "ground_truth": "she cries at game shows",
+      "prediction": "Renting boats in Central Park",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 183,
+      "question": "Oh my God! You remember that chat we were having back on January 8, 1996, where Phoebe was all \"Doesn't Russ totally give you d\u00e9j\u00e0 vu?\" - Who did Rachel think he was a dead ringer for?\n[Answer]",
+      "ground_truth": "Bob Saget",
+      "prediction": "Ross",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 172,
+      "question": "Hey, remember that chat from March 29, 1997 we were having? Who was it that breezed in with a \"hello people who do not live here\"?\n[Answer]",
+      "ground_truth": "Monica",
+      "prediction": "Monica",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 287,
+      "question": "So, you remember that chat they had back on February 8, 1998, right? Which phase did Joey say Chandler was totally stuck in?\n[Answer]",
+      "ground_truth": "Phase 1",
+      "prediction": "Phase One",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 111,
+      "question": "So, you remember that chat we had back on October 10, 1994, right? Okay, just checking, but wasn't it Monica who called it quits with Allen, not the other way around?\n[Answer]",
+      "ground_truth": "He didn't, Monica did",
+      "prediction": "Monica",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 33,
+      "question": "So, you remember that chat from May 11, 1995, who threw the first \"How you doin'?\" Phoebe's way after she floated the idea of being a drill press operator?\n[Answer]",
+      "ground_truth": "Joey",
+      "prediction": "Ross",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 15,
+      "question": "Hey, so you remember that chat we had back on September 24, 1994? What was it that Rachel used again to snag those chic new boots?\n[Answer]",
+      "ground_truth": "Dad's credit card",
+      "prediction": "\"I don't need a job, I don't need my parents, I've got great boots\" boots!",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 181,
+      "question": "So, you remember the night Ross and Carol took things to the next level? What was the fruity detail of their first intimate encounter on October 20, 1994?\n[Answer]",
+      "ground_truth": "nectarines",
+      "prediction": "Peach pit",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 114,
+      "question": "Hey, remember that time from January 11, 1994 when Ross was totally wasted? What was he knocking back like there was no tomorrow?\n[Answer]",
+      "ground_truth": "Tequila",
+      "prediction": "Cider",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 219,
+      "question": "So, you remember that dinner Monica whipped up for her folks on October 1, 1994, right? What was the dish that she ended up serving?\n[Answer]",
+      "ground_truth": "Spaghetti",
+      "prediction": "Lasagna",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 202,
+      "question": "So, who was the one boasting about being a pro at lightning rounds when Ross kicked off the tiebreaker on January 15, 1998?\n[Answer]",
+      "ground_truth": "Chandler",
+      "prediction": "Chandler",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 110,
+      "question": "So, remember that chat from July 24, 1995, who was totally wigging out over Phoebe trying Carol's breast milk?\n[Answer]",
+      "ground_truth": "Ross",
+      "prediction": "Ross",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 194,
+      "question": "Oh, so remember the chat we were having back on September 24, 1994, could you tell me who the brother-sister duo was?\n[Answer]",
+      "ground_truth": "Monica and Ross",
+      "prediction": "Ross and Monica",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 28,
+      "question": "So, remember that time October 20, 1994 when Joey scored three tickets to the hockey game? Who were the Rangers facing off against?\n[Answer]",
+      "ground_truth": "Penguins",
+      "prediction": "Penguins",
+      "correct": true,
+      "num_retrieved": 50
+    }
+  ]
+}
