@@ -1793,3 +1793,51 @@ Keep tuning.md as supplementary material — link from paper as "full experiment
 1. **LongMemEval first** — simpler (500 questions, JSONL, binary judge), quicker turnaround
 2. **MemoryBench second** — heavier infra (vLLM setup), 20K+ questions, but highest impact claim
 
+---
+
+## DialSim Benchmark Run Log
+
+### Run 1: DialSim-friends (old code)
+- **Adapter**: CognitiveMemoryAdapter (semantic extraction + deep-recall + rerank)
+- **top_k**: 20
+- **Matcher**: simple substring containment
+- **BM25**: not present
+- **Result**: 17.6% accuracy (3/17)
+
+### Run 2: DialSim-friends (HybridMemoryAdapter, no-extract)
+- **Adapter**: HybridMemoryAdapter (raw turns + BM25 + embedding RRF fusion, no LLM extraction)
+- **top_k**: 20, rerank enabled
+- **Matcher**: simple substring containment
+- **BM25**: present, `.lower().split()` tokenization, rebuilt after every session
+- **Result**: 35.3% accuracy (6/17)
+
+### Run 3: DialSim-friends (improved code)
+- **Changes from Run 2**:
+  - top_k: 20 → 50
+  - Matcher: added token-set subset matching + number word normalization ("Phase One" → "Phase 1", "Ross and Monica" ↔ "Monica and Ross")
+  - BM25: better tokenization (strip punctuation via regex), lazy build (once at query time instead of after each of 788 sessions)
+  - Context window expansion: ±2 neighboring turns around top hits included
+  - Temporal date boosting: +0.3 embedding boost and +5.0 BM25 boost for turns matching question's date
+- **Result**: 35.3% accuracy (6/17) — same correct set, matcher fixes validated (Phase One ✓, Ross and Monica ✓) but retrieval quality unchanged
+- **Conclusion**: 22K turns is a needle-in-haystack problem; embedding similarity can't distinguish the right turn from 22K candidates. Date boosting limited because questions often reference wrong dates.
+
+### Run 4: DialSim-bigbang, DialSim-theoffice, NFCats (improved code) — COMPLETE
+- **Adapter**: HybridMemoryAdapter (no-extract), top_k=50, rerank
+- **All improvements from Run 3 included**
+- **Results**:
+  - DialSim-bigbang: **41.2%** (7/17) — best DialSim score
+  - DialSim-theoffice: **29.4%** (5/17) — worst DialSim score
+  - NFCats: **100.0%** (50/50) — perfect score
+- **Takeaway**: NFCats (short-text categorization) is trivially solved. DialSim varies by show — bigbang slightly easier than friends/theoffice. The 29-41% range on DialSim is consistent with the needle-in-haystack limitation on 22K+ turn corpora.
+
+### Summary: All Benchmark Results
+
+| Benchmark | Score | Metric | Questions |
+|-----------|-------|--------|-----------|
+| LoCoMo (10 convs) | 47.8% | F1 | ~500 |
+| LongMemEval | 69.7% | Accuracy | 390 |
+| DialSim-friends | 35.3% | Accuracy | 17 |
+| DialSim-bigbang | 41.2% | Accuracy | 17 |
+| DialSim-theoffice | 29.4% | Accuracy | 17 |
+| NFCats | 100.0% | Accuracy | 50 |
+

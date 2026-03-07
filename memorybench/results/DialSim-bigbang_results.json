@@ -1,0 +1,148 @@
+{
+  "aggregate": {
+    "dataset": "DialSim-bigbang",
+    "overall_accuracy": 0.4117647058823529,
+    "overall_f1": 0.4117647058823529,
+    "num_questions": 17,
+    "metric": "accuracy",
+    "total_time_s": 314.2639150619507
+  },
+  "per_question": [
+    {
+      "test_idx": 298,
+      "question": "In an intellectually charged debate held on September 29, 2009, upon which cricket species did Howard stake his prized comic books, contesting Sheldon's presumably superior entomological expertise?\n[A",
+      "ground_truth": "Common field cricket",
+      "prediction": "Common field cricket",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 119,
+      "question": "Reflecting upon the spirited discourse from August 6, 2008, could you remind me of the title of the online gaming world that ensnared Penny's predilections?\n[Answer]",
+      "ground_truth": "Age of Conan",
+      "prediction": "World of Warcraft",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 125,
+      "question": "In light of the intellectually-stimulating dialogue that transpired on September 9, 2007, whom did Leonard conclude was a suitable candidate for romantic pursuit, following his comrades' advisement to",
+      "ground_truth": "Leslie Winkle",
+      "prediction": "Penny",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 235,
+      "question": "In an episode reminiscent of Sheldon Cooper's myriad idiosyncrasies aired on March 26, 2010, which particular anxiety gripped him upon the realization that his triumphant procurement of the Chancellor",
+      "ground_truth": "Fear of public speaking",
+      "prediction": "Stage fright",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 183,
+      "question": "Reflecting upon the spirited discourse from August 6, 2008, could you remind me of the title of the online gaming world that ensnared Penny's predilections?\n[Answer]",
+      "ground_truth": "Age of Conan",
+      "prediction": "World of Warcraft",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 172,
+      "question": "In light of the intellectually stimulating exchange from January 12, 2010, what collectible did Raj leverage as a persuasive incentive to secure Sheldon's presence at a collegiate social gathering?\n[A",
+      "ground_truth": "A Green Lantern lantern",
+      "prediction": "My Incredible Hulk hands signed by Stan Lee.",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 287,
+      "question": "Considering the intellectual discourse that transpired on February 14, 2010, to what neutral territory did Leonard propose to whisk Penny away for a romantic celebration of Valentine's Day concurrent ",
+      "ground_truth": "Switzerland",
+      "prediction": "Switzerland",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 111,
+      "question": "Referencing Sheldon's classic operant conditioning escapade on October 5, 2009, what confectionery did he utilize as a positive reinforcement to modify Penny's actions?\n[Answer]",
+      "ground_truth": "Chocolate",
+      "prediction": "chocolate",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 33,
+      "question": "In a manner reminiscent of the scientific discussions at apartment 4A on April 29, 2008, could you recalibrate your memory to the episode titled \"The Nerdvana Annihilation\" and deduce the quantum of c",
+      "ground_truth": "800",
+      "prediction": "two hundred dollars",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 15,
+      "question": "In the spirit of a typical exchange in an episode involving Sheldon, Leonard, and the intriguing dynamics of their social circle, can you recall the specific object of their quest during their escapad",
+      "ground_truth": "Television",
+      "prediction": "TV",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 181,
+      "question": "In reference to the spirited discourse taking place on October 31, 2007, which individual was subjected to Kurt's derisive display upon his unforeseen return?\n[Answer]",
+      "ground_truth": "Leonard",
+      "prediction": "Leonard",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 114,
+      "question": "In light of the intellectually stimulating exchange that took place on April 17, 2008, could you remind me of the appellation of the prodigious fifteen-year-old physicist who eluded the confines of No",
+      "ground_truth": "Dennis Kim",
+      "prediction": "Dennis Kim",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 219,
+      "question": "Incidentally, as a tangential pivot from our prior discourse dated March 28, 2008, could you enlighten me as to the title of the musical production that has most recently enlisted the thespian talents",
+      "ground_truth": "Rent",
+      "prediction": "Rent",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 202,
+      "question": "In an intellectual quirk reminiscent of a scene at Caltech's cafeteria, might one recall the shifting romantic paradigms that ensued after Leonard detected Penny engaging in companionship with an alte",
+      "ground_truth": "Leslie Winkle",
+      "prediction": "Penny",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 110,
+      "question": "In the context of our theoretical discussions, and hearkening back to the dialogue you participated in on November 6, 2007, could you enlighten me as to the appellation of Penny's Nebraska companion, ",
+      "ground_truth": "Christy",
+      "prediction": "Christie",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 194,
+      "question": "Given the context of Sheldon's geeky showdown with Wil Wheaton in the \"Mystic Warlords of Ka'a\" tournament on October 21, 2009, which \"Star Trek\" cinematic installment serves as the source of his copi",
+      "ground_truth": "Star Trek: The Wrath of Khan",
+      "prediction": "Star Trek II: The Wrath of Khan",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 28,
+      "question": "Recalling the intellectually stimulating exchange perpetuated on April 25, 2008, what appellation does Dr. Cooper adamantly advocate for their Physics Bowl faction?\n[Answer]",
+      "ground_truth": "Army Ants",
+      "prediction": "anodised aluminium",
+      "correct": false,
+      "num_retrieved": 50
+    }
+  ]
+}

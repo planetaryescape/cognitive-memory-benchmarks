@@ -1,0 +1,148 @@
+{
+  "aggregate": {
+    "dataset": "DialSim-theoffice",
+    "overall_accuracy": 0.29411764705882354,
+    "overall_f1": 0.29411764705882354,
+    "num_questions": 17,
+    "metric": "accuracy",
+    "total_time_s": 309.1470510959625
+  },
+  "per_question": [
+    {
+      "test_idx": 298,
+      "question": "Hey, remember that wacky golden ticket promotion Michael dreamed up back on March 13, 2009? Which insurance giant snagged all five of those prizes hidden in our paper shipments?\n[Answer]",
+      "ground_truth": "Blue Cross of Pennsylvania",
+      "prediction": "Blue Cross",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 119,
+      "question": "So, flashback to that Diwali party chat on November 2, 2006, what's the classic Michael Scott move that totally took us off guard?\n[Answer]",
+      "ground_truth": "Proposes to his new girlfriend",
+      "prediction": "Singing a tribute to Adam Sandler.",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 125,
+      "question": "Did you catch what Michael got up to during the Take Your Daughter to Work Day at Dunder Mifflin on March 16, 2006? Meanwhile...\n[Answer]",
+      "ground_truth": "Michael decides to give online dating a whirl.",
+      "prediction": "He introduced himself to the kids and mentioned he used to be the star of a kids show.",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 235,
+      "question": "Hey, so remember that chilly day back on April 12, 2007 when Toby brought up how drafty it was going to be? What was that one thing the gang didn't recommend to cozy up with instead of a sweater or ca",
+      "ground_truth": "A blanket",
+      "prediction": "Long johns",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 183,
+      "question": "So, remember that chat we had around October 12, 2006, what was the tragic end of Michael's old boss, Ed Truck, again?\n[Answer]",
+      "ground_truth": "Decapitated while drunk driving",
+      "prediction": "Decapitated.",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 172,
+      "question": "Remember that one time back on April 10, 2008, during the long stretch before dinner, what was that game everyone got roped into playing to pass the time?\n[Answer]",
+      "ground_truth": "Charades",
+      "prediction": "trivia",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 287,
+      "question": "So, recounting that memorable Scranton soir\u00e9e from April 10, 2008, who is Dwight's partner-in-crime when he crashes the dinner party, equipped with his culinary contributions and personal stemware?\n[A",
+      "ground_truth": "Dwight's former babysitter",
+      "prediction": "Michael",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 111,
+      "question": "On March 24, 2005, remember when Michael welcomed the temp with his classic Three Stooges schtick? Which Stooge was he channeling?\n[Answer]",
+      "ground_truth": "Moe",
+      "prediction": "Moe Howard",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 33,
+      "question": "Considering the chat that went down on September 27, 2005, who's the person Michael proudly calls his BFF?\n[Answer]",
+      "ground_truth": "Todd Packer",
+      "prediction": "Pam",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 15,
+      "question": "Remember the wild tales Creed spun around on March 16, 2006? What's the bizarre thing he boasted about to the kids?\n[Answer]",
+      "ground_truth": "He has four toes on one foot",
+      "prediction": "A foot with four toes",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 181,
+      "question": "Did you catch what Michael got up to during the Take Your Daughter to Work Day at Dunder Mifflin on March 16, 2006? Meanwhile...\n[Answer]",
+      "ground_truth": "Michael decides to give online dating a whirl.",
+      "prediction": "He introduced himself to the children and compared himself to Superman.",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 114,
+      "question": "Hey, just curious after overhearing that chat from November 16, 2006, who's the Stamford staffer that threw in the towel first?\n[Answer]",
+      "ground_truth": "Tony",
+      "prediction": "Andy Bernard",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 70,
+      "question": "Hey, so remember that chat we had around April 27, 2006? Which musical artist's gig did Michael hit up that time he was a little more 'relaxed' than usual?\n[Answer]",
+      "ground_truth": "Alicia Keys",
+      "prediction": "Snoop Dogg",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 234,
+      "question": "On May 11, 2006, remember how we were going over what's off-limits for joke time at the Scranton branch? Which tragic event did Michael not declare a no-no for office banter?\n[Answer]",
+      "ground_truth": "9/11",
+      "prediction": "The Lincoln Assassination",
+      "correct": false,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 110,
+      "question": "So, remember that fresh face, Martin, and the little chat he sparked up around the watercooler back on November 30, 2006? Could you spill the beans on what landed him a stint behind bars?\n[Answer]",
+      "ground_truth": "Insider trading",
+      "prediction": "Insider trading",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 194,
+      "question": "Recalling the Secret Santa exchange from December 23, 2005, can you remind me what Michael excitedly picked out for Ryan's gift?\n[Answer]",
+      "ground_truth": "A video iPod",
+      "prediction": "a video iPod",
+      "correct": true,
+      "num_retrieved": 50
+    },
+    {
+      "test_idx": 28,
+      "question": "Considering the chat that went down on September 27, 2005, who's the person Michael proudly calls his BFF?\n[Answer]",
+      "ground_truth": "Todd Packer",
+      "prediction": "Pam",
+      "correct": false,
+      "num_retrieved": 50
+    }
+  ]
+}

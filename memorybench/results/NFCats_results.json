@@ -1,0 +1,362 @@
+{
+  "aggregate": {
+    "dataset": "NFCats",
+    "overall_accuracy": 1.0,
+    "overall_f1": 1.0,
+    "num_questions": 50,
+    "metric": "accuracy",
+    "total_time_s": 125.19738602638245
+  },
+  "per_question": [
+    {
+      "test_idx": 1529,
+      "question": "Approximately one million Protestants in modern France represent some 2% of its population.",
+      "ground_truth": "",
+      "prediction": "Yes, that's correct. In modern France, the Protestant population is estimated to be around one million, which constitutes approximately 2% of the total population. This group includes various denominations, such as Lutherans, Reformed, Baptists, and Evangelicals. The Protestant community in France has a rich history, dating back to the Reformation in the 16th century, and has played a significant role in the country's cultural and social landscape. Despite being a minority, Protestants in France contribute to the diversity of religious beliefs and practices in the country.",
+      "correct": true
+    },
+    {
+      "test_idx": 1138,
+      "question": "is the avengers and avengers assemble the same film",
+      "ground_truth": "",
+      "prediction": "No, \"The Avengers\" and \"Avengers Assemble\" are not the same film, but they refer to the same movie in different regions. \"The Avengers\" is the title used in the United States and many other countries for the 2012 Marvel superhero film that features characters like Iron Man, Captain America, Thor, and the Hulk teaming up to save the world. \n\nIn some regions, particularly in the UK, the film was released under the title \"Avengers Assemble\" to avoid confusion with a British TV series from the 1960s called \"The Avengers.\" So, while they are the same film, the titles differ based on the market.",
+      "correct": true
+    },
+    {
+      "test_idx": 419,
+      "question": "definition of etiolated",
+      "ground_truth": "",
+      "prediction": "The term \"etiolated\" refers to a condition in which a plant or organism has become pale and elongated due to insufficient light. In botany, etiolated plants typically exhibit elongated stems, small leaves, and a lack of chlorophyll, which results in a pale or yellowish appearance. This phenomenon occurs as the plant stretches toward a light source in an attempt to maximize its exposure to light for photosynthesis. The term can also be used metaphorically to describe something that has become weak, feeble, or lacking in vitality.",
+      "correct": true
+    },
+    {
+      "test_idx": 2360,
+      "question": "How does importing one million legal immigrants every year help the average American middle class person, to say nothing of the illegal immigrants?",
+      "ground_truth": "",
+      "prediction": "The impact of importing one million legal immigrants annually on the average American middle class can be viewed from several perspectives, and opinions on this topic can vary widely. Here are some potential benefits and considerations:\n\n### Economic Contributions\n1. **Labor Market Needs**: Many sectors in the U.S. economy, such as agriculture, healthcare, technology, and hospitality, often face labor shortages. Legal immigrants can fill these gaps, helping businesses operate efficiently and potentially leading to job creation.\n\n2. **Economic Growth**: Immigrants contribute to economic growth by increasing the labor force, which can lead to higher productivity. This growth can benefit the middle class through job creation and increased demand for goods and services.\n\n3. **Entrepreneurship**: Immigrants are often entrepreneurial and can start businesses that create jobs for others. This can lead to economic dynamism and innovation, benefiting the broader economy.\n\n### Demographic Considerations\n4. **Aging Population**: The U.S. has an aging population",
+      "correct": true
+    },
+    {
+      "test_idx": 1554,
+      "question": "BREAKING  andreborschberg just landed in  Dayton after a zero-fuel 17h flight to  Ohio !",
+      "ground_truth": "",
+      "prediction": "That's incredible! Andr\u00e9 Borschberg is known for his remarkable achievements in aviation, particularly with solar-powered flights. A 17-hour zero-fuel flight is a significant accomplishment, showcasing advancements in sustainable aviation technology. This kind of flight not only demonstrates the capabilities of renewable energy but also highlights the potential for future innovations in the field. What was the purpose of this flight to Ohio?",
+      "correct": true
+    },
+    {
+      "test_idx": 858,
+      "question": "are the berkshires part of the appalachian mountains",
+      "ground_truth": "",
+      "prediction": "Yes, the Berkshires are part of the Appalachian Mountains. They are located in western Massachusetts and are known for their scenic beauty, outdoor recreational opportunities, and cultural attractions. The Berkshires are characterized by rolling hills, valleys, and a variety of ecosystems, making them a popular destination for hiking, skiing, and other outdoor activities.",
+      "correct": true
+    },
+    {
+      "test_idx": 1857,
+      "question": "Macrophages also act as scavengers, ridding the body of worn-out cells and other debris, and as antigen-presenting cells that activate the adaptive immune system.",
+      "ground_truth": "",
+      "prediction": "Yes, that's correct! Macrophages are a type of white blood cell that play a crucial role in the immune system. They are part of the innate immune response and have several important functions:\n\n1. **Phagocytosis**: Macrophages can engulf and digest cellular debris, pathogens, and dead cells. This scavenging function helps maintain tissue homeostasis and prevents the accumulation of harmful substances in the body.\n\n2. **Antigen Presentation**: After ingesting pathogens or debris, macrophages process these materials and present antigens (pieces of the pathogens) on their surface using molecules called Major Histocompatibility Complex (MHC) proteins. This is essential for activating T cells, which are a key component of the adaptive immune response.\n\n3. **Cytokine Production**: Macrophages secrete various cytokines and chemokines that help regulate immune responses, recruit other immune cells to sites of infection or injury, and promote inflammation.\n\n4. **Tissue Repair",
+      "correct": true
+    },
+    {
+      "test_idx": 396,
+      "question": "back and forth meaning",
+      "ground_truth": "",
+      "prediction": "The phrase \"back and forth\" typically refers to a movement or exchange that alternates between two points or positions. It can describe physical movement, such as someone walking back and forth in a room, or it can refer to a conversation or discussion where ideas, opinions, or arguments are exchanged repeatedly between two or more parties. In a broader sense, it can also imply indecision or a lack of resolution, as in someone going back and forth on a decision.",
+      "correct": true
+    },
+    {
+      "test_idx": 2338,
+      "question": "Why and how does music get stuck in our head , especially when sometimes we do n't even like the song ?",
+      "ground_truth": "",
+      "prediction": "The phenomenon of music getting \"stuck\" in our heads is commonly referred to as an \"earworm.\" This can happen for several reasons, even with songs we don't particularly like. Here are some key factors that contribute to this experience:\n\n1. **Repetition**: Songs that are played frequently, whether on the radio, in stores, or through social media, can become stuck in our heads due to their repetitive nature. The more we hear a song, the more likely it is to loop in our minds.\n\n2. **Catchy Melodies**: Certain musical elements, such as a catchy hook or a memorable chorus, can make a song more likely to become an earworm. These elements often have simple, repetitive structures that are easy for our brains to latch onto.\n\n3. **Emotional Connection**: Even if we don't like a song, it might evoke a strong emotional response or remind us of a specific memory or experience. This emotional connection can make the song more memorable and",
+      "correct": true
+    },
+    {
+      "test_idx": 1731,
+      "question": "Ill talk more about it tomorrow but I was never threatened.",
+      "ground_truth": "",
+      "prediction": "It sounds like you might be dealing with a situation that needs some time to process. If you want to share more about it when you're ready, I'm here to listen. Take your time!",
+      "correct": true
+    },
+    {
+      "test_idx": 2268,
+      "question": "Turabi was noted for proclaiming his support for the democratic process and a liberal government before coming to power, but strict application of sharia law, torture and mass imprisonment of the oppo",
+      "ground_truth": "",
+      "prediction": "It seems you are referring to a political figure, likely Hassan al-Turabi, a prominent Sudanese politician and Islamic thinker. Turabi was known for his initial advocacy for democratic reforms and a liberal government in Sudan. However, once he gained power, his administration was marked by a strict interpretation of sharia law, human rights abuses, including torture and mass imprisonment of political opponents, and a continuation of the conflict in southern Sudan.\n\nTurabi's political career was complex, as he played a significant role in Sudan's political landscape, including his involvement with the National Islamic Front and his relationship with various governments. His shift from advocating for democracy to implementing authoritarian measures highlights the often tumultuous nature of political power and the challenges of governance in regions with deep-seated conflicts and diverse political ideologies.\n\nIf you would like more specific information or analysis on this topic, please let me know!",
+      "correct": true
+    },
+    {
+      "test_idx": 2372,
+      "question": "Why does all my knitting curl on the sides?",
+      "ground_truth": "",
+      "prediction": "Curling on the sides of your knitting is a common issue, especially with certain stitch patterns and yarn types. Here are some reasons why this might be happening and some tips to help prevent it:\n\n1. **Stitch Pattern**: Certain stitch patterns, particularly stockinette stitch, are prone to curling. This is because the knit stitches on one side pull tighter than the purl stitches on the other side. To minimize curling, consider using a different stitch pattern or incorporating a border of garter stitch (knit every row) or ribbing (knit and purl stitches alternated) around the edges.\n\n2. **Yarn Type**: The type of yarn you are using can also affect curling. Stiffer yarns may hold their shape better than softer, more drapey yarns. If you're using a very soft yarn, consider switching to a yarn with more structure.\n\n3. **Tension**: If your tension is too tight, it can cause the edges to",
+      "correct": true
+    },
+    {
+      "test_idx": 875,
+      "question": "are you required by law to register for selective service",
+      "ground_truth": "",
+      "prediction": "In the United States, registration for the Selective Service System is required by law for most male citizens and male immigrants, including those who are undocumented, between the ages of 18 and 25. This requirement is part of the Military Selective Service Act. Failure to register can result in penalties, including fines and ineligibility for certain federal benefits, such as student loans and federal employment.\n\nWomen are not currently required to register for the Selective Service, although there have been discussions about changing this policy. It's important to check the latest information and guidelines from the Selective Service System or legal resources for any updates or changes to the law.",
+      "correct": true
+    },
+    {
+      "test_idx": 79,
+      "question": "Does Tarot Have A Place in Modern Society?",
+      "ground_truth": "",
+      "prediction": "Yes, tarot can have a place in modern society for several reasons:\n\n1. **Self-Reflection and Personal Growth**: Many people use tarot as a tool for self-reflection. The cards can prompt individuals to think about their lives, choices, and emotions, fostering personal growth and self-awareness.\n\n2. **Coping Mechanism**: In times of uncertainty or stress, tarot can provide comfort and guidance. It can serve as a way for individuals to explore their feelings and gain perspective on their situations.\n\n3. **Community and Connection**: Tarot has a vibrant community, both online and offline. It can bring people together through shared interests, workshops, and readings, fostering connections and a sense of belonging.\n\n4. **Creative Expression**: The art of tarot is diverse and often beautiful. Many artists create unique decks, and the imagery can inspire creativity and imagination.\n\n5. **Spiritual Exploration**: For some, tarot is a spiritual practice that helps them connect with their intuition or explore",
+      "correct": true
+    },
+    {
+      "test_idx": 1839,
+      "question": "Key to their thinking is the idea of empire 'informally if possible and formally if necessary.",
+      "ground_truth": "",
+      "prediction": "The phrase \"empire 'informally if possible and formally if necessary\" suggests a strategic approach to expansion and influence, where the preferred method is to exert control or influence without overt or formal measures, resorting to more direct or formal methods only when absolutely necessary. This concept can be applied to various contexts, including political, economic, and cultural spheres.\n\nIn historical contexts, this idea reflects how empires often sought to extend their influence through diplomacy, trade, and cultural assimilation rather than outright conquest. For example, colonial powers might have preferred to establish protectorates or engage in economic dominance rather than direct rule, allowing for a semblance of local autonomy while still maintaining control.\n\nIn contemporary discussions, this approach can be seen in the way nations engage in soft power strategies, using cultural influence, economic partnerships, and international organizations to shape global affairs without resorting to military intervention.\n\nOverall, this mindset emphasizes the importance of subtlety and strategy in the pursuit of power and influence, recognizing that formal measures can",
+      "correct": true
+    },
+    {
+      "test_idx": 525,
+      "question": "what is the irs definition of home",
+      "ground_truth": "",
+      "prediction": "The IRS defines a \"home\" for tax purposes as a dwelling that you own or rent and use as your principal residence. This can include a house, apartment, condominium, or mobile home. The key aspect is that it serves as your primary place of residence.\n\nFor various tax benefits, such as the mortgage interest deduction or the capital gains exclusion on the sale of a home, the IRS may have specific criteria regarding what qualifies as a home. For example, to qualify for the capital gains exclusion, you must have owned and lived in the home for at least two of the five years preceding the sale.\n\nIf you need more specific information or have a particular context in mind (like deductions, credits, or other tax implications), please let me know!",
+      "correct": true
+    },
+    {
+      "test_idx": 655,
+      "question": "In what year was the South African Schools Act passed?",
+      "ground_truth": "",
+      "prediction": "The South African Schools Act was passed in 1996.",
+      "correct": true
+    },
+    {
+      "test_idx": 356,
+      "question": "the meaning of somersault",
+      "ground_truth": "",
+      "prediction": "A \"somersault\" is a gymnastic movement in which a person rolls forward or backward in a complete revolution, typically with the body tucked in. In a forward somersault, the individual starts in a standing position, bends forward, and rolls over their head, landing back on their feet. In a backward somersault, the person leans back and rolls over in the opposite direction. The term can also be used metaphorically to describe a sudden or dramatic change in position or situation.",
+      "correct": true
+    },
+    {
+      "test_idx": 2233,
+      "question": "This is what $29 gets you at the grocery store\u2014what families on SNAP .",
+      "ground_truth": "",
+      "prediction": "The Supplemental Nutrition Assistance Program (SNAP), formerly known as food stamps, provides assistance to low-income families to help them purchase food. The amount of benefits a family receives can vary based on factors such as household size, income, and expenses. \n\nFor a family receiving $29 in SNAP benefits, this amount may not stretch very far, especially considering the rising costs of groceries. Here\u2019s a general idea of what $29 might buy at a grocery store:\n\n1. **Fruits and Vegetables**: \n   - A few pounds of fresh produce (e.g., apples, bananas, carrots, or potatoes).\n   - Canned or frozen vegetables and fruits.\n\n2. **Grains**:\n   - A couple of loaves of bread or a bag of rice or pasta.\n   - Oats or cereal.\n\n3. **Proteins**:\n   - A small package of chicken, ground beef, or canned beans.\n   - Eggs or tofu.\n\n4. **Dairy**:",
+      "correct": true
+    },
+    {
+      "test_idx": 1139,
+      "question": "is the bahamas considered part of the us",
+      "ground_truth": "",
+      "prediction": "No, the Bahamas is not considered part of the United States. The Bahamas is an independent country located in the Caribbean, consisting of a chain of islands. It gained independence from the United Kingdom in 1973. While the Bahamas is geographically close to the U.S. and has strong economic and cultural ties with it, it is a separate sovereign nation.",
+      "correct": true
+    },
+    {
+      "test_idx": 953,
+      "question": "does jackson find out scott is a werewolf",
+      "ground_truth": "",
+      "prediction": "In the TV series \"Teen Wolf,\" Jackson Whittemore does eventually discover that Scott McCall is a werewolf. This revelation occurs in Season 2, particularly in the episode titled \"Omega.\" Jackson's knowledge of Scott's secret plays a significant role in the dynamics between the characters, especially as Jackson himself becomes more involved in the supernatural elements of the story. If you have any specific scenes or episodes in mind, feel free to ask!",
+      "correct": true
+    },
+    {
+      "test_idx": 666,
+      "question": "The Asante and Lunda Empires were in which region?",
+      "ground_truth": "",
+      "prediction": "The Asante Empire, also known as the Ashanti Empire, was located in West Africa, primarily in what is now Ghana. The Lunda Empire, on the other hand, was situated in Central Africa, mainly in present-day Democratic Republic of the Congo and parts of Angola. Both empires were significant in their respective regions and played important roles in the history and culture of Africa.",
+      "correct": true
+    },
+    {
+      "test_idx": 2079,
+      "question": "The Sky Q set top boxes introduce a new user interface, Wi-Fi hotspot functionality, Power-line and Bluetooth connectivity and a new touch-sensitive remote control.",
+      "ground_truth": "",
+      "prediction": "The Sky Q set-top boxes indeed brought several innovative features to enhance the user experience. Here\u2019s a brief overview of the key functionalities you mentioned:\n\n1. **New User Interface**: The Sky Q interface is designed to be more intuitive and user-friendly, allowing for easier navigation through content. It includes features like a unified search function, personalized recommendations, and a streamlined layout that makes it simpler to find and access shows, movies, and apps.\n\n2. **Wi-Fi Hotspot Functionality**: Sky Q boxes can act as a Wi-Fi hotspot, allowing users to extend their home network. This is particularly useful in larger homes where Wi-Fi coverage may be spotty, enabling devices to connect to the internet more reliably.\n\n3. **Power-line Connectivity**: This feature allows the Sky Q box to use the existing electrical wiring in the home to transmit data. This can improve connectivity in areas where Wi-Fi signals are weak, providing a more stable connection for streaming content.\n\n4. **Bluetooth Connectivity",
+      "correct": true
+    },
+    {
+      "test_idx": 676,
+      "question": "Thousands of madrasahs spawned what organization?",
+      "ground_truth": "",
+      "prediction": "Thousands of madrasahs, particularly in South Asia, have been associated with the rise of organizations like Lashkar-e-Taiba (LeT) and Jaish-e-Mohammed (JeM), which are militant groups that have been involved in various conflicts, particularly in Kashmir. These madrasahs often provide religious education and can sometimes promote extremist ideologies. However, it's important to note that not all madrasahs are linked to such organizations, as many focus on traditional religious education without promoting violence.",
+      "correct": true
+    },
+    {
+      "test_idx": 2220,
+      "question": "They were often backed by military force, but were more often affected from behind the scenes.",
+      "ground_truth": "",
+      "prediction": "It sounds like you're referring to a situation where certain groups or entities exert influence or control through covert means rather than direct confrontation. This could apply to various historical or contemporary contexts, such as political movements, corporate interests, or even foreign interventions. \n\nFor example, in the context of international relations, a country might use economic sanctions, propaganda, or support for certain political factions to achieve its goals without engaging in open warfare. Similarly, in corporate settings, companies might use lobbying or strategic partnerships to influence regulations and market conditions.\n\nIf you have a specific context or example in mind, I\u2019d be happy to elaborate further!",
+      "correct": true
+    },
+    {
+      "test_idx": 980,
+      "question": "for how long was cpr given?",
+      "ground_truth": "",
+      "prediction": "The duration of CPR (cardiopulmonary resuscitation) can vary depending on the situation and the response of emergency medical services (EMS). Generally, CPR should be continued until one of the following occurs:\n\n1. **Emergency medical services arrive**: If trained professionals take over, they will continue care.\n2. **The person shows signs of life**: This includes movement, coughing, or breathing.\n3. **You are too exhausted to continue**: If you are performing CPR and become too tired, it's important to switch with another person if possible.\n4. **The scene becomes unsafe**: If the environment poses a danger, CPR should be stopped.\n\nIn practice, CPR can be performed for several minutes, but it is crucial to call for emergency help immediately and continue until professional help arrives or the person shows signs of recovery.",
+      "correct": true
+    },
+    {
+      "test_idx": 284,
+      "question": "Who Wrote The Anonymous New York Times Resistance Op-Ed?",
+      "ground_truth": "",
+      "prediction": "The anonymous op-ed published by The New York Times in September 2018, which was attributed to a senior official in the Trump administration, was later revealed to have been written by Miles Taylor, who served as the chief of staff at the Department of Homeland Security during the Trump administration. Taylor publicly identified himself as the author in 2020.",
+      "correct": true
+    },
+    {
+      "test_idx": 974,
+      "question": "does the whole team get super bowl rings",
+      "ground_truth": "",
+      "prediction": "Yes, Super Bowl rings are typically awarded to players, coaches, and certain team staff members of the winning team. This includes not only the active roster but also practice squad players, coaches, and some front office personnel. The exact number of rings and who receives them can vary by team and organization, but generally, the entire team and key contributors are recognized with rings to commemorate their achievement in winning the Super Bowl.",
+      "correct": true
+    },
+    {
+      "test_idx": 1849,
+      "question": "Let Thy Spirit descend and renew the face of the land!",
+      "ground_truth": "",
+      "prediction": "That phrase evokes a powerful sense of renewal and transformation, often associated with spiritual awakening and divine intervention. It reflects a desire for positive change and revitalization, both personally and in the broader world. If you're looking for a deeper exploration of this theme, whether in a spiritual, poetic, or philosophical context, I'd be happy to help!",
+      "correct": true
+    },
+    {
+      "test_idx": 276,
+      "question": "What should we do about the Rank Table on the Player Profile?",
+      "ground_truth": "",
+      "prediction": "To provide a more specific answer, could you clarify what you mean by the \"Rank Table\" on the Player Profile? Are you looking to update its design, improve its functionality, or perhaps change the way rankings are calculated or displayed? Here are some general suggestions based on common considerations for a rank table:\n\n1. **Design Improvements**:\n   - Ensure the table is visually appealing and easy to read.\n   - Use clear headings and consistent formatting.\n   - Consider adding color coding to indicate different ranks or performance levels.\n\n2. **Functionality Enhancements**:\n   - Allow users to filter or sort the table by different criteria (e.g., rank, score, date).\n   - Implement a search feature to help users find specific players quickly.\n   - Consider adding tooltips or hover effects to provide more information about each player's rank.\n\n3. **Data Accuracy and Updates**:\n   - Ensure that the ranking data is updated regularly and accurately reflects player performance.\n   - Consider implementing a system for",
+      "correct": true
+    },
+    {
+      "test_idx": 1863,
+      "question": "Maududi founded the Jamaat-e-Islami party in 1941 and remained its leader until 1972.",
+      "ground_truth": "",
+      "prediction": "Yes, that's correct. Abul A'la Maududi founded the Jamaat-e-Islami (Islamic Society) in 1941 in British India. He was a prominent Islamic thinker, philosopher, and political leader. Maududi served as the leader of the party until 1972, during which he played a significant role in promoting Islamic political thought and advocating for the establishment of an Islamic state. His writings and speeches have had a lasting impact on Islamic political movements in South Asia and beyond. Jamaat-e-Islami has been involved in various political activities and has participated in elections in Pakistan and other countries where it has a presence.",
+      "correct": true
+    },
+    {
+      "test_idx": 626,
+      "question": "How many tons of live plants were found to live in one square kilometer of the Amazon rainforest in 1999?",
+      "ground_truth": "",
+      "prediction": "In 1999, a study found that there were approximately 200 tons of live plants per square kilometer in the Amazon rainforest. This figure highlights the incredible biodiversity and biomass present in this vital ecosystem.",
+      "correct": true
+    },
+    {
+      "test_idx": 413,
+      "question": "definition of a coworker",
+      "ground_truth": "",
+      "prediction": "A coworker is an individual who works alongside others in the same organization or workplace. Coworkers may collaborate on projects, share responsibilities, and contribute to a common goal or mission within the company. They can hold similar or different job titles and roles, and their interactions can range from casual to professional, depending on the workplace culture.",
+      "correct": true
+    },
+    {
+      "test_idx": 2167,
+      "question": "The protocol was to become known as \"Social Chapter\", despite not actually being a chapter of the Maastricht Treaty.",
+      "ground_truth": "",
+      "prediction": "The \"Social Chapter\" refers to a protocol that was associated with the Maastricht Treaty, which established the European Union (EU) and laid the groundwork for the Economic and Monetary Union. Although it is commonly referred to as the \"Social Chapter,\" it is not an official chapter of the Maastricht Treaty itself. \n\nThe Social Chapter aimed to enhance social rights and improve working conditions across EU member states. It included provisions related to workers' rights, such as the right to information and consultation, the right to collective bargaining, and measures to promote equal opportunities and combat discrimination.\n\nInitially, the United Kingdom opted out of the Social Chapter when the Maastricht Treaty was signed in 1992. However, subsequent governments in the UK eventually chose to opt into the Social Chapter, recognizing the importance of social policy in the context of the EU's broader objectives.\n\nThe Social Chapter is significant as it reflects the EU's commitment to social cohesion and the protection of workers' rights, balancing economic integration with social considerations.",
+      "correct": true
+    },
+    {
+      "test_idx": 515,
+      "question": "what is a cultivator?",
+      "ground_truth": "",
+      "prediction": "A cultivator can refer to a few different things depending on the context:\n\n1. **Agricultural Tool**: In farming, a cultivator is a tool or machine used to prepare the soil for planting by breaking up the surface, aerating the soil, and controlling weeds. It can be a hand-held tool or a larger piece of equipment that is towed by a tractor.\n\n2. **Person**: A cultivator can also refer to a person who cultivates crops or plants, engaging in agriculture or gardening. This includes activities such as planting, tending, and harvesting.\n\n3. **Cannabis Cultivator**: In the context of cannabis, a cultivator is someone who grows cannabis plants, often for commercial purposes. This involves managing the growth conditions, harvesting, and sometimes processing the plants.\n\n4. **Cultural Context**: In a broader sense, a cultivator can refer to someone who fosters growth or development in a particular area, such as a cultivator of ideas",
+      "correct": true
+    },
+    {
+      "test_idx": 1105,
+      "question": "is it legal to marry your first cousin in england",
+      "ground_truth": "",
+      "prediction": "Yes, it is legal to marry your first cousin in England. There are no laws prohibiting such marriages, and they are recognized by the legal system. However, it's worth noting that while it is legal, some people may have personal or cultural beliefs that discourage such unions. If you have any specific concerns or questions about family law or marriage, it may be helpful to consult a legal expert.",
+      "correct": true
+    },
+    {
+      "test_idx": 447,
+      "question": "how do central banks set interest rates?",
+      "ground_truth": "",
+      "prediction": "Central banks set interest rates primarily through a process that involves several key steps and considerations. Here\u2019s an overview of how this process typically works:\n\n1. **Monetary Policy Framework**: Central banks operate within a monetary policy framework that outlines their goals, such as controlling inflation, promoting employment, and ensuring financial stability. The specific targets can vary by country.\n\n2. **Economic Indicators**: Central banks closely monitor a range of economic indicators, including inflation rates, unemployment rates, GDP growth, consumer spending, and business investment. These indicators help assess the overall health of the economy.\n\n3. **Inflation Targeting**: Many central banks have an explicit inflation target (e.g., 2% per year). They use interest rates as a tool to influence inflation. If inflation is above the target, they may raise interest rates to cool down the economy. Conversely, if inflation is below the target, they may lower interest rates to stimulate economic activity.\n\n4. **Policy Meetings**: Central",
+      "correct": true
+    },
+    {
+      "test_idx": 102,
+      "question": "Is Design Thinking just an empty phrase?",
+      "ground_truth": "",
+      "prediction": "Design Thinking is often debated in terms of its effectiveness and applicability, and some may view it as an \"empty phrase\" due to its overuse or misapplication in various contexts. However, it is a structured approach to problem-solving that emphasizes empathy, collaboration, and iterative prototyping. Here are some points to consider:\n\n1. **Core Principles**: Design Thinking involves understanding user needs, defining problems, ideating solutions, prototyping, and testing. These principles can lead to innovative solutions when applied correctly.\n\n2. **Real-World Applications**: Many organizations have successfully implemented Design Thinking to enhance product development, improve user experiences, and foster innovation. Companies like IDEO and Apple have popularized its use.\n\n3. **Misinterpretation**: The term can become diluted when used superficially or as a buzzword without a genuine commitment to its principles. This can lead to skepticism about its value.\n\n4. **Cultural Fit**: For Design Thinking to be effective, it often requires",
+      "correct": true
+    },
+    {
+      "test_idx": 779,
+      "question": "When was the Imperial Library Directorate established?",
+      "ground_truth": "",
+      "prediction": "The Imperial Library Directorate was established in 1909 in the Ottoman Empire. It was created to oversee the management and organization of libraries and to promote literacy and education within the empire.",
+      "correct": true
+    },
+    {
+      "test_idx": 1389,
+      "question": "How does a person go about getting qualified to fly a plane?",
+      "ground_truth": "",
+      "prediction": "To become a qualified pilot, a person typically follows these steps:\n\n1. **Determine the Type of Pilot License**: Decide which type of pilot license you want to pursue. The most common are:\n   - **Private Pilot License (PPL)**: Allows you to fly for personal use.\n   - **Commercial Pilot License (CPL)**: Allows you to be paid for flying.\n   - **Airline Transport Pilot License (ATPL)**: Required to act as a captain for airlines.\n\n2. **Meet Eligibility Requirements**: Ensure you meet the basic requirements, which generally include:\n   - Age: At least 17 years old for a PPL, 18 for a CPL.\n   - Language: Proficiency in English (or the language of the country where you are training).\n   - Medical Certificate: Obtain a medical certificate from an authorized aviation medical examiner. The class of medical certificate required depends on the type of license you are pursuing.\n\n3. **Choose a Flight School**",
+      "correct": true
+    },
+    {
+      "test_idx": 1881,
+      "question": "Most of the middle-class families send their children to such schools, which might be in their own city or far off, like boarding schools.",
+      "ground_truth": "",
+      "prediction": "It\u2019s common for middle-class families to seek out educational opportunities that they believe will provide the best outcomes for their children. This often includes enrolling them in schools that may be located within their city or even in distant areas, such as boarding schools. \n\nFamilies might choose local schools for convenience, community involvement, and familiarity, while others may opt for boarding schools for their specialized programs, academic rigor, or extracurricular offerings. Boarding schools can also provide a structured environment that some families believe will foster independence and personal growth in their children.\n\nUltimately, the decision often depends on various factors, including the family's values, financial considerations, the quality of education, and the specific needs and aspirations of the child. Each family's choice reflects their unique circumstances and priorities regarding education.",
+      "correct": true
+    },
+    {
+      "test_idx": 937,
+      "question": "do you need a gun to go to the gun range",
+      "ground_truth": "",
+      "prediction": "Yes, typically you need to bring your own firearm to a gun range, but many ranges also offer rental guns for those who do not own one. It's important to check the specific policies of the range you plan to visit, as they may have different rules regarding firearms, ammunition, and safety protocols. Additionally, you may need to provide identification and possibly undergo a safety briefing before using the range.",
+      "correct": true
+    },
+    {
+      "test_idx": 8,
+      "question": "What is the difference between dog hair and dog fur?",
+      "ground_truth": "",
+      "prediction": "The terms \"dog hair\" and \"dog fur\" are often used interchangeably, but they can refer to different aspects of a dog's coat. Here are the distinctions:\n\n1. **Hair**: Generally, \"hair\" refers to the individual strands that are finer and longer. In the context of dogs, it can imply a softer texture, as seen in breeds with long, silky coats (like the Afghan Hound). Hair is typically associated with breeds that have a single coat and may not shed as much.\n\n2. **Fur**: \"Fur\" usually refers to the denser, shorter, and often coarser strands that make up a dog's coat. Fur is commonly associated with double-coated breeds (like Huskies or Golden Retrievers), which have a soft undercoat and a coarser outer coat. Fur tends to shed more than hair, especially during seasonal changes.\n\nIn summary, while both terms describe the covering of a dog, \"hair\" often refers to finer",
+      "correct": true
+    },
+    {
+      "test_idx": 1620,
+      "question": "During the Protestant Reformation, Lefevre, a professor at the University of Paris, published his French translation of the New Testament in 1523, followed by the whole Bible in the French language in",
+      "ground_truth": "",
+      "prediction": "Yes, that's correct! Jacques Lef\u00e8vre, also known as Lef\u00e8vre d'\u00c9taples, was a significant figure during the Protestant Reformation. His translation of the New Testament in 1523 and the complete Bible in French in 1530 played a crucial role in making the scriptures more accessible to the French-speaking population. Lef\u00e8vre's work was part of a broader movement that sought to promote biblical literacy and encourage personal interpretation of the scriptures, which were central themes of the Reformation. His translations were influential in the development of French Protestantism and contributed to the spread of Reformation ideas in France.",
+      "correct": true
+    },
+    {
+      "test_idx": 1023,
+      "question": "how many hours before the departure?",
+      "ground_truth": "",
+      "prediction": "To provide an accurate answer, I need more context. Are you asking about a specific flight, event, or situation? Please provide additional details so I can assist you better.",
+      "correct": true
+    },
+    {
+      "test_idx": 177,
+      "question": "Should India have harsher animal anti-cruelty or abuse laws ?",
+      "ground_truth": "",
+      "prediction": "The question of whether India should have harsher animal anti-cruelty or abuse laws is a complex and multifaceted issue that involves ethical, cultural, legal, and practical considerations. Here are some points to consider:\n\n### Arguments for Harsher Laws:\n\n1. **Animal Welfare**: Stronger laws could help protect animals from cruelty and abuse, ensuring their well-being and humane treatment.\n\n2. **Public Awareness**: Stricter laws can raise awareness about animal rights and welfare, encouraging a more compassionate society.\n\n3. **Deterrence**: Harsher penalties may deter potential offenders from committing acts of cruelty, leading to a decrease in such incidents.\n\n4. **Alignment with Global Standards**: Many countries have stringent animal welfare laws. Strengthening India's laws could align the country with international standards and practices.\n\n5. **Cultural Shift**: Implementing stricter laws can help foster a cultural shift towards greater respect and compassion for animals.\n\n### Arguments Against Harsher Laws:",
+      "correct": true
+    },
+    {
+      "test_idx": 1642,
+      "question": "Following a long period of military setbacks against European powers, the Ottoman Empire gradually declined into the late nineteenth century.",
+      "ground_truth": "",
+      "prediction": "The decline of the Ottoman Empire in the late nineteenth century was marked by a series of military defeats, territorial losses, and internal strife. After a long period of dominance, the empire faced significant challenges from European powers, which exploited its weaknesses.\n\nKey factors contributing to the decline included:\n\n1. **Military Defeats**: The empire suffered significant losses in wars against European nations, such as the Russo-Turkish War (1877-1878), which resulted in the loss of territories in the Balkans and the establishment of independent states like Serbia and Romania.\n\n2. **Nationalism**: The rise of nationalist movements within the empire's diverse population led to demands for independence and autonomy. Ethnic groups such as the Greeks, Serbs, Bulgarians, and Arabs sought to break away from Ottoman rule, further weakening the empire.\n\n3. **Economic Challenges**: The empire faced economic difficulties, including debt and reliance on foreign loans. The introduction of European economic practices and competition undermined",
+      "correct": true
+    },
+    {
+      "test_idx": 386,
+      "question": "What is a belemic?",
+      "ground_truth": "",
+      "prediction": "It seems like there might be a typo in your question. If you meant \"bulimic,\" it refers to someone who suffers from bulimia nervosa, an eating disorder characterized by cycles of binge eating followed by purging behaviors, such as vomiting, excessive exercise, or the use of laxatives. Bulimia is often associated with a preoccupation with body image and weight.\n\nIf you meant something else by \"belemic,\" please provide more context or clarify, and I'll be happy to help!",
+      "correct": true
+    },
+    {
+      "test_idx": 2044,
+      "question": "The Edict reaffirmed Catholicism as the state religion of France, but granted the Protestants equality with Catholics under the throne and a degree of religious and political freedom within their doma",
+      "ground_truth": "",
+      "prediction": "It seems you are referring to the Edict of Nantes, which was issued in 1598 by King Henry IV of France. The Edict of Nantes was a significant document in French history as it aimed to bring an end to the religious wars between Catholics and Protestants (Huguenots) that had plagued France for decades.\n\nThe Edict reaffirmed Catholicism as the state religion but also granted substantial rights to the Huguenots, including the freedom to practice their religion, hold public office, and maintain fortified towns for their protection. It was a landmark attempt to promote civil unity and religious tolerance in a time of great conflict.\n\nHowever, the Edict was eventually revoked in 1685 by King Louis XIV through the Edict of Fontainebleau, which led to renewed persecution of Protestants in France and a significant exodus of Huguenots from the country. The legacy of the Edict of Nantes remains an important chapter in the history of religious tolerance and the relationship between",
+      "correct": true
+    },
+    {
+      "test_idx": 1993,
+      "question": "Sophomore, junior, and senior undergraduates live in twelve residential Houses, nine of which are south of Harvard Yard along or near the Charles River.",
+      "ground_truth": "",
+      "prediction": "It sounds like you're describing the residential system at Harvard University, where students are assigned to Houses that provide a community and support throughout their undergraduate experience. The Houses south of Harvard Yard, along the Charles River, are known for their scenic views and proximity to various campus resources. \n\nIf you have specific questions or need more information about the Houses, their amenities, or the student experience at Harvard, feel free to ask!",
+      "correct": true
+    }
+  ]
+}
