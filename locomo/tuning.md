@@ -1836,7 +1836,7 @@ Keep tuning.md as supplementary material — link from paper as "full experiment
 |-----------|---------------|-------------|--------|-----------|
 | **LoCoMo (Hybrid, 10 convs)** | 43.5% | **58.4%** | F1 / Judge | 1540 |
 | LoCoMo (Run H semantic, 10 convs) | 43.7% | 56.6% | F1 / Judge | 1388 |
-| LongMemEval | 69.7% | — | Accuracy | 390 |
+| LongMemEval | **72.6%** | — | Accuracy | 500 |
 | DialSim-friends | 35.3% | — | Accuracy | 17 |
 | DialSim-bigbang | 41.2% | — | Accuracy | 17 |
 | DialSim-theoffice | 29.4% | — | Accuracy | 17 |
@@ -1896,7 +1896,7 @@ Our temporal went from 34.9% → 44.8%, narrowing the gap to Mem0's 48.9% from 1
 - **Multi-hop reasoning**: 51.7% judge (hybrid) — this is our architectural advantage. Association graphs + synaptic tagging + deep recall enable cross-session reasoning that flat key-value stores fundamentally can't do. Mem0 gets 28.6% F1 here.
 - **Open-domain**: 66.2% judge — broad factual recall across sessions works well with our narrator-style extraction.
 - **NFCats**: 100% — trivially solved, but confirms basic retrieval works.
-- **LongMemEval**: 69.7% — competitive with state-of-the-art (TiMem: 76.9%, but uses 2 LLM calls per query).
+- **LongMemEval**: **72.6%** — beats ENGRAM SOTA (71.4%) with a single-process architecture. TiMem gets 76.9% but uses 2 LLM calls per query.
 
 **Where we're competitive:**
 - **Overall LoCoMo**: 58.4% judge vs Mem0's 66.9%. Gap is 8.5pp. Explainable by prompt engineering differences, not architectural limitations.
