@@ -500,6 +500,7 @@ def run_evaluation(
     rerank: bool = False,
     rerank_factor: int = 2,
     start_from: int = 0,
+    extraction_mode: str = "semantic",
 ):
     """
     Run full LoCoMo evaluation.
@@ -527,6 +528,8 @@ def run_evaluation(
         if rerank:
             adapter_kwargs["rerank"] = True
             adapter_kwargs["rerank_factor"] = rerank_factor
+        if extraction_mode != "semantic":
+            adapter_kwargs["extraction_mode"] = extraction_mode
     adapter = adapters[adapter_name](**adapter_kwargs)
     print(f"Using adapter: {adapter_name}")
     print(f"LLM model: {model}")
@@ -742,6 +745,11 @@ def main():
         "--start-from", type=int, default=0,
         help="Skip conversations before this index (for resuming interrupted runs)"
     )
+    parser.add_argument(
+        "--extraction-mode", default="semantic",
+        choices=["raw", "semantic", "hybrid"],
+        help="SDK extraction mode: raw (verbatim turns), semantic (LLM facts), hybrid (both)"
+    )
 
     args = parser.parse_args()
 
@@ -775,6 +783,7 @@ def main():
         rerank=args.rerank,
         rerank_factor=args.rerank_factor,
         start_from=args.start_from,
+        extraction_mode=args.extraction_mode,
     )
 
 
