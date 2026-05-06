@@ -32,7 +32,9 @@ from shared.memory_adapter import (
     MemoryAdapter,
     MemoryStats,
 )
-from shared.metrics import token_f1, normalize_answer
+from shared.metrics import token_f1, normalize_answer, llm_judge
+
+JUDGE_MODEL = "gpt-4o-2024-08-06"
 
 
 # ---------------------------------------------------------------------------
@@ -64,28 +66,37 @@ def generate_30_day_scenario() -> dict:
         }
     """
     facts = [
-        # Critical / Core facts (should persist strongly)
+        # Critical / Core facts (should persist strongly) — fact_idx 0..7
         SyntheticFact("My name is Alex Chen", "critical", day_introduced=1, expected_core=True, access_days=[5, 10, 15, 20, 25]),
         SyntheticFact("I'm allergic to shellfish", "critical", day_introduced=1, expected_core=True, access_days=[8, 22]),
         SyntheticFact("I work at Meridian Labs as a senior engineer", "critical", day_introduced=1, expected_core=True, access_days=[3, 7, 14]),
         SyntheticFact("My partner's name is Jordan", "critical", day_introduced=2, expected_core=True, access_days=[6, 12, 18]),
         SyntheticFact("I have a dog named Pixel", "critical", day_introduced=2, expected_core=True, access_days=[4, 9, 16, 23]),
+        SyntheticFact("I have type 1 diabetes and use a continuous glucose monitor", "critical", day_introduced=1, expected_core=True, access_days=[8, 19, 27]),
+        SyntheticFact("My mother's name is Eileen and she lives in Vancouver", "critical", day_introduced=2, expected_core=True, access_days=[11, 21]),
+        SyntheticFact("I live in Brooklyn, in the Park Slope neighborhood", "critical", day_introduced=2, expected_core=True, access_days=[7, 16, 26]),
 
-        # Contextual facts (medium importance, should decay but be retrievable)
+        # Contextual facts (medium importance, should decay but be retrievable) — fact_idx 8..15
         SyntheticFact("I'm working on a project called Helios that's due in March", "contextual", day_introduced=3, access_days=[5, 8, 12]),
         SyntheticFact("I prefer dark mode in all my applications", "contextual", day_introduced=4, access_days=[10]),
         SyntheticFact("I've been learning Rust on weekends", "contextual", day_introduced=5, access_days=[11, 17]),
         SyntheticFact("My team has a standup at 9:30am every day", "contextual", day_introduced=3, access_days=[6]),
         SyntheticFact("I'm training for a half marathon in April", "contextual", day_introduced=6, access_days=[12, 20]),
+        SyntheticFact("I drive a 2019 Subaru Outback", "contextual", day_introduced=4, access_days=[15]),
+        SyntheticFact("My therapist's name is Dr. Patel and I see her on Tuesdays", "contextual", day_introduced=5, access_days=[12, 19]),
+        SyntheticFact("I take a guitar lesson every other Thursday", "contextual", day_introduced=6, access_days=[14]),
 
-        # Trivial facts (low importance, should fade quickly)
+        # Trivial facts (low importance, should fade quickly) — fact_idx 16..23
         SyntheticFact("I had pasta for lunch today", "trivial", day_introduced=3, access_days=[]),
         SyntheticFact("The weather was really nice this morning", "trivial", day_introduced=5, access_days=[]),
         SyntheticFact("I watched a documentary about octopuses last night", "trivial", day_introduced=7, access_days=[]),
         SyntheticFact("There was traffic on my commute today", "trivial", day_introduced=10, access_days=[]),
         SyntheticFact("I tried a new coffee shop called Bean Counter", "trivial", day_introduced=12, access_days=[]),
+        SyntheticFact("My neighbor's cat got stuck in a tree this morning", "trivial", day_introduced=8, access_days=[]),
+        SyntheticFact("I forgot my umbrella and got rained on", "trivial", day_introduced=13, access_days=[]),
+        SyntheticFact("The elevator in my building was broken today", "trivial", day_introduced=18, access_days=[]),
 
-        # Facts that get contradicted/updated
+        # Facts that get contradicted/updated — fact_idx 24..27
         SyntheticFact(
             "The Helios project deadline is March 15th", "contextual",
             day_introduced=3, access_days=[5],
@@ -97,6 +108,18 @@ def generate_30_day_scenario() -> dict:
             day_introduced=4, access_days=[7],
             superseded_by="We switched the Helios backend to Go for performance",
             superseded_on_day=16,
+        ),
+        SyntheticFact(
+            "I'm planning to go to Tokyo for vacation in May", "contextual",
+            day_introduced=5, access_days=[9],
+            superseded_by="Actually we changed plans, we're going to Lisbon instead of Tokyo",
+            superseded_on_day=18,
+        ),
+        SyntheticFact(
+            "I prefer working from the office on Mondays", "contextual",
+            day_introduced=4, access_days=[8],
+            superseded_by="I switched to fully remote, I don't go into the office anymore",
+            superseded_on_day=20,
         ),
     ]
 
@@ -149,56 +172,97 @@ def generate_30_day_scenario() -> dict:
                 "turns": turns,
             })
 
-    # Generate probes (questions to test at specific times)
+    # Generate probes (questions to test at specific times).
+    # Probes are evaluated using time-stepped ingestion: sessions through day D
+    # are ingested before any probe at day D fires. This makes temporal_before
+    # probes meaningful (the superseded fact is still current at probe time).
     probes = []
 
-    # --- Probe Type 1: CORE PERSISTENCE ---
-    # Ask about core facts at day 30. Should all be retrievable.
+    # --- CORE PERSISTENCE (8) ---
+    # Core facts at day 30 — all should be retrievable with strong scoring.
     probes.extend([
         {"day": 30, "question": "What is my name?", "expected": "Alex Chen", "fact_idx": 0, "type": "core_persistence"},
         {"day": 30, "question": "What am I allergic to?", "expected": "shellfish", "fact_idx": 1, "type": "core_persistence"},
         {"day": 30, "question": "Where do I work?", "expected": "Meridian Labs", "fact_idx": 2, "type": "core_persistence"},
         {"day": 30, "question": "What's my partner's name?", "expected": "Jordan", "fact_idx": 3, "type": "core_persistence"},
         {"day": 30, "question": "What's my dog's name?", "expected": "Pixel", "fact_idx": 4, "type": "core_persistence"},
+        {"day": 30, "question": "Do I have any chronic medical conditions?", "expected": "type 1 diabetes", "fact_idx": 5, "type": "core_persistence"},
+        {"day": 30, "question": "What's my mother's name and where does she live?", "expected": "Eileen, Vancouver", "fact_idx": 6, "type": "core_persistence"},
+        {"day": 30, "question": "What neighborhood do I live in?", "expected": "Park Slope, Brooklyn", "fact_idx": 7, "type": "core_persistence"},
     ])
 
-    # --- Probe Type 2: DECAY VERIFICATION ---
-    # Ask about trivial facts at day 30. Naive RAG returns them at full strength.
-    # A decay system should rank them lower than critical facts.
+    # --- DECAY TRIVIAL (6) ---
+    # Trivial unaccessed facts at day 30. With decay floors they should still
+    # be retrievable when probed directly, just lower-ranked.
     probes.extend([
-        {"day": 30, "question": "What did I have for lunch on day 3?", "expected": "pasta", "fact_idx": 10, "type": "decay_trivial"},
-        {"day": 30, "question": "What documentary did I watch?", "expected": "octopuses", "fact_idx": 12, "type": "decay_trivial"},
-        {"day": 30, "question": "What coffee shop did I try?", "expected": "Bean Counter", "fact_idx": 14, "type": "decay_trivial"},
+        {"day": 30, "question": "What did I have for lunch on day 3?", "expected": "pasta", "fact_idx": 16, "type": "decay_trivial"},
+        {"day": 30, "question": "What documentary did I watch?", "expected": "octopuses", "fact_idx": 18, "type": "decay_trivial"},
+        {"day": 30, "question": "What coffee shop did I try?", "expected": "Bean Counter", "fact_idx": 20, "type": "decay_trivial"},
+        {"day": 30, "question": "What happened with my neighbor's cat?", "expected": "stuck in a tree", "fact_idx": 21, "type": "decay_trivial"},
+        {"day": 30, "question": "Did I get caught in the rain at some point?", "expected": "forgot umbrella, got rained on", "fact_idx": 22, "type": "decay_trivial"},
+        {"day": 30, "question": "Was there a problem with the elevator at any point?", "expected": "broken", "fact_idx": 23, "type": "decay_trivial"},
     ])
 
-    # --- Probe Type 3: REVIVAL ---
-    # Ask about a trivial fact that hasn't been accessed. If the system has
-    # decay floors (never-delete), it should still be retrievable, just faint.
+    # --- REVIVAL (5) ---
+    # Memories that were mentioned once, never re-accessed, queried with
+    # vague/oblique cues. Decay floors should keep them recoverable.
     probes.extend([
-        {"day": 30, "question": "Was there anything about the weather I mentioned once?", "expected": "nice this morning", "fact_idx": 11, "type": "revival"},
-        {"day": 30, "question": "Did I ever mention traffic?", "expected": "traffic on my commute", "fact_idx": 13, "type": "revival"},
+        {"day": 30, "question": "Was there anything about the weather I mentioned once?", "expected": "nice this morning", "fact_idx": 17, "type": "revival"},
+        {"day": 30, "question": "Did I ever mention traffic?", "expected": "traffic on my commute", "fact_idx": 19, "type": "revival"},
+        {"day": 30, "question": "Was there an incident with an animal at some point?", "expected": "neighbor's cat in a tree", "fact_idx": 21, "type": "revival"},
+        {"day": 30, "question": "Have I had any minor weather mishaps recently?", "expected": "got rained on, forgot umbrella", "fact_idx": 22, "type": "revival"},
+        {"day": 30, "question": "Has anything in my building been broken lately?", "expected": "elevator", "fact_idx": 23, "type": "revival"},
     ])
 
-    # --- Probe Type 4: CONFLICT RESOLUTION ---
-    # Ask about facts that were updated. Should return the updated version.
+    # --- CONFLICT RESOLUTION (4) ---
+    # Updated facts. Probe at day 30 — should return the *updated* version.
     probes.extend([
-        {"day": 30, "question": "When is the Helios project deadline?", "expected": "April 1st", "fact_idx": 15, "type": "conflict"},
-        {"day": 30, "question": "What language is the Helios backend in?", "expected": "Go", "fact_idx": 16, "type": "conflict"},
+        {"day": 30, "question": "When is the Helios project deadline?", "expected": "April 1st", "fact_idx": 24, "type": "conflict"},
+        {"day": 30, "question": "What language is the Helios backend in?", "expected": "Go", "fact_idx": 25, "type": "conflict"},
+        {"day": 30, "question": "Where am I going for vacation in May?", "expected": "Lisbon", "fact_idx": 26, "type": "conflict"},
+        {"day": 30, "question": "What's my work-from-home situation?", "expected": "fully remote", "fact_idx": 27, "type": "conflict"},
     ])
 
-    # --- Probe Type 5: CONTEXTUAL RETENTION ---
-    # Ask about medium-importance facts that were accessed a few times.
+    # --- CONTEXTUAL RETENTION (6) ---
+    # Medium-importance facts with light access pattern. Should be retrievable
+    # at day 30, possibly paraphrased.
     probes.extend([
-        {"day": 30, "question": "What project am I working on?", "expected": "Helios", "fact_idx": 5, "type": "contextual_retention"},
-        {"day": 30, "question": "What language am I learning on weekends?", "expected": "Rust", "fact_idx": 7, "type": "contextual_retention"},
-        {"day": 30, "question": "What am I training for?", "expected": "half marathon", "fact_idx": 9, "type": "contextual_retention"},
+        {"day": 30, "question": "What project am I working on?", "expected": "Helios", "fact_idx": 8, "type": "contextual_retention"},
+        {"day": 30, "question": "What language am I learning on weekends?", "expected": "Rust", "fact_idx": 10, "type": "contextual_retention"},
+        {"day": 30, "question": "What am I training for?", "expected": "half marathon", "fact_idx": 12, "type": "contextual_retention"},
+        {"day": 30, "question": "What car do I drive?", "expected": "2019 Subaru Outback", "fact_idx": 13, "type": "contextual_retention"},
+        {"day": 30, "question": "Who is my therapist?", "expected": "Dr. Patel", "fact_idx": 14, "type": "contextual_retention"},
+        {"day": 30, "question": "What musical instrument am I taking lessons in?", "expected": "guitar", "fact_idx": 15, "type": "contextual_retention"},
     ])
 
-    # --- Probe Type 6: TEMPORAL QUERIES ---
-    # Ask about things at different time points
+    # --- TEMPORAL: BEFORE UPDATE (4) ---
+    # Probe a fact at a day before its supersession. Time-stepped ingestion
+    # means the superseding fact has not yet been ingested.
     probes.extend([
-        {"day": 10, "question": "When is the Helios deadline?", "expected": "March 15th", "fact_idx": 15, "type": "temporal_before_update"},
-        {"day": 20, "question": "When is the Helios deadline?", "expected": "April 1st", "fact_idx": 15, "type": "temporal_after_update"},
+        {"day": 10, "question": "When is the Helios deadline?", "expected": "March 15th", "fact_idx": 24, "type": "temporal_before_update"},
+        {"day": 10, "question": "What language is the Helios backend in?", "expected": "Python", "fact_idx": 25, "type": "temporal_before_update"},
+        {"day": 12, "question": "Where am I going for vacation in May?", "expected": "Tokyo", "fact_idx": 26, "type": "temporal_before_update"},
+        {"day": 15, "question": "When do I prefer to be in the office?", "expected": "Mondays", "fact_idx": 27, "type": "temporal_before_update"},
+    ])
+
+    # --- TEMPORAL: AFTER UPDATE (4) ---
+    # Same fact, probed after supersession.
+    probes.extend([
+        {"day": 22, "question": "When is the Helios deadline?", "expected": "April 1st", "fact_idx": 24, "type": "temporal_after_update"},
+        {"day": 22, "question": "What language is the Helios backend in?", "expected": "Go", "fact_idx": 25, "type": "temporal_after_update"},
+        {"day": 22, "question": "Where am I going for vacation in May?", "expected": "Lisbon", "fact_idx": 26, "type": "temporal_after_update"},
+        {"day": 25, "question": "What's my work-from-home situation?", "expected": "fully remote", "fact_idx": 27, "type": "temporal_after_update"},
+    ])
+
+    # --- ASSOCIATIVE RETRIEVAL (5) ---
+    # Cross-fact queries that should surface multiple related memories together.
+    # Tests whether bidirectional associations form via co-retrieval.
+    probes.extend([
+        {"day": 30, "question": "What do you know about my family?", "expected": "Jordan (partner), Eileen (mother), Pixel (dog)", "fact_idx": -1, "type": "associative"},
+        {"day": 30, "question": "What's my health situation?", "expected": "type 1 diabetes, shellfish allergy", "fact_idx": -1, "type": "associative"},
+        {"day": 30, "question": "Tell me about the Helios project.", "expected": "Helios, deadline April 1st, Go backend", "fact_idx": -1, "type": "associative"},
+        {"day": 30, "question": "What recurring appointments or activities do I have?", "expected": "therapy Tuesdays Dr. Patel, guitar lessons Thursdays, half marathon training", "fact_idx": -1, "type": "associative"},
+        {"day": 30, "question": "What do you know about my home and commute?", "expected": "Park Slope Brooklyn, Subaru Outback", "fact_idx": -1, "type": "associative"},
     ])
 
     return {
@@ -215,9 +279,10 @@ def generate_30_day_scenario() -> dict:
 def run_lti_bench(
     adapter: MemoryAdapter,
     model: str = "gpt-4o-mini",
+    judge_model: str = JUDGE_MODEL,
     verbose: bool = True,
 ) -> dict:
-    """Run the 30-day LTI benchmark."""
+    """Run the 30-day LTI benchmark with time-stepped ingestion + LLM judge."""
     from openai import OpenAI
     client = OpenAI()
 
@@ -229,36 +294,37 @@ def run_lti_bench(
     if verbose:
         print(f"LTI-Bench: {len(facts)} facts, {len(daily_sessions)} session days, {len(probes)} probes")
 
-    # Reset and ingest
     adapter.reset()
 
-    for session in daily_sessions:
-        if verbose and session["day"] % 5 == 0:
-            print(f"  Ingesting day {session['day']}...")
+    sessions_by_day = {s["day"]: s for s in daily_sessions}
+    probes_by_day = {}
+    for p in probes:
+        probes_by_day.setdefault(p["day"], []).append(p)
 
-        adapter.ingest_session(
-            turns=session["turns"],
-            session_id=f"day_{session['day']}",
-            timestamp=session["timestamp"],
-            speaker_a="Alex",
-            speaker_b="Assistant",
-        )
-
-    # Run probes grouped by day (some probes are at day 10, 20, 30)
-    probe_days = sorted(set(p["day"] for p in probes))
     results_by_type = {}
+    base_date = datetime(2024, 1, 1)
 
-    for probe_day in probe_days:
-        day_probes = [p for p in probes if p["day"] == probe_day]
-
-        for probe in day_probes:
-            # Query
-            query_result = adapter.query(
-                question=probe["question"],
-                timestamp=(datetime(2024, 1, 1) + timedelta(days=probe_day - 1)).isoformat(),
+    for day in range(1, 31):
+        # Ingest the day's session BEFORE running any probe at this day so
+        # day-D probes see day-D state (and not later supersessions).
+        if day in sessions_by_day:
+            session = sessions_by_day[day]
+            if verbose and day % 5 == 0:
+                print(f"  Ingesting day {day}...")
+            adapter.ingest_session(
+                turns=session["turns"],
+                session_id=f"day_{day}",
+                timestamp=session["timestamp"],
+                speaker_a="Alex",
+                speaker_b="Assistant",
             )
 
-            # Generate answer
+        for probe in probes_by_day.get(day, []):
+            query_result = adapter.query(
+                question=probe["question"],
+                timestamp=(base_date + timedelta(days=day - 1)).isoformat(),
+            )
+
             from locomo.locomo_eval import generate_answer
             answer = generate_answer(
                 question=probe["question"],
@@ -267,50 +333,65 @@ def run_lti_bench(
                 model=model,
             )
 
-            # Score
             f1 = token_f1(answer, probe["expected"])["f1"]
-            expected_lower = normalize_answer(probe["expected"])
-            answer_lower = normalize_answer(answer)
-            contains_expected = expected_lower in answer_lower
+            judgement = llm_judge(
+                question=probe["question"],
+                prediction=answer,
+                ground_truth=probe["expected"],
+                client=client,
+                model=judge_model,
+            )
 
             probe_type = probe["type"]
-            if probe_type not in results_by_type:
-                results_by_type[probe_type] = []
-
-            results_by_type[probe_type].append({
+            results_by_type.setdefault(probe_type, []).append({
                 "question": probe["question"],
                 "expected": probe["expected"],
                 "answer": answer,
                 "f1": f1,
-                "contains_expected": contains_expected,
-                "day": probe_day,
+                "correct": judgement["correct"],
+                "judge_raw": judgement["raw_response"],
+                "day": day,
                 "num_retrieved": len(query_result.retrieved_memories),
             })
 
-    # Get final stats
     stats = adapter.get_stats()
 
-    # Compute summary metrics
     summary = {}
     for probe_type, results in results_by_type.items():
         n = len(results)
         mean_f1 = sum(r["f1"] for r in results) / n if n else 0
-        accuracy = sum(1 for r in results if r["contains_expected"]) / n if n else 0
+        accuracy = sum(1 for r in results if r["correct"]) / n if n else 0
         summary[probe_type] = {
             "count": n,
             "mean_f1": mean_f1,
             "accuracy": accuracy,
         }
 
-    # Overall
-    all_results = [r for results in results_by_type.values() for r in results]
     critical_results = results_by_type.get("core_persistence", [])
     critical_retention = (
-        sum(1 for r in critical_results if r["contains_expected"]) / len(critical_results)
+        sum(1 for r in critical_results if r["correct"]) / len(critical_results)
         if critical_results else 0
     )
 
+    all_results = [r for results in results_by_type.values() for r in results]
+    overall_accuracy = sum(1 for r in all_results if r["correct"]) / len(all_results) if all_results else 0
+    overall_f1 = sum(r["f1"] for r in all_results) / len(all_results) if all_results else 0
+
     output = {
+        "config": {
+            "answer_model": model,
+            "judge_model": judge_model,
+            "n_facts": len(facts),
+            "n_sessions": len(daily_sessions),
+            "n_probes": len(probes),
+            "scoring": "llm_judge (CORRECT/WRONG) + token_f1",
+            "ingestion_mode": "time_stepped",
+        },
+        "overall": {
+            "accuracy": overall_accuracy,
+            "mean_f1": overall_f1,
+            "n": len(all_results),
+        },
         "summary": summary,
         "critical_fact_retention": critical_retention,
         "storage": {
@@ -328,14 +409,15 @@ def run_lti_bench(
         "detailed": results_by_type,
     }
 
-    # Print
     if verbose:
         print(f"\n{'='*60}")
-        print("LTI-BENCH RESULTS")
+        print("LTI-BENCH RESULTS (judge: " + judge_model + ")")
         print(f"{'='*60}")
         for probe_type, data in summary.items():
             print(f"  {probe_type:25s}: accuracy={data['accuracy']*100:5.1f}%  F1={data['mean_f1']*100:5.1f}%  (n={data['count']})")
-        print(f"\n  Critical fact retention: {critical_retention*100:.1f}% (FadeMem: 82.1%)")
+        print(f"\n  Overall accuracy:        {overall_accuracy*100:.1f}% (n={len(all_results)})")
+        print(f"  Overall F1:              {overall_f1*100:.1f}%")
+        print(f"  Critical fact retention: {critical_retention*100:.1f}% (FadeMem: 82.1%)")
         print(f"  Total memories stored:   {stats.total_memories}")
         print(f"  Core memories detected:  {stats.core_memories}")
 
@@ -349,19 +431,25 @@ def run_lti_bench(
 def main():
     parser = argparse.ArgumentParser(description="Run LTI-Bench evaluation")
     parser.add_argument("--adapter", default="cognitive_memory", choices=["cognitive_memory", "naive_rag"])
-    parser.add_argument("--model", default="gpt-4o-mini")
+    parser.add_argument("--model", default="gpt-4o-mini", help="Answer model")
+    parser.add_argument("--judge-model", default=JUDGE_MODEL, help="LLM-as-judge model")
     parser.add_argument("--output", default="results/lti_bench_results.json")
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args()
 
-    from memory_adapter import CognitiveMemoryAdapter, NaiveRAGAdapter
+    from shared.memory_adapter import CognitiveMemoryAdapter, NaiveRAGAdapter
     adapters = {
         "cognitive_memory": CognitiveMemoryAdapter,
         "naive_rag": NaiveRAGAdapter,
     }
     adapter = adapters[args.adapter](llm_model=args.model)
 
-    results = run_lti_bench(adapter, model=args.model, verbose=not args.quiet)
+    results = run_lti_bench(
+        adapter,
+        model=args.model,
+        judge_model=args.judge_model,
+        verbose=not args.quiet,
+    )
 
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     with open(args.output, "w") as f:

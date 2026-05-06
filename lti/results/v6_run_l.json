@@ -1,0 +1,221 @@
+{
+  "summary": {
+    "temporal_before_update": {
+      "count": 1,
+      "mean_f1": 0.0,
+      "accuracy": 0.0
+    },
+    "temporal_after_update": {
+      "count": 1,
+      "mean_f1": 0.2,
+      "accuracy": 0.0
+    },
+    "core_persistence": {
+      "count": 5,
+      "mean_f1": 1.0,
+      "accuracy": 1.0
+    },
+    "decay_trivial": {
+      "count": 3,
+      "mean_f1": 0.8333333333333334,
+      "accuracy": 1.0
+    },
+    "revival": {
+      "count": 2,
+      "mean_f1": 0.3538461538461538,
+      "accuracy": 0.0
+    },
+    "conflict": {
+      "count": 2,
+      "mean_f1": 0.6,
+      "accuracy": 0.5
+    },
+    "contextual_retention": {
+      "count": 3,
+      "mean_f1": 0.6904761904761906,
+      "accuracy": 1.0
+    }
+  },
+  "critical_fact_retention": 1.0,
+  "storage": {
+    "total_memories": 53,
+    "hot_memories": 53,
+    "cold_memories": 0,
+    "core_memories": 35
+  },
+  "comparison": {
+    "fademem_critical_retention": 0.821,
+    "fademem_storage_fraction": 0.55,
+    "ours_critical_retention": 1.0,
+    "ours_total_memories": 53
+  },
+  "detailed": {
+    "temporal_before_update": [
+      {
+        "question": "When is the Helios deadline?",
+        "expected": "March 15th",
+        "answer": "The Helios deadline got pushed to April 1, 2024.",
+        "f1": 0.0,
+        "contains_expected": false,
+        "day": 10,
+        "num_retrieved": 10
+      }
+    ],
+    "temporal_after_update": [
+      {
+        "question": "When is the Helios deadline?",
+        "expected": "April 1st",
+        "answer": "The Helios deadline got pushed to April 1, 2024.",
+        "f1": 0.2,
+        "contains_expected": false,
+        "day": 20,
+        "num_retrieved": 10
+      }
+    ],
+    "core_persistence": [
+      {
+        "question": "What is my name?",
+        "expected": "Alex Chen",
+        "answer": "Alex Chen.",
+        "f1": 1.0,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What am I allergic to?",
+        "expected": "shellfish",
+        "answer": "Shellfish.",
+        "f1": 1.0,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Where do I work?",
+        "expected": "Meridian Labs",
+        "answer": "Meridian Labs",
+        "f1": 1.0,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What's my partner's name?",
+        "expected": "Jordan",
+        "answer": "Jordan",
+        "f1": 1.0,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What's my dog's name?",
+        "expected": "Pixel",
+        "answer": "Pixel",
+        "f1": 1.0,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ],
+    "decay_trivial": [
+      {
+        "question": "What did I have for lunch on day 3?",
+        "expected": "pasta",
+        "answer": "Pasta",
+        "f1": 1.0,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What documentary did I watch?",
+        "expected": "octopuses",
+        "answer": "a documentary about octopuses",
+        "f1": 0.5,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What coffee shop did I try?",
+        "expected": "Bean Counter",
+        "answer": "Bean Counter",
+        "f1": 1.0,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ],
+    "revival": [
+      {
+        "question": "Was there anything about the weather I mentioned once?",
+        "expected": "nice this morning",
+        "answer": "The weather was really nice on the morning of January 5, 2024.",
+        "f1": 0.30769230769230765,
+        "contains_expected": false,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Did I ever mention traffic?",
+        "expected": "traffic on my commute",
+        "answer": "Yes, there was traffic on Alex's commute on January 10, 2024.",
+        "f1": 0.39999999999999997,
+        "contains_expected": false,
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ],
+    "conflict": [
+      {
+        "question": "When is the Helios project deadline?",
+        "expected": "April 1st",
+        "answer": "The Helios deadline got pushed to April 1, 2024.",
+        "f1": 0.2,
+        "contains_expected": false,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What language is the Helios backend in?",
+        "expected": "Go",
+        "answer": "Go",
+        "f1": 1.0,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ],
+    "contextual_retention": [
+      {
+        "question": "What project am I working on?",
+        "expected": "Helios",
+        "answer": "Helios",
+        "f1": 1.0,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What language am I learning on weekends?",
+        "expected": "Rust",
+        "answer": "Rust programming language",
+        "f1": 0.5,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What am I training for?",
+        "expected": "half marathon",
+        "answer": "a half marathon in April 2024",
+        "f1": 0.5714285714285715,
+        "contains_expected": true,
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ]
+  }
+}
