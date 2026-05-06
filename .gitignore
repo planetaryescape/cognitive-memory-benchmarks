@@ -11,4 +11,16 @@ venv/
 .env
 .pytest_cache/
 .ruff_cache/
+
+# Per-run process tracking — runtime artifacts, not history
+*.pid
+
+# LaTeX build artifacts (final PDF is checked in via paper/*.pdf)
+paper/paper.aux
+paper/paper.out
+paper/paper.toc
+paper/paper.fls
+paper/paper.fdb_latexmk
+paper/paper.synctex.gz
+
 longmemeval/data/longmemeval_s_cleaned.json
