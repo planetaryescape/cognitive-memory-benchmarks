@@ -41,17 +41,31 @@ def _patch_adapter_for_threading(adapter):
     # Patch search_similar to use a snapshot of values
     original_search = inner_adapter.search_similar.__func__
 
-    async def safe_search_similar(self, query_embedding, top_k=10, include_superseded=False):
+    async def safe_search_similar(
+        self,
+        query_embedding,
+        top_k=10,
+        include_superseded=False,
+        include_cold=False,
+        include_stubs=False,
+        user_id=None,
+    ):
         from cognitive_memory.embeddings import cosine_similarity
         results = []
         # Take snapshot to avoid dict-changed-size-during-iteration
-        hot_snapshot = list(self.hot.values())
-        for mem in hot_snapshot:
+        candidates = list(self.hot.values())
+        if include_cold:
+            candidates.extend(list(self.cold.values()))
+        if include_stubs:
+            candidates.extend(list(self.stubs.values()))
+        for mem in candidates:
             if mem.embedding is None:
                 continue
             if mem.is_superseded and not include_superseded:
                 continue
-            if mem.is_stub:
+            if mem.is_stub and not include_stubs:
+                continue
+            if user_id is not None and mem.user_id != user_id:
                 continue
             sim = cosine_similarity(query_embedding, mem.embedding)
             results.append((mem, sim))
@@ -428,6 +442,7 @@ def run_evaluation(
     data_path, adapter_name="cognitive_memory", model="gpt-4o-mini",
     output_path=None, verbose=True, top_k=20, deep_recall=False,
     rerank=False, rerank_factor=2, start_from=0, max_questions=None,
+    max_workers=53,
 ):
     adapter_kwargs = {"llm_model": model}
     if adapter_name == "cognitive_memory":
@@ -479,6 +494,7 @@ def run_evaluation(
             item=item, adapter=adapter, question_index=i,
             client=client, answer_model=model, top_k=top_k, verbose=verbose,
             parallel_ingest=(adapter_name == "cognitive_memory"),
+            max_workers=max_workers,
         )
         all_results.append(result)
 
@@ -581,6 +597,7 @@ def main():
     parser.add_argument("--rerank-factor", type=int, default=2)
     parser.add_argument("--start-from", type=int, default=0)
     parser.add_argument("--max-questions", type=int, default=None)
+    parser.add_argument("--max-workers", type=int, default=53)
     parser.add_argument("--quiet", action="store_true")
 
     args = parser.parse_args()
@@ -591,6 +608,7 @@ def main():
         deep_recall=args.deep_recall, rerank=args.rerank,
         rerank_factor=args.rerank_factor, start_from=args.start_from,
         max_questions=args.max_questions,
+        max_workers=args.max_workers,
     )
 
 

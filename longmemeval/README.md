@@ -1,38 +1,76 @@
 # LongMemEval (ICLR 2025)
 
-500 hand-crafted questions testing 5 memory abilities across long conversations.
+500 hand-crafted questions testing 5 memory abilities across long conversations with ~53 haystack sessions per question. We evaluate on the Small variant only.
 
-**Priority**: First benchmark to implement (simpler than MemoryBench, JSONL output).
+## Status: Complete (LongMemEval-S)
 
-## Status: Scaffolded
+Run B canonical result, 2026-03-10. A May 2026 current-refresh rerun is in progress under `longmemeval/results/current_sdk_20260505/`; use the recorded Run B number until that rerun completes and is logged.
 
-Integration pending.
+## Headline
 
-## Competitor Parameters
+| Metric | Value |
+|---|---|
+| **Task-averaged accuracy** | **70.2%** |
+| Overall accuracy | 72.8% |
+| Abstention accuracy | 90.0% |
 
-### ENGRAM (State-of-the-art)
+| Task | n | Accuracy |
+|---|---:|---:|
+| single-session-user | 70 | 88.6% |
+| single-session-assistant | 56 | 73.2% |
+| single-session-preference | 30 | 36.7% |
+| multi-session | 133 | 75.9% |
+| temporal-reasoning | 133 | 62.4% |
+| knowledge-update | 78 | 84.6% |
 
-- **Embedding**: text-embedding-3-small
-- **Top-k per memory type**: 25
-- **Final evidence budget K**: 25 (after dedup)
-- **Answer LLM**: gpt-4o-mini
-- **Judge**: GPT-4o (binary yes/no)
-- **Storage**: SQLite
-- **Result**: 71.40% overall (vs 56.20% full-context baseline)
+## Comparison
 
-### FadeMem
+| System | Task-averaged | Notes |
+|---|---:|---|
+| Full-context baseline | 56.2% | Published |
+| **cognitive-memory (ours)** | **70.2%** | Run B, default v6 config, no benchmark-specific tuning |
+| ENGRAM | 71.4% | Concurrent baseline at run time |
+| TiMem | 76.88% | Post-dating system, multi-stage architecture |
+| EverMemOS | 83.0% | Post-dating system, engram-inspired lifecycle |
 
-**Not evaluated on LongMemEval.**
+We are within 1.2pp of ENGRAM (the strongest single-stage baseline at run time) without benchmark-specific tuning. Newer multi-stage systems (TiMem, EverMemOS) exceed our result; we acknowledge this in the paper rather than over-claiming.
 
-### Mem0
+## Reproduction
 
-**Not evaluated on LongMemEval.**
+```bash
+.venv/bin/python longmemeval/run_longmemeval.py \
+  --data longmemeval/data/longmemeval_s_cleaned.json \
+  --adapter cognitive_memory \
+  --top-k 20 \
+  --deep-recall \
+  --rerank --rerank-factor 3 \
+  --output longmemeval/results/v6/primary.json
+```
 
-## Our Three Run Types
+The runner accepts `--resume-from <q_index>` for quota-resumable runs (Run B exhausted OpenAI quota at q339 and resumed cleanly).
 
-1. **Apples-to-apples with ENGRAM**: text-embedding-3-small, k=25, gpt-4o-mini answer
-2. **Benchmark pure**: Follow LongMemEval official protocol (GPT-4o binary judge)
-3. **Best tuned**: Our optimal config (k=60, deep recall, LLM re-rank, Mem0 prompt)
+## Configuration
+
+| Parameter | Value |
+|---|---|
+| Top-k | 20 |
+| Deep recall | enabled |
+| Rerank | enabled (factor 3 in the paper configuration) |
+| Answer model | gpt-4o-mini |
+| Judge model | gpt-4o-2024-08-06 (LongMemEval official) |
+| Embedding model | text-embedding-3-small (1536 dims) |
+| SDK provenance | See `experimentlog.md`; Run B is a recorded completed artifact, while the May 2026 current-refresh rerun is still in progress |
+
+## Cost
+
+~30M tokens total, ~11.3h wall.
+
+## What's not run
+
+- **LongMemEval-M** — ~10× larger haystack per question. Multi-day wall time, ~$300+ in API. Documented as future work in the paper.
+- **LongMemEval-Oracle** — single relevant session per question. Not in the dataset directory.
+
+To run -M, the dataset would need to be downloaded (currently only `longmemeval_s_cleaned.json` is present). The runner script supports arbitrary data files.
 
 ## 5 Memory Abilities Tested
 
@@ -42,22 +80,4 @@ Integration pending.
 4. **Temporal Reasoning** — time-aware questions
 5. **Abstention** — knowing when you don't know
 
-Our architecture's strengths (decay floors, conflict detection, temporal awareness) align well with abilities 3-5.
-
-## Integration Plan
-
-1. Download LongMemEval dataset (JSONL format)
-2. Implement conversation ingestion pipeline
-3. Use GPT-4o binary judge for evaluation (match ENGRAM protocol)
-4. Compare against ENGRAM's 71.40% and full-context 56.20% baselines
-
-## Evaluation
-
-LongMemEval uses binary accuracy (GPT-4o judges "yes" or "no"):
-
-```
-Prompt: "Given the question and reference answer, does the predicted answer
-         correctly capture the key information? Answer yes or no."
-```
-
-Score = % of "yes" judgments across 500 questions.
+The architecture's strengths (decay floors, conflict detection, temporal awareness) align with abilities 3–5. Run B's strongest tasks were single-session-user (88.6%), knowledge-update (84.6%), and abstention (90.0%); weakest was single-session-preference (36.7%).
