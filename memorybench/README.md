@@ -4,9 +4,9 @@ Multi-dataset benchmark for evaluating memory systems. 11 datasets, 20K+ test ca
 
 **Goal**: Debunk the claim that "no memory system consistently beats RAG" (MemoryBench paper, Table 3).
 
-## Status: Scaffolded
+## Status: Wrapper exists, full official run pending
 
-Integration pending. Priority: after LongMemEval.
+The standalone wrapper and partial result artifacts exist. A full official MemoryBench run through the upstream framework is still pending.
 
 ## Competitor Parameters
 

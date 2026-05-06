@@ -14,7 +14,6 @@ from typing import Optional
 import time
 import json
 
-
 @dataclass
 class MemoryStats:
     """Statistics about the memory system state."""
@@ -136,6 +135,9 @@ class CognitiveMemoryAdapter(MemoryAdapter):
         rerank: bool = False,
         rerank_factor: int = 2,
         extraction_mode: str = "semantic",
+        hybrid_search: bool = False,
+        graph_hops: int = None,
+        decay_model: str = None,
     ):
         from cognitive_memory import SyncCognitiveMemory, CognitiveMemoryConfig
 
@@ -147,8 +149,9 @@ class CognitiveMemoryAdapter(MemoryAdapter):
         self.rerank_factor = rerank_factor
         self._rerank_client = None
         self._last_ingest_ts = None
+        self._last_trace = None
 
-        config = CognitiveMemoryConfig(
+        config_kwargs = dict(
             extraction_model=llm_model,
             embedding_model=embedding_model,
             run_maintenance_during_ingestion=False,  # tick after each session instead
@@ -159,6 +162,13 @@ class CognitiveMemoryAdapter(MemoryAdapter):
             custom_extraction_instructions=custom_extraction_instructions,
             extraction_mode=extraction_mode,
         )
+        if hybrid_search:
+            config_kwargs["hybrid_search"] = True
+        if graph_hops is not None:
+            config_kwargs["graph_expansion_hops"] = graph_hops
+        if decay_model is not None:
+            config_kwargs["decay_model"] = decay_model
+        config = CognitiveMemoryConfig(**config_kwargs)
 
         embedder = "hash" if use_hash_embeddings else "openai"
         self.memory = SyncCognitiveMemory(config=config, embedder=embedder)
@@ -226,7 +236,7 @@ class CognitiveMemoryAdapter(MemoryAdapter):
     def _get_rerank_client(self):
         if self._rerank_client is None:
             from openai import OpenAI
-            self._rerank_client = OpenAI()
+            self._rerank_client = OpenAI(timeout=120.0)
         return self._rerank_client
 
     def _rerank_memories(self, question: str, memories: list, top_k: int) -> list:
@@ -283,13 +293,20 @@ class CognitiveMemoryAdapter(MemoryAdapter):
         search_top_k = top_k * self.rerank_factor if self.rerank else top_k
 
         # Search with the full engine (includes association graph, boosts, core promotion)
-        results = self.memory.search(
+        search_response = self.memory.search(
             query=question,
             top_k=search_top_k,
             timestamp=ts,
             session_id="query",  # enable session-based boost tracking
             deep_recall=self.deep_recall,
+            trace=True,
         )
+
+        # Unwrap SearchResponse (v6) or plain list (v5 compat)
+        results = search_response.results if hasattr(search_response, 'results') else search_response
+
+        # Stash trace for instrumentation
+        self._last_trace = getattr(search_response, 'trace', None)
 
         # Convert to adapter format
         retrieved = []
@@ -476,12 +493,13 @@ Respond with just a number between 0.0 and 1.0."""
         start = time.time()
         ts = _parse_timestamp(timestamp) if timestamp else datetime.now()
 
-        results = self.memory.search(
+        search_response = self.memory.search(
             query=question,
             top_k=top_k,
             timestamp=ts,
             session_id="query",
         )
+        results = search_response.results if hasattr(search_response, 'results') else search_response
 
         retrieved = []
         for r in results:
@@ -797,7 +815,7 @@ class HybridMemoryAdapter(MemoryAdapter):
     def _get_rerank_client(self):
         if self._rerank_client is None:
             from openai import OpenAI
-            self._rerank_client = OpenAI()
+            self._rerank_client = OpenAI(timeout=120.0)
         return self._rerank_client
 
     def _rerank_results(self, question: str, results: list[RetrievalResult], top_k: int) -> list[RetrievalResult]:
