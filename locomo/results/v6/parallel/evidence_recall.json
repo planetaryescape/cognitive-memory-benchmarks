@@ -1,0 +1,54 @@
+{
+  "recall@5": 0.24948815751747347,
+  "recall@5_count": 1535,
+  "recall@10": 0.28620006486455996,
+  "recall@10_count": 1535,
+  "recall@20": 0.31755787034460103,
+  "recall@20_count": 1535,
+  "recall@60": 0.3626951560824757,
+  "recall@60_count": 1535,
+  "total_with_evidence": 1535,
+  "total_with_retrieved": 1535,
+  "by_category": {
+    "multi-hop": {
+      "recall@5": 0.21927083333333336,
+      "recall@5_n": 320,
+      "recall@10": 0.25625,
+      "recall@10_n": 320,
+      "recall@20": 0.265625,
+      "recall@20_n": 320,
+      "recall@60": 0.29322916666666665,
+      "recall@60_n": 320
+    },
+    "temporal": {
+      "recall@5": 0.14673913043478262,
+      "recall@5_n": 92,
+      "recall@10": 0.1838768115942029,
+      "recall@10_n": 92,
+      "recall@20": 0.21648550724637683,
+      "recall@20_n": 92,
+      "recall@60": 0.30607416879795396,
+      "recall@60_n": 92
+    },
+    "single-hop": {
+      "recall@5": 0.12162289050586923,
+      "recall@5_n": 282,
+      "recall@10": 0.17163274078167695,
+      "recall@10_n": 282,
+      "recall@20": 0.21347989708851972,
+      "recall@20_n": 282,
+      "recall@60": 0.29578572478908427,
+      "recall@60_n": 282
+    },
+    "open-domain": {
+      "recall@5": 0.3151010701545779,
+      "recall@5_n": 841,
+      "recall@10": 0.34720570749108204,
+      "recall@10_n": 841,
+      "recall@20": 0.38327388030122866,
+      "recall@20_n": 841,
+      "recall@60": 0.41775663892191833,
+      "recall@60_n": 841
+    }
+  }
+}

@@ -1,5 +1,7 @@
 # Cognitive Memory LoCoMo Tuning Log
 
+> Historical tuning log. Keep for methodology and debugging context, but do not cite headline numbers or SOTA claims from this file. Use `../experimentlog.md`, `../experimentlog_v2.md`, and `README.md` for canonical results and run-letter meanings.
+
 ## Baseline (before any fixes)
 - Overall F1: 4.2% (0.0419)
 - Single-hop F1: 5.0%
@@ -2086,4 +2088,3 @@ The heartbeat system is explicitly **future work** — we don't need to build it
 - Tetzlaff et al. (2023). "A neural network account of memory replay and knowledge consolidation." *Cerebral Cortex*.
 
 These papers collectively establish that: (a) offline replay discovers new inter-memory connections, (b) synaptic homeostasis improves signal-to-noise ratio, (c) systems consolidation transfers episodic → semantic representations, and (d) all three processes are critical for long-term memory performance. Our architecture already implements the structural analogs of all three — the heartbeat would activate them as continuous background processes rather than on-demand operations.
-

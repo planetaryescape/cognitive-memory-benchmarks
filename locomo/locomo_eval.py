@@ -21,12 +21,21 @@ Pipeline:
 """
 
 import argparse
+import faulthandler
 import json
+import logging
 import os
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
+
+# Enable faulthandler: send `kill -USR1 <PID>` to dump all thread stacks
+faulthandler.enable()
+import signal
+faulthandler.register(signal.SIGUSR1)
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(message)s", stream=sys.stderr)
 
 from shared.memory_adapter import (
     CognitiveMemoryAdapter,
@@ -457,7 +466,24 @@ def evaluate_conversation(
             "bleu1": bleu1_score,
             "num_retrieved": len(query_result.retrieved_memories),
             "retrieval_time_ms": query_result.retrieval_time_ms,
+            "retrieved_contents": [m.content for m in query_result.retrieved_memories],
         }
+
+        # Capture v6 trace data if available
+        if hasattr(adapter, '_last_trace') and adapter._last_trace is not None:
+            trace = adapter._last_trace
+            trace_dict = {
+                "total_wall_ms": trace.total_wall_ms,
+                "total_tokens": getattr(trace, 'total_tokens', {}),
+                "stages": {},
+            }
+            for stage_name, stage in trace.stages.items():
+                trace_dict["stages"][stage_name] = {
+                    "wall_ms": stage.wall_ms,
+                    "candidate_count": stage.candidate_count,
+                    "metadata": stage.metadata,
+                }
+            result["trace"] = trace_dict
 
         # Optional: LLM-as-judge
         if use_judge and category <= 4:
@@ -501,6 +527,9 @@ def run_evaluation(
     rerank_factor: int = 2,
     start_from: int = 0,
     extraction_mode: str = "semantic",
+    hybrid_search: bool = False,
+    graph_hops: int = None,
+    decay_model: str = None,
 ):
     """
     Run full LoCoMo evaluation.
@@ -530,6 +559,12 @@ def run_evaluation(
             adapter_kwargs["rerank_factor"] = rerank_factor
         if extraction_mode != "semantic":
             adapter_kwargs["extraction_mode"] = extraction_mode
+        if hybrid_search:
+            adapter_kwargs["hybrid_search"] = True
+        if graph_hops is not None:
+            adapter_kwargs["graph_hops"] = graph_hops
+        if decay_model is not None:
+            adapter_kwargs["decay_model"] = decay_model
     adapter = adapters[adapter_name](**adapter_kwargs)
     print(f"Using adapter: {adapter_name}")
     print(f"LLM model: {model}")
@@ -547,9 +582,9 @@ def run_evaluation(
     if max_conversations:
         data = data[:max_conversations]
 
-    # Initialize OpenAI client
+    # Initialize OpenAI client with timeout to prevent hangs
     from openai import OpenAI
-    client = OpenAI()
+    client = OpenAI(timeout=120.0)
 
     # Run evaluation
     all_results = []
@@ -750,6 +785,19 @@ def main():
         choices=["raw", "semantic", "hybrid"],
         help="SDK extraction mode: raw (verbatim turns), semantic (LLM facts), hybrid (both)"
     )
+    parser.add_argument(
+        "--hybrid-search", action="store_true",
+        help="Enable hybrid dense+BM25 retrieval (ablation)"
+    )
+    parser.add_argument(
+        "--graph-hops", type=int, default=None,
+        help="Override graph_expansion_hops (default: SDK default=1)"
+    )
+    parser.add_argument(
+        "--decay-model", default=None,
+        choices=["exponential", "power"],
+        help="Override decay model (default: SDK default=exponential)"
+    )
 
     args = parser.parse_args()
 
@@ -784,6 +832,9 @@ def main():
         rerank_factor=args.rerank_factor,
         start_from=args.start_from,
         extraction_mode=args.extraction_mode,
+        hybrid_search=args.hybrid_search,
+        graph_hops=args.graph_hops,
+        decay_model=args.decay_model,
     )
 
 
