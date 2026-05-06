@@ -1,0 +1,623 @@
+{
+  "summary": {
+    "n": 50,
+    "raw_agreement": 0.94,
+    "cohens_kappa": 0.8792,
+    "original_positive_rate": 0.58,
+    "alt_positive_rate": 0.52
+  },
+  "by_category": {
+    "single-hop": {
+      "n": 9,
+      "agreement": 0.8888888888888888,
+      "kappa": 0.769230769230769
+    },
+    "multi-hop": {
+      "n": 11,
+      "agreement": 1.0,
+      "kappa": 1.0
+    },
+    "temporal": {
+      "n": 3,
+      "agreement": 1.0,
+      "kappa": 1.0
+    },
+    "open-domain": {
+      "n": 27,
+      "agreement": 0.9259259259259259,
+      "kappa": 0.8421052631578947
+    }
+  },
+  "disagreements": [
+    {
+      "question": "What items des John mention having as a child?",
+      "ground_truth": "A doll, a film camera",
+      "prediction": "Film camera.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": true,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": false
+    },
+    {
+      "question": "What did James prepare for the first time in the cooking class?",
+      "ground_truth": "Omelette",
+      "prediction": "Omelette and meringue.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": false
+    },
+    {
+      "question": "How did Melanie's son handle the accident?",
+      "ground_truth": "He was scared but reassured by his family",
+      "prediction": "He was scared but okay.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": false
+    }
+  ],
+  "all_results": [
+    {
+      "question": "What areas of the U.S. has John been to or is planning to go to?",
+      "ground_truth": "Pacific northwest, east coast",
+      "prediction": "Pacific Northwest, California.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What events has Caroline participated in to help children?",
+      "ground_truth": "Mentoring program, school speech",
+      "prediction": "Adoption advice group, LGBTQ+ youth center.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What authors has Tim read books from?",
+      "ground_truth": "J.K. Rowling, R.R. Martin, Patrick Rothfuss, Paulo Coelho, and J. R. R. Tolkien.",
+      "prediction": "Tim has read books by George R. R. Martin and J.K. Rowling.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "what are John's goals with regards to his basketball career?",
+      "ground_truth": "improve shooting percentage, win a championship",
+      "prediction": "Win a championship.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What are Nate's favorite desserts?",
+      "ground_truth": "coconut milk icecream, dairy-free chocolate cake with berries, chocolate and mixed-berry icecream, dairy-free chocolate mousse",
+      "prediction": "Dairy-free chocolate mousse.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What places has Joanna submitted her work to?",
+      "ground_truth": "film contest, film festival.",
+      "prediction": "Film contest, film festival.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What shelters does Maria volunteer at?",
+      "ground_truth": "The homeless shelter, the dog shelter",
+      "prediction": "Homeless shelter, dog shelter.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What items des John mention having as a child?",
+      "ground_truth": "A doll, a film camera",
+      "prediction": "Film camera.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": true,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": false
+    },
+    {
+      "question": "Which two significant life events occur in Evan's life in December 2023 with his partner?",
+      "ground_truth": "his partner gets pregnant and they get married",
+      "prediction": "Marriage and pregnancy.",
+      "category": 1,
+      "category_name": "single-hop",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "When did Caroline draw a self-portrait?",
+      "ground_truth": "The week before 23 August 2023",
+      "prediction": "No memory of a self-portrait.",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "When did Caroline and Melanie go to a pride fesetival together?",
+      "ground_truth": "2022",
+      "prediction": "They haven't gone together.",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "When did John take a road trip to the Pacific Northwest?",
+      "ground_truth": "2022",
+      "prediction": "John did not take a road trip to the Pacific Northwest.",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What year did Tim go to the Smoky Mountains?",
+      "ground_truth": "2022",
+      "prediction": "2023",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "When did John achieve a career-high assist performance?",
+      "ground_truth": "December 11, 2023",
+      "prediction": "December 8, 2023",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "How long did Jolene work on the robotics project given to her by her Professor?",
+      "ground_truth": "four months",
+      "prediction": "Approximately four months.",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What kind of stress was Sam dealing with in October 2023?",
+      "ground_truth": "work-related stress",
+      "prediction": "Work stress.",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "When is Caroline going to the transgender conference?",
+      "ground_truth": "July 2023",
+      "prediction": "July 10, 2023",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "When did the Deboran and Jolene agree to go surfing?",
+      "ground_truth": "in October 2023",
+      "prediction": "Next month, October 2023.",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "When did Maria go hiking with her church friends?",
+      "ground_truth": "The weekend before 22 July 2023",
+      "prediction": "July 15, 2023.",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "When was Calvin's album released?",
+      "ground_truth": "September 11, 2023",
+      "prediction": "September 11, 2023.",
+      "category": 2,
+      "category_name": "multi-hop",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "How old is Jolene?",
+      "ground_truth": "likely no more than 30; since she's in school",
+      "prediction": "Jolene is 3 years old.",
+      "category": 3,
+      "category_name": "temporal",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What is the board game where you have to find the imposter that John mentions to James?",
+      "ground_truth": "Mafia",
+      "prediction": "Not mentioned in the memories.",
+      "category": 3,
+      "category_name": "temporal",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "Is Deborah married?",
+      "ground_truth": "yes",
+      "prediction": "Yes, Deborah is married.",
+      "category": 3,
+      "category_name": "temporal",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "How did John get introduced to basketball?",
+      "ground_truth": "Dad signed him up for a local league",
+      "prediction": "Watched NBA games with his dad.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What group activity did Deborah start with Anna?",
+      "ground_truth": "running group",
+      "prediction": "Yoga classes.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What was Johns's reaction to sealing the deal with the beverage company?",
+      "ground_truth": "crazy feeling, sense of accomplishment",
+      "prediction": "John felt his hard work was worth it.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What does Melanie think about Caroline's decision to adopt?",
+      "ground_truth": "she thinks Caroline is doing something amazing and will be an awesome mom",
+      "prediction": "Melanie wishes Caroline the best.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "How does Nate describe the stuffed animal he got for Joanna?",
+      "ground_truth": "A stuffed animal to remind you of the good vibes",
+      "prediction": "Nate describes it as cherished.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What is one of Jolene's favorite dishes?",
+      "ground_truth": "lasagna",
+      "prediction": "Not mentioned in memories.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What did John organize with his friends on May 8, 2022?",
+      "ground_truth": "A tournament for CS:GO",
+      "prediction": "No event mentioned on May 8, 2022.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What creative activity does Nate joke about pursuing after being inspired by their hikes with Jo?",
+      "ground_truth": "Start thinking about a drama and publish a screenplay",
+      "prediction": "Nate jokes about making gaming videos.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What did John share with the person he skyped about?",
+      "ground_truth": "Characters from Harry Potter",
+      "prediction": "Ideas for a fan project.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": false,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": true
+    },
+    {
+      "question": "What were some difficulties James faced during the development of his game?",
+      "ground_truth": "balancing mechanics and ensuring fairness",
+      "prediction": "Balancing mechanics and ensuring fairness.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What did John recently get promoted to?",
+      "ground_truth": "assistant manager",
+      "prediction": "Assistant manager",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What event is Maria getting ready for at the shelter on May 25, 2023?",
+      "ground_truth": "fundraiser",
+      "prediction": "Ring-toss tournament fundraiser.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What gave Deborah peace in the garden she visited?",
+      "ground_truth": "Roses and dahlias",
+      "prediction": "Roses and dahlias brought peace.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What important values does John want to teach his kids through adopting a rescue dog?",
+      "ground_truth": "Responsibility and compassion",
+      "prediction": "Responsibility and compassion.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What decision did James and Samantha make on 31 October, 2022?",
+      "ground_truth": "To move in together",
+      "prediction": "They decided to move in together.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What did James prepare for the first time in the cooking class?",
+      "ground_truth": "Omelette",
+      "prediction": "Omelette and meringue.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": false
+    },
+    {
+      "question": "What map does Tim show to his friend John?",
+      "ground_truth": "a map of Middle-earth from LOTR",
+      "prediction": "Middle-earth from Lord of the Rings.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "How did Melanie's son handle the accident?",
+      "ground_truth": "He was scared but reassured by his family",
+      "prediction": "He was scared but okay.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": false,
+      "alt_raw": "DIFFERENT",
+      "agree": false
+    },
+    {
+      "question": "What did Sam suggest Evan try for stress relief and flexibility?",
+      "ground_truth": "Yoga",
+      "prediction": "Yoga",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "Where did Dave take a stunning photo of a waterfall?",
+      "ground_truth": "Nearby park",
+      "prediction": "Nearby park",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What did John do to help his community last year in his hometown?",
+      "ground_truth": "Helped renovate a rundown community center.",
+      "prediction": "Renovated a community center.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What project was Jolene working on as of 1 February, 2023?",
+      "ground_truth": "Robotics project",
+      "prediction": "Robotics project for engineering class.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What is the name of John's one-year-old child?",
+      "ground_truth": "Kyle",
+      "prediction": "Kyle",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What type of jewelry does Audrey make?",
+      "ground_truth": "Jewelry made from recycled objects",
+      "prediction": "Recycled objects jewelry.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What project did John work on with a game developer by 7 November, 2022?",
+      "ground_truth": "An online board game",
+      "prediction": "Online board game project.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What ingredient did Nate use to make the ice cream lactose-free?",
+      "ground_truth": "coconut milk",
+      "prediction": "Coconut milk",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    },
+    {
+      "question": "What is the general sentiment about the upcoming grand opening?",
+      "ground_truth": "excitement",
+      "prediction": "Excitement and positivity.",
+      "category": 4,
+      "category_name": "open-domain",
+      "original_verdict": true,
+      "alt_verdict": true,
+      "alt_raw": "EQUIVALENT",
+      "agree": true
+    }
+  ],
+  "meta": {
+    "model": "gpt-4o-mini",
+    "elapsed_seconds": 58.5,
+    "alt_prompt": "Given the following question and two answers, determine if the system answer\nis semantically equivalent to the reference answer.\n\nQuestion: {question}\nReference answer: {ground_truth}\nSystem answer: {prediction}\n\nTwo answers are equivalent if they convey the same core fact(s), even if\nthe wording, level of detail, or phrasing differs. Minor omissions of\nnon-essential details should still count as equivalent.\n\nReply with a single word: EQUIVALENT or DIFFERENT"
+  }
+}

@@ -1,0 +1,5450 @@
+{
+  "exponential": {
+    "decay_model": "exponential",
+    "overall_f1": 0.24964958607303112,
+    "per_question": [
+      {
+        "question_index": 0,
+        "category": 2,
+        "f1": 1.0,
+        "prediction": "May 7, 2023",
+        "ground_truth": "7 May 2023"
+      },
+      {
+        "question_index": 1,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "2022"
+      },
+      {
+        "question_index": 2,
+        "category": 3,
+        "f1": 0.3333333333333333,
+        "prediction": "Counseling and mental health.",
+        "ground_truth": "Psychology, counseling certification"
+      },
+      {
+        "question_index": 3,
+        "category": 1,
+        "f1": 0.3076923076923077,
+        "prediction": "Caroline advised Melanie to do research and find an adoption agency or lawyer.",
+        "ground_truth": "Adoption agencies"
+      },
+      {
+        "question_index": 4,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Caroline's identity is reflected in her journey of self-acceptance and embracing her womanhood.",
+        "ground_truth": "Transgender woman"
+      },
+      {
+        "question_index": 5,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "The sunday before 25 May 2023"
+      },
+      {
+        "question_index": 6,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "June 2023"
+      },
+      {
+        "question_index": 7,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Single"
+      },
+      {
+        "question_index": 8,
+        "category": 2,
+        "f1": 0.5,
+        "prediction": "June 2, 2023",
+        "ground_truth": "The week before 9 June 2023"
+      },
+      {
+        "question_index": 9,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "Caroline's friends, family, and mentors motivate her and give her strength.",
+        "ground_truth": "The week before 9 June 2023"
+      },
+      {
+        "question_index": 10,
+        "category": 2,
+        "f1": 0.4,
+        "prediction": "4 years since moving from her home country.",
+        "ground_truth": "4 years"
+      },
+      {
+        "question_index": 11,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Sweden"
+      },
+      {
+        "question_index": 12,
+        "category": 2,
+        "f1": 0.6666666666666666,
+        "prediction": "Ten years ago.",
+        "ground_truth": "10 years ago"
+      },
+      {
+        "question_index": 13,
+        "category": 1,
+        "f1": 0.6,
+        "prediction": "Counseling and mental health.",
+        "ground_truth": "counseling or mental health for Transgender people"
+      },
+      {
+        "question_index": 14,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Likely no"
+      },
+      {
+        "question_index": 15,
+        "category": 1,
+        "f1": 0.36363636363636365,
+        "prediction": "Running, reading, playing her violin, painting, and pottery.",
+        "ground_truth": "pottery, camping, painting, swimming"
+      },
+      {
+        "question_index": 16,
+        "category": 2,
+        "f1": 1.0,
+        "prediction": "July 2, 2023",
+        "ground_truth": "2 July 2023"
+      },
+      {
+        "question_index": 17,
+        "category": 2,
+        "f1": 0.3636363636363636,
+        "prediction": "Caroline is going to a transgender conference in July 2023.",
+        "ground_truth": "July 2023"
+      },
+      {
+        "question_index": 18,
+        "category": 1,
+        "f1": 0.4,
+        "prediction": "at the beach",
+        "ground_truth": "beach, mountains, forest"
+      },
+      {
+        "question_index": 19,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Melanie's kids like painting together, especially nature-inspired ones, and they loved the pottery workshop.",
+        "ground_truth": "dinosaurs, nature"
+      },
+      {
+        "question_index": 20,
+        "category": 2,
+        "f1": 1.0,
+        "prediction": "July 5, 2023.",
+        "ground_truth": "5 July 2023"
+      },
+      {
+        "question_index": 21,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "The week before 6 July 2023"
+      },
+      {
+        "question_index": 22,
+        "category": 3,
+        "f1": 0.3157894736842105,
+        "prediction": "Yes, Caroline has lots of kids' books in her library, including classics.",
+        "ground_truth": "Yes, since she collects classic children's books"
+      },
+      {
+        "question_index": 23,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "\"Nothing is Impossible\", \"Charlotte's Web\""
+      },
+      {
+        "question_index": 24,
+        "category": 1,
+        "f1": 0.22222222222222224,
+        "prediction": "Melanie has been running longer to de-stress.",
+        "ground_truth": "Running, pottery"
+      },
+      {
+        "question_index": 25,
+        "category": 2,
+        "f1": 0.5454545454545454,
+        "prediction": "Caroline attended an LGBTQ conference on July 10, 2023.",
+        "ground_truth": "10 July 2023"
+      },
+      {
+        "question_index": 26,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "2022"
+      },
+      {
+        "question_index": 27,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "LIkely no; though she likes reading, she wants to be a counselor"
+      },
+      {
+        "question_index": 28,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "The friday before 15 July 2023"
+      },
+      {
+        "question_index": 29,
+        "category": 2,
+        "f1": 0.25000000000000006,
+        "prediction": "Melanie took her kids to a pottery workshop on July 7, 2023.",
+        "ground_truth": "The Friday before 15 July 2023"
+      },
+      {
+        "question_index": 30,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Likely no, she does not refer to herself as part of it"
+      },
+      {
+        "question_index": 31,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "The week before 27 June 2023"
+      },
+      {
+        "question_index": 32,
+        "category": 1,
+        "f1": 0.1739130434782609,
+        "prediction": "Caroline has participated in an LGBTQ+ pride parade, an LGBTQ conference, a transgender conference, a transgender poetry reading, and an LGBTQ art show.",
+        "ground_truth": "Pride parade, school speech, support group"
+      },
+      {
+        "question_index": 33,
+        "category": 2,
+        "f1": 0.09523809523809523,
+        "prediction": "Caroline attended an LGBTQ+ pride parade on June 26, 2023, and another pride parade on August 11, 2023.",
+        "ground_truth": "The week before 3 July 2023"
+      },
+      {
+        "question_index": 34,
+        "category": 1,
+        "f1": 0.07407407407407408,
+        "prediction": "Caroline has been actively involved in the LGBTQ community, attending a support group, discussing her transgender journey at a school event, participating in an LGBTQ+ counseling workshop",
+        "ground_truth": "Mentoring program, school speech"
+      },
+      {
+        "question_index": 35,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "two weekends before 17 July 2023"
+      },
+      {
+        "question_index": 36,
+        "category": 2,
+        "f1": 0.25000000000000006,
+        "prediction": "Caroline joined a mentorship program for LGBTQ youth on July 15, 2023.",
+        "ground_truth": "The weekend before 17 July 2023"
+      },
+      {
+        "question_index": 37,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Melanie and her kids enjoyed painting together, especially nature-inspired ones.",
+        "ground_truth": "sunset"
+      },
+      {
+        "question_index": 38,
+        "category": 1,
+        "f1": 0.21052631578947367,
+        "prediction": "Camping trips, painting together, visiting the Grand Canyon, roasting marshmallows, and telling stories around the campfire.",
+        "ground_truth": "Pottery, painting, camping, museum, swimming, hiking"
+      },
+      {
+        "question_index": 39,
+        "category": 1,
+        "f1": 0.2702702702702703,
+        "prediction": "Caroline is actively involved in the LGBTQ community by attending support groups, discussing her transgender journey, participating in workshops, organizing an LGBTQ art show, volunteering at an",
+        "ground_truth": "Joining activist group, going to pride parades, participating in an art show, mentoring program"
+      },
+      {
+        "question_index": 40,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "2"
+      },
+      {
+        "question_index": 41,
+        "category": 2,
+        "f1": 0.5,
+        "prediction": "July 18, 2023.",
+        "ground_truth": "The Tuesday before 20 July 2023"
+      },
+      {
+        "question_index": 42,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "Melanie enjoys bonding with her family over stories, campfires, and nature during camping trips.",
+        "ground_truth": "National park; she likes the outdoors"
+      },
+      {
+        "question_index": 43,
+        "category": 1,
+        "f1": 0.15384615384615385,
+        "prediction": "Caroline's art expresses her trans experience and serves as a nudge to always stay true to herself and embrace her womanhood. She has been trying out abstract",
+        "ground_truth": "abstract art"
+      },
+      {
+        "question_index": 44,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "13 August"
+      },
+      {
+        "question_index": 45,
+        "category": 2,
+        "f1": 0.3076923076923077,
+        "prediction": "Caroline attended a pride parade on August 11, 2023.",
+        "ground_truth": "The Friday before 14 August 2023"
+      },
+      {
+        "question_index": 46,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Yes, she is supportive"
+      },
+      {
+        "question_index": 47,
+        "category": 1,
+        "f1": 0.16666666666666666,
+        "prediction": "Caroline appreciates the support of those close to her.",
+        "ground_truth": "Her mentors, family, and friends"
+      },
+      {
+        "question_index": 48,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "bowls, cup"
+      },
+      {
+        "question_index": 49,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "Caroline and Melanie had a blast at the Pride fest last year.",
+        "ground_truth": "2022"
+      },
+      {
+        "question_index": 50,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "Caroline wants to help make a difference in LGBTQ rights.",
+        "ground_truth": "Liberal"
+      },
+      {
+        "question_index": 51,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Melanie has painted landscapes, still life, and nature-inspired ones.",
+        "ground_truth": "Horse, sunset, sunrise"
+      },
+      {
+        "question_index": 52,
+        "category": 1,
+        "f1": 1.0,
+        "prediction": "Bailey, Luna, and Oliver.",
+        "ground_truth": "Oliver, Luna, Bailey"
+      },
+      {
+        "question_index": 53,
+        "category": 2,
+        "f1": 0.7499999999999999,
+        "prediction": "August 23, 2023.",
+        "ground_truth": "The week of 23 August 2023"
+      },
+      {
+        "question_index": 54,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "The week before 23 August 2023"
+      },
+      {
+        "question_index": 55,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Sunsets"
+      },
+      {
+        "question_index": 56,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Flowers and horses.",
+        "ground_truth": "Rainbow flag, transgender symbol"
+      },
+      {
+        "question_index": 57,
+        "category": 2,
+        "f1": 0.26666666666666666,
+        "prediction": "Caroline had a not-so-great experience on a hike on August 17, 2023.",
+        "ground_truth": "The week before 25 August 2023"
+      },
+      {
+        "question_index": 58,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "24 August 2023"
+      },
+      {
+        "question_index": 59,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Somewhat, but not extremely religious"
+      },
+      {
+        "question_index": 60,
+        "category": 1,
+        "f1": 0.6666666666666666,
+        "prediction": "Melanie plays the clarinet and the violin.",
+        "ground_truth": "clarinet and violin"
+      },
+      {
+        "question_index": 61,
+        "category": 1,
+        "f1": 0.4,
+        "prediction": "Melanie attended a concert featuring Matt Patterson.",
+        "ground_truth": "Summer Sounds, Matt Patterson"
+      },
+      {
+        "question_index": 62,
+        "category": 2,
+        "f1": 1.0,
+        "prediction": "August 27, 2023.",
+        "ground_truth": "27 August 2023"
+      },
+      {
+        "question_index": 63,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "September 2023"
+      },
+      {
+        "question_index": 64,
+        "category": 3,
+        "f1": 0.3333333333333333,
+        "prediction": "Melanie enjoys both classical music like Bach and Mozart.",
+        "ground_truth": "Yes; it's classical music"
+      },
+      {
+        "question_index": 65,
+        "category": 1,
+        "f1": 0.18181818181818182,
+        "prediction": "Caroline's relationships have changed since her transition; some friends supported her while others could not handle it. Her transition and acceptance were not easy. She found self",
+        "ground_truth": "Changes to her body, losing unsupportive friends"
+      },
+      {
+        "question_index": 66,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Melanie and her family enjoy hiking in the mountains and exploring forests together.",
+        "ground_truth": "Roast marshmallows, tell stories"
+      },
+      {
+        "question_index": 67,
+        "category": 2,
+        "f1": 0.5,
+        "prediction": "September 9, 2023",
+        "ground_truth": "The weekend before 13 September 2023"
+      },
+      {
+        "question_index": 68,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "Melanie has been into art for seven years as of September 13, 2023.",
+        "ground_truth": "Since 2016"
+      },
+      {
+        "question_index": 69,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "Melanie might say Caroline has traits of being supportive, empowering, and caring.",
+        "ground_truth": "Thoughtful, authentic, driven"
+      },
+      {
+        "question_index": 70,
+        "category": 1,
+        "f1": 0.42857142857142855,
+        "prediction": "Caroline attended a transgender conference, a transgender poetry reading, and participated in an LGBTQ conference.",
+        "ground_truth": "Poetry reading, conference"
+      },
+      {
+        "question_index": 71,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "\"Becoming Nicole\""
+      },
+      {
+        "question_index": 72,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "last year",
+        "ground_truth": "2022"
+      },
+      {
+        "question_index": 73,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "last month",
+        "ground_truth": "September 2023"
+      },
+      {
+        "question_index": 74,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "The weekend before 20 October 2023"
+      },
+      {
+        "question_index": 75,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "3"
+      },
+      {
+        "question_index": 76,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "19 October 2023"
+      },
+      {
+        "question_index": 77,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Likely no; since this one went badly"
+      },
+      {
+        "question_index": 78,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Figurines, shoes"
+      },
+      {
+        "question_index": 79,
+        "category": 2,
+        "f1": 0.5,
+        "prediction": "October 20, 2023.",
+        "ground_truth": "The Friday before 22 October 2023"
+      },
+      {
+        "question_index": 80,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "21 October 2023"
+      },
+      {
+        "question_index": 81,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "No; she's in the process of adopting children."
+      },
+      {
+        "question_index": 82,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "mental health"
+      },
+      {
+        "question_index": 83,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "self-care is important"
+      },
+      {
+        "question_index": 84,
+        "category": 4,
+        "f1": 0.6153846153846154,
+        "prediction": "Melanie is carving out some me-time each day by running, reading, or playing her violin. She is starting to realize that self-care is important.",
+        "ground_truth": "by carving out some me-time each day for activities like running, reading, or playing the violin"
+      },
+      {
+        "question_index": 85,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Caroline is organizing an LGBTQ art show scheduled for August 2023.",
+        "ground_truth": "researching adoption agencies"
+      },
+      {
+        "question_index": 86,
+        "category": 4,
+        "f1": 0.1818181818181818,
+        "prediction": "Caroline values having supportive people around and promoting LGBTQ rights.",
+        "ground_truth": "LGBTQ+ individuals"
+      },
+      {
+        "question_index": 87,
+        "category": 4,
+        "f1": 0.07999999999999999,
+        "prediction": "Caroline is determined to adopt children and believes that adoption is a way of giving back and showing love and acceptance.",
+        "ground_truth": "because of their inclusivity and support for LGBTQ+ individuals"
+      },
+      {
+        "question_index": 88,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Caroline is excited and thankful about passing the adoption agency interviews.",
+        "ground_truth": "creating a family for kids who need one"
+      },
+      {
+        "question_index": 89,
+        "category": 4,
+        "f1": 0.09999999999999999,
+        "prediction": "Melanie appreciates the theme of self-acceptance and love in Caroline's art.",
+        "ground_truth": "she thinks Caroline is doing something amazing and will be an awesome mom"
+      },
+      {
+        "question_index": 90,
+        "category": 4,
+        "f1": 0.3636363636363636,
+        "prediction": "5 years",
+        "ground_truth": "Mel and her husband have been married for 5 years."
+      },
+      {
+        "question_index": 91,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Love, faith, and strength.",
+        "ground_truth": "love, faith, and strength"
+      },
+      {
+        "question_index": 92,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Sweden",
+        "ground_truth": "Sweden"
+      },
+      {
+        "question_index": 93,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "A necklace.",
+        "ground_truth": "necklace"
+      },
+      {
+        "question_index": 94,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "art and self-expression"
+      },
+      {
+        "question_index": 95,
+        "category": 4,
+        "f1": 0.30769230769230765,
+        "prediction": "Roasted marshmallows and told stories around the campfire.",
+        "ground_truth": "explored nature, roasted marshmallows, and went on a hike"
+      },
+      {
+        "question_index": 96,
+        "category": 4,
+        "f1": 0.27586206896551724,
+        "prediction": "Caroline is looking into counseling and mental health as a career to help others on their mental health journeys.",
+        "ground_truth": "working with trans people, helping them accept themselves and supporting their mental health"
+      },
+      {
+        "question_index": 97,
+        "category": 4,
+        "f1": 0.4615384615384615,
+        "prediction": "Caroline participated in an LGBTQ+ counseling workshop on June 23, 2023.",
+        "ground_truth": "LGBTQ+ counseling workshop"
+      },
+      {
+        "question_index": 98,
+        "category": 4,
+        "f1": 0.7058823529411765,
+        "prediction": "Different therapeutic methods for working with trans people.",
+        "ground_truth": "therapeutic methods and how to best work with trans people"
+      },
+      {
+        "question_index": 99,
+        "category": 4,
+        "f1": 0.6363636363636364,
+        "prediction": "Caroline's own journey and the support she received motivated her to pursue counseling.",
+        "ground_truth": "her own journey and the support she received, and how counseling improved her life"
+      },
+      {
+        "question_index": 100,
+        "category": 4,
+        "f1": 0.26666666666666666,
+        "prediction": "A safe, loving home for kids who need it.",
+        "ground_truth": "a safe and inviting place for people to grow"
+      },
+      {
+        "question_index": 101,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Yes"
+      },
+      {
+        "question_index": 102,
+        "category": 4,
+        "f1": 0.6923076923076924,
+        "prediction": "Caroline has lots of kids' books in her library, including classics, stories from different cultures, and educational books.",
+        "ground_truth": "kids' books - classics, stories from different cultures, educational books"
+      },
+      {
+        "question_index": 103,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "'Charlotte's Web'",
+        "ground_truth": "\"Charlotte's Web\""
+      },
+      {
+        "question_index": 104,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "\"Becoming Nicole\""
+      },
+      {
+        "question_index": 105,
+        "category": 4,
+        "f1": 0.4444444444444445,
+        "prediction": "Self-acceptance and the importance of support.",
+        "ground_truth": "Lessons on self-acceptance and finding support"
+      },
+      {
+        "question_index": 106,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Running"
+      },
+      {
+        "question_index": 107,
+        "category": 4,
+        "f1": 0.3333333333333333,
+        "prediction": "Melanie has been running longer to de-stress.",
+        "ground_truth": "To de-stress and clear her mind"
+      },
+      {
+        "question_index": 108,
+        "category": 4,
+        "f1": 0.5454545454545454,
+        "prediction": "Melanie finds running great for her mental health.",
+        "ground_truth": "Her mental health"
+      },
+      {
+        "question_index": 109,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "pots"
+      },
+      {
+        "question_index": 110,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "a cup with a dog face on it"
+      },
+      {
+        "question_index": 111,
+        "category": 4,
+        "f1": 0.33333333333333337,
+        "prediction": "Painting together, especially nature-inspired ones.",
+        "ground_truth": "painting"
+      },
+      {
+        "question_index": 112,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "a sunset with a palm tree"
+      },
+      {
+        "question_index": 113,
+        "category": 4,
+        "f1": 0.09999999999999999,
+        "prediction": "Caroline felt inspired and emotional at the council meeting for adoption.",
+        "ground_truth": "many people wanting to create loving homes for children in need"
+      },
+      {
+        "question_index": 114,
+        "category": 4,
+        "f1": 0.6666666666666666,
+        "prediction": "Sunflowers mean warmth and happiness.",
+        "ground_truth": "warmth and happiness"
+      },
+      {
+        "question_index": 115,
+        "category": 4,
+        "f1": 0.09523809523809525,
+        "prediction": "Flowers bring joy to Melanie and represent growth and beauty.",
+        "ground_truth": "They remind her to appreciate the small moments and were a part of her wedding decor"
+      },
+      {
+        "question_index": 116,
+        "category": 4,
+        "f1": 0.380952380952381,
+        "prediction": "Caroline painted a piece for the LGBTQ art show inspired by a visit to an LGBTQ center.",
+        "ground_truth": "visiting an LGBTQ center and wanting to capture unity and strength"
+      },
+      {
+        "question_index": 117,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "once or twice a year",
+        "ground_truth": "once or twice a year"
+      },
+      {
+        "question_index": 118,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Perseid meteor shower"
+      },
+      {
+        "question_index": 119,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "in awe of the universe"
+      },
+      {
+        "question_index": 120,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Melanie's daughter"
+      },
+      {
+        "question_index": 121,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Matt Patterson"
+      },
+      {
+        "question_index": 122,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Melanie is obsessed with colors and patterns in her pottery.",
+        "ground_truth": "She wanted to catch the eye and make people smile."
+      },
+      {
+        "question_index": 123,
+        "category": 4,
+        "f1": 0.5,
+        "prediction": "Caroline has a guinea pig named Oscar.",
+        "ground_truth": "guinea pig"
+      },
+      {
+        "question_index": 124,
+        "category": 4,
+        "f1": 0.28571428571428575,
+        "prediction": "Melanie has a cat named Bailey and a dog named Luna and a cat named Oliver.",
+        "ground_truth": "Two cats and a dog"
+      },
+      {
+        "question_index": 125,
+        "category": 4,
+        "f1": 0.6666666666666666,
+        "prediction": "in her slipper",
+        "ground_truth": "In Melanie's slipper"
+      },
+      {
+        "question_index": 126,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Horseback riding"
+      },
+      {
+        "question_index": 127,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "a stained glass window"
+      },
+      {
+        "question_index": 128,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "a rainbow sidewalk"
+      },
+      {
+        "question_index": 129,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "\"Brave\" by Sara Bareilles.",
+        "ground_truth": "Brave by Sara Bareilles"
+      },
+      {
+        "question_index": 130,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Bach and Mozart.",
+        "ground_truth": "Bach and Mozart"
+      },
+      {
+        "question_index": 131,
+        "category": 4,
+        "f1": 0.8,
+        "prediction": "Ed Sheeran's 'Perfect'.",
+        "ground_truth": "Ed Sheeran"
+      },
+      {
+        "question_index": 132,
+        "category": 4,
+        "f1": 0.13333333333333336,
+        "prediction": "Melanie has been into art for seven years as of September 13, 2023.",
+        "ground_truth": "7 years"
+      },
+      {
+        "question_index": 133,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "A sign stating that someone is not being able to leave"
+      },
+      {
+        "question_index": 134,
+        "category": 4,
+        "f1": 0.6086956521739131,
+        "prediction": "Caroline advised Melanie to do research and find an adoption agency or lawyer.",
+        "ground_truth": "Do research, find an adoption agency or lawyer, gather necessary documents, and prepare emotionally."
+      },
+      {
+        "question_index": 135,
+        "category": 4,
+        "f1": 0.7999999999999999,
+        "prediction": "Melanie got hurt last month and had to take a break from pottery.",
+        "ground_truth": "She got hurt and had to take a break from pottery."
+      },
+      {
+        "question_index": 136,
+        "category": 4,
+        "f1": 0.4,
+        "prediction": "Melanie has been reading a book recommended by Caroline and painting to keep busy.",
+        "ground_truth": "Read a book and paint."
+      },
+      {
+        "question_index": 137,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "A painting inspired by sunsets with a pink sky."
+      },
+      {
+        "question_index": 138,
+        "category": 4,
+        "f1": 0.16666666666666666,
+        "prediction": "Caroline has been busy painting.",
+        "ground_truth": "An abstract painting with blue streaks on a wall."
+      },
+      {
+        "question_index": 139,
+        "category": 4,
+        "f1": 0.28571428571428564,
+        "prediction": "The poetry reading was a safe place for self-expression and empowering for the participants.",
+        "ground_truth": "It was a transgender poetry reading where transgender people shared their stories."
+      },
+      {
+        "question_index": 140,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "\"Trans Lives Matter\""
+      },
+      {
+        "question_index": 141,
+        "category": 4,
+        "f1": 0.3636363636363636,
+        "prediction": "Caroline's drawing symbolizes \"freedom and being real.\"",
+        "ground_truth": "Freedom and being true to herself."
+      },
+      {
+        "question_index": 142,
+        "category": 4,
+        "f1": 0.20000000000000004,
+        "prediction": "Life is about learning and exploring.",
+        "ground_truth": "An ongoing adventure of learning and growing."
+      },
+      {
+        "question_index": 143,
+        "category": 4,
+        "f1": 0.5,
+        "prediction": "Melanie's son got into an accident during a road trip.",
+        "ground_truth": "He got into an accident"
+      },
+      {
+        "question_index": 144,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Melanie's son is okay after the accident.",
+        "ground_truth": "He was scared but reassured by his family"
+      },
+      {
+        "question_index": 145,
+        "category": 4,
+        "f1": 0.1111111111111111,
+        "prediction": "Melanie appreciates her family a lot and considers them her biggest motivation and support.",
+        "ground_truth": "They are important and mean the world to her"
+      },
+      {
+        "question_index": 146,
+        "category": 4,
+        "f1": 0.3,
+        "prediction": "Melanie's kids were scared during the accident but were reassured that their brother would be okay.",
+        "ground_truth": "They were scared but resilient"
+      },
+      {
+        "question_index": 147,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Melanie feels a strong connection to art.",
+        "ground_truth": "Grateful and thankful for her family"
+      },
+      {
+        "question_index": 148,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "She was happy and thankful"
+      },
+      {
+        "question_index": 149,
+        "category": 4,
+        "f1": 0.25,
+        "prediction": "Melanie's family gives her motivation and support.",
+        "ground_truth": "Strength and motivation"
+      },
+      {
+        "question_index": 150,
+        "category": 4,
+        "f1": 0.39999999999999997,
+        "prediction": "Melanie appreciates her family a lot and considers them her biggest motivation and support.",
+        "ground_truth": "She appreciated them a lot"
+      },
+      {
+        "question_index": 151,
+        "category": 4,
+        "f1": 0.09090909090909091,
+        "prediction": "Melanie has been carving out some me-time each day by running, reading, or playing her violin.",
+        "ground_truth": "Went on a nature walk or hike"
+      }
+    ],
+    "retention_curve": [
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.20006537308971944,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.30660221941960286,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.02,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.3357913483870175,
+        "stability": 0.48999999999999994,
+        "category": "semantic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.02,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.41573927256510684,
+        "stability": 0.6600000000000001,
+        "category": "semantic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.14734548761395097,
+        "stability": 0.33,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.02311519473591132,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.13168385517553174,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.1866426132077003,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 1.0,
+        "stability": 0.31,
+        "category": "procedural"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.6,
+        "stability": 0.3,
+        "category": "core"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.02,
+        "stability": 0.38,
+        "category": "episodic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.335661965163364,
+        "stability": 0.43999999999999995,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.5382304621277771,
+        "stability": 0.7200000000000002,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.42611819818230484,
+        "stability": 0.6100000000000001,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.24347904166720594,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.02,
+        "stability": 0.33,
+        "category": "episodic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.4572676219814121,
+        "stability": 0.5700000000000001,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.1866426132077003,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.24347904166720594,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.42412564484770343,
+        "stability": 0.52,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.24347904166720594,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.22147848910984888,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.37,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.02,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.22147848910984888,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.16191852912071472,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.3198945074345247,
+        "stability": 0.41,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.30557888006798223,
+        "stability": 0.43,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.22147848910984888,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.43999999999999995,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.38999999999999996,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.37,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.16191852912071472,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.37,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.02,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.22147848910984888,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.16191852912071472,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.26977764848570185,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.6,
+        "stability": 0.28,
+        "category": "core"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.14234324940622597,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.17595365186004727,
+        "stability": 0.6800000000000002,
+        "category": "episodic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.169396431924059,
+        "stability": 0.6100000000000001,
+        "category": "episodic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.14234324940622597,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.6,
+        "stability": 0.43999999999999995,
+        "category": "core"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.13873475908975103,
+        "stability": 0.47,
+        "category": "episodic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.2054818362387039,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.4265352499447494,
+        "stability": 0.43999999999999995,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.26977764848570185,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.4767815944142604,
+        "stability": 0.47,
+        "category": "semantic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.22756435095356375,
+        "stability": 0.64,
+        "category": "episodic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.4701638290534616,
+        "stability": 0.51,
+        "category": "semantic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.45590214083473335,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.4842975536681756,
+        "stability": 0.48999999999999994,
+        "category": "semantic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.6,
+        "stability": 0.31,
+        "category": "core"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.02,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.28893296552154635,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.36275734960884515,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.3543416076203502,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.02,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.29974248578452345,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.23335691761601662,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.29974248578452345,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.16649510792055008,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.037159254481004725,
+        "stability": 0.33,
+        "category": "episodic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.5402865219075585,
+        "stability": 0.52,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.45677617438322554,
+        "stability": 0.43999999999999995,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.45677617438322554,
+        "stability": 0.43999999999999995,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.47378788223945695,
+        "stability": 0.6,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.46401366932160126,
+        "stability": 0.45999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.4081643491282967,
+        "stability": 0.43,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.34933184896140695,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.6,
+        "stability": 0.38999999999999996,
+        "category": "core"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.3200182144679936,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.2525537699365607,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.3200182144679936,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.2525537699365607,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.18352699354504198,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.6,
+        "stability": 0.28,
+        "category": "core"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.02,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 1.0,
+        "stability": 0.33,
+        "category": "procedural"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.3200182144679936,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.18352699354504198,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.3305374560305455,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.26261436839972546,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.1146313955064084,
+        "stability": 0.38999999999999996,
+        "category": "episodic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.3305374560305455,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.5348002859154798,
+        "stability": 0.47,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.26261436839972546,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.19257520648376092,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.26261436839972546,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.19257520648376092,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.08336156716126689,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.5348002859154798,
+        "stability": 0.47,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.4964019645436625,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.4515750195079285,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.44385267570092946,
+        "stability": 0.38999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.3305374560305455,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.1520312822759056,
+        "stability": 0.53,
+        "category": "episodic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.3305374560305455,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.32158851616073,
+        "stability": 0.33,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.6,
+        "stability": 0.38999999999999996,
+        "category": "core"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.3381307141556553,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.269918141923794,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.39308777310212034,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.269918141923794,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.12536311578549514,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.02,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.4404960628953399,
+        "stability": 0.41,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.3507344328855569,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.4056727612234232,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.28211648378069243,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.4140384250606937,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.057085394354367235,
+        "stability": 0.33,
+        "category": "episodic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.2727553144534782,
+        "stability": 0.3,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 1.0,
+        "stability": 0.25,
+        "category": "procedural"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.4528551189655993,
+        "stability": 0.41,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 1.0,
+        "stability": 0.38,
+        "category": "procedural"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.1344643917126342,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.4140384250606937,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.1344643917126342,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.4056727612234232,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.17731206794045357,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.6,
+        "stability": 0.31,
+        "category": "core"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.39419308471071196,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.5149386517937193,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.6646894169349675,
+        "stability": 0.5399999999999999,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.6,
+        "stability": 0.31,
+        "category": "core"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.5036181453347318,
+        "stability": 0.38,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.31762413074660373,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.39419308471071196,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.183905456605202,
+        "stability": 0.36,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.19108770571795625,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.41038914888834366,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.5726039301447939,
+        "stability": 0.41,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.053606752095212,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.4696805279762083,
+        "stability": 0.33,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.6083794090034963,
+        "stability": 0.45999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.4696805279762083,
+        "stability": 0.33,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.5299354599216776,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.41038914888834366,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.47834673756512897,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.19108770571795625,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.1399525588945109,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.1399525588945109,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.41038914888834366,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.364499129545635,
+        "stability": 0.47,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.16777267172256177,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.1157775436661306,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.07020776958004431,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.512000585619439,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.1157775436661306,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.07020776958004431,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.7227602788162268,
+        "stability": 0.59,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.6119045033816862,
+        "stability": 0.38999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.5618877459731927,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.6,
+        "stability": 0.28,
+        "category": "core"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.07020776958004431,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.512000585619439,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.07020776958004431,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.03494746080984006,
+        "stability": 0.22,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.177664956727404,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.12407231067679106,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.07645527247127118,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 1.0,
+        "stability": 0.22,
+        "category": "procedural"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.17021462007314667,
+        "stability": 0.33,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.07645527247127118,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.38130964457169075,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.07645527247127118,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.5796504413774427,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.5231192062948159,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.12407231067679106,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.5231192062948159,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.07645527247127118,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.038918931603763855,
+        "stability": 0.22,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.4572230079298693,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.38130964457169075,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.07645527247127118,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.2891372040050142,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.5796504413774427,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.2444310493808354,
+        "stability": 0.36,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.6709893327840638,
+        "stability": 0.43999999999999995,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.5896015812705074,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.13862122006683145,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.3088421651664195,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.25234748938545715,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.1947475111647867,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.6375285954985564,
+        "stability": 0.38999999999999996,
+        "category": "core"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.13862122006683145,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.541442034070105,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.47663523464305785,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.37134563019360023,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.3081928967314658,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.2993290074551144,
+        "stability": 0.33,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.2323485972017513,
+        "stability": 0.3,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.7283453755255183,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.7233535278176023,
+        "stability": 0.38999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.6431443878808253,
+        "stability": 0.31,
+        "category": "core"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.6,
+        "stability": 0.28,
+        "category": "core"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.7563551629666788,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.7283453755255183,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.37134563019360023,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.7563551629666788,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.689710550033032,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.7283453755255183,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.17352740241300416,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.1095484264144344,
+        "stability": 0.22,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8214446063901018,
+        "stability": 0.38999999999999996,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9303515733215725,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9447522327280693,
+        "stability": 0.47,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.902109991453151,
+        "stability": 0.33,
+        "category": "core"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9043612064914422,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9288954934372252,
+        "stability": 0.38999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "procedural"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "procedural"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9043612064914422,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.7648538647724762,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9188742883501152,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8856662934471574,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8856662934471574,
+        "stability": 0.28,
+        "category": "core"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9043612064914422,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.798024574111452,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9303515733215725,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.798024574111452,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9303515733215725,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9188742883501152,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9043612064914422,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8565452158845166,
+        "stability": 0.45999999999999996,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8080901366564334,
+        "stability": 0.36,
+        "category": "episodic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9657441983510414,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9885510214549192,
+        "stability": 0.42,
+        "category": "core"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.98196347592881,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9599734288326642,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9847981058974885,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9657441983510414,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9844489605056705,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9844489605056705,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9782566450629205,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9782566450629205,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9599734288326642,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.42,
+        "category": "episodic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.45599999999999996,
+        "category": "episodic"
+      }
+    ],
+    "stats": {
+      "total_memories": 280,
+      "hot_memories": 278,
+      "cold_memories": 2,
+      "stub_memories": 0,
+      "core_memories": 102,
+      "faint_memories": 174,
+      "avg_retention": 0.24528571428571425
+    }
+  },
+  "power_law": {
+    "decay_model": "power",
+    "overall_f1": 0.2953003398192934,
+    "per_question": [
+      {
+        "question_index": 0,
+        "category": 2,
+        "f1": 1.0,
+        "prediction": "May 7, 2023.",
+        "ground_truth": "7 May 2023"
+      },
+      {
+        "question_index": 1,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "2022"
+      },
+      {
+        "question_index": 2,
+        "category": 3,
+        "f1": 0.3333333333333333,
+        "prediction": "Counseling and mental health.",
+        "ground_truth": "Psychology, counseling certification"
+      },
+      {
+        "question_index": 3,
+        "category": 1,
+        "f1": 0.3076923076923077,
+        "prediction": "Caroline advised Melanie to do research and find an adoption agency or lawyer.",
+        "ground_truth": "Adoption agencies"
+      },
+      {
+        "question_index": 4,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Caroline's art expresses her trans experience.",
+        "ground_truth": "Transgender woman"
+      },
+      {
+        "question_index": 5,
+        "category": 2,
+        "f1": 0.5,
+        "prediction": "May 20, 2023.",
+        "ground_truth": "The sunday before 25 May 2023"
+      },
+      {
+        "question_index": 6,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "June 2023"
+      },
+      {
+        "question_index": 7,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Single"
+      },
+      {
+        "question_index": 8,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "The week before 9 June 2023"
+      },
+      {
+        "question_index": 9,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "Caroline's friends and family have been instrumental in her transition.",
+        "ground_truth": "The week before 9 June 2023"
+      },
+      {
+        "question_index": 10,
+        "category": 2,
+        "f1": 1.0,
+        "prediction": "4 years",
+        "ground_truth": "4 years"
+      },
+      {
+        "question_index": 11,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Sweden"
+      },
+      {
+        "question_index": 12,
+        "category": 2,
+        "f1": 0.6666666666666666,
+        "prediction": "Ten years ago.",
+        "ground_truth": "10 years ago"
+      },
+      {
+        "question_index": 13,
+        "category": 1,
+        "f1": 0.6,
+        "prediction": "Counseling and mental health.",
+        "ground_truth": "counseling or mental health for Transgender people"
+      },
+      {
+        "question_index": 14,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Likely no"
+      },
+      {
+        "question_index": 15,
+        "category": 1,
+        "f1": 0.39999999999999997,
+        "prediction": "Running, reading, playing her violin, hiking, exploring forests, painting, camping, and pottery.",
+        "ground_truth": "pottery, camping, painting, swimming"
+      },
+      {
+        "question_index": 16,
+        "category": 2,
+        "f1": 0.4615384615384615,
+        "prediction": "Melanie signed up for a pottery class on July 2, 2023.",
+        "ground_truth": "2 July 2023"
+      },
+      {
+        "question_index": 17,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "Caroline is excited to meet other people in the community at the transgender conference.",
+        "ground_truth": "July 2023"
+      },
+      {
+        "question_index": 18,
+        "category": 1,
+        "f1": 0.5714285714285715,
+        "prediction": "In the forest and at the beach.",
+        "ground_truth": "beach, mountains, forest"
+      },
+      {
+        "question_index": 19,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Melanie's kids like painting together, especially nature-inspired ones.",
+        "ground_truth": "dinosaurs, nature"
+      },
+      {
+        "question_index": 20,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "5 July 2023"
+      },
+      {
+        "question_index": 21,
+        "category": 2,
+        "f1": 0.2222222222222222,
+        "prediction": "Caroline had a picnic with her friends and family last week, on June 29, 2023.",
+        "ground_truth": "The week before 6 July 2023"
+      },
+      {
+        "question_index": 22,
+        "category": 3,
+        "f1": 0.3157894736842105,
+        "prediction": "Yes, Caroline has lots of kids' books in her library, including classics.",
+        "ground_truth": "Yes, since she collects classic children's books"
+      },
+      {
+        "question_index": 23,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "\"Nothing is Impossible\", \"Charlotte's Web\""
+      },
+      {
+        "question_index": 24,
+        "category": 1,
+        "f1": 0.4444444444444445,
+        "prediction": "Melanie uses painting, running, and pottery to de-stress.",
+        "ground_truth": "Running, pottery"
+      },
+      {
+        "question_index": 25,
+        "category": 2,
+        "f1": 1.0,
+        "prediction": "July 10, 2023.",
+        "ground_truth": "10 July 2023"
+      },
+      {
+        "question_index": 26,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "2022"
+      },
+      {
+        "question_index": 27,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "LIkely no; though she likes reading, she wants to be a counselor"
+      },
+      {
+        "question_index": 28,
+        "category": 2,
+        "f1": 0.14285714285714285,
+        "prediction": "Caroline passed the adoption agency interviews on October 20, 2023.",
+        "ground_truth": "The friday before 15 July 2023"
+      },
+      {
+        "question_index": 29,
+        "category": 2,
+        "f1": 0.25000000000000006,
+        "prediction": "Melanie took her kids to a pottery workshop on July 7, 2023.",
+        "ground_truth": "The Friday before 15 July 2023"
+      },
+      {
+        "question_index": 30,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Likely no, she does not refer to herself as part of it"
+      },
+      {
+        "question_index": 31,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "The week before 27 June 2023"
+      },
+      {
+        "question_index": 32,
+        "category": 1,
+        "f1": 0.16666666666666666,
+        "prediction": "Caroline attended an LGBTQ conference on July 10, 2023, attended an LGBTQ support group on May 7, 2023, attended a transgender",
+        "ground_truth": "Pride parade, school speech, support group"
+      },
+      {
+        "question_index": 33,
+        "category": 2,
+        "f1": 0.25000000000000006,
+        "prediction": "Caroline attended an LGBTQ+ pride parade last week on June 26, 2023.",
+        "ground_truth": "The week before 3 July 2023"
+      },
+      {
+        "question_index": 34,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Caroline volunteered at an LGBTQ+ youth center.",
+        "ground_truth": "Mentoring program, school speech"
+      },
+      {
+        "question_index": 35,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "two weekends before 17 July 2023"
+      },
+      {
+        "question_index": 36,
+        "category": 2,
+        "f1": 0.5,
+        "prediction": "July 15, 2023.",
+        "ground_truth": "The weekend before 17 July 2023"
+      },
+      {
+        "question_index": 37,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Melanie has been reading a book recommended by Caroline and painting to keep busy.",
+        "ground_truth": "sunset"
+      },
+      {
+        "question_index": 38,
+        "category": 1,
+        "f1": 0.3478260869565218,
+        "prediction": "Hiking in the mountains, exploring forests, going to the beach, painting together, camping, visiting the Grand Canyon, and attending a pottery workshop.",
+        "ground_truth": "Pottery, painting, camping, museum, swimming, hiking"
+      },
+      {
+        "question_index": 39,
+        "category": 1,
+        "f1": 0.2285714285714286,
+        "prediction": "Caroline promotes LGBTQ rights, volunteered at an LGBTQ+ youth center, joined a mentorship program for LGBTQ youth, attended LGBTQ events like pride parades and conferences,",
+        "ground_truth": "Joining activist group, going to pride parades, participating in an art show, mentoring program"
+      },
+      {
+        "question_index": 40,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "2"
+      },
+      {
+        "question_index": 41,
+        "category": 2,
+        "f1": 0.5,
+        "prediction": "July 18, 2023.",
+        "ground_truth": "The Tuesday before 20 July 2023"
+      },
+      {
+        "question_index": 42,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "Melanie enjoys hiking in the mountains and exploring forests together.",
+        "ground_truth": "National park; she likes the outdoors"
+      },
+      {
+        "question_index": 43,
+        "category": 1,
+        "f1": 0.1818181818181818,
+        "prediction": "Caroline's art expresses her trans experience and represents inclusivity and diversity.",
+        "ground_truth": "abstract art"
+      },
+      {
+        "question_index": 44,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "13 August"
+      },
+      {
+        "question_index": 45,
+        "category": 2,
+        "f1": 0.3076923076923077,
+        "prediction": "Caroline attended a pride parade on August 11, 2023.",
+        "ground_truth": "The Friday before 14 August 2023"
+      },
+      {
+        "question_index": 46,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "Melanie appreciates her family and thinks they mean the world to her.",
+        "ground_truth": "Yes, she is supportive"
+      },
+      {
+        "question_index": 47,
+        "category": 1,
+        "f1": 0.75,
+        "prediction": "Caroline's friends, family, and mentors.",
+        "ground_truth": "Her mentors, family, and friends"
+      },
+      {
+        "question_index": 48,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "bowls, cup"
+      },
+      {
+        "question_index": 49,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "Last year.",
+        "ground_truth": "2022"
+      },
+      {
+        "question_index": 50,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "Caroline promotes LGBTQ rights.",
+        "ground_truth": "Liberal"
+      },
+      {
+        "question_index": 51,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Melanie has painted landscapes and still life.",
+        "ground_truth": "Horse, sunset, sunrise"
+      },
+      {
+        "question_index": 52,
+        "category": 1,
+        "f1": 1.0,
+        "prediction": "Bailey, Luna, and Oliver.",
+        "ground_truth": "Oliver, Luna, Bailey"
+      },
+      {
+        "question_index": 53,
+        "category": 2,
+        "f1": 0.7499999999999999,
+        "prediction": "August 23, 2023.",
+        "ground_truth": "The week of 23 August 2023"
+      },
+      {
+        "question_index": 54,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "The week before 23 August 2023"
+      },
+      {
+        "question_index": 55,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Nature-inspired ones.",
+        "ground_truth": "Sunsets"
+      },
+      {
+        "question_index": 56,
+        "category": 1,
+        "f1": 0.09523809523809523,
+        "prediction": "The mix of colors in Caroline's painting symbolizes smashing rigid thinking and reminds her to love her authentic self.",
+        "ground_truth": "Rainbow flag, transgender symbol"
+      },
+      {
+        "question_index": 57,
+        "category": 2,
+        "f1": 0.11764705882352941,
+        "prediction": "Caroline went hiking last week and got into a bad spot with some people.",
+        "ground_truth": "The week before 25 August 2023"
+      },
+      {
+        "question_index": 58,
+        "category": 2,
+        "f1": 1.0,
+        "prediction": "August 24, 2023.",
+        "ground_truth": "24 August 2023"
+      },
+      {
+        "question_index": 59,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Somewhat, but not extremely religious"
+      },
+      {
+        "question_index": 60,
+        "category": 1,
+        "f1": 0.6666666666666666,
+        "prediction": "Melanie plays the clarinet and the violin.",
+        "ground_truth": "clarinet and violin"
+      },
+      {
+        "question_index": 61,
+        "category": 1,
+        "f1": 0.6666666666666666,
+        "prediction": "Matt Patterson.",
+        "ground_truth": "Summer Sounds, Matt Patterson"
+      },
+      {
+        "question_index": 62,
+        "category": 2,
+        "f1": 1.0,
+        "prediction": "August 27, 2023.",
+        "ground_truth": "27 August 2023"
+      },
+      {
+        "question_index": 63,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "next month",
+        "ground_truth": "September 2023"
+      },
+      {
+        "question_index": 64,
+        "category": 3,
+        "f1": 0.3333333333333333,
+        "prediction": "Melanie enjoys both classical music like Bach and Mozart.",
+        "ground_truth": "Yes; it's classical music"
+      },
+      {
+        "question_index": 65,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Caroline's transition and acceptance were not easy, but she found self-acceptance after a long process and feels much happier being around those who accept and love",
+        "ground_truth": "Changes to her body, losing unsupportive friends"
+      },
+      {
+        "question_index": 66,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "Melanie and her family enjoy hiking in the mountains and exploring forests together.",
+        "ground_truth": "Roast marshmallows, tell stories"
+      },
+      {
+        "question_index": 67,
+        "category": 2,
+        "f1": 0.5,
+        "prediction": "September 9, 2023",
+        "ground_truth": "The weekend before 13 September 2023"
+      },
+      {
+        "question_index": 68,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "Seven years as of September 2023.",
+        "ground_truth": "Since 2016"
+      },
+      {
+        "question_index": 69,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "Caroline feels empowered to make a positive difference in someone's life and finds joy in bringing comfort to others and helping them grow.",
+        "ground_truth": "Thoughtful, authentic, driven"
+      },
+      {
+        "question_index": 70,
+        "category": 1,
+        "f1": 0.3333333333333333,
+        "prediction": "Caroline attended a transgender poetry reading on October 6, 2023.",
+        "ground_truth": "Poetry reading, conference"
+      },
+      {
+        "question_index": 71,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "\"Becoming Nicole\""
+      },
+      {
+        "question_index": 72,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "last year",
+        "ground_truth": "2022"
+      },
+      {
+        "question_index": 73,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "Last month.",
+        "ground_truth": "September 2023"
+      },
+      {
+        "question_index": 74,
+        "category": 2,
+        "f1": 0.6,
+        "prediction": "The weekend of October 14-15, 2023.",
+        "ground_truth": "The weekend before 20 October 2023"
+      },
+      {
+        "question_index": 75,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "3"
+      },
+      {
+        "question_index": 76,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "19 October 2023"
+      },
+      {
+        "question_index": 77,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Likely no; since this one went badly"
+      },
+      {
+        "question_index": 78,
+        "category": 1,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Figurines, shoes"
+      },
+      {
+        "question_index": 79,
+        "category": 2,
+        "f1": 0.5,
+        "prediction": "October 20, 2023.",
+        "ground_truth": "The Friday before 22 October 2023"
+      },
+      {
+        "question_index": 80,
+        "category": 2,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "21 October 2023"
+      },
+      {
+        "question_index": 81,
+        "category": 3,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "No; she's in the process of adopting children."
+      },
+      {
+        "question_index": 82,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Mental health",
+        "ground_truth": "mental health"
+      },
+      {
+        "question_index": 83,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Melanie finds running great for her mental health.",
+        "ground_truth": "self-care is important"
+      },
+      {
+        "question_index": 84,
+        "category": 4,
+        "f1": 0.6341463414634146,
+        "prediction": "Melanie is carving out some me-time each day by running, reading, or playing her violin. She finds running great for her mental health, uses painting to",
+        "ground_truth": "by carving out some me-time each day for activities like running, reading, or playing the violin"
+      },
+      {
+        "question_index": 85,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Caroline is involved in putting together a talent show for the kids next month.",
+        "ground_truth": "researching adoption agencies"
+      },
+      {
+        "question_index": 86,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "LGBTQ+ individuals.",
+        "ground_truth": "LGBTQ+ individuals"
+      },
+      {
+        "question_index": 87,
+        "category": 4,
+        "f1": 0.2,
+        "prediction": "Caroline is looking into an adoption agency that helps LGBTQ+ individuals with adoption.",
+        "ground_truth": "because of their inclusivity and support for LGBTQ+ individuals"
+      },
+      {
+        "question_index": 88,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Caroline is excited and thankful about passing the adoption agency interviews.",
+        "ground_truth": "creating a family for kids who need one"
+      },
+      {
+        "question_index": 89,
+        "category": 4,
+        "f1": 0.1111111111111111,
+        "prediction": "Melanie appreciates having Caroline in her corner.",
+        "ground_truth": "she thinks Caroline is doing something amazing and will be an awesome mom"
+      },
+      {
+        "question_index": 90,
+        "category": 4,
+        "f1": 0.3636363636363636,
+        "prediction": "5 years",
+        "ground_truth": "Mel and her husband have been married for 5 years."
+      },
+      {
+        "question_index": 91,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Love, faith, and strength.",
+        "ground_truth": "love, faith, and strength"
+      },
+      {
+        "question_index": 92,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Sweden",
+        "ground_truth": "Sweden"
+      },
+      {
+        "question_index": 93,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "A necklace.",
+        "ground_truth": "necklace"
+      },
+      {
+        "question_index": 94,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Caroline has a hand-painted bowl that a friend made for her 18th birthday ten years ago.",
+        "ground_truth": "art and self-expression"
+      },
+      {
+        "question_index": 95,
+        "category": 4,
+        "f1": 0.30769230769230765,
+        "prediction": "Roasted marshmallows and shared stories around the campfire.",
+        "ground_truth": "explored nature, roasted marshmallows, and went on a hike"
+      },
+      {
+        "question_index": 96,
+        "category": 4,
+        "f1": 0.1904761904761905,
+        "prediction": "Caroline is looking into counseling and mental health as a career.",
+        "ground_truth": "working with trans people, helping them accept themselves and supporting their mental health"
+      },
+      {
+        "question_index": 97,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "LGBTQ+ counseling workshop"
+      },
+      {
+        "question_index": 98,
+        "category": 4,
+        "f1": 0.7058823529411765,
+        "prediction": "Different therapeutic methods for working with trans people.",
+        "ground_truth": "therapeutic methods and how to best work with trans people"
+      },
+      {
+        "question_index": 99,
+        "category": 4,
+        "f1": 0.16666666666666669,
+        "prediction": "Caroline wants to use her story to help others through counseling and mental health.",
+        "ground_truth": "her own journey and the support she received, and how counseling improved her life"
+      },
+      {
+        "question_index": 100,
+        "category": 4,
+        "f1": 0.7777777777777778,
+        "prediction": "Caroline wants to create a safe, inviting place for people to grow.",
+        "ground_truth": "a safe and inviting place for people to grow"
+      },
+      {
+        "question_index": 101,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Yes"
+      },
+      {
+        "question_index": 102,
+        "category": 4,
+        "f1": 0.6923076923076924,
+        "prediction": "Caroline has lots of kids' books in her library, including classics, stories from different cultures, and educational books.",
+        "ground_truth": "kids' books - classics, stories from different cultures, educational books"
+      },
+      {
+        "question_index": 103,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "'Charlotte's Web'",
+        "ground_truth": "\"Charlotte's Web\""
+      },
+      {
+        "question_index": 104,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "\"Becoming Nicole\""
+      },
+      {
+        "question_index": 105,
+        "category": 4,
+        "f1": 0.2857142857142857,
+        "prediction": "Caroline learned self-acceptance and the importance of support from 'Becoming Nicole'.",
+        "ground_truth": "Lessons on self-acceptance and finding support"
+      },
+      {
+        "question_index": 106,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Running"
+      },
+      {
+        "question_index": 107,
+        "category": 4,
+        "f1": 0.15384615384615385,
+        "prediction": "Melanie finds running great for her mental health.",
+        "ground_truth": "To de-stress and clear her mind"
+      },
+      {
+        "question_index": 108,
+        "category": 4,
+        "f1": 0.5454545454545454,
+        "prediction": "Melanie finds running great for her mental health.",
+        "ground_truth": "Her mental health"
+      },
+      {
+        "question_index": 109,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "pots"
+      },
+      {
+        "question_index": 110,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "a cup with a dog face on it"
+      },
+      {
+        "question_index": 111,
+        "category": 4,
+        "f1": 0.33333333333333337,
+        "prediction": "Painting together, especially nature-inspired ones.",
+        "ground_truth": "painting"
+      },
+      {
+        "question_index": 112,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "a sunset with a palm tree"
+      },
+      {
+        "question_index": 113,
+        "category": 4,
+        "f1": 0.09999999999999999,
+        "prediction": "Caroline felt inspired and emotional at the council meeting for adoption.",
+        "ground_truth": "many people wanting to create loving homes for children in need"
+      },
+      {
+        "question_index": 114,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Warmth and happiness.",
+        "ground_truth": "warmth and happiness"
+      },
+      {
+        "question_index": 115,
+        "category": 4,
+        "f1": 0.09523809523809525,
+        "prediction": "Flowers bring joy to Melanie and represent growth and beauty.",
+        "ground_truth": "They remind her to appreciate the small moments and were a part of her wedding decor"
+      },
+      {
+        "question_index": 116,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Caroline felt inspired by the energy and love at the pride parade.",
+        "ground_truth": "visiting an LGBTQ center and wanting to capture unity and strength"
+      },
+      {
+        "question_index": 117,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "once or twice a year",
+        "ground_truth": "once or twice a year"
+      },
+      {
+        "question_index": 118,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Perseid meteor shower"
+      },
+      {
+        "question_index": 119,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Melanie made wishes while watching the sky.",
+        "ground_truth": "in awe of the universe"
+      },
+      {
+        "question_index": 120,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "Melanie's daughter"
+      },
+      {
+        "question_index": 121,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Matt Patterson",
+        "ground_truth": "Matt Patterson"
+      },
+      {
+        "question_index": 122,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Melanie is obsessed with colors and patterns in her pottery.",
+        "ground_truth": "She wanted to catch the eye and make people smile."
+      },
+      {
+        "question_index": 123,
+        "category": 4,
+        "f1": 0.5,
+        "prediction": "Caroline has a guinea pig named Oscar.",
+        "ground_truth": "guinea pig"
+      },
+      {
+        "question_index": 124,
+        "category": 4,
+        "f1": 0.28571428571428575,
+        "prediction": "Melanie has a cat named Bailey and a dog named Luna and a cat named Oliver.",
+        "ground_truth": "Two cats and a dog"
+      },
+      {
+        "question_index": 125,
+        "category": 4,
+        "f1": 0.6666666666666666,
+        "prediction": "in her slipper",
+        "ground_truth": "In Melanie's slipper"
+      },
+      {
+        "question_index": 126,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Horseback riding.",
+        "ground_truth": "Horseback riding"
+      },
+      {
+        "question_index": 127,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "a stained glass window"
+      },
+      {
+        "question_index": 128,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "a rainbow sidewalk"
+      },
+      {
+        "question_index": 129,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "'Brave' by Sara Bareilles.",
+        "ground_truth": "Brave by Sara Bareilles"
+      },
+      {
+        "question_index": 130,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "Bach and Mozart",
+        "ground_truth": "Bach and Mozart"
+      },
+      {
+        "question_index": 131,
+        "category": 4,
+        "f1": 0.8,
+        "prediction": "Ed Sheeran's 'Perfect'.",
+        "ground_truth": "Ed Sheeran"
+      },
+      {
+        "question_index": 132,
+        "category": 4,
+        "f1": 0.14285714285714285,
+        "prediction": "Melanie has been into art for seven years as of September 2023.",
+        "ground_truth": "7 years"
+      },
+      {
+        "question_index": 133,
+        "category": 4,
+        "f1": 0.14285714285714288,
+        "prediction": "The sign was just a precaution.",
+        "ground_truth": "A sign stating that someone is not being able to leave"
+      },
+      {
+        "question_index": 134,
+        "category": 4,
+        "f1": 0.7368421052631579,
+        "prediction": "\"Do research and find an adoption agency or lawyer.\"",
+        "ground_truth": "Do research, find an adoption agency or lawyer, gather necessary documents, and prepare emotionally."
+      },
+      {
+        "question_index": 135,
+        "category": 4,
+        "f1": 0.7999999999999999,
+        "prediction": "Melanie got hurt last month and had to take a break from pottery.",
+        "ground_truth": "She got hurt and had to take a break from pottery."
+      },
+      {
+        "question_index": 136,
+        "category": 4,
+        "f1": 0.4,
+        "prediction": "Melanie has been reading a book recommended by Caroline and painting to keep busy.",
+        "ground_truth": "Read a book and paint."
+      },
+      {
+        "question_index": 137,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "A painting inspired by sunsets with a pink sky."
+      },
+      {
+        "question_index": 138,
+        "category": 4,
+        "f1": 0.13333333333333333,
+        "prediction": "Caroline's painting captures the sunset she saw at the beach.",
+        "ground_truth": "An abstract painting with blue streaks on a wall."
+      },
+      {
+        "question_index": 139,
+        "category": 4,
+        "f1": 0.28571428571428564,
+        "prediction": "The poetry reading was a safe place for self-expression and empowering for the participants.",
+        "ground_truth": "It was a transgender poetry reading where transgender people shared their stories."
+      },
+      {
+        "question_index": 140,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "\"Trans Lives Matter\""
+      },
+      {
+        "question_index": 141,
+        "category": 4,
+        "f1": 0.3636363636363636,
+        "prediction": "Caroline's drawing symbolizes freedom and being real.",
+        "ground_truth": "Freedom and being true to herself."
+      },
+      {
+        "question_index": 142,
+        "category": 4,
+        "f1": 1.0,
+        "prediction": "An ongoing adventure of learning and growing.",
+        "ground_truth": "An ongoing adventure of learning and growing."
+      },
+      {
+        "question_index": 143,
+        "category": 4,
+        "f1": 0.5,
+        "prediction": "Melanie's son got into an accident during a road trip.",
+        "ground_truth": "He got into an accident"
+      },
+      {
+        "question_index": 144,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Melanie's son is okay after the accident.",
+        "ground_truth": "He was scared but reassured by his family"
+      },
+      {
+        "question_index": 145,
+        "category": 4,
+        "f1": 0.588235294117647,
+        "prediction": "Melanie appreciates her family and thinks they mean the world to her.",
+        "ground_truth": "They are important and mean the world to her"
+      },
+      {
+        "question_index": 146,
+        "category": 4,
+        "f1": 0.3,
+        "prediction": "Melanie's kids were scared during the accident but were reassured that their brother would be okay.",
+        "ground_truth": "They were scared but resilient"
+      },
+      {
+        "question_index": 147,
+        "category": 4,
+        "f1": 0.2222222222222222,
+        "prediction": "Melanie's family helped her out and showed lots of love and support during tough times.",
+        "ground_truth": "Grateful and thankful for her family"
+      },
+      {
+        "question_index": 148,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "unknown",
+        "ground_truth": "She was happy and thankful"
+      },
+      {
+        "question_index": 149,
+        "category": 4,
+        "f1": 0.0,
+        "prediction": "Lots of love and support.",
+        "ground_truth": "Strength and motivation"
+      },
+      {
+        "question_index": 150,
+        "category": 4,
+        "f1": 0.14285714285714288,
+        "prediction": "Melanie appreciates her family and thinks they mean the world to her.",
+        "ground_truth": "She appreciated them a lot"
+      },
+      {
+        "question_index": 151,
+        "category": 4,
+        "f1": 0.2,
+        "prediction": "Melanie relaxed in nature.",
+        "ground_truth": "Went on a nature walk or hike"
+      }
+    ],
+    "retention_curve": [
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.15502332287459875,
+        "stability": 0.5399999999999999,
+        "category": "episodic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.21862994133980349,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.32439612736978346,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.0928452177090466,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.3704884773285515,
+        "stability": 0.5399999999999999,
+        "category": "semantic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.060134530633172624,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.3816655502802762,
+        "stability": 0.6100000000000001,
+        "category": "semantic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.24339737775015813,
+        "stability": 0.38,
+        "category": "semantic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.04628502549083483,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 166.83263888888888,
+        "retention": 0.05820465264738528,
+        "stability": 0.3,
+        "category": "episodic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.1050656803041158,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.2022882588270454,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.24136081425046732,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 1.0,
+        "stability": 0.31,
+        "category": "procedural"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.6,
+        "stability": 0.33,
+        "category": "core"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.06643039768404321,
+        "stability": 0.3,
+        "category": "episodic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.1397962097348146,
+        "stability": 0.43999999999999995,
+        "category": "episodic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.49881362691613673,
+        "stability": 0.7200000000000002,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.3066159990000454,
+        "stability": 0.41,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.2806442281653948,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.08356604156633791,
+        "stability": 0.33,
+        "category": "episodic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.4343546212451355,
+        "stability": 0.5700000000000001,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.24136081425046732,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.2022882588270454,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.3731810399981318,
+        "stability": 0.48999999999999994,
+        "category": "semantic"
+      },
+      {
+        "age_days": 149.86180555555555,
+        "retention": 0.24136081425046732,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.15665392732102867,
+        "stability": 0.43999999999999995,
+        "category": "episodic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.26548050344330515,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.37,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.07810491972312336,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.26548050344330515,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.4021293819905408,
+        "stability": 0.48999999999999994,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.3637054972559832,
+        "stability": 0.45999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.22401574739104813,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.38999999999999996,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.42,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.37,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.26548050344330515,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.37,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.07810491972312336,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.26548050344330515,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 134.58333333333334,
+        "retention": 0.22401574739104813,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.2987957144154779,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.6,
+        "stability": 0.28,
+        "category": "core"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.21003469100915714,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.1667254877691084,
+        "stability": 0.48,
+        "category": "episodic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.17445342909087527,
+        "stability": 0.45999999999999996,
+        "category": "episodic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.21003469100915714,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.44053504609671296,
+        "stability": 0.48999999999999994,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.4185497874715285,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.15496036594103063,
+        "stability": 0.41,
+        "category": "episodic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.2544334759166129,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.3422466704729468,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.3363404734945242,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 116.97083333333333,
+        "retention": 0.38415160939145737,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.26967653452936075,
+        "stability": 0.64,
+        "category": "episodic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.4937523604846257,
+        "stability": 0.6100000000000001,
+        "category": "semantic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.4333053938970636,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.6,
+        "stability": 0.28,
+        "category": "core"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.1573077380544206,
+        "stability": 0.43,
+        "category": "episodic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.45536967509215737,
+        "stability": 0.48999999999999994,
+        "category": "semantic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.12148404884175469,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.09517483597041684,
+        "stability": 0.3,
+        "category": "episodic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.2116927142242921,
+        "stability": 0.48999999999999994,
+        "category": "episodic"
+      },
+      {
+        "age_days": 110.84652777777778,
+        "retention": 0.3120763258424126,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.36418900958972517,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.35815149001631463,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.14250890183905487,
+        "stability": 0.38,
+        "category": "episodic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.07955785593839036,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.3196040603018465,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.27366874221956944,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.3196040603018465,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.2272483391053306,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.1222313621900231,
+        "stability": 0.33,
+        "category": "episodic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.46366416177226843,
+        "stability": 0.48999999999999994,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.42420118387434136,
+        "stability": 0.45999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.4009910344634723,
+        "stability": 0.38999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 107.56736111111111,
+        "retention": 0.4120387273138325,
+        "stability": 0.48,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.25055222249462844,
+        "stability": 0.5399999999999999,
+        "category": "episodic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.37294388525977396,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.2869008105475995,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.3790559805529888,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.6,
+        "stability": 0.37,
+        "category": "core"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.16029651146923063,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.3338061801870276,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.3338061801870276,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.3790559805529888,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.3338061801870276,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.6,
+        "stability": 0.37,
+        "category": "core"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.0850130097543227,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 1.0,
+        "stability": 0.28,
+        "category": "procedural"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.3338061801870276,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 101.72361111111111,
+        "retention": 0.2869008105475995,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.21311550078030453,
+        "stability": 0.43999999999999995,
+        "category": "episodic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.34122330020202785,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.29384457919297596,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.0879470431663293,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.18962966107947765,
+        "stability": 0.38999999999999996,
+        "category": "episodic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.34122330020202785,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.49598622229322914,
+        "stability": 0.47,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.29384457919297596,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.24548747142100832,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.29384457919297596,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.24548747142100832,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.3867858871205571,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.429988073168656,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.23557541100748153,
+        "stability": 0.48999999999999994,
+        "category": "episodic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.5486303360127973,
+        "stability": 0.5700000000000001,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.5237220118871738,
+        "stability": 0.52,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.4649382294808843,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.42409620340580123,
+        "stability": 0.38999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.34122330020202785,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.21698852332508967,
+        "stability": 0.53,
+        "category": "episodic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.38063956220117323,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.4573173463472815,
+        "stability": 0.43999999999999995,
+        "category": "semantic"
+      },
+      {
+        "age_days": 98.83611111111111,
+        "retention": 0.4649382294808843,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.6,
+        "stability": 0.38999999999999996,
+        "category": "core"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.3466005484007704,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.24717555597316518,
+        "stability": 0.47,
+        "category": "episodic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.2988928918517308,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.21733259883509404,
+        "stability": 0.43999999999999995,
+        "category": "episodic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.38620616965510407,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.3402510388924002,
+        "stability": 0.33,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.09011161766906997,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.2988928918517308,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.3466005484007704,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.2988928918517308,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 96.80833333333334,
+        "retention": 0.2500804558377853,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.3555724688438274,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.3954707151526532,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.3073425671477485,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.23023923481544337,
+        "stability": 0.42,
+        "category": "episodic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.439231162637955,
+        "stability": 0.38999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.14230172102451566,
+        "stability": 0.33,
+        "category": "episodic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.30085596433933365,
+        "stability": 0.3,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 1.0,
+        "stability": 0.25,
+        "category": "procedural"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 1.0,
+        "stability": 0.41,
+        "category": "procedural"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.3073425671477485,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.20431972420516817,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.4016742857597637,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.20431972420516817,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 93.54097222222222,
+        "retention": 0.3555724688438274,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.23484642458228763,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.6,
+        "stability": 0.31,
+        "category": "core"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.23484642458228763,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.3870166775788545,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.47979116438957675,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.5849864218702344,
+        "stability": 0.48999999999999994,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.6,
+        "stability": 0.31,
+        "category": "core"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.3870166775788545,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.5155857293139035,
+        "stability": 0.41,
+        "category": "semantic"
+      },
+      {
+        "age_days": 68.81319444444445,
+        "retention": 0.3870166775788545,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.23945308174417224,
+        "stability": 0.36,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.2444537686921761,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.44394649490861476,
+        "stability": 0.33,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.5587604890801426,
+        "stability": 0.45999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.16834436619911416,
+        "stability": 0.3,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.13902570383341234,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.44394649490861476,
+        "stability": 0.33,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.5587604890801426,
+        "stability": 0.45999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.44394649490861476,
+        "stability": 0.33,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.45070204792118623,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.39896362386079465,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.45070204792118623,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.2444537686921761,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.2083067088440687,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.2083067088440687,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 65.83680555555556,
+        "retention": 0.39896362386079465,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.36544226185361756,
+        "stability": 0.47,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.2281486918604157,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.6,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.6,
+        "stability": 0.28,
+        "category": "core"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.15406365520978166,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.15406365520978166,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.15406365520978166,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.19049266232422588,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.47742045471940453,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.15406365520978166,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.19049266232422588,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.19049266232422588,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.5538444880460203,
+        "stability": 0.41,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.5185677528325435,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.5185677528325435,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.5248201999319982,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.15406365520978166,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 59.766666666666666,
+        "retention": 0.19049266232422588,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.23509341288439542,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.19668338886637882,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.15939746808156852,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.6,
+        "stability": 0.3,
+        "category": "core"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.2298673104634916,
+        "stability": 0.33,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.48642557476442344,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.4343203217595248,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.15939746808156852,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.5337022640184675,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.48642557476442344,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.15939746808156852,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.5337022640184675,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.19668338886637882,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.15939746808156852,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.4343203217595248,
+        "stability": 0.28,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.37760609710537346,
+        "stability": 0.25,
+        "category": "semantic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.15939746808156852,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.34449771748524965,
+        "stability": 0.42,
+        "category": "episodic"
+      },
+      {
+        "age_days": 57.84861111111111,
+        "retention": 0.5337022640184675,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.2813003950521511,
+        "stability": 0.36,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.6160668917142782,
+        "stability": 0.43999999999999995,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.5422990568104562,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.20734217492338888,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.3259636341909113,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.2867585328312555,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.6,
+        "stability": 0.38999999999999996,
+        "category": "core"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.24699596116328812,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.5484768724552375,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.5905691996262443,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.5014691564490679,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.6,
+        "stability": 0.38999999999999996,
+        "category": "core"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.20734217492338888,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 54.775,
+        "retention": 0.5014691564490679,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.3703811269673883,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.27916030219981347,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.3255091356045583,
+        "stability": 0.31,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.30011004410770104,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.6721762329736364,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.6671443055621141,
+        "stability": 0.38999999999999996,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.6339795491890031,
+        "stability": 0.33999999999999997,
+        "category": "core"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.6,
+        "stability": 0.31,
+        "category": "core"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.7009680735997721,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.6721762329736364,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.27916030219981347,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.3703811269673883,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.6721762329736364,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.6339795491890031,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.27916030219981347,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.23219418075976558,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 39.40694444444444,
+        "retention": 0.23219418075976558,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.7717834320839573,
+        "stability": 0.38999999999999996,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9043266895384717,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9233498200996362,
+        "stability": 0.47,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.868091722293665,
+        "stability": 0.33,
+        "category": "core"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8709294772641194,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "procedural"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "procedural"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8709294772641194,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.6672052023318781,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8894327286500774,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.6161387845886979,
+        "stability": 0.25,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8871207836912105,
+        "stability": 0.36,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8709294772641194,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.7456433227709908,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9043266895384717,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.7456433227709908,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.9043266895384717,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 8.975,
+        "retention": 0.8894327286500774,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9517712106677637,
+        "stability": 0.37,
+        "category": "episodic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9573042257202025,
+        "stability": 0.42,
+        "category": "episodic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.974312962044941,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9210990216423743,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9783061504720828,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9831661677577596,
+        "stability": 0.43999999999999995,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.974312962044941,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9783061504720828,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 1.625,
+        "retention": 0.9210990216423743,
+        "stability": 0.28,
+        "category": "episodic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.42,
+        "category": "episodic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "episodic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.42,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.37,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.28,
+        "category": "core"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.31,
+        "category": "core"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.31,
+        "category": "semantic"
+      },
+      {
+        "age_days": 0.0,
+        "retention": 1.0,
+        "stability": 0.33999999999999997,
+        "category": "semantic"
+      }
+    ],
+    "stats": {
+      "total_memories": 283,
+      "hot_memories": 283,
+      "cold_memories": 0,
+      "stub_memories": 0,
+      "core_memories": 109,
+      "faint_memories": 170,
+      "avg_retention": 0.2634608867413119
+    }
+  },
+  "comparison": {
+    "exp_f1": 0.24964958607303112,
+    "pow_f1": 0.2953003398192934,
+    "delta": 0.04565075374626226
+  },
+  "meta": {
+    "conv_index": 0,
+    "model": "gpt-4o-mini",
+    "timestamp": "2026-05-05T22:13:21.352308"
+  }
+}

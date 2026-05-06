@@ -1,0 +1,197 @@
+{
+  "global": {
+    "total_questions": 1986,
+    "candidate_count": {
+      "mean": 540,
+      "min": 540,
+      "max": 540
+    },
+    "num_retrieved": {
+      "mean": 60,
+      "min": 60,
+      "max": 60
+    },
+    "vector_search_ms": {
+      "mean": 53.87,
+      "p50": 54.53,
+      "p95": 67.14
+    },
+    "scoring_ms": {
+      "mean": 0.61,
+      "p50": 0.58,
+      "p95": 0.71
+    }
+  },
+  "per_conversation": [
+    {
+      "conv": 0,
+      "n_questions": 199,
+      "total_memories_retrieved": 11940,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 41.44,
+        "p50": 42.35,
+        "p95": 49.34
+      },
+      "scoring_ms": {
+        "mean": 0.61,
+        "p50": 0.62,
+        "p95": 0.73
+      }
+    },
+    {
+      "conv": 1,
+      "n_questions": 105,
+      "total_memories_retrieved": 6300,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 38.16,
+        "p50": 39.22,
+        "p95": 46.23
+      },
+      "scoring_ms": {
+        "mean": 0.93,
+        "p50": 0.62,
+        "p95": 0.75
+      }
+    },
+    {
+      "conv": 2,
+      "n_questions": 193,
+      "total_memories_retrieved": 11580,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 59.15,
+        "p50": 60.43,
+        "p95": 68.34
+      },
+      "scoring_ms": {
+        "mean": 0.61,
+        "p50": 0.57,
+        "p95": 0.69
+      }
+    },
+    {
+      "conv": 3,
+      "n_questions": 260,
+      "total_memories_retrieved": 15600,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 55.38,
+        "p50": 54.72,
+        "p95": 66.06
+      },
+      "scoring_ms": {
+        "mean": 0.58,
+        "p50": 0.57,
+        "p95": 0.69
+      }
+    },
+    {
+      "conv": 4,
+      "n_questions": 242,
+      "total_memories_retrieved": 14520,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 56.24,
+        "p50": 56.91,
+        "p95": 66.24
+      },
+      "scoring_ms": {
+        "mean": 0.57,
+        "p50": 0.57,
+        "p95": 0.69
+      }
+    },
+    {
+      "conv": 5,
+      "n_questions": 158,
+      "total_memories_retrieved": 9480,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 58.16,
+        "p50": 59.66,
+        "p95": 65.48
+      },
+      "scoring_ms": {
+        "mean": 0.58,
+        "p50": 0.58,
+        "p95": 0.68
+      }
+    },
+    {
+      "conv": 6,
+      "n_questions": 190,
+      "total_memories_retrieved": 11400,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 58.95,
+        "p50": 60.67,
+        "p95": 67.52
+      },
+      "scoring_ms": {
+        "mean": 0.58,
+        "p50": 0.58,
+        "p95": 0.69
+      }
+    },
+    {
+      "conv": 7,
+      "n_questions": 239,
+      "total_memories_retrieved": 14340,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 59.67,
+        "p50": 60.07,
+        "p95": 68.91
+      },
+      "scoring_ms": {
+        "mean": 0.57,
+        "p50": 0.56,
+        "p95": 0.67
+      }
+    },
+    {
+      "conv": 8,
+      "n_questions": 196,
+      "total_memories_retrieved": 11760,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 49.29,
+        "p50": 50.5,
+        "p95": 58.2
+      },
+      "scoring_ms": {
+        "mean": 0.63,
+        "p50": 0.6,
+        "p95": 0.73
+      }
+    },
+    {
+      "conv": 9,
+      "n_questions": 204,
+      "total_memories_retrieved": 12240,
+      "mean_candidates": 540,
+      "mean_num_retrieved": 60,
+      "vector_search_ms": {
+        "mean": 53.87,
+        "p50": 55.07,
+        "p95": 63.41
+      },
+      "scoring_ms": {
+        "mean": 0.57,
+        "p50": 0.57,
+        "p95": 0.71
+      }
+    }
+  ]
+}

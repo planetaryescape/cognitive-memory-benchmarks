@@ -1,0 +1,113 @@
+{
+  "ablations": {
+    "H": {
+      "name": "hybrid_search",
+      "conditions": {
+        "off": {
+          "overall_f1": 0.422691635001701,
+          "by_category": {
+            "single-hop": 0.3971895292207792,
+            "multi-hop": 0.5222904722904723,
+            "temporal": 0.3100010221050945,
+            "open-domain": 0.4026328974725702
+          },
+          "elapsed_seconds": 811.8538796901703
+        },
+        "on": {
+          "overall_f1": 0.4391968768358902,
+          "by_category": {
+            "single-hop": 0.3180898962148962,
+            "multi-hop": 0.5952634452634452,
+            "temporal": 0.35337260778437246,
+            "open-domain": 0.42800653177477593
+          },
+          "elapsed_seconds": 850.4869999885559
+        },
+        "delta": 0.01650524183418922
+      }
+    },
+    "I": {
+      "name": "graph_expansion_hops",
+      "conditions": {
+        "0": {
+          "overall_f1": 0.43141154963299333,
+          "by_category": {
+            "single-hop": 0.3771329365079365,
+            "multi-hop": 0.5381258293022999,
+            "temporal": 0.3497595541713189,
+            "open-domain": 0.41498245267926825
+          },
+          "elapsed_seconds": 788.4607598781586
+        },
+        "1": {
+          "overall_f1": 0.43182935400784106,
+          "by_category": {
+            "single-hop": 0.3942054473304473,
+            "multi-hop": 0.5753617253617254,
+            "temporal": 0.339565901669974,
+            "open-domain": 0.39029638477891465
+          },
+          "elapsed_seconds": 820.3839049339294
+        },
+        "delta": 0.00041780437484773003
+      }
+    },
+    "J": {
+      "name": "rerank",
+      "conditions": {
+        "off": {
+          "overall_f1": 0.43801214666916555,
+          "by_category": {
+            "single-hop": 0.4021531100478469,
+            "multi-hop": 0.5555419055419055,
+            "temporal": 0.3402114100077901,
+            "open-domain": 0.41044497052900414
+          },
+          "elapsed_seconds": 902.6918849945068
+        },
+        "on": {
+          "overall_f1": 0.45656355541784094,
+          "by_category": {
+            "single-hop": 0.4095670465155759,
+            "multi-hop": 0.5523347523347523,
+            "temporal": 0.3279497400538125,
+            "open-domain": 0.4513111782561141
+          },
+          "elapsed_seconds": 3606.69517493248
+        },
+        "delta": 0.01855140874867539
+      }
+    },
+    "K": {
+      "name": "decay_model",
+      "conditions": {
+        "exponential": {
+          "overall_f1": 0.4288508685699903,
+          "by_category": {
+            "single-hop": 0.38574492296918766,
+            "multi-hop": 0.6138138138138138,
+            "temporal": 0.32581298791706026,
+            "open-domain": 0.3699259219084518
+          },
+          "elapsed_seconds": 744.0053098201752
+        },
+        "power": {
+          "overall_f1": 0.4610674372610172,
+          "by_category": {
+            "single-hop": 0.3729540679908327,
+            "multi-hop": 0.6159522159522159,
+            "temporal": 0.3184165382129183,
+            "open-domain": 0.4459724757281148
+          },
+          "elapsed_seconds": 802.1576237678528
+        },
+        "delta": 0.0322165686910269
+      }
+    }
+  },
+  "meta": {
+    "conv_index": 0,
+    "model": "gpt-4o-mini",
+    "timestamp": "2026-05-06T00:50:20.031337"
+  }
+}
