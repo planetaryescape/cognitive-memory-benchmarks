@@ -1,0 +1,7 @@
+{
+  "_comment": "Phase 0g additional smoke. Halves semantic β_c from paper Table 2 default 120d to 60d. Tests the whole Phase 0a chain: SDK config field → adapter config_overrides → engine.compute_retention. Expected effect: faster decay on semantic memories, lowering recall on questions answerable via aged semantic facts.",
+  "surface": "sdk",
+  "base_decay_rates": {
+    "semantic": 60.0
+  }
+}

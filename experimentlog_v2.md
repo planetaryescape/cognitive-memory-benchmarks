@@ -275,10 +275,20 @@ either surface.
 | `lti-0001` | none | 1 | 0.857 | — | 0.689 | — | 5m | validation |
 | `lti-0002` | none | 3 | 0.881 | 0.024 | 0.665 | 0.015 | 13m | baseline |
 | `lti-0003` | `retrieval_score_exponent=0.5` | 1 | 0.857 | — | 0.687 | — | 4m | single override |
-| `lti-0004` | `retrieval_score_exponent=0.5` | 3 | 0.881 | 0.014 | **0.688** | **0.002** | 12m | override stddev |
+| `lti-0004` | `retrieval_score_exponent=0.5` | 3 | 0.881 | 0.014 | 0.688 | **0.002** | 12m | α override stddev |
+| `lti-0005` | `base_decay_rates.semantic=60` | 3 | 0.881 | 0.014 | 0.686 | 0.017 | 12m | β override (Phase 0a-sdk headline) |
 
-Total: 35 min wall, ~$0.70 spend. Models: answer `gpt-4o-mini`,
+Total: 46 min wall, ~$1.00 spend. Models: answer `gpt-4o-mini`,
 judge `gpt-4o-2024-08-06`.
+
+**Revised reading after lti-0005:** the +2pp f1 "shift" we saw under
+α=0.5 (lti-0004) didn't replicate as bigger under β_semantic=60
+(lti-0005) despite β being a much larger perturbation. Both
+override conditions land at f1 median ≈ 0.687, suggesting the
+"effect" was regression-to-mean from a noisy baseline draw rather
+than a real parameter effect. Wiring is verified by unit tests
+(28/28 benchmark + 5 SDK + 8 daemon); the bench just lacks the
+power to surface real effects at n=3 and 42 questions.
 
 ### What I learned
 
@@ -308,13 +318,27 @@ judge `gpt-4o-2024-08-06`.
   ~1.5σ above baseline noise. Directionally meaningful; not yet
   2σ confident. accuracy medians identical — α doesn't move
   accuracy on this bench.
+- **Replication failure pattern.** `lti-0005` (β_semantic=60, a
+  much larger perturbation than α=0.3→0.5) produced f1 median
+  0.686 — almost identical to lti-0004. Both override conditions
+  cluster at ~0.687; only the baseline at 0.665 looks anomalous.
+  Updated reading: the +2pp shift was almost certainly regression
+  to the mean from a noisy baseline draw, not a real α effect.
+  The override pipeline IS reaching engine.compute_retention
+  (proven by unit tests); LTI-Bench at n=42 just isn't powered to
+  detect the underlying effect against LLM-judge noise.
 
 ### Next
 
-- Phase 1 must use n≥5 sub-runs per parameter point on LTI-Bench
-  (~$0.50/point, ~25 min/point) OR switch sensitivity studies to
-  LongMemEval-S (500-question sample, expected ~0.3pp stddev).
-  Recommend the latter; reserve LTI-Bench for confirmation runs.
+- **Don't use LTI-Bench for sensitivity sweeps.** 42 questions is too
+  small for the LLM-judge noise floor to settle. Use it as a
+  confirmation step only at promising parameter points found
+  elsewhere.
+- **Move Phase 1 sensitivity work to LongMemEval-S** (500-question
+  sample, expected ~0.3pp stddev — restores the <1pp gate). Costs
+  more per run but gives meaningful effect detection at n=3.
+- Always measure both arms (≥3 sub-runs each) — single-shot deltas
+  against a noisy baseline median produce phantom effects.
 - Daemon-surface 0g (4 additional runs) skipped this session: the
   config.toml restart-write per override isn't safe for unattended
   execution. User-driven validation via the recipe in

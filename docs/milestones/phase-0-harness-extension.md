@@ -1,9 +1,9 @@
 # Phase 0 — harness extension + experiment-log discipline
 
 **Completed (dev):** 2026-05-07
-**Smoke test (0g):** SDK surface complete 2026-05-07 (8 sub-runs across 4 trials, ~35 min wall, ~$0.70 spend). Daemon-surface skipped — needs operator-side daemon orchestration (config.toml restart-write); see "Pending" below.
+**Smoke test (0g):** SDK surface complete 2026-05-07 (11 sub-runs across 5 trials, ~46 min wall, ~$1.00 spend). Daemon-surface skipped — needs operator-side daemon orchestration (config.toml restart-write); see "Pending" below.
 **Wall (dev):** ~5 h
-**API spend:** $0.70 (8 SDK lti_bench sub-runs across 4 trials)
+**API spend:** $1.00 (11 SDK lti_bench sub-runs across 5 trials)
 
 ## Goal
 
@@ -98,52 +98,63 @@ runs against editable SDK install of `cognitive-memory` Phase 0a-sdk
 | `lti-0001` (validation, baseline) | 1 | 0.857 | — | 0.689 | — | 1.000 |
 | `lti-0002` (baseline `--repeat 3`) | 3 | 0.881 | **0.024** | 0.665 | **0.015** | 1.000 |
 | `lti-0003` (α=0.5, `--repeat 1`) | 1 | 0.857 | — | 0.687 | — | 1.000 |
-| `lti-0004` (α=0.5, `--repeat 3`) | 3 | 0.881 | 0.014 | **0.688** | **0.002** | 1.000 |
+| `lti-0004` (α=0.5, `--repeat 3`) | 3 | 0.881 | 0.014 | 0.688 | **0.002** | 1.000 |
+| `lti-0005` (β_sem=60, `--repeat 3`) | 3 | 0.881 | 0.014 | 0.686 | 0.017 | 1.000 |
 
-Wall: validation 5m, baseline-3 13m, override-1 4m, override-3 12m →
-~35 min total. Spend: ~$0.70.
+Wall: validation 5m, baseline-3 13m, override-1 4m, override-3 12m,
+β_sem=60 3-run 12m → ~46 min total. Spend: ~$1.00.
 
 Findings:
 
-1. **Override propagation works (now with stddev on both sides).**
-   `lti-0004` (α=0.5) median mean_f1 = 0.688 vs `lti-0002` (α=0.3)
-   median mean_f1 = 0.665 — gap of +2.3pp. Override stddev on f1 is
-   only 0.2pp; baseline stddev is 1.5pp. The +2.3pp gap is ~1.5σ
-   above baseline noise — directionally meaningful but not yet 2σ
-   confident. Both medians on accuracy are identical (0.881) — no
-   detectable α effect on accuracy at this sample size.
-2. **Noise is condition-dependent, not just sample-size-driven.**
-   The override condition (α=0.5) has 7.5× lower f1 stddev than
-   baseline (0.2pp vs 1.5pp), and 1.7× lower accuracy stddev. One
-   plausible mechanism: higher α weights retention more in scoring,
-   producing a more deterministic memory ranking → less judge-side
-   variance. Could also be coincidence at n=3. Worth a follow-up at
-   n≥10 in Phase 1.
-3. **The 1pp gate held on the override side; failed on baseline.**
-   `lti-0004` f1 stddev (0.2pp) is well below the 1pp gate; the
-   1pp gate failure documented earlier was driven entirely by
-   baseline noise. This means "median-of-3" can be sufficient *for
-   the parameter point being tuned* if the tuned regime happens to
-   be lower-noise, but the comparison-against-baseline always
-   inherits the noisier side.
-4. **Implications for Phase 1.** Sensitivity studies need either
-   n≥5 sub-runs per parameter point (compute cost ~$0.50 per
-   parameter point on LTI-Bench), OR a less noisy bench surface
-   (LongMemEval-S 500-question sample → expected ~0.3pp stddev),
-   OR accept the asymmetric noise floor and report effect sizes in
-   units of baseline-σ. Recommend: use LongMemEval for sensitivity
-   sweeps, LTI-Bench for confirmation runs only.
-5. **`critical_fact_retention` is invariant at 1.0 across all 8
-   sub-runs.** Either the test cases are easy or all params tested
-   so far don't move it. Worth checking in Phase 1 whether any
-   tunable shifts it off the ceiling.
+1. **Wiring is verified by unit tests, not by output-level deltas.**
+   28/28 benchmark tests pass; 5/5 SDK config tests prove
+   `config_overrides → memory.config → engine.compute_retention`
+   reaches the β lookup; 8/8 daemon lifecycle/config tests prove
+   the parallel path on the Rust side. The `--config X.json` chain
+   is sound at the component level.
+2. **Output-level signal is dominated by LLM-judge noise on the
+   42-question LTI-Bench.** Two very different parameter
+   perturbations (α: 0.3→0.5, β_semantic: 120→60) produced
+   near-identical f1 medians (0.688 and 0.686), both ~+2pp above
+   the n=3 baseline median (0.665). Most plausible interpretation:
+   the baseline drew the low side of the distribution; both
+   override conditions drew the central tendency; the +2pp shift
+   is regression to the mean, not parameter effect. With n=3 and
+   ~1.5pp stddev, you can easily observe ~2pp "effects" that are
+   pure noise.
+3. **Bimodal sub-score behaviour.** `decay_trivial` (the 6-question
+   sub-bench most sensitive to β changes) is bimodal at the
+   per-run level — runs land at either 0.447 or 0.614. Looks like
+   a marginal answer the LLM judge flips on. lti-0004 (α=0.5)
+   landed at 0.614 across all 3 runs (stddev=0); baseline was
+   mostly at 0.447. Hard to distinguish a real β effect from a
+   judge-flip on a 6-question slice.
+4. **Determinism gate (<1pp) is condition-dependent, not
+   sample-size-driven.** lti-0004 had f1 stddev=0.002 (well below
+   1pp); baseline lti-0002 had f1 stddev=0.015. Implication for
+   Phase 1: stddev caching/reuse from a single condition isn't
+   safe — every comparison must measure both arms.
+5. **`critical_fact_retention` is invariant at 1.0 across all 11
+   sub-runs.** Saturated; not a useful tunable signal.
+
+**Implications for Phase 1:**
+- **Don't use LTI-Bench for sensitivity sweeps.** 42 questions is
+  too small for the LLM-judge noise floor to settle. Use it as a
+  confirmation step only at promising parameter points.
+- **Move sensitivity work to LongMemEval-S** (500-question sample).
+  Expected stddev floor ~0.3pp, which restores the <1pp gate. Costs
+  more per run but gives meaningful effect detection at n=3.
+- **Always measure both arms.** A "promising +Xpp shift" against
+  baseline median is not enough; need n=3+ on both arms to
+  attribute the shift.
 
 Per-trial artifacts:
 - `tuning/runs/lti-0001/run-00/` — validation
-- `tuning/runs/lti-0002/run-{00,01,02}/` — baseline 3-run (α=0.3)
+- `tuning/runs/lti-0002/run-{00,01,02}/` — baseline 3-run (α=0.3, β=120)
 - `tuning/runs/lti-0003/run-00/` — α=0.5 single-shot
 - `tuning/runs/lti-0004/run-{00,01,02}/` — α=0.5 3-run
-- `tuning/runs/runs.jsonl` — 4 lines, one per trial
+- `tuning/runs/lti-0005/run-{00,01,02}/` — β_semantic=60 3-run
+- `tuning/runs/runs.jsonl` — 5 lines, one per trial
 
 ## Test counts
 
