@@ -134,6 +134,39 @@ prerequisites:
    optimization; for Phase 0 the restart is acceptable (~3s embedding
    model reload, < 1% of trial wall time).
 
+## Phase 1 — sensitivity analysis
+
+OFAT (one-factor-at-a-time) sweeps over Tier 1+2 parameters.
+Defined in `tuning/spaces/phase1/sweeps.json`; runner is
+`tuning/scripts/run_phase1.py`.
+
+```bash
+# Preview the sweep plan (no API calls)
+.venv/bin/python tuning/scripts/run_phase1.py \
+    --spec tuning/spaces/phase1/sweeps.json --dry-run
+
+# Run a single param's sweep (smoke test before committing budget)
+.venv/bin/python tuning/scripts/run_phase1.py \
+    --spec tuning/spaces/phase1/sweeps.json \
+    --params retrieval_score_exponent
+
+# Full Phase 1 sweep (141 sub-runs at n=3, ~12 h wall, ~$14)
+.venv/bin/python tuning/scripts/run_phase1.py \
+    --spec tuning/spaces/phase1/sweeps.json
+```
+
+Output: `tuning/runs/phase1_sensitivity.csv`. Columns:
+`param_path, value, is_default, n_repeats, trial_id, median.<key>, stddev.<key>`
+for each `score_keys` entry. Drop any param whose 5-value sweep moves
+the composite by < the noise floor (Phase 0g found ~1.5pp f1 stddev
+on LTI-Bench at n=3 — anything below ~3pp range is not separable).
+
+**Phase 0g caveat:** sensitivity on LTI-Bench may be hard to
+distinguish from LLM-judge noise at the 42-question size. Consider
+running Phase 1 on LongMemEval-S (500 questions, expected ~0.3pp
+stddev) instead — change `benchmark` in sweeps.json and add LongMemEval
+to `BENCHMARKS` in `run_trial.py`.
+
 ## See also
 
 - `docs/parameter-tuning-plan.md` — parent plan, six-phase ladder.

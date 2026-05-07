@@ -1,0 +1,77 @@
+{
+  "_comment": "Phase 1 OFAT sensitivity sweeps. One factor at a time: sweep each param across N values while holding all others at default. Output drives Phase 2's Optuna search space (drop params whose sweep moves composite by < noise floor). The 'param_path' field is a dotted JSON Pointer into config_overrides — 'base_decay_rates.semantic' becomes config_overrides={'base_decay_rates': {'semantic': X}}. Default values reflect the current Phase 0a-sdk defaults in CognitiveMemoryConfig (types.py).",
+
+  "n_repeats_per_value": 3,
+  "benchmark": "lti",
+  "phase_tag": "phase1_sensitivity",
+  "score_keys": [
+    "overall.accuracy",
+    "overall.mean_f1",
+    "summary.decay_trivial.mean_f1",
+    "summary.core_persistence.mean_f1",
+    "summary.revival.mean_f1"
+  ],
+
+  "sweeps": [
+    {
+      "param_path": "retrieval_score_exponent",
+      "default": 0.3,
+      "values": [0.1, 0.3, 0.5, 0.7, 0.9],
+      "note": "α in score = relevance * R^α. Higher α weights retention more. Phase 0g lti-0004 (α=0.5) hinted at noise-dominated effect; phase 1 measures it across 5 values."
+    },
+    {
+      "param_path": "direct_boost",
+      "default": 0.1,
+      "values": [0.05, 0.1, 0.15, 0.2, 0.25],
+      "note": "Direct-retrieval stability bump (paper Eq 6). Larger boost → faster core promotion."
+    },
+    {
+      "param_path": "associative_boost",
+      "default": 0.03,
+      "values": [0.01, 0.03, 0.05, 0.07, 0.10],
+      "note": "Associative-retrieval stability bump (paper Eq 8). Affects how much graph-expanded hits get reinforced."
+    },
+    {
+      "param_path": "decay_model",
+      "default": "exponential",
+      "values": ["exponential", "power"],
+      "note": "Categorical. Power-law decay was +4.6pp on LongMemEval per CR-E. LTI-Bench cross-check needed."
+    },
+    {
+      "param_path": "power_decay_gamma",
+      "default": 1.4427,
+      "values": [0.7, 1.0, 1.4427, 2.0, 2.5],
+      "note": "Only used when decay_model=power. 1.4427 = 1/ln(2), the calibrated match point. Co-sweep with decay_model=power."
+    },
+    {
+      "param_path": "base_decay_rates.semantic",
+      "default": 120.0,
+      "values": [30.0, 60.0, 120.0, 180.0, 240.0],
+      "note": "β_c for semantic memories (paper Table 2 default 120d). Headline Phase 0a-sdk feature; Phase 0g lti-0005 didn't move accuracy on the small bench. Phase 1 tests on a wider value range."
+    },
+    {
+      "param_path": "base_decay_rates.episodic",
+      "default": 45.0,
+      "values": [15.0, 30.0, 45.0, 90.0, 180.0],
+      "note": "β_c for episodic memories (paper Table 2 default 45d)."
+    },
+    {
+      "param_path": "core_session_threshold",
+      "default": 3,
+      "values": [1, 2, 3, 4, 6],
+      "note": "Distinct sessions required for core promotion. Lower → easier promotion → more core memories floored at 0.6."
+    },
+    {
+      "param_path": "core_access_threshold",
+      "default": 10,
+      "values": [3, 5, 10, 15, 20],
+      "note": "Access count required for core promotion."
+    },
+    {
+      "param_path": "core_stability_threshold",
+      "default": 0.85,
+      "values": [0.6, 0.7, 0.85, 0.9, 0.95],
+      "note": "Stability required for core promotion."
+    }
+  ]
+}

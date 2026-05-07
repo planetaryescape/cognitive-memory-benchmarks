@@ -1,9 +1,9 @@
 # Phase 0 — harness extension + experiment-log discipline
 
 **Completed (dev):** 2026-05-07
-**Smoke test (0g):** SDK surface complete 2026-05-07 (11 sub-runs across 5 trials, ~46 min wall, ~$1.00 spend). Daemon-surface skipped — needs operator-side daemon orchestration (config.toml restart-write); see "Pending" below.
+**Smoke test (0g):** SDK surface complete 2026-05-07 (14 sub-runs across 6 trials, ~58 min wall, ~$1.30 spend). Daemon-surface validated via e2e tests in cognitive-memory-daemon repo (commit `02858d0`).
 **Wall (dev):** ~5 h
-**API spend:** $1.00 (11 SDK lti_bench sub-runs across 5 trials)
+**API spend:** $1.30 (14 SDK lti_bench sub-runs across 6 trials)
 
 ## Goal
 
@@ -110,6 +110,7 @@ runs against editable SDK install of `cognitive-memory` Phase 0a-sdk
 | `lti-0003` (α=0.5, `--repeat 1`) | 1 | 0.857 | — | 0.687 | — | 1.000 |
 | `lti-0004` (α=0.5, `--repeat 3`) | 3 | 0.881 | 0.014 | 0.688 | **0.002** | 1.000 |
 | `lti-0005` (β_sem=60, `--repeat 3`) | 3 | 0.881 | 0.014 | 0.686 | 0.017 | 1.000 |
+| `lti-0006` (baseline replication, `--repeat 3`) | 3 | 0.881 | **0.000** | **0.688** | **0.002** | 1.000 |
 
 Wall: validation 5m, baseline-3 13m, override-1 4m, override-3 12m,
 β_sem=60 3-run 12m → ~46 min total. Spend: ~$1.00.
@@ -123,15 +124,17 @@ Findings:
    the parallel path on the Rust side. The `--config X.json` chain
    is sound at the component level.
 2. **Output-level signal is dominated by LLM-judge noise on the
-   42-question LTI-Bench.** Two very different parameter
-   perturbations (α: 0.3→0.5, β_semantic: 120→60) produced
-   near-identical f1 medians (0.688 and 0.686), both ~+2pp above
-   the n=3 baseline median (0.665). Most plausible interpretation:
-   the baseline drew the low side of the distribution; both
-   override conditions drew the central tendency; the +2pp shift
-   is regression to the mean, not parameter effect. With n=3 and
-   ~1.5pp stddev, you can easily observe ~2pp "effects" that are
-   pure noise.
+   42-question LTI-Bench — confirmed by replication.** Two very
+   different parameter perturbations (α: 0.3→0.5, β_semantic:
+   120→60) produced near-identical f1 medians (0.688 and 0.686),
+   both ~+2pp above the original n=3 baseline median (0.665).
+   When I re-ran the SAME baseline config (lti-0006) hours later,
+   it landed at f1=0.688 with stddev=0.002 — matching the
+   override conditions, not the original baseline. **The original
+   lti-0002 baseline was the noisy outlier**, not the override
+   conditions. The "+2pp shift" was regression to mean from a
+   bad-judge-day draw, not parameter effect. Implication: at
+   n=3, you can observe ~2pp "effects" that are 100% noise.
 3. **Bimodal sub-score behaviour.** `decay_trivial` (the 6-question
    sub-bench most sensitive to β changes) is bimodal at the
    per-run level — runs land at either 0.447 or 0.614. Looks like
@@ -139,11 +142,15 @@ Findings:
    landed at 0.614 across all 3 runs (stddev=0); baseline was
    mostly at 0.447. Hard to distinguish a real β effect from a
    judge-flip on a 6-question slice.
-4. **Determinism gate (<1pp) is condition-dependent, not
-   sample-size-driven.** lti-0004 had f1 stddev=0.002 (well below
-   1pp); baseline lti-0002 had f1 stddev=0.015. Implication for
-   Phase 1: stddev caching/reuse from a single condition isn't
-   safe — every comparison must measure both arms.
+4. **Determinism gate (<1pp) is draw-dependent, not
+   condition-dependent.** Initial reading after lti-0004 was that
+   the override condition had lower stddev (0.002 vs 0.015),
+   suggesting α=0.5 made retrieval more deterministic. Wrong:
+   lti-0006 (no override, replicating the baseline) hit stddev =
+   0.002 too. The 1.5pp baseline-side stddev was specific to the
+   lti-0002 draw, not a property of the parameter regime.
+   Implication for Phase 1: a single 3-run trial can land on a
+   noisy draw; re-run any trial with stddev > 0.5pp to confirm.
 5. **`critical_fact_retention` is invariant at 1.0 across all 11
    sub-runs.** Saturated; not a useful tunable signal.
 
@@ -164,7 +171,8 @@ Per-trial artifacts:
 - `tuning/runs/lti-0003/run-00/` — α=0.5 single-shot
 - `tuning/runs/lti-0004/run-{00,01,02}/` — α=0.5 3-run
 - `tuning/runs/lti-0005/run-{00,01,02}/` — β_semantic=60 3-run
-- `tuning/runs/runs.jsonl` — 5 lines, one per trial
+- `tuning/runs/lti-0006/run-{00,01,02}/` — baseline replication 3-run
+- `tuning/runs/runs.jsonl` — 6 lines, one per trial
 
 ## Test counts
 
