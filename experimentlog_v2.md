@@ -274,9 +274,10 @@ either surface.
 |---|---|---|---|---|---|---|---|---|
 | `lti-0001` | none | 1 | 0.857 | — | 0.689 | — | 5m | validation |
 | `lti-0002` | none | 3 | 0.881 | 0.024 | 0.665 | 0.015 | 13m | baseline |
-| `lti-0003` | `retrieval_score_exponent=0.5` | 1 | 0.857 | — | 0.687 | — | 4m | propagation check |
+| `lti-0003` | `retrieval_score_exponent=0.5` | 1 | 0.857 | — | 0.687 | — | 4m | single override |
+| `lti-0004` | `retrieval_score_exponent=0.5` | 3 | 0.881 | 0.014 | **0.688** | **0.002** | 12m | override stddev |
 
-Total: 22 min wall, ~$0.40 spend. Models: answer `gpt-4o-mini`,
+Total: 35 min wall, ~$0.70 spend. Models: answer `gpt-4o-mini`,
 judge `gpt-4o-2024-08-06`.
 
 ### What I learned
@@ -296,10 +297,17 @@ judge `gpt-4o-2024-08-06`.
   Baseline stddev was 2.4pp on accuracy and 1.5pp on mean_f1 across 3
   identically-configured sub-runs. The plan's risk note anticipated
   this and prescribed median-of-5; phase 1 inherits that guidance.
-- **Override propagation works end-to-end.** `lti-0003` (α=0.5) shifts
-  mean_f1 by +2.2pp vs baseline median — exceeds the 0.5pp gate, but
-  with n=1 on the override side, can't separate noise from real
-  effect. Wiring is confirmed regardless.
+- **Noise is condition-dependent, not just sample-size-driven.** The
+  α=0.5 override (`lti-0004`) had only 0.2pp stddev on mean_f1
+  vs the baseline's 1.5pp — a 7.5× reduction. Plausible mechanism:
+  higher α weights retention more in scoring, producing a more
+  deterministic memory ranking → less judge variance. Could also be
+  coincidence at n=3; worth a follow-up at n≥10 in Phase 1.
+- **Override propagation confirmed at n=3.** `lti-0004` (α=0.5)
+  median mean_f1 = 0.688 vs baseline median 0.665 = +2.3pp gap,
+  ~1.5σ above baseline noise. Directionally meaningful; not yet
+  2σ confident. accuracy medians identical — α doesn't move
+  accuracy on this bench.
 
 ### Next
 

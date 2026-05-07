@@ -1,9 +1,9 @@
 # Phase 0 — harness extension + experiment-log discipline
 
 **Completed (dev):** 2026-05-07
-**Smoke test (0g):** SDK surface complete 2026-05-07 (4 runs, ~22 min wall, ~$0.40 spend). Daemon-surface skipped — needs operator-side daemon orchestration (config.toml restart-write); see "Pending" below.
+**Smoke test (0g):** SDK surface complete 2026-05-07 (8 sub-runs across 4 trials, ~35 min wall, ~$0.70 spend). Daemon-surface skipped — needs operator-side daemon orchestration (config.toml restart-write); see "Pending" below.
 **Wall (dev):** ~5 h
-**API spend:** $0.40 (4 SDK lti_bench runs)
+**API spend:** $0.70 (8 SDK lti_bench sub-runs across 4 trials)
 
 ## Goal
 
@@ -97,36 +97,53 @@ runs against editable SDK install of `cognitive-memory` Phase 0a-sdk
 |---|---|---|---|---|---|---|
 | `lti-0001` (validation, baseline) | 1 | 0.857 | — | 0.689 | — | 1.000 |
 | `lti-0002` (baseline `--repeat 3`) | 3 | 0.881 | **0.024** | 0.665 | **0.015** | 1.000 |
-| `lti-0003` (`smoke_alpha_0_5.json`, α=0.5) | 1 | 0.857 | — | 0.687 | — | 1.000 |
+| `lti-0003` (α=0.5, `--repeat 1`) | 1 | 0.857 | — | 0.687 | — | 1.000 |
+| `lti-0004` (α=0.5, `--repeat 3`) | 3 | 0.881 | 0.014 | **0.688** | **0.002** | 1.000 |
 
-Wall: validation 5m, baseline-3 13m, override 4m → ~22 min total.
-Spend: $0.40.
+Wall: validation 5m, baseline-3 13m, override-1 4m, override-3 12m →
+~35 min total. Spend: ~$0.70.
 
 Findings:
 
-1. **Override propagation works.** α=0.5 trial differs from
-   baseline median by 2.4pp on accuracy and 2.2pp on mean_f1. Both
-   exceed the 0.5pp gate, but the directions are mixed (acc
-   decreased, f1 increased). With n=1 on the override side, can't
-   distinguish noise from real effect; the wiring contract is
-   confirmed regardless.
-2. **Determinism noise floor is ~2pp on accuracy, ~1.5pp on mean_f1
-   at n=3.** Higher than the planned <1pp gate. `critical_fact_retention`
-   is the only sub-score with stddev=0 across the 3 runs (always
-   1.0 on this bench).
-3. **Implications for Phase 1.** Sensitivity studies need either
+1. **Override propagation works (now with stddev on both sides).**
+   `lti-0004` (α=0.5) median mean_f1 = 0.688 vs `lti-0002` (α=0.3)
+   median mean_f1 = 0.665 — gap of +2.3pp. Override stddev on f1 is
+   only 0.2pp; baseline stddev is 1.5pp. The +2.3pp gap is ~1.5σ
+   above baseline noise — directionally meaningful but not yet 2σ
+   confident. Both medians on accuracy are identical (0.881) — no
+   detectable α effect on accuracy at this sample size.
+2. **Noise is condition-dependent, not just sample-size-driven.**
+   The override condition (α=0.5) has 7.5× lower f1 stddev than
+   baseline (0.2pp vs 1.5pp), and 1.7× lower accuracy stddev. One
+   plausible mechanism: higher α weights retention more in scoring,
+   producing a more deterministic memory ranking → less judge-side
+   variance. Could also be coincidence at n=3. Worth a follow-up at
+   n≥10 in Phase 1.
+3. **The 1pp gate held on the override side; failed on baseline.**
+   `lti-0004` f1 stddev (0.2pp) is well below the 1pp gate; the
+   1pp gate failure documented earlier was driven entirely by
+   baseline noise. This means "median-of-3" can be sufficient *for
+   the parameter point being tuned* if the tuned regime happens to
+   be lower-noise, but the comparison-against-baseline always
+   inherits the noisier side.
+4. **Implications for Phase 1.** Sensitivity studies need either
    n≥5 sub-runs per parameter point (compute cost ~$0.50 per
-   parameter point on LTI-Bench), OR a less noisy surface
-   (LongMemEval-S 500-question is ~12× larger sample → ~0.3pp
-   expected stddev), OR accept that only effects ≥3pp are
-   detectable on LTI-Bench. Recommend: use LongMemEval for
-   sensitivity, LTI-Bench for confirmation.
+   parameter point on LTI-Bench), OR a less noisy bench surface
+   (LongMemEval-S 500-question sample → expected ~0.3pp stddev),
+   OR accept the asymmetric noise floor and report effect sizes in
+   units of baseline-σ. Recommend: use LongMemEval for sensitivity
+   sweeps, LTI-Bench for confirmation runs only.
+5. **`critical_fact_retention` is invariant at 1.0 across all 8
+   sub-runs.** Either the test cases are easy or all params tested
+   so far don't move it. Worth checking in Phase 1 whether any
+   tunable shifts it off the ceiling.
 
 Per-trial artifacts:
 - `tuning/runs/lti-0001/run-00/` — validation
-- `tuning/runs/lti-0002/run-{00,01,02}/` — baseline 3-run
-- `tuning/runs/lti-0003/run-00/` — α=0.5 override
-- `tuning/runs/runs.jsonl` — 3 lines, one per trial
+- `tuning/runs/lti-0002/run-{00,01,02}/` — baseline 3-run (α=0.3)
+- `tuning/runs/lti-0003/run-00/` — α=0.5 single-shot
+- `tuning/runs/lti-0004/run-{00,01,02}/` — α=0.5 3-run
+- `tuning/runs/runs.jsonl` — 4 lines, one per trial
 
 ## Test counts
 
