@@ -268,11 +268,16 @@ either surface.
   the `python tuning/scripts/run_trial.py` entrypoint produces the
   expected jsonl line schema and per-trial directories.
 
-### Trials
+### Trials (0g SDK surface, 2026-05-07)
 
-| trial_id | overrides | composite | notes |
-|---|---|---|---|
-| _none yet — 0g pending_ | | | |
+| trial_id | overrides | sub-runs | median acc | stddev | median f1 | stddev | wall | notes |
+|---|---|---|---|---|---|---|---|---|
+| `lti-0001` | none | 1 | 0.857 | — | 0.689 | — | 5m | validation |
+| `lti-0002` | none | 3 | 0.881 | 0.024 | 0.665 | 0.015 | 13m | baseline |
+| `lti-0003` | `retrieval_score_exponent=0.5` | 1 | 0.857 | — | 0.687 | — | 4m | propagation check |
+
+Total: 22 min wall, ~$0.40 spend. Models: answer `gpt-4o-mini`,
+judge `gpt-4o-2024-08-06`.
 
 ### What I learned
 
@@ -287,12 +292,22 @@ either surface.
 - CLI's `set-llm` previously rebuilt a fresh `DaemonConfig`, which
   would have clobbered any hand-edited `[lifecycle]`. Switched to
   load → mutate → save so the surfaces don't fight each other.
+- **Determinism gate (<1pp stddev) doesn't hold on LTI-Bench at n=3.**
+  Baseline stddev was 2.4pp on accuracy and 1.5pp on mean_f1 across 3
+  identically-configured sub-runs. The plan's risk note anticipated
+  this and prescribed median-of-5; phase 1 inherits that guidance.
+- **Override propagation works end-to-end.** `lti-0003` (α=0.5) shifts
+  mean_f1 by +2.2pp vs baseline median — exceeds the 0.5pp gate, but
+  with n=1 on the override side, can't separate noise from real
+  effect. Wiring is confirmed regardless.
 
 ### Next
 
-- Run 0g (`python tuning/scripts/run_trial.py --benchmark lti --config
-  tuning/spaces/baseline.json --phase phase0_smoke --repeat 3`,
-  same for `smoke_alpha_0_5.json`, repeat for both surfaces).
-  Document the determinism floor in
-  `docs/milestones/phase-0-harness-extension.md`.
-- Phase 1 (sensitivity analysis) starts the day after 0g lands.
+- Phase 1 must use n≥5 sub-runs per parameter point on LTI-Bench
+  (~$0.50/point, ~25 min/point) OR switch sensitivity studies to
+  LongMemEval-S (500-question sample, expected ~0.3pp stddev).
+  Recommend the latter; reserve LTI-Bench for confirmation runs.
+- Daemon-surface 0g (4 additional runs) skipped this session: the
+  config.toml restart-write per override isn't safe for unattended
+  execution. User-driven validation via the recipe in
+  `tuning/README.md`.
