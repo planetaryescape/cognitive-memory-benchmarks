@@ -4,7 +4,7 @@
 
 ## Current SDK Full Rerun Refresh — 2026-05-05
 
-Status: **IN PROGRESS**. Active paper numbers must now come from fresh artifacts in the `current_sdk_20260505` namespace and matching entries in `experimentlog.md`.
+Status: **COMPLETE**. Active paper numbers now come from fresh artifacts in the `current_sdk_20260505` namespace and matching entries in `experimentlog.md`.
 
 | Field | Value |
 |-------|-------|
@@ -17,7 +17,7 @@ Status: **IN PROGRESS**. Active paper numbers must now come from fresh artifacts
 
 Run checklist:
 - CR-A LoCoMo primary: complete at 2026-05-05T20:51:00Z, merged artifact `locomo/results/current_sdk_20260505/primary_merged.json`; headline F1 `44.8%`, multi-hop `48.5%`, judge accuracy `58.4%`
-- CR-B LongMemEval-S: running since 2026-05-06T11:37:11Z, `longmemeval/results/current_sdk_20260505/primary.json`
+- CR-B LongMemEval-S: complete at 2026-05-07T06:36:53Z, `longmemeval/results/current_sdk_20260505/primary.json`; task-averaged accuracy `71.6%`, overall accuracy `72.6%`
 - CR-C LTI-Bench v2: complete at 2026-05-05T20:57:11Z, `lti/results/current_sdk_20260505/run_l_v2.json`; accuracy `88.1%`, F1 `69.7%`, critical retention `100%`
 - CR-D/CR-I derived analyses: CR-D oracle ceiling complete at 2026-05-06T13:00:00Z (`63.9%` LoCoMo / `61.1%` Mem0 scoring); CR-F/G/H local post-processing complete; CR-I judge reliability complete; CR-E decay complete; CR-J ablations complete
 
@@ -53,6 +53,7 @@ Prep notes:
 - CR-D complete at 2026-05-06T13:00:00Z / 2026-05-06 14:00:00 BST: oracle ceiling artifact `locomo/results/current_sdk_20260505/oracle_ceiling_mem0.json`; LoCoMo F1 `63.9%`, Mem0 scoring F1 `61.1%`, evidence-only F1 `64.1%`.
 - CR-B progress at 2026-05-06T13:22:36Z / 2026-05-06 14:22:36 BST: process still alive; partial artifact has `40` completed `per_question` entries and no final aggregate; not usable for paper numbers.
 - CR-B stopped at 2026-05-06T15:57:14Z / 2026-05-06 16:57:14 BST with `80/500` completed and no final aggregate. A resume smoke test exposed a missing `user_id` parameter in the LongMemEval thread-safety monkey patch; patched and `py_compile` passed. CR-B resumed at 2026-05-06T16:04:44Z / 2026-05-06 17:04:44 BST from `--start-from 80` in tmux session `lme-current-refresh`.
+- CR-B complete at 2026-05-07T06:36:53Z / 2026-05-07 07:36:53 BST: `500` questions; task-averaged accuracy `71.6%`; overall accuracy `72.6%`; abstention accuracy `90.0%`. Per-type accuracy: single-session-user `85.7%`, single-session-assistant `76.8%`, single-session-preference `46.7%`, multi-session `69.9%`, temporal-reasoning `64.7%`, knowledge-update `85.9%`.
 - Ablation prep at 2026-05-05T19:39:19Z / 2026-05-05 20:39:19 BST: `analysis/ablation_runner.py` now passes condition overrides into `CognitiveMemoryAdapter`; `py_compile` passed.
 
 ## Completed Runs

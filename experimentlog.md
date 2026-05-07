@@ -2,7 +2,7 @@
 
 ## Current SDK Full Rerun Refresh — 2026-05-05
 
-Status: **IN PROGRESS**. This section supersedes old Runs A-M for active paper claims once each fresh artifact completes. Older runs remain historical provenance only.
+Status: **COMPLETE**. This section supersedes old Runs A-M for active paper claims. Older runs remain historical provenance only.
 
 | Field | Value |
 |-------|-------|
@@ -24,7 +24,7 @@ Status: **IN PROGRESS**. This section supersedes old Runs A-M for active paper c
 | Run | Status | Command / config | Output |
 |-----|--------|------------------|--------|
 | CR-A LoCoMo primary | **COMPLETE** at 2026-05-05T20:51:00Z | `locomo/locomo_eval.py --data locomo/data/locomo10.json --adapter cognitive_memory --model gpt-4o-mini --prompt-mode mem0 --dual-perspective --deep-recall --rerank --rerank-factor 3 --top-k 60 --use-judge --quiet`, split across 10 conversations with `--max-conversations i+1 --start-from i` | `locomo/results/current_sdk_20260505/primary_merged.json`; shards/logs in `locomo/results/current_sdk_20260505/parallel/` |
-| CR-B LongMemEval-S | **RUNNING** since 2026-05-06T11:37:11Z | `longmemeval/run_longmemeval.py --data longmemeval/data/longmemeval_s_cleaned.json --adapter cognitive_memory --top-k 20 --deep-recall --rerank --rerank-factor 3 --max-workers 53` | `longmemeval/results/current_sdk_20260505/primary.json`; log `longmemeval/results/current_sdk_20260505/primary.log` |
+| CR-B LongMemEval-S | **COMPLETE** at 2026-05-07T06:36:53Z | `longmemeval/run_longmemeval.py --data longmemeval/data/longmemeval_s_cleaned.json --adapter cognitive_memory --top-k 20 --deep-recall --rerank --rerank-factor 3 --max-workers 53`, resumed from `--start-from 80` after harness fix | `longmemeval/results/current_sdk_20260505/primary.json`; resume log `longmemeval/results/current_sdk_20260505/primary_resume_80.log` |
 | CR-C LTI-Bench v2 | **COMPLETE** at 2026-05-05T20:57:11Z | `lti/lti_bench.py --adapter cognitive_memory --model gpt-4o-mini --judge-model gpt-4o-2024-08-06 --quiet` | `lti/results/current_sdk_20260505/run_l_v2.json` |
 | CR-D Oracle ceiling | **COMPLETE** at 2026-05-06T13:00:00Z | `locomo/oracle_ceiling.py --data locomo/data/locomo10.json --prompt-mode mem0 --model gpt-4o-mini` | `locomo/results/current_sdk_20260505/oracle_ceiling_mem0.json`; log `locomo/results/current_sdk_20260505/oracle_ceiling_mem0.log` |
 | CR-E Decay comparison | **COMPLETE** at 2026-05-05T21:13:35Z | `simulations/decay_comparison.py --data locomo/data/locomo10.json --conv 0 --model gpt-4o-mini` | `simulations/results/current_sdk_20260505/decay_comparison.json` |
@@ -75,6 +75,7 @@ Notes:
 - CR-B resume attempt at 2026-05-06T16:00:45Z / 2026-05-06 17:00:45 BST exposed a harness bug in the thread-safety monkey patch: `safe_search_similar()` did not accept the current adapter's `user_id` argument. The failed one-question smoke attempt did not modify the artifact.
 - CR-B harness fix at 2026-05-06T16:04:20Z / 2026-05-06 17:04:20 BST: `longmemeval/run_longmemeval.py` thread-safety patch now accepts `user_id` and applies the same user filter as the in-memory adapter. `py_compile` passed.
 - CR-B resumed at 2026-05-06T16:04:44Z / 2026-05-06 17:04:44 BST from `--start-from 80` in tmux session `lme-current-refresh`. Command: `longmemeval/run_longmemeval.py --data longmemeval/data/longmemeval_s_cleaned.json --adapter cognitive_memory --model gpt-4o-mini --top-k 20 --deep-recall --rerank --rerank-factor 3 --max-workers 53 --start-from 80 --output longmemeval/results/current_sdk_20260505/primary.json`. Log: `longmemeval/results/current_sdk_20260505/primary_resume_80.log`.
+- CR-B completed at 2026-05-07T06:36:53Z / 2026-05-07 07:36:53 BST. Artifact: `longmemeval/results/current_sdk_20260505/primary.json`; resume log: `longmemeval/results/current_sdk_20260505/primary_resume_80.log`; `500` questions; wall time `52328.0s` across original+resumed run. Headline metrics: task-averaged accuracy `0.716084` (`71.6%`), overall accuracy `0.726000` (`72.6%`), abstention accuracy `0.900000` (`90.0%`). Per-type accuracy: single-session-user `85.7%` (`60/70`), single-session-assistant `76.8%` (`43/56`), single-session-preference `46.7%` (`14/30`), multi-session `69.9%` (`93/133`), temporal-reasoning `64.7%` (`86/133`), knowledge-update `85.9%` (`67/78`).
 
 ## Experiment Overview
 
