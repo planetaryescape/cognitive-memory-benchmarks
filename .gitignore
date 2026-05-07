@@ -24,3 +24,6 @@ paper/paper.fdb_latexmk
 paper/paper.synctex.gz
 
 longmemeval/data/longmemeval_s_cleaned.json
+
+# memorybench/ — external benchmark repo cloned at setup time, not source.
+memorybench/repo/
