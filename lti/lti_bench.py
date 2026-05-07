@@ -435,14 +435,46 @@ def main():
     parser.add_argument("--judge-model", default=JUDGE_MODEL, help="LLM-as-judge model")
     parser.add_argument("--output", default="results/lti_bench_results.json")
     parser.add_argument("--quiet", action="store_true")
+    parser.add_argument(
+        "--config",
+        default=None,
+        help="Path to a tuning trial JSON config (Phase 0c). Overrides "
+        "CognitiveMemoryConfig fields and adapter kwargs per-trial.",
+    )
+    parser.add_argument(
+        "--surface",
+        choices=["sdk", "daemon"],
+        default=None,
+        help="Override the trial config's surface (sdk = in-process; "
+        "daemon = via Unix socket). Used by Phase 3 SDK↔daemon parity "
+        "checks. CLI flag wins over the JSON file's surface field.",
+    )
     args = parser.parse_args()
 
     from shared.memory_adapter import CognitiveMemoryAdapter, NaiveRAGAdapter
+    from shared.trial_config import load_trial_config
+
+    trial_kwargs = load_trial_config(args.config)
+    if args.surface is not None:
+        trial_kwargs["surface"] = args.surface
+
     adapters = {
         "cognitive_memory": CognitiveMemoryAdapter,
         "naive_rag": NaiveRAGAdapter,
     }
-    adapter = adapters[args.adapter](llm_model=args.model)
+    if args.adapter == "cognitive_memory":
+        adapter = CognitiveMemoryAdapter(llm_model=args.model, **trial_kwargs)
+    else:
+        # NaiveRAGAdapter doesn't accept the trial kwargs — only the
+        # cognitive_memory adapter is tunable. Warn if a trial was
+        # passed alongside --adapter naive_rag so a misconfigured
+        # study is loud rather than silently ignored.
+        if trial_kwargs:
+            print(
+                f"warning: --config / --surface ignored for adapter={args.adapter}",
+                flush=True,
+            )
+        adapter = NaiveRAGAdapter(llm_model=args.model)
 
     results = run_lti_bench(
         adapter,

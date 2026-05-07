@@ -138,8 +138,16 @@ class CognitiveMemoryAdapter(MemoryAdapter):
         hybrid_search: bool = False,
         graph_hops: int = None,
         decay_model: str = None,
+        config_overrides: Optional[dict] = None,
+        surface: str = "sdk",
+        user_id: str = "default",
     ):
         from cognitive_memory import SyncCognitiveMemory, CognitiveMemoryConfig
+
+        if surface not in ("sdk", "daemon"):
+            raise ValueError(
+                f"unknown surface {surface!r}; expected 'sdk' or 'daemon'"
+            )
 
         self.llm_model = llm_model
         self.embedding_model = embedding_model
@@ -147,6 +155,8 @@ class CognitiveMemoryAdapter(MemoryAdapter):
         self.deep_recall = deep_recall
         self.rerank = rerank
         self.rerank_factor = rerank_factor
+        self.surface = surface
+        self.user_id = user_id
         self._rerank_client = None
         self._last_ingest_ts = None
         self._last_trace = None
@@ -162,6 +172,13 @@ class CognitiveMemoryAdapter(MemoryAdapter):
             custom_extraction_instructions=custom_extraction_instructions,
             extraction_mode=extraction_mode,
         )
+        # Apply trial-level overrides FIRST so explicit adapter kwargs
+        # (decay_model, hybrid_search, graph_hops) take precedence.
+        # Documented contract: explicit wins over override for the same
+        # field. Lets trial configs flip arbitrary CognitiveMemoryConfig
+        # fields without subverting harness-level routing decisions.
+        if config_overrides:
+            config_kwargs.update(config_overrides)
         if hybrid_search:
             config_kwargs["hybrid_search"] = True
         if graph_hops is not None:
@@ -170,8 +187,18 @@ class CognitiveMemoryAdapter(MemoryAdapter):
             config_kwargs["decay_model"] = decay_model
         config = CognitiveMemoryConfig(**config_kwargs)
 
-        embedder = "hash" if use_hash_embeddings else "openai"
-        self.memory = SyncCognitiveMemory(config=config, embedder=embedder)
+        if surface == "daemon":
+            # Daemon surface: drive the shipping IPC path. The daemon
+            # auto-spawns on first connection if a running socket
+            # doesn't exist. user_id scopes tenancy at the IPC level.
+            from cognitive_memory.adapters.remote import RemoteAdapter
+
+            adapter = RemoteAdapter(user_id=user_id)
+            self.memory = SyncCognitiveMemory(config=config, adapter=adapter)
+        else:
+            # SDK surface: fast in-process InMemoryAdapter (default).
+            embedder = "hash" if use_hash_embeddings else "openai"
+            self.memory = SyncCognitiveMemory(config=config, embedder=embedder)
 
     def reset(self):
         self.memory.clear()

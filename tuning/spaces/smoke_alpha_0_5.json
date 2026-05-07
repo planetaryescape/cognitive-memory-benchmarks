@@ -1,0 +1,7 @@
+{
+  "_comment": "Phase 0g smoke test config. Flips retrieval_score_exponent (alpha) from default 0.3 to 0.5. Used to verify that --config propagation works end-to-end on both sdk and daemon surfaces. Composite must differ from baseline by >= 0.5pp on at least one sub-score.",
+  "surface": "sdk",
+  "config_overrides": {
+    "retrieval_score_exponent": 0.5
+  }
+}

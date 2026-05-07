@@ -150,6 +150,20 @@ def main():
     parser.add_argument("--ablation", default=None, help="Run specific ablation (H/I/J/K) or all")
     parser.add_argument("--model", default="gpt-4o-mini")
     parser.add_argument("--output", default="analysis/ablation_results.json")
+    parser.add_argument(
+        "--config",
+        default=None,
+        help="Path to a tuning trial JSON config (Phase 0c). Trial "
+        "kwargs apply to every condition's adapter, layered under the "
+        "per-condition overrides defined in ABLATIONS.",
+    )
+    parser.add_argument(
+        "--surface",
+        choices=["sdk", "daemon"],
+        default=None,
+        help="Override the trial config's surface. CLI flag wins over "
+        "the JSON file's surface field.",
+    )
     args = parser.parse_args()
 
     with open(args.data) as f:
@@ -159,7 +173,17 @@ def main():
     if args.ablation:
         ablations_to_run = {args.ablation: ABLATIONS[args.ablation]}
 
+    from shared.trial_config import load_trial_config
+
+    trial_kwargs = load_trial_config(args.config)
+    if args.surface is not None:
+        trial_kwargs["surface"] = args.surface
+
     base_kwargs = {"llm_model": args.model, "deep_recall": True, "dual_perspective": True}
+    # Trial kwargs are layered under base_kwargs and the per-condition
+    # overrides — so a trial's config_overrides apply uniformly to
+    # every condition unless the condition explicitly overrides them.
+    base_kwargs.update(trial_kwargs)
     all_results = {}
 
     for ablation_id, ablation_spec in ablations_to_run.items():

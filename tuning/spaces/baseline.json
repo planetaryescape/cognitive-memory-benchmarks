@@ -1,0 +1,4 @@
+{
+  "_comment": "Phase 0g determinism baseline. Empty config — exercises the --config flag path with zero overrides so behaviour matches no-flag runs (within stddev). Statistical gate: median of 3, stddev < 1pp on composite.",
+  "surface": "sdk"
+}

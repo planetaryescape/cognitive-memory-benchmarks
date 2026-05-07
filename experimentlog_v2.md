@@ -24,7 +24,7 @@ Run checklist:
 Prep notes:
 - Derived LoCoMo analysis scripts now accept current result/output paths.
 - LongMemEval thread-safety search monkey patch now matches current adapter filters.
-- Paper architecture text partially corrected before result refresh; active numeric claims still wait on completed `current_sdk_20260505` artifacts.
+- Paper, benchmark docs, and public docs were refreshed after completed `current_sdk_20260505` artifacts.
 - CR-A progress check at 2026-05-05T19:31:57Z / 2026-05-05 20:31:57 BST: all ten shards running, in embedding/query traffic, with no obvious failure signatures and no completed JSON outputs yet.
 - CR-A progress check at 2026-05-05T19:47:55Z / 2026-05-05 20:47:55 BST: all ten shards still running; no completed JSON outputs yet; latest logs show successful OpenAI embedding/chat-completion calls and increasing request counts.
 - CR-A partial completion at 2026-05-05T19:58:40Z / 2026-05-05 20:58:40 BST: `conv1.json` completed cleanly (`105` total QA, `81` category 1-4 QA, F1 `0.498319`, judge accuracy `0.580247`); nine shards still running.
@@ -61,7 +61,7 @@ Prep notes:
 | Run | Result | Notes |
 |-----|--------|-------|
 | A — LoCoMo Primary | F1=45.6%, multi-hop=48.9% | 10 convs, 1540 QA, deferred conflicts |
-| B — LongMemEval-S | Task-avg 70.2% | Near ENGRAM SOTA (71.4%) |
+| CR-B — LongMemEval-S | Task-avg 71.6%, overall 72.6% | Complete current-refresh artifact; effectively tied with ENGRAM (71.4%) |
 | C — Decay Comparison | Power-law +3.6% F1 | Conv 0 only, exp vs power |
 | D — Evidence Recall@k | R@60=36.3% | R@5=24.9%, R@10=28.6%, R@20=31.8%, n=1535 |
 | F — Efficiency Table | Extraction 14.1s, VecSearch 54ms | Mean/p50/p95 timing per stage |
@@ -201,6 +201,98 @@ Prep notes:
 | `locomo/results/v6/parallel/conv{0-9}.json` | Run A full results (per_question + aggregate) | Complete |
 | `locomo/results/v6/oracle_ceiling.json` | Run E oracle results | Complete (wrong prompt) |
 | `locomo/results/v6/parallel/conv{0-9}.log` | Run A stderr logs (extraction/rerank timing) | Complete |
-| `longmemeval/results/v6/primary.json` | Run B LongMemEval-S results | Complete |
+| `longmemeval/results/current_sdk_20260505/primary.json` | CR-B LongMemEval-S results | Complete |
 | `simulations/results/decay_comparison.json` | Run C results | Complete |
 | `locomo/data/locomo10.json` | Source data with evidence annotations | Available |
+
+---
+
+## 2026-05-07 — Phase 0: Tuning harness extension
+
+**Status:** complete (smoke test 0g pending user run)
+
+Extends the benchmark adapter to accept arbitrary `CognitiveMemoryConfig`
+overrides per-trial so phases 1-5 of `docs/parameter-tuning-plan.md`
+can run without code edits. Plumbs `base_decay_rates` (per-category β_c)
+through the SDK config field and mirrors it as a `[lifecycle]` section
+in the daemon's config.toml so the same JSON trial config can drive
+either surface.
+
+### Decisions
+
+- **`base_decay_rates` as a `CognitiveMemoryConfig` field, not a module
+  constant.** SDK-side: added `base_decay_rates: dict` to the
+  dataclass with `BASE_DECAY_RATES` (paper Table 2) as default and
+  `__post_init__` coercing string keys (for JSON-loaded configs).
+  `engine.py` reads from `config.base_decay_rates` instead of the
+  module constant. The module constant remains as the source of
+  defaults so existing imports work.
+- **Daemon-side parity now, not Phase 6.** Per user direction, mirrored
+  the same surface in `LifecycleConfig.base_decay_rates` (HashMap) +
+  `cfg.beta_for(category)` lookup method. `[lifecycle.base_decay_rates]`
+  parses from `~/.config/cognitive-memory/config.toml` and merges atop
+  `paper_faithful_lifecycle_config()` at daemon startup. Threaded
+  through `AppState.lifecycle`, `Searcher::with_lifecycle`, and the
+  4 callers of `compute_current_retention` in handlers.rs.
+- **Dual-surface harness (sdk + daemon).** `CognitiveMemoryAdapter`
+  gained `surface: str = "sdk"` kwarg. `surface="daemon"` constructs
+  `RemoteAdapter(user_id=...)` and passes to `SyncCognitiveMemory`.
+  Per-phase routing: phases 1-2 (sensitivity, Optuna inner loop) run
+  on `sdk` for speed; phase 3 cross-checks both; phases 4-5 run on
+  `daemon` for reality check.
+- **Statistical determinism gate, not SHA equality.** Per user
+  direction: `--repeat 3`, median + sample stddev across sub-runs,
+  pass if stddev < 1pp on composite. SHA equality with LLM judges
+  was never going to hold; documenting the noise floor is the
+  honest version.
+
+### Tests
+
+- SDK: `cognitive-memory-sdk/sdks/python/tests/test_config.py` — 5
+  tests on `base_decay_rates` field + engine integration. All 66 SDK
+  tests pass.
+- Daemon: `crates/lifecycle/tests/parity.rs` — 4 new tests on
+  `LifecycleConfig.base_decay_rates` + `beta_for(...)`.
+  `crates/core/src/config.rs` — 4 new tests on `[lifecycle]` TOML
+  parse + roundtrip. Total 151/151 workspace tests pass (was 143).
+- Benchmarks: `shared/tests/test_adapter.py` — 8 tests on
+  `config_overrides` + `surface` kwargs.
+  `shared/tests/test_trial_config.py` — 12 tests on JSON schema.
+  All 20/20 pass.
+
+### Pending (user-triggered)
+
+- **0g smoke test.** 10 runs across both surfaces (~50 min wall, ~$1).
+  Three baseline + one override per surface + two ablation_runner.
+  Determinism gate stddev < 1pp on composite. The harness is ready;
+  the `python tuning/scripts/run_trial.py` entrypoint produces the
+  expected jsonl line schema and per-trial directories.
+
+### Trials
+
+| trial_id | overrides | composite | notes |
+|---|---|---|---|
+| _none yet — 0g pending_ | | | |
+
+### What I learned
+
+- `Memory.base_decay_rate` had a single consumer (`engine.py:93`) per
+  exhaustive grep, so the cutover was low-risk. The lookup site moved
+  cleanly to the config without breaking the SDK API.
+- The daemon's `Searcher` had two hidden lookup sites
+  (`candidate_to_state` + `expand_via_graph`'s scoped use) — both now
+  read from `cfg.beta_for`. `Searcher::with_lifecycle(store, cfg)` is
+  the canonical builder; `Searcher::new(store)` keeps paper defaults
+  for tests.
+- CLI's `set-llm` previously rebuilt a fresh `DaemonConfig`, which
+  would have clobbered any hand-edited `[lifecycle]`. Switched to
+  load → mutate → save so the surfaces don't fight each other.
+
+### Next
+
+- Run 0g (`python tuning/scripts/run_trial.py --benchmark lti --config
+  tuning/spaces/baseline.json --phase phase0_smoke --repeat 3`,
+  same for `smoke_alpha_0_5.json`, repeat for both surfaces).
+  Document the determinism floor in
+  `docs/milestones/phase-0-harness-extension.md`.
+- Phase 1 (sensitivity analysis) starts the day after 0g lands.
