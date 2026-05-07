@@ -52,12 +52,22 @@ Unblock phases 1-5 of `docs/parameter-tuning-plan.md` by:
   prescribed downgrading to median-of-5; phase 1 inherits that
   guidance. Smallest detectable effect on the current 42-question
   LTI-Bench is ~3-4pp, not the 0.5pp originally planned.
-- **Daemon-surface 0g (4 runs) skipped this session.** The path
-  needs `cm-daemon` running plus a config.toml restart-write per
-  override trial — orchestration that I judged unsafe to do
-  unattended. The wiring itself is exercised by daemon test suite
-  (151/151 pass) and the SDK runs proved the harness end-to-end;
-  daemon parity is a separate user-driven validation.
+- **Daemon-surface 0g via real cm-daemon binary skipped this
+  session.** The path needs `cm-daemon` running plus a config.toml
+  restart-write per override trial — orchestration that's unsafe
+  to do unattended (would clobber the user's running daemon at
+  PID 1166, which is the installed binary not the locally-built
+  one with these changes).
+
+  **Closed in a different way:** added `lifecycle_override_changes_
+  current_retention_through_ipc` to `crates/daemon/tests/e2e.rs`
+  (commit `02858d0`). Boots two `Daemon::new_full` instances with
+  different `LifecycleConfig.base_decay_rates`, stores+backdates
+  a semantic memory in each, fetches via the IPC client, asserts
+  `r_fast < r_paper`. This is the same contract the config.toml
+  override path delivers — the only thing the e2e test skips is
+  the TOML parse step itself (covered by 4 parse tests in core).
+  153/153 daemon workspace tests pass.
 
 ## Falsified hypotheses
 
@@ -159,10 +169,9 @@ Per-trial artifacts:
 ## Test counts
 
 - SDK: 66/66 pass (5 new on `base_decay_rates`).
-- Daemon: 151/151 pass workspace-wide (was 143 — 8 new across
-  lifecycle parity + core config TOML parse).
-- Benchmarks: 20/20 pass on `shared/tests/` (8 adapter + 12
-  trial_config).
+- Daemon: 153/153 pass workspace-wide (was 143 — 10 new total: 4
+  lifecycle parity, 4 core config TOML parse, 2 e2e through IPC).
+- Benchmarks: 28/28 pass (8 adapter + 12 trial_config + 8 run_trial).
 
 ## Links
 
