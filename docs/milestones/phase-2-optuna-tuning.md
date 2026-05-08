@@ -1,11 +1,10 @@
-# Phase 2 — Optuna inner-loop tuning (in progress)
+# Phase 2 — Optuna inner-loop tuning (complete)
 
 **Started:** 2026-05-08T09:41 BST
-**Sweep status (last refresh 2026-05-08T19:01 BST):** 40 of 50 trials complete (80%); trial 40 in progress
-**Per-trial pace (measured):** ~13.9 min/trial
-**Projected end:** ~21:21 BST tonight
-**Projected cost:** ~$15
-**Output:** `tuning/runs/phase2/lti-phase2.db` (Optuna SQLite study)
+**Completed:** 2026-05-08T21:37 BST
+**Wall:** 11h 56min (50 trials × ~14 min)
+**Cost:** ~$15 API spend
+**Output:** `tuning/runs/phase2/lti-phase2.db` (Optuna SQLite, 50 completed trials)
 
 This is a live milestone, refreshed as trials land. Final write-up
 when the study completes; until then this captures interim
@@ -55,7 +54,47 @@ _Updated as trials land. Full table at sweep end; this section
 shows the running best + the most recent ~5 trials so the
 in-progress doc stays scannable._
 
-**Best so far:** Trial 23, fitness=0.6531 (associative_boost=0.078, β_semantic=367, core_session_threshold=2). Improvement over previous tied-best is **+0.06pp — within the 3-question marginal-judge noise floor identified in Phase 2.5**. Treat as not-meaningfully-better.
+## Final results
+
+**Best:** Trial 23, fitness 0.6532 (set at trial 23, never beaten across remaining 27 trials).
+- params: `associative_boost=0.078, base_decay_rates.semantic=367, core_session_threshold=2`
+- sub-scores: overall.acc=0.905, mean_f1=0.689, decay_trivial=0.626, core_persistence=0.927, revival=0.429, associative=0.367, contextual_retention=0.845
+
+### Top 5 trials
+
+| rank | trial | fitness | assoc | β | cst |
+|---|---|---|---|---|---|
+| #1 | 23 | 0.6532 | 0.078 | 367 | 2 |
+| #2 | 34 | 0.6527 | 0.071 | 381 | 1 |
+| #3 | 9 | 0.6525 | 0.049 | 190 | 3 |
+| #4 | 16 | 0.6525 | 0.050 | 312 | 2 |
+| #5 | 6 | 0.6514 | 0.070 | 371 | 2 |
+
+**Top 5 spread: 0.18pp** (0.6514 → 0.6532). All five within the
+3-question coin-flip noise floor (Phase 2.5 found ~3pp variance
+on revival sub-scores alone). **There is no meaningful "winner"
+among the top 5** — they are tied within bench resolution.
+
+### Cluster split
+
+- 43 of 50 trials in the high cluster (≥0.640)
+- 7 in the low cluster (≤0.620)
+- **21 distinct fitness values** total. Fitness 0.6491 alone hit
+  18 times. The bench's effective resolution is ~7 buckets in the
+  high cluster + ~5 in the low.
+
+### Final cst hit-rate (in joint search)
+
+| cst | high cluster | low cluster | hit rate | samples |
+|---|---|---|---|---|
+| 1 | 14 | 1 | **93%** | 15 |
+| 2 | 21 | 2 | **91%** | 23 |
+| 3 | 8 | 4 | **67%** | 12 |
+
+**cst=1 and cst=2 are statistically tied (~92%); cst=3 trails
+decisively at 67%.** This is a Phase 2 finding that wasn't
+visible in Phase 1 OFAT (where all three were flat at default).
+Phase 6 should ship `core_session_threshold ∈ {1, 2}` — both work.
 
 | trial | associative_boost | β_semantic | core_session_threshold | fitness |
 |---|---|---|---|---|
@@ -99,7 +138,16 @@ in-progress doc stays scannable._
 | 37 | 0.0718 | 232.9 | 1 | 0.6491 |
 | 38 | 0.0648 | 259.6 | 1 | 0.6509 |
 | 39 | 0.0677 | 244.0 | 1 | 0.6491 |
-| 40 | _running…_ | | | |
+| 40 | 0.0888 | 196.3 | 1 | 0.6491 |
+| 41 | 0.0707 | 371.6 | 2 | 0.6459 |
+| 42 | 0.0690 | 392.8 | 2 | 0.6457 |
+| 43 | 0.0807 | 355.1 | 3 | 0.6459 |
+| 44 | 0.0729 | 386.5 | 2 | 0.6157 ← cst=2 in low cluster (rare) |
+| 45 | 0.0596 | 339.9 | 1 | 0.6508 |
+| 46 | 0.0768 | 364.1 | 2 | 0.6491 |
+| 47 | 0.0974 | 220.4 | 3 | 0.6491 |
+| 48 | 0.0833 | 293.2 | 2 | 0.6437 ← new fitness value (between clusters) |
+| 49 | _running…_ | | | final trial |
 
 **cst breakdown after 30 trials:**
 

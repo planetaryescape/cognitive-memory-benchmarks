@@ -1,0 +1,509 @@
+{
+  "config": {
+    "answer_model": "gpt-4o-mini",
+    "judge_model": "gpt-4o-2024-08-06",
+    "n_facts": 28,
+    "n_sessions": 28,
+    "n_probes": 42,
+    "scoring": "llm_judge (CORRECT/WRONG) + token_f1",
+    "ingestion_mode": "time_stepped"
+  },
+  "overall": {
+    "accuracy": 0.8571428571428571,
+    "mean_f1": 0.6627428147931133,
+    "n": 42
+  },
+  "summary": {
+    "temporal_before_update": {
+      "count": 4,
+      "mean_f1": 0.85,
+      "accuracy": 1.0
+    },
+    "temporal_after_update": {
+      "count": 4,
+      "mean_f1": 0.676923076923077,
+      "accuracy": 1.0
+    },
+    "core_persistence": {
+      "count": 8,
+      "mean_f1": 0.9270833333333333,
+      "accuracy": 1.0
+    },
+    "decay_trivial": {
+      "count": 6,
+      "mean_f1": 0.44724556489262374,
+      "accuracy": 0.8333333333333334
+    },
+    "revival": {
+      "count": 5,
+      "mean_f1": 0.4288824900589606,
+      "accuracy": 0.8
+    },
+    "conflict": {
+      "count": 4,
+      "mean_f1": 0.676923076923077,
+      "accuracy": 0.75
+    },
+    "contextual_retention": {
+      "count": 6,
+      "mean_f1": 0.8452380952380952,
+      "accuracy": 1.0
+    },
+    "associative": {
+      "count": 5,
+      "mean_f1": 0.34076650563607086,
+      "accuracy": 0.4
+    }
+  },
+  "critical_fact_retention": 1.0,
+  "storage": {
+    "total_memories": 86,
+    "hot_memories": 86,
+    "cold_memories": 0,
+    "core_memories": 69
+  },
+  "comparison": {
+    "fademem_critical_retention": 0.821,
+    "fademem_storage_fraction": 0.55,
+    "ours_critical_retention": 1.0,
+    "ours_total_memories": 86
+  },
+  "detailed": {
+    "temporal_before_update": [
+      {
+        "question": "When is the Helios deadline?",
+        "expected": "March 15th",
+        "answer": "March 15, 2024.",
+        "f1": 0.4,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 10,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What language is the Helios backend in?",
+        "expected": "Python",
+        "answer": "Python",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 10,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Where am I going for vacation in May?",
+        "expected": "Tokyo",
+        "answer": "Tokyo",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 12,
+        "num_retrieved": 10
+      },
+      {
+        "question": "When do I prefer to be in the office?",
+        "expected": "Mondays",
+        "answer": "Mondays",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 15,
+        "num_retrieved": 10
+      }
+    ],
+    "temporal_after_update": [
+      {
+        "question": "When is the Helios deadline?",
+        "expected": "April 1st",
+        "answer": "April 1, 2024.",
+        "f1": 0.4,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 22,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What language is the Helios backend in?",
+        "expected": "Go",
+        "answer": "Go",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 22,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Where am I going for vacation in May?",
+        "expected": "Lisbon",
+        "answer": "Lisbon",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 22,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What's my work-from-home situation?",
+        "expected": "fully remote",
+        "answer": "Alex switched to fully remote work and no longer goes into the office.",
+        "f1": 0.3076923076923077,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 25,
+        "num_retrieved": 10
+      }
+    ],
+    "core_persistence": [
+      {
+        "question": "What is my name?",
+        "expected": "Alex Chen",
+        "answer": "Alex Chen",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What am I allergic to?",
+        "expected": "shellfish",
+        "answer": "Shellfish",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Where do I work?",
+        "expected": "Meridian Labs",
+        "answer": "Meridian Labs",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What's my partner's name?",
+        "expected": "Jordan",
+        "answer": "Jordan",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What's my dog's name?",
+        "expected": "Pixel",
+        "answer": "Pixel",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Do I have any chronic medical conditions?",
+        "expected": "type 1 diabetes",
+        "answer": "Type 1 diabetes.",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What's my mother's name and where does she live?",
+        "expected": "Eileen, Vancouver",
+        "answer": "Eileen lives in Vancouver.",
+        "f1": 0.6666666666666666,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What neighborhood do I live in?",
+        "expected": "Park Slope, Brooklyn",
+        "answer": "Park Slope neighborhood of Brooklyn",
+        "f1": 0.7499999999999999,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ],
+    "decay_trivial": [
+      {
+        "question": "What did I have for lunch on day 3?",
+        "expected": "pasta",
+        "answer": "unknown",
+        "f1": 0.0,
+        "correct": false,
+        "judge_raw": "WRONG",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What documentary did I watch?",
+        "expected": "octopuses",
+        "answer": "a documentary about octopuses",
+        "f1": 0.5,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What coffee shop did I try?",
+        "expected": "Bean Counter",
+        "answer": "Bean Counter",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What happened with my neighbor's cat?",
+        "expected": "stuck in a tree",
+        "answer": "Your neighbor's cat got stuck in a tree on January 8, 2024.",
+        "f1": 0.42857142857142855,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Did I get caught in the rain at some point?",
+        "expected": "forgot umbrella, got rained on",
+        "answer": "Yes, Alex forgot their umbrella and got rained on on January 13, 2024.",
+        "f1": 0.5882352941176471,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Was there a problem with the elevator at any point?",
+        "expected": "broken",
+        "answer": "Yes, the elevator in Alex's building was broken on January 18, 2024.",
+        "f1": 0.16666666666666669,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ],
+    "revival": [
+      {
+        "question": "Was there anything about the weather I mentioned once?",
+        "expected": "nice this morning",
+        "answer": "The weather was really nice on the morning of January 5, 2024.",
+        "f1": 0.30769230769230765,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Did I ever mention traffic?",
+        "expected": "traffic on my commute",
+        "answer": "Yes, there was traffic on Alex's commute on January 10, 2024.",
+        "f1": 0.39999999999999997,
+        "correct": false,
+        "judge_raw": "WRONG",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Was there an incident with an animal at some point?",
+        "expected": "neighbor's cat in a tree",
+        "answer": "Yes, Alex's neighbor's cat got stuck in a tree.",
+        "f1": 0.6666666666666666,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Have I had any minor weather mishaps recently?",
+        "expected": "got rained on, forgot umbrella",
+        "answer": "Yes, Alex forgot their umbrella and got rained on on January 13, 2024.",
+        "f1": 0.5882352941176471,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Has anything in my building been broken lately?",
+        "expected": "elevator",
+        "answer": "The elevator in Alex's building was broken on January 18, 2024.",
+        "f1": 0.18181818181818182,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ],
+    "conflict": [
+      {
+        "question": "When is the Helios project deadline?",
+        "expected": "April 1st",
+        "answer": "April 1, 2024.",
+        "f1": 0.4,
+        "correct": false,
+        "judge_raw": "WRONG",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What language is the Helios backend in?",
+        "expected": "Go",
+        "answer": "Go",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Where am I going for vacation in May?",
+        "expected": "Lisbon",
+        "answer": "Lisbon",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What's my work-from-home situation?",
+        "expected": "fully remote",
+        "answer": "Alex switched to fully remote work and no longer goes into the office.",
+        "f1": 0.3076923076923077,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ],
+    "contextual_retention": [
+      {
+        "question": "What project am I working on?",
+        "expected": "Helios",
+        "answer": "Helios",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What language am I learning on weekends?",
+        "expected": "Rust",
+        "answer": "Rust programming language",
+        "f1": 0.5,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What am I training for?",
+        "expected": "half marathon",
+        "answer": "a half marathon in April 2024",
+        "f1": 0.5714285714285715,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What car do I drive?",
+        "expected": "2019 Subaru Outback",
+        "answer": "2019 Subaru Outback",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Who is my therapist?",
+        "expected": "Dr. Patel",
+        "answer": "Dr. Patel",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What musical instrument am I taking lessons in?",
+        "expected": "guitar",
+        "answer": "guitar",
+        "f1": 1.0,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ],
+    "associative": [
+      {
+        "question": "What do you know about my family?",
+        "expected": "Jordan (partner), Eileen (mother), Pixel (dog)",
+        "answer": "Alex's mother's name is Eileen, and Eileen lives in Vancouver.",
+        "f1": 0.26666666666666666,
+        "correct": false,
+        "judge_raw": "WRONG",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What's my health situation?",
+        "expected": "type 1 diabetes, shellfish allergy",
+        "answer": "Type 1 diabetes, uses a continuous glucose monitor, allergic to shellfish, sees Dr. Patel on Tuesdays.",
+        "f1": 0.4,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "Tell me about the Helios project.",
+        "expected": "Helios, deadline April 1st, Go backend",
+        "answer": "Alex is working on a project called Helios that is due on April 1, 2024, and switched the Helios backend to Go for performance.",
+        "f1": 0.2962962962962963,
+        "correct": true,
+        "judge_raw": "CORRECT",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What recurring appointments or activities do I have?",
+        "expected": "therapy Tuesdays Dr. Patel, guitar lessons Thursdays, half marathon training",
+        "answer": "Dr. Patel on Tuesdays, guitar lesson every other Thursday, standup at 9:30 AM every day.",
+        "f1": 0.48,
+        "correct": false,
+        "judge_raw": "WRONG",
+        "day": 30,
+        "num_retrieved": 10
+      },
+      {
+        "question": "What do you know about my home and commute?",
+        "expected": "Park Slope Brooklyn, Subaru Outback",
+        "answer": "Alex lives in the Park Slope neighborhood of Brooklyn and there was traffic on Alex's commute on January 10, 2024.",
+        "f1": 0.2608695652173913,
+        "correct": false,
+        "judge_raw": "WRONG",
+        "day": 30,
+        "num_retrieved": 10
+      }
+    ]
+  }
+}

@@ -466,9 +466,9 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 
 ## 2026-05-08 — Phase 2: Optuna inner-loop tuning (in progress)
 
-**Status:** in-progress (started 2026-05-08T09:41 BST; 40 of 50
-trials complete at 18:59 — 80% done; ETA ~21:21 BST tonight).
-Last refresh 19:02 BST.
+**Status:** complete (started 2026-05-08T09:41 BST, finished
+2026-05-08T21:37 BST; 50/50 trials, 11h56min wall, ~$15 spend,
+exit code 0).
 
 Bayesian optimization (Optuna TPE) over the 3 dimensions Phase 1
 narrowed to. Output: top-5 candidate configs to promote to Phase 3.
@@ -567,6 +567,59 @@ values from the existing discrete set. The actual decision rule
 for Phase 6 will come from the top-K confirmation re-run
 (`tuning/scripts/confirm_top_trials.py`), not from any further
 TPE sampling.
+
+### FINAL — Phase 2 complete (2026-05-08T21:37 BST)
+
+**Best:** trial 23, fitness=0.6532 (assoc=0.078, β=367, cst=2).
+Set at trial 23, not beaten across the remaining 27 trials.
+
+**Top 5 within 0.18pp of each other** (tied within noise):
+
+| rank | trial | fitness | assoc | β | cst |
+|---|---|---|---|---|---|
+| #1 | 23 | 0.6532 | 0.078 | 367 | 2 |
+| #2 | 34 | 0.6527 | 0.071 | 381 | 1 |
+| #3 | 9  | 0.6525 | 0.049 | 190 | 3 |
+| #4 | 16 | 0.6525 | 0.050 | 312 | 2 |
+| #5 | 6  | 0.6514 | 0.070 | 371 | 2 |
+
+**Final cluster split:** 43 high, 7 low. **21 distinct fitness
+values** total. Fitness 0.6491 alone hit 18 times across very
+different params.
+
+**Final cst hit-rate** (in joint search):
+- cst=1: 14/15 = 93% high
+- cst=2: 21/23 = 91% high
+- cst=3: 8/12 = 67% high → ship cst∈{1,2}
+
+**Phase 2.5 variance analyzer re-run on full data** (305 result.json
+files, 12810 per-question records):
+- 34 of 42 questions stable, 8 marginal
+- Same 3 dominant noise sources: weather (revival), traffic
+  (revival), lunch (decay_trivial)
+- Phase 6 / paper takeaway unchanged.
+
+### Recommended Phase 6 ship config (post-Phase 2)
+
+Subject to top-K confirmation re-run (`confirm_top_trials.py`):
+
+| param | recommended | source |
+|---|---|---|
+| `associative_boost` | **0.05** | Phase 1: default 0.03 was worst; sweep best 0.05 |
+| `base_decay_rates.semantic` | **240-370** | Phase 2: any value in this range works; pick 240 (closest to current 120 default while improving) |
+| `core_session_threshold` | **2** (tied with 1) | Phase 2: cst=1 or 2 both work at 91-93%; cst=3 at 67% |
+| `direct_boost` | 0.1 (default) | Phase 1 sweet spot |
+| α / `retrieval_score_exponent` | 0.3 (default) | Phase 1 inflection point |
+| `base_decay_rates.episodic` | 45 (default) | Phase 1: shorter is better; default fine |
+| `power_decay_gamma` | 1.4427 (default) | Phase 1: only γ=2.5 hurts |
+| `core_access_threshold` | 10 (default) | Phase 1: completely flat |
+| `core_stability_threshold` | 0.85 (default) | Phase 1: completely flat |
+| `decay_model` | exponential (default) | Phase 1: tied with power within noise |
+
+**Predicted lift over current defaults:** +1-2pp f1 from
+associative_boost flip alone (Phase 1 confirmed at OFAT level).
+Other changes are within bench noise but consistent with
+joint-search findings.
 
 ### Phase 2.5 — per-question variance analysis (DONE, $0)
 
