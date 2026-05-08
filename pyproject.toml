@@ -25,6 +25,9 @@ dev = [
     "pytest>=7.0",
     "ruff>=0.4",
 ]
+tuning = [
+    "optuna>=3.5",
+]
 
 [project.urls]
 Homepage = "https://github.com/bhekanik/cognitive-memory-benchmarks"

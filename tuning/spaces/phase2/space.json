@@ -1,0 +1,49 @@
+{
+  "_comment": "Phase 2 Optuna search space. Inherits from Phase 1 OFAT findings: drops dims with <2pp signal, narrows ranges around interesting regions, locks defaults that look optimal. Re-fill after final Phase 1 numbers land.",
+
+  "study_name": "lti-phase2",
+  "n_trials": 50,
+  "n_repeats_per_trial": 3,
+  "benchmark": "lti",
+  "phase_tag": "phase2_optuna",
+
+  "fitness": {
+    "_comment": "Weighted composite of LTI-Bench sub-scores per parent plan §2. decay_trivial / core_persistence / revival are the headline metrics from paper Tables 8-9; the remaining 0.20 spreads across associative + contextual_retention so we don't accidentally regress them. All sub-scores are mean_f1 in [0,1].",
+    "weights": {
+      "summary.decay_trivial.mean_f1": 0.20,
+      "summary.core_persistence.mean_f1": 0.30,
+      "summary.revival.mean_f1": 0.30,
+      "summary.associative.mean_f1": 0.10,
+      "summary.contextual_retention.mean_f1": 0.10
+    }
+  },
+
+  "search_space": {
+    "_comment": "Post-Phase-1: associative_boost default (0.03) was anomalously bad — sweep narrowly around 0.05-0.07. base_decay_rates.semantic = 240 hit the highest f1; ceiling above untested — sweep to 400. core_session_threshold value=4 was anomalous; treat 1-3 as the search range. Other params locked at defaults per Phase 1 sensitivity.",
+    "associative_boost": {
+      "type": "float",
+      "low": 0.04,
+      "high": 0.10
+    },
+    "base_decay_rates.semantic": {
+      "type": "float",
+      "low": 180.0,
+      "high": 400.0
+    },
+    "core_session_threshold": {
+      "type": "int",
+      "low": 1,
+      "high": 3
+    }
+  },
+
+  "score_keys": [
+    "overall.accuracy",
+    "overall.mean_f1",
+    "summary.decay_trivial.mean_f1",
+    "summary.core_persistence.mean_f1",
+    "summary.revival.mean_f1",
+    "summary.associative.mean_f1",
+    "summary.contextual_retention.mean_f1"
+  ]
+}
