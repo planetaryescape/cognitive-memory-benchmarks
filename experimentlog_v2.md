@@ -466,9 +466,9 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 
 ## 2026-05-08 — Phase 2: Optuna inner-loop tuning (in progress)
 
-**Status:** in-progress (started 2026-05-08T09:41 BST; 1 of 50
-trials complete at 09:56; per-trial pace ~14.5 min → projected end
-~21:41 BST). Last refresh 09:58 BST.
+**Status:** in-progress (started 2026-05-08T09:41 BST; 10 of 50
+trials complete at 11:57; TPE exploration phase done; per-trial
+pace ~13.6 min → projected end ~19:41 BST). Last refresh 12:00 BST.
 
 Bayesian optimization (Optuna TPE) over the 3 dimensions Phase 1
 narrowed to. Output: top-5 candidate configs to promote to Phase 3.
@@ -496,12 +496,28 @@ Median of n=3 sub-runs feeds the fitness.
 
 _Best-known refreshed as trials land. Full table at sweep end._
 
-**Best so far:** Trial 0, fitness=0.6491 (early baseline; TPE
-explores broadly before exploiting)
+**Best so far:** Trial 9, fitness=0.6525 (associative_boost=0.049,
+β_semantic=190, core_session_threshold=3). Improvement over earliest
+trial: +0.34pp — within noise. TPE exploration phase complete (trials
+0-9); exploitation begins trial 10.
 
 | trial | associative_boost | β_semantic | core_sess_thr | fitness |
 |---|---|---|---|---|
 | 0 | 0.086 | 331.6 | 1 | 0.6491 |
+| 1 | 0.073 | 237.2 | 3 | 0.6152 |
+| 2 | 0.060 | 191.8 | 1 | 0.6507 |
+| 3 | 0.092 | 338.8 | 1 | 0.6157 |
+| 4 | 0.074 | 250.6 | 1 | 0.6491 |
+| 5 | 0.070 | 209.1 | 1 | 0.6488 |
+| 6 | 0.070 | 371.2 | 2 | 0.6514 |
+| 7 | 0.061 | 210.8 | 1 | 0.6459 |
+| 8 | 0.080 | 221.3 | 2 | 0.6148 |
+| 9 | 0.049 | 190.2 | 3 | **0.6525** ← best |
+
+**Bimodal fitness landscape after exploration:** 7 trials cluster
+at 0.645-0.653, 3 at 0.615-0.616. Neither cst nor associative_boost
+nor β cleanly separates the two — strongly suggests judge variance
+on marginal questions, not parameter effect.
 
 ### Cost projection
 
