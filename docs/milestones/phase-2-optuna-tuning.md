@@ -1,9 +1,9 @@
 # Phase 2 — Optuna inner-loop tuning (in progress)
 
 **Started:** 2026-05-08T09:41 BST
-**Sweep status (last refresh 2026-05-08T14:12 BST):** 20 of 50 trials complete (40%); trial 20 in progress
-**Per-trial pace (measured):** ~13.5 min/trial → projected ~9.3h total wall
-**Projected end:** ~19:00 BST tonight
+**Sweep status (last refresh 2026-05-08T16:36 BST):** 30 of 50 trials complete (60%); trial 30 in progress
+**Per-trial pace (measured):** ~13.7 min/trial → projected ~9.1h total wall
+**Projected end:** ~18:48 BST tonight
 **Projected cost:** ~$15
 **Output:** `tuning/runs/phase2/lti-phase2.db` (Optuna SQLite study)
 
@@ -55,7 +55,7 @@ _Updated as trials land. Full table at sweep end; this section
 shows the running best + the most recent ~5 trials so the
 in-progress doc stays scannable._
 
-**Best so far:** Trial 9, fitness=0.6525 (associative_boost=0.049, β_semantic=190, core_session_threshold=3). Note this is the *fitness composite*, not overall.mean_f1 — Phase 1 OFAT's f1 of ~0.69 isn't directly comparable.
+**Best so far:** Trial 23, fitness=0.6531 (associative_boost=0.078, β_semantic=367, core_session_threshold=2). Improvement over previous tied-best is **+0.06pp — within the 3-question marginal-judge noise floor identified in Phase 2.5**. Treat as not-meaningfully-better.
 
 | trial | associative_boost | β_semantic | core_session_threshold | fitness |
 |---|---|---|---|---|
@@ -68,30 +68,45 @@ in-progress doc stays scannable._
 | 6 | 0.0701 | 371.2 | 2 | 0.6514 |
 | 7 | 0.0609 | 210.8 | 1 | 0.6459 |
 | 8 | 0.0801 | 221.3 | 2 | 0.6148 |
-| 9 | 0.0487 | 190.2 | 3 | **0.6525** ← best so far |
+| 9 | 0.0487 | 190.2 | 3 | 0.6525 |
 | 10 | 0.0458 | 289.6 | 3 | 0.6489 |
 | 11 | 0.0403 | 397.3 | 2 | 0.6508 |
 | 12 | 0.0554 | 396.5 | 3 | 0.6496 |
 | 13 | 0.0514 | 280.8 | 2 | 0.6491 |
 | 14 | 0.0639 | 345.5 | 3 | 0.6181 ← low-cluster despite TPE-favoured region |
 | 15 | 0.0986 | 366.4 | 2 | 0.6491 |
-| 16 | 0.0503 | 311.9 | 2 | **0.6525** ← exact tie with current best |
+| 16 | 0.0503 | 311.9 | 2 | 0.6525 |
 | 17 | 0.0483 | 313.8 | 3 | 0.6155 ← assoc≈0.05 BUT low cluster |
 | 18 | 0.0420 | 269.0 | 2 | 0.6477 |
 | 19 | 0.0535 | 313.2 | 3 | 0.6514 |
-| 20 | _running…_ | | | |
+| 20 | 0.0475 | 185.7 | 2 | 0.6491 |
+| 21 | 0.0676 | 368.9 | 2 | 0.6491 |
+| 22 | 0.0562 | 306.5 | 2 | 0.6488 |
+| 23 | 0.0782 | 367.1 | 2 | **0.6531** ← +0.06pp over tied-best (within noise) |
+| 24 | 0.0802 | 255.5 | 3 | 0.6457 |
+| 25 | 0.0824 | 352.8 | 2 | 0.6491 |
+| 26 | 0.0752 | 324.2 | 2 | 0.6491 |
+| 27 | 0.0649 | 380.4 | 3 | 0.6491 |
+| 28 | 0.0904 | 299.2 | 2 | 0.6459 |
+| 29 | 0.0856 | 332.9 | 2 | 0.6459 |
+| 30 | _running…_ | | | |
 
-**cst breakdown after 20 trials:**
+**cst breakdown after 30 trials:**
 
-| cst | high cluster | low cluster | hit rate |
-|---|---|---|---|
-| 1 | 0, 2, 4, 5, 7 (5) | 3 (1) | 5/6 = 83% |
-| 2 | 6, 11, 13, 15, 16, 18 (6) | 8 (1) | 6/7 = 86% |
-| 3 | 9, 10, 12, 19 (4) | 1, 14, 17 (3) | 4/7 = 57% |
+| cst | high cluster | low cluster | hit rate | note |
+|---|---|---|---|---|
+| 1 | 5 | 1 | 5/6 = 83% | n=6 |
+| 2 | 13 | 1 | **13/14 = 93%** | **cleanest** |
+| 3 | 6 | 3 | 6/9 = 67% | trailing |
 
-cst=3 still trailing but gap narrowed (was 50%, now 57%). cst=1
-and 2 indistinguishable. With more cst=3 samples coming the
-finding may regress further toward "all flat".
+cst=2 is now the consistently-cleanest at n=14. cst=3 trailing
+holds. Phase 1 OFAT had cst=1/2/3 all flat — joint search
+surfaces a real interaction effect.
+
+**Distinct fitness values:** 17 across 30 trials. The bench is
+emitting a discrete set; tied configs are common. Trial 23's
+"best" of 0.6532 is +0.06pp above the next-tier 0.6525 cluster
+— within the marginal-question coin flip identified in Phase 2.5.
 
 **Bimodal landscape after 10 trials (TPE exploration phase).**
 

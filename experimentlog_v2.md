@@ -466,10 +466,10 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 
 ## 2026-05-08 — Phase 2: Optuna inner-loop tuning (in progress)
 
-**Status:** in-progress (started 2026-05-08T09:41 BST; 20 of 50
-trials complete at 14:10 — 40% done; TPE exploration phase done;
-per-trial pace ~13.5 min → projected end ~19:00 BST). Last refresh
-14:14 BST.
+**Status:** in-progress (started 2026-05-08T09:41 BST; 30 of 50
+trials complete at 16:34 — 60% done; TPE exploitation phase well
+underway; per-trial pace ~13.7 min → projected end ~18:48 BST).
+Last refresh 16:38 BST.
 
 Bayesian optimization (Optuna TPE) over the 3 dimensions Phase 1
 narrowed to. Output: top-5 candidate configs to promote to Phase 3.
@@ -524,20 +524,35 @@ trial: +0.34pp — within noise. TPE exploration phase complete (trials
 | 17 | 0.048 | 313.8 | 3 | 0.6155 |
 | 18 | 0.042 | 269.0 | 2 | 0.6477 |
 | 19 | 0.054 | 313.2 | 3 | 0.6514 |
+| 20 | 0.048 | 185.7 | 2 | 0.6491 |
+| 21 | 0.068 | 368.9 | 2 | 0.6491 |
+| 22 | 0.056 | 306.5 | 2 | 0.6488 |
+| 23 | 0.078 | 367.1 | 2 | **0.6532** ← new best (+0.06pp, within noise) |
+| 24 | 0.080 | 255.5 | 3 | 0.6457 |
+| 25 | 0.082 | 352.8 | 2 | 0.6491 |
+| 26 | 0.075 | 324.2 | 2 | 0.6491 |
+| 27 | 0.065 | 380.4 | 3 | 0.6491 |
+| 28 | 0.090 | 299.2 | 2 | 0.6459 |
+| 29 | 0.086 | 332.9 | 2 | 0.6459 |
 
-**Bimodal fitness landscape after 20 trials:** 14 in high cluster
-(0.645-0.653), 6 in low cluster (0.615-0.620). cst breakdown:
+**Cluster picture after 30 trials:** 24 high, 5 low. **17 distinct
+fitness values** total — the bench emits a discrete set, with
+"0.6491" alone hit 9 times. Trial 23's "best" of 0.6532 is +0.06pp
+above the 0.6525 cluster — within the 3-question coin-flip noise
+floor identified in Phase 2.5.
 
-| cst | hit rate (high) | sample size |
+**cst hit-rate sharpening at n=30:**
+
+| cst | hit rate | samples |
 |---|---|---|
-| 1 | 5/6 = 83% | 6 |
-| 2 | 6/7 = 86% | 7 |
-| 3 | 4/7 = 57% | 7 |
+| 1 | 83% | 6 |
+| 2 | **93%** | 14 |
+| 3 | 67% | 9 |
 
-cst=3 trails but gap narrowed from 50% (at trial 14) to 57%. With
-more samples expected to regress further. assoc≈0.05 appears in
-both 0.6525-tied best trials (9 and 16) — Phase 1's sweet spot
-holds. β and cst look noise-dominated within the search range.
+cst=2 is now decisively the cleanest in the joint search (Phase 1
+OFAT had cst=1/2/3 all flat at default). With cst=2 at n=14 the
+93% hit-rate is more credible than at n=7 earlier. cst=3 trailing
+holds.
 
 ### Phase 2.5 — per-question variance analysis (DONE, $0)
 
