@@ -530,6 +530,7 @@ def run_evaluation(
     hybrid_search: bool = False,
     graph_hops: int = None,
     decay_model: str = None,
+    trial_kwargs: dict = None,
 ):
     """
     Run full LoCoMo evaluation.
@@ -565,6 +566,12 @@ def run_evaluation(
             adapter_kwargs["graph_hops"] = graph_hops
         if decay_model is not None:
             adapter_kwargs["decay_model"] = decay_model
+        # Trial config kwargs (Phase 0c) — merged in last so config_overrides
+        # can flip arbitrary CognitiveMemoryConfig fields. Explicit CLI flags
+        # above still win on direct collisions because dict.update doesn't
+        # overwrite identical keys with None values from non-set CLI args.
+        if trial_kwargs:
+            adapter_kwargs.update(trial_kwargs)
     adapter = adapters[adapter_name](**adapter_kwargs)
     print(f"Using adapter: {adapter_name}")
     print(f"LLM model: {model}")
@@ -798,6 +805,20 @@ def main():
         choices=["exponential", "power"],
         help="Override decay model (default: SDK default=exponential)"
     )
+    parser.add_argument(
+        "--config",
+        default=None,
+        help="Path to a tuning trial JSON config (Phase 0c). Overrides "
+        "CognitiveMemoryConfig fields and adapter kwargs per-trial. "
+        "Used by Phase 3 cross-check on Phase 2 winners.",
+    )
+    parser.add_argument(
+        "--surface",
+        choices=["sdk", "daemon"],
+        default=None,
+        help="Override the trial config's surface (sdk | daemon). "
+        "CLI flag wins over the JSON file's surface field.",
+    )
 
     args = parser.parse_args()
 
@@ -812,6 +833,14 @@ def main():
         with open(args.custom_extraction_instructions) as f:
             custom_extraction_instructions = f.read().strip()
         print(f"Loaded custom extraction instructions from {args.custom_extraction_instructions}")
+
+    # Load trial config (Phase 0c schema). Merges into adapter kwargs
+    # below — explicit CLI flags still win on collision.
+    from shared.trial_config import load_trial_config
+
+    trial_kwargs = load_trial_config(args.config)
+    if args.surface is not None:
+        trial_kwargs["surface"] = args.surface
 
     run_evaluation(
         data_path=args.data,
@@ -835,6 +864,7 @@ def main():
         hybrid_search=args.hybrid_search,
         graph_hops=args.graph_hops,
         decay_model=args.decay_model,
+        trial_kwargs=trial_kwargs,
     )
 
 
