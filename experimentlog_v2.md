@@ -356,3 +356,101 @@ clean draw, stddev is well below the 1pp gate.
   config.toml restart-write per override isn't safe for unattended
   execution. User-driven validation via the recipe in
   `tuning/README.md`.
+
+---
+
+## 2026-05-08 — Phase 1: OFAT sensitivity sweeps (in progress)
+
+**Status:** in-progress (40 of 47 trials done at 05:16 BST; ETA ~1.5h to completion)
+
+First execution of `tuning/scripts/run_phase1.py` against
+`tuning/spaces/phase1/sweeps.json`. 10 Tier 1+2 parameters,
+5 values each (where applicable), n=3 sub-runs per value =
+141 total LTI-Bench sub-runs. Pace: ~12.2 min per (param, value)
+trial — total wall ~9.5h, projected cost ~$14. Started 21:16
+on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
+
+### Headline findings (9/10 sweeps complete)
+
+**Easy wins (improve over defaults):**
+- `associative_boost`: **default 0.03 is the worst value** in the
+  sweep. f1=0.664 at default vs ~0.684 at any other value
+  (0.01, 0.05, 0.07, 0.10). Bumping to 0.05 looks like a free
+  +2pp; default may have been chosen without empirical backing.
+- `base_decay_rates.semantic = 240` (longer than paper Table 2's
+  120d) hits f1=0.703 vs default's 0.689 → +1.4pp. Phase 2 should
+  sweep further (300, 360) — ceiling not yet found.
+
+**Defaults validated:**
+- `direct_boost = 0.1` is the sweet spot (f1=0.697). 0.05/0.15/0.20
+  /0.25 all worse. Bimodal pattern but default wins clearly.
+- `retrieval_score_exponent (α) = 0.3` (default): only α=0.1
+  underperforms (f1=0.665); α=0.3 through 0.9 are statistically
+  flat at ~0.687-0.690.
+
+**Drop from Phase 2 search space (no signal):**
+- `core_access_threshold`: completely flat across 3, 5, 10
+  (range 0.06pp on f1). Tested values 15 and 20 still pending
+  but unlikely to surface signal.
+- `decay_model`: exponential vs power within noise (0.41pp).
+  Pick either; not worth a search dimension.
+
+**Mixed / suspect signals:**
+- `core_session_threshold = 4` is anomalously bad (f1=0.665 vs
+  ~0.686 at 1, 2, 3, 6). Looks like a noisy single trial; the
+  surrounding points are flat. Re-run candidate.
+- `power_decay_gamma`: γ=2.5 hurts (f1=0.675); 0.7-2.0 are flat.
+- `base_decay_rates.episodic`: shorter is better — 15, 30, 45
+  cluster at ~0.689; 90 and 180 drop to ~0.660. Default 45 is
+  fine; do not lengthen.
+
+### Trials so far
+
+| param | values swept | f1 range | best value |
+|---|---|---|---|
+| retrieval_score_exponent | 0.1, 0.3, 0.5, 0.7, 0.9 | 2.51pp | 0.5 (within noise of default) |
+| direct_boost | 0.05, 0.1, 0.15, 0.2, 0.25 | 3.21pp | 0.1 (default) |
+| associative_boost | 0.01, 0.03, 0.05, 0.07, 0.1 | 2.19pp | 0.05/0.07 (>>default 0.03) |
+| decay_model | exponential, power | 0.41pp | tied |
+| power_decay_gamma | 0.7, 1.0, 1.4427, 2.0, 2.5 | 1.38pp | 2.0 (within noise) |
+| base_decay_rates.semantic | 30, 60, 120, 180, 240 | 2.48pp | **240 (>default 120)** |
+| base_decay_rates.episodic | 15, 30, 45, 90, 180 | 2.95pp | 30 (within noise of default) |
+| core_session_threshold | 1, 2, 3, 4, 6 | 2.24pp | 1 (within noise; 4 anomalous) |
+| core_access_threshold | 3, 5, 10 (15, 20 pending) | 0.06pp | flat |
+| core_stability_threshold | _pending_ | — | — |
+
+### What I'm learning about the methodology
+
+- The Phase 0g concern about LTI-Bench being too noisy at n=42 is
+  partially borne out: many sweep ranges are ~2-3pp, sitting at
+  the edge of the bench's noise floor. But signals ARE separable
+  for the strongest movers (associative_boost, base_decay_rates.
+  semantic at the high end). The 2pp drop-gate from the parent
+  plan is the right call.
+- n=3 is the floor; some trials have stddev ~0.018 (1.8pp), big
+  enough to be confused with effects in adjacent param values. A
+  re-run loop targeting trials with stddev > 0.01 would tighten
+  the picture.
+- The "draw effect" from Phase 0g recurs: trials with stddev=0 sit
+  next to trials with stddev=0.018 on the same param sweep, i.e.
+  some sub-runs cluster cleanly and some don't. This is judge
+  variance, not engine variance.
+
+### Next
+
+- Wait for the remaining ~7 trials. Update this entry + write
+  Phase 1 milestone note when CSV is complete.
+- Phase 2 (Optuna inner loop) inherits a much narrower search
+  space:
+  - **Drop:** core_access_threshold, decay_model
+  - **Lock at default:** retrieval_score_exponent, direct_boost,
+    base_decay_rates.episodic, power_decay_gamma
+  - **Search narrowly:**
+    - `associative_boost ∈ [0.04, 0.08]` (default's bad)
+    - `base_decay_rates.semantic ∈ [180, 360]` (default may be
+      too short; ceiling above 240 untested)
+    - `core_session_threshold ∈ [1, 3]`, `core_stability_threshold`
+      (pending sweep)
+- Confirm the associative_boost finding with n≥5 before promoting
+  it to a default change in Phase 6. If +2pp at the default
+  point holds with more sub-runs, that's a free win.
