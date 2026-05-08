@@ -361,7 +361,7 @@ clean draw, stddev is well below the 1pp gate.
 
 ## 2026-05-08 — Phase 1: OFAT sensitivity sweeps (in progress)
 
-**Status:** in-progress (40 of 47 trials done at 05:16 BST; ETA ~1.5h to completion)
+**Status:** in-progress (44 of 47 trials done at 06:17 BST; ETA ~36min). Last refresh 06:18 BST.
 
 First execution of `tuning/scripts/run_phase1.py` against
 `tuning/spaces/phase1/sweeps.json`. 10 Tier 1+2 parameters,
@@ -389,9 +389,12 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
   flat at ~0.687-0.690.
 
 **Drop from Phase 2 search space (no signal):**
-- `core_access_threshold`: completely flat across 3, 5, 10
-  (range 0.06pp on f1). Tested values 15 and 20 still pending
-  but unlikely to surface signal.
+- `core_access_threshold`: confirmed completely flat across all
+  5 values: 3 (0.6876), 5 (0.6874), 10 (default, 0.6880), 15
+  (0.6876), 20 (0.6877) — range 0.06pp on f1. Drop from Phase 2.
+- `core_stability_threshold`: 2 of 5 values done, looking flat —
+  0.6 (0.6874) and 0.7 (0.6888); pending 0.85 (default, running),
+  0.9, 0.95. Likely to drop from Phase 2.
 - `decay_model`: exponential vs power within noise (0.41pp).
   Pick either; not worth a search dimension.
 
@@ -416,8 +419,8 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 | base_decay_rates.semantic | 30, 60, 120, 180, 240 | 2.48pp | **240 (>default 120)** |
 | base_decay_rates.episodic | 15, 30, 45, 90, 180 | 2.95pp | 30 (within noise of default) |
 | core_session_threshold | 1, 2, 3, 4, 6 | 2.24pp | 1 (within noise; 4 anomalous) |
-| core_access_threshold | 3, 5, 10 (15, 20 pending) | 0.06pp | flat |
-| core_stability_threshold | _pending_ | — | — |
+| core_access_threshold | 3, 5, 10, 15, 20 | 0.06pp | flat (drop) |
+| core_stability_threshold | 0.6, 0.7 (0.85, 0.9, 0.95 pending) | 0.14pp so far | likely flat |
 
 ### What I'm learning about the methodology
 

@@ -1,8 +1,8 @@
 # Phase 1 — sensitivity analysis (in progress)
 
 **Started:** 2026-05-07T21:16 BST
-**Sweep status (last refresh):** 40/47 trials done, ~7 remaining (~1.5h ETA)
-**API spend so far:** ~$11 (estimated from 120 sub-runs at ~$0.10 each)
+**Sweep status (last refresh 2026-05-08T06:17 BST):** 44/47 trials done, 3 remaining (~36min ETA)
+**API spend so far:** ~$13 (estimated from 132 sub-runs at ~$0.10 each)
 **Projected total:** ~$14 spend, ~9.5h wall
 
 This is a live milestone. Final write-up happens when the sweep
@@ -82,9 +82,10 @@ signal above it.
 
 ### Drop from Phase 2
 
-**`core_access_threshold` has no signal** — range 0.06pp across
-3, 5, 10 (15 and 20 pending; unlikely to surface signal). Drop
-from Optuna search space.
+**`core_access_threshold` has no signal** — confirmed flat across
+all 5 values: 3 (0.6876), 5 (0.6874), 10 (default, 0.6880),
+15 (0.6876), 20 (0.6877). Range 0.06pp on f1. Drop from Optuna
+search space.
 
 **`decay_model` (exponential vs power)** within noise (0.41pp).
 Pick either; not worth a search dimension.
@@ -103,8 +104,9 @@ lengthen.
 
 ## Pending
 
-- `core_stability_threshold` sweep (5 values, ~1h)
-- Tail of `core_access_threshold` (15, 20)
+- `core_stability_threshold` sweep — 2 of 5 values done so far:
+  0.6 (f1=0.6874) and 0.7 (f1=0.6888). Range 0.14pp; looking
+  flat. Pending: 0.85 (default, currently running), 0.9, 0.95.
 
 ## Phase 2 search-space recommendation (interim)
 
@@ -120,8 +122,8 @@ Down from 10 to ~3 active dimensions:
 | base_decay_rates.episodic | lock at 45 (default; ≥30 also fine) |
 | power_decay_gamma | lock at 1.4427 (default) |
 | decay_model | lock (either; no signal) |
-| core_access_threshold | drop |
-| core_stability_threshold | TBD pending sweep |
+| core_access_threshold | **drop** (confirmed flat across 5 values: range 0.06pp) |
+| core_stability_threshold | likely drop — 0.6 / 0.7 flat at f1≈0.688; 0.85 / 0.9 / 0.95 pending |
 
 If Phase 2 search is just 3 dimensions with narrow ranges, Optuna
 needs ~30-50 trials instead of 150 → ~$3-5 instead of ~$15.
