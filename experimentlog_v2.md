@@ -361,7 +361,7 @@ clean draw, stddev is well below the 1pp gate.
 
 ## 2026-05-08 — Phase 1: OFAT sensitivity sweeps (in progress)
 
-**Status:** in-progress (44 of 47 trials done at 06:17 BST; ETA ~36min). Last refresh 06:18 BST.
+**Status:** complete (47/47 trials, finished 2026-05-08T06:43 BST; 9.5h wall; ~$14 spend; exit code 0).
 
 First execution of `tuning/scripts/run_phase1.py` against
 `tuning/spaces/phase1/sweeps.json`. 10 Tier 1+2 parameters,
@@ -392,9 +392,9 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 - `core_access_threshold`: confirmed completely flat across all
   5 values: 3 (0.6876), 5 (0.6874), 10 (default, 0.6880), 15
   (0.6876), 20 (0.6877) — range 0.06pp on f1. Drop from Phase 2.
-- `core_stability_threshold`: 2 of 5 values done, looking flat —
-  0.6 (0.6874) and 0.7 (0.6888); pending 0.85 (default, running),
-  0.9, 0.95. Likely to drop from Phase 2.
+- `core_stability_threshold`: confirmed flat across all 5 values:
+  0.6 (0.6874), 0.7 (0.6888), 0.85 (default, 0.6876), 0.9
+  (0.6893), 0.95 (0.6891) — range 0.20pp on f1. Drop from Phase 2.
 - `decay_model`: exponential vs power within noise (0.41pp).
   Pick either; not worth a search dimension.
 
@@ -420,7 +420,7 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 | base_decay_rates.episodic | 15, 30, 45, 90, 180 | 2.95pp | 30 (within noise of default) |
 | core_session_threshold | 1, 2, 3, 4, 6 | 2.24pp | 1 (within noise; 4 anomalous) |
 | core_access_threshold | 3, 5, 10, 15, 20 | 0.06pp | flat (drop) |
-| core_stability_threshold | 0.6, 0.7 (0.85, 0.9, 0.95 pending) | 0.14pp so far | likely flat |
+| core_stability_threshold | 0.6, 0.7, 0.85, 0.9, 0.95 | 0.20pp | flat (drop) |
 
 ### What I'm learning about the methodology
 
@@ -441,19 +441,23 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 
 ### Next
 
-- Wait for the remaining ~7 trials. Update this entry + write
-  Phase 1 milestone note when CSV is complete.
-- Phase 2 (Optuna inner loop) inherits a much narrower search
-  space:
-  - **Drop:** core_access_threshold, decay_model
-  - **Lock at default:** retrieval_score_exponent, direct_boost,
-    base_decay_rates.episodic, power_decay_gamma
-  - **Search narrowly:**
-    - `associative_boost ∈ [0.04, 0.08]` (default's bad)
-    - `base_decay_rates.semantic ∈ [180, 360]` (default may be
-      too short; ceiling above 240 untested)
-    - `core_session_threshold ∈ [1, 3]`, `core_stability_threshold`
-      (pending sweep)
-- Confirm the associative_boost finding with n≥5 before promoting
-  it to a default change in Phase 6. If +2pp at the default
-  point holds with more sub-runs, that's a free win.
+- Phase 2 (Optuna inner loop) inherits a 2- or 3-dim search:
+  - **Drop:** core_access_threshold, core_stability_threshold,
+    decay_model (all flat)
+  - **Lock at default:** retrieval_score_exponent (0.3),
+    direct_boost (0.1), base_decay_rates.episodic (45),
+    power_decay_gamma (1.4427)
+  - **Search:**
+    - `associative_boost ∈ [0.04, 0.10]` — default 0.03 is the
+      WORST value tested; bumping to 0.05 gives ~+2pp f1
+    - `base_decay_rates.semantic ∈ [180, 400]` — 240 hit the
+      sweep maximum at 0.703; ceiling untested
+    - Optionally `core_session_threshold ∈ {1, 2, 3}` — value=4
+      was anomalous (single bad trial); 1/2/3 all flat at default
+- Phase 2 scaffolding ready (commit `f5e6f3d`):
+  `tuning/spaces/phase2/space.json` + `tuning/scripts/run_optuna.py`.
+  Run with `python tuning/scripts/run_optuna.py --space tuning/spaces/phase2/space.json`.
+  ~50 trials × n=3 ≈ 12.5h, ~$15.
+- Phase 6 (ship) candidate: flip `associative_boost` default from
+  0.03 to 0.05+. Re-run that point at n≥5 to confirm before
+  shipping a default change.

@@ -1,13 +1,10 @@
-# Phase 1 — sensitivity analysis (in progress)
+# Phase 1 — sensitivity analysis (complete)
 
 **Started:** 2026-05-07T21:16 BST
-**Sweep status (last refresh 2026-05-08T06:17 BST):** 44/47 trials done, 3 remaining (~36min ETA)
-**API spend so far:** ~$13 (estimated from 132 sub-runs at ~$0.10 each)
-**Projected total:** ~$14 spend, ~9.5h wall
-
-This is a live milestone. Final write-up happens when the sweep
-completes; until then this captures interim results so they don't
-get lost if the process dies.
+**Completed:** 2026-05-08T06:43 BST (~9.5h wall)
+**Sweep:** 47/47 trials, 141 sub-runs, exit code 0
+**API spend:** ~$14
+**Output:** `tuning/runs/phase1_sensitivity.csv` (47 rows)
 
 ## Goal
 
@@ -102,11 +99,19 @@ at 1, 2, 3, 6). Single noisy trial; surrounding values are flat.
 ~0.689; 90, 180 drop to ~0.660. Default 45 is fine; do not
 lengthen.
 
-## Pending
+## `core_stability_threshold` — final reading
 
-- `core_stability_threshold` sweep — 2 of 5 values done so far:
-  0.6 (f1=0.6874) and 0.7 (f1=0.6888). Range 0.14pp; looking
-  flat. Pending: 0.85 (default, currently running), 0.9, 0.95.
+5 values complete; sweep range 0.20pp on f1.
+
+| value | f1 median | stddev |
+|---|---|---|
+| 0.6 | 0.6874 | 0.001 |
+| 0.7 | 0.6888 | 0.006 |
+| 0.85 (default) | 0.6876 | 0.014 |
+| 0.9 | 0.6893 | 0.002 |
+| 0.95 | 0.6891 | 0.0001 |
+
+Flat; drop from Phase 2 search space. Default 0.85 is fine.
 
 ## Phase 2 search-space recommendation (interim)
 
@@ -123,10 +128,16 @@ Down from 10 to ~3 active dimensions:
 | power_decay_gamma | lock at 1.4427 (default) |
 | decay_model | lock (either; no signal) |
 | core_access_threshold | **drop** (confirmed flat across 5 values: range 0.06pp) |
-| core_stability_threshold | likely drop — 0.6 / 0.7 flat at f1≈0.688; 0.85 / 0.9 / 0.95 pending |
+| core_stability_threshold | **drop** (confirmed flat across 5 values: range 0.20pp) |
 
-If Phase 2 search is just 3 dimensions with narrow ranges, Optuna
-needs ~30-50 trials instead of 150 → ~$3-5 instead of ~$15.
+Final Phase 2 search: **2-3 dimensions** (associative_boost,
+base_decay_rates.semantic, plus core_session_threshold ∈ {1,2,3}
+if we want to spend the budget on it; otherwise lock at default 3).
+Optuna at 50 trials × n=3 ≈ ~12.5h, ~$15 — acceptable.
+
+The Phase 2 scaffold (`tuning/spaces/phase2/space.json`,
+`tuning/scripts/run_optuna.py`, commit f5e6f3d) was pre-built
+during the Phase 1 sweep with this exact search space.
 
 ## What's working / what's not
 
@@ -141,12 +152,12 @@ needs ~30-50 trials instead of 150 → ~$3-5 instead of ~$15.
   boost +2.2pp, base_decay_rates.semantic +1.4pp) sit just at the
   edge of detectability. Smaller effects would be lost.
 
-## Cost so far
+## Cost (final)
 
-- API: ~$11 (40 trials × 3 sub-runs × ~$0.09)
-- Wall: 8h elapsed
-- Total Phase 0 + 1 spend: ~$12.30 against the original
-  Phase 0 budget of $1 + Phase 1 budget of $14.
+- API: ~$14 (47 trials × 3 sub-runs × ~$0.10)
+- Wall: 9.5h
+- Total Phase 0 + 1 spend: ~$15.30 against the planned
+  Phase 0 budget of $1 + Phase 1 budget of $14 → **on budget**.
 
 ## Links
 
