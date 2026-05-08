@@ -1,9 +1,9 @@
 # Phase 2 — Optuna inner-loop tuning (in progress)
 
 **Started:** 2026-05-08T09:41 BST
-**Sweep status (last refresh 2026-05-08T11:59 BST):** 10 of 50 trials complete (initial TPE exploration phase done); trial 10 in progress (first exploitation step)
-**Per-trial pace (measured):** ~13.6 min/trial → projected ~10h total wall
-**Projected end:** ~19:41 BST tonight
+**Sweep status (last refresh 2026-05-08T14:12 BST):** 20 of 50 trials complete (40%); trial 20 in progress
+**Per-trial pace (measured):** ~13.5 min/trial → projected ~9.3h total wall
+**Projected end:** ~19:00 BST tonight
 **Projected cost:** ~$15
 **Output:** `tuning/runs/phase2/lti-phase2.db` (Optuna SQLite study)
 
@@ -69,7 +69,29 @@ in-progress doc stays scannable._
 | 7 | 0.0609 | 210.8 | 1 | 0.6459 |
 | 8 | 0.0801 | 221.3 | 2 | 0.6148 |
 | 9 | 0.0487 | 190.2 | 3 | **0.6525** ← best so far |
-| 10 | _running…_ | | | first TPE exploitation step |
+| 10 | 0.0458 | 289.6 | 3 | 0.6489 |
+| 11 | 0.0403 | 397.3 | 2 | 0.6508 |
+| 12 | 0.0554 | 396.5 | 3 | 0.6496 |
+| 13 | 0.0514 | 280.8 | 2 | 0.6491 |
+| 14 | 0.0639 | 345.5 | 3 | 0.6181 ← low-cluster despite TPE-favoured region |
+| 15 | 0.0986 | 366.4 | 2 | 0.6491 |
+| 16 | 0.0503 | 311.9 | 2 | **0.6525** ← exact tie with current best |
+| 17 | 0.0483 | 313.8 | 3 | 0.6155 ← assoc≈0.05 BUT low cluster |
+| 18 | 0.0420 | 269.0 | 2 | 0.6477 |
+| 19 | 0.0535 | 313.2 | 3 | 0.6514 |
+| 20 | _running…_ | | | |
+
+**cst breakdown after 20 trials:**
+
+| cst | high cluster | low cluster | hit rate |
+|---|---|---|---|
+| 1 | 0, 2, 4, 5, 7 (5) | 3 (1) | 5/6 = 83% |
+| 2 | 6, 11, 13, 15, 16, 18 (6) | 8 (1) | 6/7 = 86% |
+| 3 | 9, 10, 12, 19 (4) | 1, 14, 17 (3) | 4/7 = 57% |
+
+cst=3 still trailing but gap narrowed (was 50%, now 57%). cst=1
+and 2 indistinguishable. With more cst=3 samples coming the
+finding may regress further toward "all flat".
 
 **Bimodal landscape after 10 trials (TPE exploration phase).**
 
@@ -129,6 +151,47 @@ mid-sweep:
 
 Resumes from the last completed trial. Per-trial artifacts in
 `tuning/runs/lti-NNNN/run-NN/` are preserved regardless.
+
+## Phase 2.5 — post-sweep noise analysis (planned, $0)
+
+After a research check on Karpathy's `autoresearch`
+(https://github.com/karpathy/autoresearch) — verdict: not a fit
+for noisy-judge parameter tuning (greedy-keep amplifies noise; no
+seed/significance machinery; mismatched for fixed-dim continuous
+search). The agent's actually-useful suggestions land here:
+
+1. **Per-question variance analysis (next, $0).** Read all 50
+   trial dirs' `result.json` per-sub-run + the Optuna study; for
+   each of LTI-Bench's 42 questions, compute "how often did the
+   judge flip across trials?". Surfaces *which* marginal questions
+   cause the bimodal cluster split. One-shot Claude/Codex pass over
+   the data we already have. No API spend. Output: a Phase 2.5
+   doc + CSV.
+2. **Judge-variance baseline (~$2, ~1.7h).** Run the same fixed
+   default config 20× on LTI-Bench. Measures the actual noise
+   floor under repeated-eval. If stddev > 1pp, increase n in Phase
+   3 trials.
+3. **Top-trial confirmation re-run (~$5, ~5h).** Take the top-5
+   Phase 2 trials by fitness; re-run each at n=5 sub-runs. If any
+   stay in the high cluster across 5 sub-runs while others fall
+   into the low cluster, that's real signal. Otherwise everything's
+   noise-equivalent and Phase 6 should pick the simplest config
+   (closest-to-default among the top-5).
+4. **Switch sampler if still tuning** (Phase 2 v2): Optuna's
+   `CmaEsSampler` or `BoTorchSampler` handle noisy objectives
+   better than TPE. Drop-in replacement.
+
+References:
+- `autoresearch` repo + discussions:
+  https://github.com/karpathy/autoresearch
+  https://github.com/karpathy/autoresearch/issues/131 (no seed
+  engineering planned)
+  https://github.com/karpathy/autoresearch/discussions/293 (no
+  built-in HPO planned)
+- LLMs vs classical HPO benchmark:
+  https://arxiv.org/html/2603.24647v3
+- Optuna noisy-objective samplers:
+  https://optuna.readthedocs.io/
 
 ## Inspection
 

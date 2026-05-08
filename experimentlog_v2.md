@@ -466,9 +466,10 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 
 ## 2026-05-08 — Phase 2: Optuna inner-loop tuning (in progress)
 
-**Status:** in-progress (started 2026-05-08T09:41 BST; 10 of 50
-trials complete at 11:57; TPE exploration phase done; per-trial
-pace ~13.6 min → projected end ~19:41 BST). Last refresh 12:00 BST.
+**Status:** in-progress (started 2026-05-08T09:41 BST; 20 of 50
+trials complete at 14:10 — 40% done; TPE exploration phase done;
+per-trial pace ~13.5 min → projected end ~19:00 BST). Last refresh
+14:14 BST.
 
 Bayesian optimization (Optuna TPE) over the 3 dimensions Phase 1
 narrowed to. Output: top-5 candidate configs to promote to Phase 3.
@@ -513,11 +514,49 @@ trial: +0.34pp — within noise. TPE exploration phase complete (trials
 | 7 | 0.061 | 210.8 | 1 | 0.6459 |
 | 8 | 0.080 | 221.3 | 2 | 0.6148 |
 | 9 | 0.049 | 190.2 | 3 | **0.6525** ← best |
+| 10 | 0.046 | 289.6 | 3 | 0.6489 |
+| 11 | 0.040 | 397.3 | 2 | 0.6508 |
+| 12 | 0.055 | 396.5 | 3 | 0.6496 |
+| 13 | 0.051 | 280.8 | 2 | 0.6491 |
+| 14 | 0.064 | 345.5 | 3 | 0.6181 |
+| 15 | 0.099 | 366.4 | 2 | 0.6491 |
+| 16 | 0.050 | 311.9 | 2 | 0.6525 ← tied with best |
+| 17 | 0.048 | 313.8 | 3 | 0.6155 |
+| 18 | 0.042 | 269.0 | 2 | 0.6477 |
+| 19 | 0.054 | 313.2 | 3 | 0.6514 |
 
-**Bimodal fitness landscape after exploration:** 7 trials cluster
-at 0.645-0.653, 3 at 0.615-0.616. Neither cst nor associative_boost
-nor β cleanly separates the two — strongly suggests judge variance
-on marginal questions, not parameter effect.
+**Bimodal fitness landscape after 20 trials:** 14 in high cluster
+(0.645-0.653), 6 in low cluster (0.615-0.620). cst breakdown:
+
+| cst | hit rate (high) | sample size |
+|---|---|---|
+| 1 | 5/6 = 83% | 6 |
+| 2 | 6/7 = 86% | 7 |
+| 3 | 4/7 = 57% | 7 |
+
+cst=3 trails but gap narrowed from 50% (at trial 14) to 57%. With
+more samples expected to regress further. assoc≈0.05 appears in
+both 0.6525-tied best trials (9 and 16) — Phase 1's sweet spot
+holds. β and cst look noise-dominated within the search range.
+
+### Phase 2.5 plan (after sweep finishes)
+
+Per a research check on Karpathy's `autoresearch` (verdict: not a
+fit — greedy-keep amplifies judge noise; no significance machinery;
+mismatched for fixed-dim continuous search), the actually-useful
+follow-ups are:
+
+1. **Per-question variance analysis** ($0): which of LTI-Bench's
+   42 questions flip judge across trials? Localizes the noise.
+2. **Judge-variance baseline** (~$2): same default config 20×.
+3. **Top-5 confirmation re-run** (~$5): top-5 trials at n=5 to
+   see if rank order is stable.
+4. **Switch sampler** (Phase 2 v2 if needed): Optuna `CmaEsSampler`
+   or `BoTorchSampler` handle noise better than TPE.
+
+Implication: don't ship Phase 6 from the raw Phase 2 best — the
+top-5 may be tied at 0.6525 within the noise floor. Phase 3 + the
+per-question analysis decide which to actually ship.
 
 ### Cost projection
 
