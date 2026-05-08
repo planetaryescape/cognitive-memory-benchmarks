@@ -461,3 +461,59 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 - Phase 6 (ship) candidate: flip `associative_boost` default from
   0.03 to 0.05+. Re-run that point at n≥5 to confirm before
   shipping a default change.
+
+---
+
+## 2026-05-08 — Phase 2: Optuna inner-loop tuning (in progress)
+
+**Status:** in-progress (started 2026-05-08T09:41 BST; trial 1 of 50
+in flight at 09:43; ETA ~12.5h to completion). Last refresh 09:44 BST.
+
+Bayesian optimization (Optuna TPE) over the 3 dimensions Phase 1
+narrowed to. Output: top-5 candidate configs to promote to Phase 3.
+
+### Search space (`tuning/spaces/phase2/space.json`)
+
+| dim | range | Phase 1 finding |
+|---|---|---|
+| associative_boost | float [0.04, 0.10] | default 0.03 was worst; 0.05/0.07 best |
+| base_decay_rates.semantic | float [180, 400] | 240 hit OFAT max; ceiling untested |
+| core_session_threshold | int {1, 2, 3} | OFAT flat across 1/2/3 |
+
+### Fitness
+
+Weighted composite (paper Tables 8-9 metrics):
+- 0.20 × decay_trivial
+- 0.30 × core_persistence
+- 0.30 × revival
+- 0.10 × associative
+- 0.10 × contextual_retention
+
+Median of n=3 sub-runs feeds the fitness.
+
+### Live state
+
+_Best-known refreshed as trials land. Full table at sweep end._
+
+| trial | params | fitness | notes |
+|---|---|---|---|
+| _running…_ | | | trial 1 in flight |
+
+### Cost projection
+
+50 trials × 3 sub-runs × ~5min = 12.5h wall, ~$15. Total Phase 0+1+2
+projected ~$30 against the original Phase 0+1+2 budget of ~$30.
+
+### Resumability
+
+Optuna SQLite study at `tuning/runs/phase2/lti-phase2.db`.
+`run_optuna.py --resume` picks up after a process death.
+
+### Next
+
+- Refresh this entry every ~5 trials with the running best.
+- Phase 3 (decay-shape cross-check) starts when Phase 2 lands the
+  top-5 candidates.
+- Phase 6 (ship) candidate already locked in from Phase 1:
+  `associative_boost = 0.05`. Phase 2 may surface a tighter value
+  (e.g. 0.06) but the direction is settled.
