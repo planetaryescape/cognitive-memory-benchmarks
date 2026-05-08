@@ -1,8 +1,10 @@
 # Phase 2 — Optuna inner-loop tuning (in progress)
 
 **Started:** 2026-05-08T09:41 BST
-**Sweep status (last refresh 2026-05-08T09:43 BST):** trial 1 of 50 in progress
-**Projected total:** ~12.5h wall, ~$15 API
+**Sweep status (last refresh 2026-05-08T09:57 BST):** 1 of 50 trials complete; trial 1 in progress
+**Per-trial pace (measured):** ~14.5 min/trial → projected ~12h total wall
+**Projected end:** ~21:41 BST tonight
+**Projected cost:** ~$15
 **Output:** `tuning/runs/phase2/lti-phase2.db` (Optuna SQLite study)
 
 This is a live milestone, refreshed as trials land. Final write-up
@@ -49,12 +51,22 @@ contextual_retention so they don't silently regress.
 
 ## Live trial state
 
-_Updated as trials land. Best-known fitness + config refreshed
-in real-time; full table at the end of the sweep._
+_Updated as trials land. Full table at sweep end; this section
+shows the running best + the most recent ~5 trials so the
+in-progress doc stays scannable._
 
-| trial | params | fitness | sub-scores | notes |
+**Best so far:** Trial 0, fitness=0.6491 (Phase 1 OFAT baseline ≈ 0.69; the search hasn't yet found a config that beats it, but TPE only just started)
+
+| trial | associative_boost | β_semantic | core_session_threshold | fitness |
 |---|---|---|---|---|
-| _running…_ | | | | first trial in flight |
+| 0 | 0.0864 | 331.6 | 1 | 0.6491 |
+| 1 | _running…_ | | | |
+
+**Note on the early baseline:** TPE is sampling broadly across
+the prior in trials 0-9 (default Optuna behaviour) before
+exploiting. Don't read fitness=0.6491 as a regression — the
+fitness is a different metric than overall.mean_f1 (it's a
+weighted composite), and the first sample is just the seed point.
 
 ## Pending
 

@@ -466,8 +466,9 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 
 ## 2026-05-08 — Phase 2: Optuna inner-loop tuning (in progress)
 
-**Status:** in-progress (started 2026-05-08T09:41 BST; trial 1 of 50
-in flight at 09:43; ETA ~12.5h to completion). Last refresh 09:44 BST.
+**Status:** in-progress (started 2026-05-08T09:41 BST; 1 of 50
+trials complete at 09:56; per-trial pace ~14.5 min → projected end
+~21:41 BST). Last refresh 09:58 BST.
 
 Bayesian optimization (Optuna TPE) over the 3 dimensions Phase 1
 narrowed to. Output: top-5 candidate configs to promote to Phase 3.
@@ -495,9 +496,12 @@ Median of n=3 sub-runs feeds the fitness.
 
 _Best-known refreshed as trials land. Full table at sweep end._
 
-| trial | params | fitness | notes |
-|---|---|---|---|
-| _running…_ | | | trial 1 in flight |
+**Best so far:** Trial 0, fitness=0.6491 (early baseline; TPE
+explores broadly before exploiting)
+
+| trial | associative_boost | β_semantic | core_sess_thr | fitness |
+|---|---|---|---|---|
+| 0 | 0.086 | 331.6 | 1 | 0.6491 |
 
 ### Cost projection
 
