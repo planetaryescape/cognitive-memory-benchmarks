@@ -189,10 +189,11 @@ def main() -> int:
             )
             elapsed = time.time() - t0
 
-            # locomo_eval emits {"summary": {"overall_f1": ...}, ...}.
-            # Schema may vary across versions; pull defensively.
+            # locomo_eval writes {"aggregate": {"overall": {"mean_f1": ...,
+            # "num_questions": ..., "llm_accuracy": ...}, ...}, "per_question": [...]}
             overall_f1 = (
-                result.get("summary", {}).get("overall_f1")
+                result.get("aggregate", {}).get("overall", {}).get("mean_f1")
+                or result.get("summary", {}).get("overall_f1")  # back-compat
                 or result.get("overall_f1")
                 or 0.0
             )
