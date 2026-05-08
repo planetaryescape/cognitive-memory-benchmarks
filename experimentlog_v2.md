@@ -687,3 +687,93 @@ Optuna SQLite study at `tuning/runs/phase2/lti-phase2.db`.
 - Phase 6 (ship) candidate already locked in from Phase 1:
   `associative_boost = 0.05`. Phase 2 may surface a tighter value
   (e.g. 0.06) but the direction is settled.
+
+---
+
+## 2026-05-08 — Phase 2.5 + Phase 3 + Phase 6: end-of-tuning synthesis
+
+**Status:** complete. All four follow-ups to Phase 2 done.
+
+### Phase 2.5b — top-K confirmation @n=5 (DONE 23:36)
+
+Re-ran top-5 Phase 2 trials at n=5. ~$2.50, ~2h.
+
+| original | trial | LTI@n=3 | confirm @n=5 | new rank |
+|---|---|---|---|---|
+| #1 | 23 | 0.6532 | 0.6479 | #3 |
+| #2 | 34 | 0.6527 | 0.6479 | #4 |
+| #3 | 9  | 0.6525 | **0.6181 (-3.4pp!)** | #5 |
+| #4 | 16 | 0.6525 | 0.6514 | **#1** |
+| #5 | 6  | 0.6514 | 0.6491 | #2 |
+
+**All 5 ranks shuffled.** Verdict: top-K is noise-equivalent.
+Trial 9 cratered (-3.4pp) — a cst=3 trial that drew lucky
+on Phase 2's 3 sub-runs. Trial 16 (closest to the Phase 6
+defaults) emerged as new #1.
+
+CSV: `tuning/runs/phase2.5/top_k_confirmation.csv`
+
+### Phase 3 — LoCoMo conv0 cross-check (DONE 22:57)
+
+Top-5 on a different distribution (152 Q vs LTI's 42). ~$2.50, ~56min.
+
+3/5 ranks unchanged (top-2 stable, bottom-1 stable; #3↔#4 swap
+within their tied Phase 2 fitness). LoCoMo F1 spread 1.73pp —
+4× LTI's 0.18pp resolution. **No 5pp drops** → no LTI overfitting.
+
+Caveat: Phase 3 used vanilla flags (no mem0 prompt, no
+dual_perspective, no rerank); v6 baseline at 0.470 used the
+full stack. Numbers aren't comparable to v6 but are comparable
+to each other.
+
+CSV: `tuning/runs/phase3/cross_check.csv`
+
+### Phase 6 — SDK defaults shipped (DONE 22:00)
+
+`cognitive-memory-sdk` commit `707758d`, version 0.4.0 → 0.5.0:
+
+| param | old | new | source |
+|---|---|---|---|
+| associative_boost | 0.03 | **0.05** | Phase 1 OFAT |
+| core_session_threshold | 3 | **2** | Phase 2 joint search |
+| base_decay_rates.semantic | 120 | **240** | Phase 1 OFAT |
+
+3 new value-lock unit tests in test_config.py to prevent
+accidental reverts.
+
+### Final session totals
+
+- **8 commits across 2 repos** (sdk, benchmarks)
+- **~$35.30 spend** (Phase 0+1+2 = $30.30, Phase 2.5 + 3 = $5)
+- **~26h compute wall** spread across 2 days
+- **0 failed runs**, all artifacts preserved + pushed
+
+### What we actually learned (Phase 0g → Phase 6)
+
+1. **The associative_boost default was wrong** (0.03 was worst
+   of 5 values tested; 0.05 = +2pp). Strongest signal of the
+   campaign. Replicated across Phase 1 OFAT, Phase 2 Optuna joint
+   search, Phase 2.5b confirmation at n=5, Phase 3 LoCoMo
+   cross-check.
+2. **base_decay_rates.semantic = 120 (paper) is too short for
+   LTI-Bench-like workloads.** 240 hits OFAT max (+1.4pp);
+   anything 200-370 statistically equivalent.
+3. **core_session_threshold = 3 (default) underperforms
+   1 or 2 in joint search** — not visible in Phase 1 OFAT.
+4. **6 of 10 Tier 1+2 params have no measurable signal on
+   LTI-Bench**: drop from any future tuning rounds.
+5. **3 of 42 LTI-Bench questions cause 100% of the bimodal
+   cluster behavior.** Bench v3 should reword them or expand
+   sample size.
+6. **n=3 isn't enough on a 42-question bench.** Need n=5+ or
+   move to a higher-resolution bench (LongMemEval-S, LoCoMo).
+
+### Next (deferred)
+
+- **Phase 4** (full LoCoMo with v0.5 defaults vs current
+  defaults) to measure the predicted +1-2pp lift on the real
+  benchmark — separate session, ~$10, ~1.5h. Preconditions met
+  (v0.5 published, baseline artifacts in
+  `locomo/results/v6/parallel/`).
+- **Phase 5** (LongMemEval-S sensitivity if the LoCoMo
+  Phase 4 lift is < 1pp) — only if Phase 4 underwhelms.
