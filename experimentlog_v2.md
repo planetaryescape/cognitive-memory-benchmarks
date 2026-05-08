@@ -466,10 +466,9 @@ on 2026-05-07; CSV at `tuning/runs/phase1_sensitivity.csv`.
 
 ## 2026-05-08 — Phase 2: Optuna inner-loop tuning (in progress)
 
-**Status:** in-progress (started 2026-05-08T09:41 BST; 30 of 50
-trials complete at 16:34 — 60% done; TPE exploitation phase well
-underway; per-trial pace ~13.7 min → projected end ~18:48 BST).
-Last refresh 16:38 BST.
+**Status:** in-progress (started 2026-05-08T09:41 BST; 40 of 50
+trials complete at 18:59 — 80% done; ETA ~21:21 BST tonight).
+Last refresh 19:02 BST.
 
 Bayesian optimization (Optuna TPE) over the 3 dimensions Phase 1
 narrowed to. Output: top-5 candidate configs to promote to Phase 3.
@@ -534,25 +533,40 @@ trial: +0.34pp — within noise. TPE exploration phase complete (trials
 | 27 | 0.065 | 380.4 | 3 | 0.6491 |
 | 28 | 0.090 | 299.2 | 2 | 0.6459 |
 | 29 | 0.086 | 332.9 | 2 | 0.6459 |
+| 30 | 0.044 | 275.6 | 3 | 0.6181 |
+| 31 | 0.075 | 379.7 | 2 | 0.6491 |
+| 32 | 0.050 | 359.6 | 2 | 0.6491 |
+| 33 | 0.058 | 324.6 | 2 | 0.6487 |
+| 34 | 0.071 | 381.0 | 1 | 0.6527 |
+| 35 | 0.062 | 384.0 | 1 | 0.6491 |
+| 36 | 0.077 | 346.9 | 1 | 0.6491 |
+| 37 | 0.072 | 232.9 | 1 | 0.6491 |
+| 38 | 0.065 | 259.6 | 1 | 0.6509 |
+| 39 | 0.068 | 244.0 | 1 | 0.6491 |
 
-**Cluster picture after 30 trials:** 24 high, 5 low. **17 distinct
-fitness values** total — the bench emits a discrete set, with
-"0.6491" alone hit 9 times. Trial 23's "best" of 0.6532 is +0.06pp
-above the 0.6525 cluster — within the 3-question coin-flip noise
-floor identified in Phase 2.5.
+**Cluster picture after 40 trials:** 33 high, 7 low. Best stays
+trial 23 (0.6532) — no new high after trial 23. The TPE
+exploitation phase has been cycling through the same fitness
+buckets without finding a genuine new high.
 
-**cst hit-rate sharpening at n=30:**
+**cst hit-rate after n=40:**
 
-| cst | hit rate | samples |
-|---|---|---|
-| 1 | 83% | 6 |
-| 2 | **93%** | 14 |
-| 3 | 67% | 9 |
+| cst | hit rate | samples | reading |
+|---|---|---|---|
+| 1 | 92% | 12 | new exploration phase, ≈ tied with cst=2 |
+| 2 | 94% | 17 | cleanest |
+| 3 | 64% | 11 | trailing — pattern firm |
 
-cst=2 is now decisively the cleanest in the joint search (Phase 1
-OFAT had cst=1/2/3 all flat at default). With cst=2 at n=14 the
-93% hit-rate is more credible than at n=7 earlier. cst=3 trailing
-holds.
+cst=1 jumped from 83% to 92% as TPE swung back to it after trials
+33-39. With both 1 and 2 at >90%, the joint-search finding is
+**"avoid cst=3"** — cst=1 and cst=2 are interchangeable.
+
+**Phase 2 will not produce a "winner" beyond what's already
+visible.** The remaining 10 trials will keep producing fitness
+values from the existing discrete set. The actual decision rule
+for Phase 6 will come from the top-K confirmation re-run
+(`tuning/scripts/confirm_top_trials.py`), not from any further
+TPE sampling.
 
 ### Phase 2.5 — per-question variance analysis (DONE, $0)
 

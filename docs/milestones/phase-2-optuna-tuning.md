@@ -1,9 +1,9 @@
 # Phase 2 — Optuna inner-loop tuning (in progress)
 
 **Started:** 2026-05-08T09:41 BST
-**Sweep status (last refresh 2026-05-08T16:36 BST):** 30 of 50 trials complete (60%); trial 30 in progress
-**Per-trial pace (measured):** ~13.7 min/trial → projected ~9.1h total wall
-**Projected end:** ~18:48 BST tonight
+**Sweep status (last refresh 2026-05-08T19:01 BST):** 40 of 50 trials complete (80%); trial 40 in progress
+**Per-trial pace (measured):** ~13.9 min/trial
+**Projected end:** ~21:21 BST tonight
 **Projected cost:** ~$15
 **Output:** `tuning/runs/phase2/lti-phase2.db` (Optuna SQLite study)
 
@@ -89,7 +89,17 @@ in-progress doc stays scannable._
 | 27 | 0.0649 | 380.4 | 3 | 0.6491 |
 | 28 | 0.0904 | 299.2 | 2 | 0.6459 |
 | 29 | 0.0856 | 332.9 | 2 | 0.6459 |
-| 30 | _running…_ | | | |
+| 30 | 0.0439 | 275.6 | 3 | 0.6181 ← cst=3 low cluster again |
+| 31 | 0.0755 | 379.7 | 2 | 0.6491 |
+| 32 | 0.0504 | 359.6 | 2 | 0.6491 |
+| 33 | 0.0581 | 324.6 | 2 | 0.6487 |
+| 34 | 0.0707 | 381.0 | 1 | 0.6527 ← first cst=1 sample in a while; high cluster |
+| 35 | 0.0617 | 384.0 | 1 | 0.6491 |
+| 36 | 0.0769 | 346.9 | 1 | 0.6491 |
+| 37 | 0.0718 | 232.9 | 1 | 0.6491 |
+| 38 | 0.0648 | 259.6 | 1 | 0.6509 |
+| 39 | 0.0677 | 244.0 | 1 | 0.6491 |
+| 40 | _running…_ | | | |
 
 **cst breakdown after 30 trials:**
 
