@@ -152,34 +152,71 @@ mid-sweep:
 Resumes from the last completed trial. Per-trial artifacts in
 `tuning/runs/lti-NNNN/run-NN/` are preserved regardless.
 
-## Phase 2.5 — post-sweep noise analysis (planned, $0)
+## Phase 2.5 — per-question variance analysis (DONE, $0)
 
-After a research check on Karpathy's `autoresearch`
-(https://github.com/karpathy/autoresearch) — verdict: not a fit
-for noisy-judge parameter tuning (greedy-keep amplifies noise; no
-seed/significance machinery; mismatched for fixed-dim continuous
-search). The agent's actually-useful suggestions land here:
+**Finding:** the bimodal-cluster mystery has a concrete source.
+Of LTI-Bench's 42 questions, **only 7 are marginal**; **35 are
+stable** (judge always agrees with itself across replicates).
+The composite-variance is dominated by 3 questions:
 
-1. **Per-question variance analysis (next, $0).** Read all 50
-   trial dirs' `result.json` per-sub-run + the Optuna study; for
-   each of LTI-Bench's 42 questions, compute "how often did the
-   judge flip across trials?". Surfaces *which* marginal questions
-   cause the bimodal cluster split. One-shot Claude/Codex pass over
-   the data we already have. No API spend. Output: a Phase 2.5
-   doc + CSV.
-2. **Judge-variance baseline (~$2, ~1.7h).** Run the same fixed
-   default config 20× on LTI-Bench. Measures the actual noise
-   floor under repeated-eval. If stddev > 1pp, increase n in Phase
-   3 trials.
-3. **Top-trial confirmation re-run (~$5, ~5h).** Take the top-5
-   Phase 2 trials by fitness; re-run each at n=5 sub-runs. If any
-   stay in the high cluster across 5 sub-runs while others fall
-   into the low cluster, that's real signal. Otherwise everything's
-   noise-equivalent and Phase 6 should pick the simplest config
-   (closest-to-default among the top-5).
-4. **Switch sampler if still tuning** (Phase 2 v2): Optuna's
-   `CmaEsSampler` or `BoTorchSampler` handle noisy objectives
-   better than TPE. Drop-in replacement.
+| variance | subscore | correct rate | flips | question |
+|---|---|---|---|---|
+| 0.959 | revival | 60% (130/216) | 89 | "Was there anything about the weather I mentioned once?" |
+| 0.955 | revival | 39% (85/216) | 105 | "Did I ever mention traffic?" |
+| 0.826 | decay_trivial | 71% (153/216) | 70 | "What did I have for lunch on day 3?" |
+
+(216 replicates = 216 result.json files across Phase 0g + 1 + first
+20 of Phase 2. Analyzer at `tuning/scripts/analyze_question_variance.py`,
+output at `tuning/runs/phase2.5/question_variance.csv`.)
+
+**Implications:**
+
+1. **Revival is over-represented as a noise source.** Weight 0.30
+   in the fitness composite × 2 of 3 marginal questions land
+   there. A trial that wins/loses revival flips composite by
+   roughly ±2pp on its own.
+2. **TPE was effectively flipping a 3-question coin per trial.**
+   Param effects ≤ 3pp can't escape this floor.
+3. **A `conflict` question is a stable engine weakness, not
+   variance.** "When is the Helios project deadline?" — model
+   answers wrong 93% of the time (15/216 correct). Real bug or
+   real bench miscalibration; not noise.
+4. **Phase 6 / paper recommendations:**
+   - LTI-Bench v3 should reword or remove the 3 marginal questions
+     (they're "open-recall trivia" wording — too easy for judge to
+     score either way).
+   - Or expand the bench from 42 → 100+ questions to dilute
+     individual-question weight.
+   - Re-judge just the 3 marginal questions with a stronger judge
+     (gpt-4o vs gpt-4o-2024-08-06) — cheap fix.
+5. **For the rest of Phase 2:** the remaining 30 trials will keep
+   hitting the same 3-question coin-flip. Don't expect new
+   information beyond the existing best (0.6525).
+
+### Originally-planned follow-ups (now reprioritized)
+
+This step (per-question variance analysis) was the highest-leverage
+of the four post-sweep ideas. The other three are now triaged:
+
+- **Judge-variance baseline (~$2):** less needed. We already know
+  the noise floor and its mechanism.
+- **Top-5 confirmation re-run (~$5):** still useful — re-run top-5
+  trials at n=5 to see if rank order is stable. But the answer is
+  *predictable from the analysis above*: top trials within ~2pp of
+  each other will be order-shuffled by the 3-question coin-flip.
+- **Switch sampler (CmaEsSampler/BoTorchSampler):** unlikely to
+  help — sampler smartness can't beat bench resolution.
+
+### What we now know vs. autoresearch's pitch
+
+The autoresearch research-agent flagged the right concern (greedy-
+keep amplifies judge noise; need significance machinery). The
+analyzer above provides exactly that significance read — concretely,
+*which question's judge-call you'd be greedy-keeping on*. Useful
+artifact regardless of whether autoresearch ever ships into the
+pipeline.
+
+
 
 References:
 - `autoresearch` repo + discussions:

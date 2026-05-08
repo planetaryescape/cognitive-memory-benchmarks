@@ -539,24 +539,53 @@ more samples expected to regress further. assoc≈0.05 appears in
 both 0.6525-tied best trials (9 and 16) — Phase 1's sweet spot
 holds. β and cst look noise-dominated within the search range.
 
-### Phase 2.5 plan (after sweep finishes)
+### Phase 2.5 — per-question variance analysis (DONE, $0)
 
-Per a research check on Karpathy's `autoresearch` (verdict: not a
-fit — greedy-keep amplifies judge noise; no significance machinery;
-mismatched for fixed-dim continuous search), the actually-useful
-follow-ups are:
+Built `tuning/scripts/analyze_question_variance.py` to localize the
+bimodal-cluster mystery. Ran across 216 result.json files (Phase
+0g + 1 + first 20 Phase 2 trials).
 
-1. **Per-question variance analysis** ($0): which of LTI-Bench's
-   42 questions flip judge across trials? Localizes the noise.
-2. **Judge-variance baseline** (~$2): same default config 20×.
-3. **Top-5 confirmation re-run** (~$5): top-5 trials at n=5 to
-   see if rank order is stable.
-4. **Switch sampler** (Phase 2 v2 if needed): Optuna `CmaEsSampler`
-   or `BoTorchSampler` handle noise better than TPE.
+**Headline finding: 35 of 42 LTI-Bench questions are stable
+(judge always agrees with itself); the bimodal-cluster behavior
+is driven by 3 marginal questions.**
 
-Implication: don't ship Phase 6 from the raw Phase 2 best — the
-top-5 may be tied at 0.6525 within the noise floor. Phase 3 + the
-per-question analysis decide which to actually ship.
+| variance | subscore | correct rate | flips | question |
+|---|---|---|---|---|
+| 0.959 | revival | 60% (130/216) | 89 | "Was there anything about the weather I mentioned once?" |
+| 0.955 | revival | 39% (85/216) | 105 | "Did I ever mention traffic?" |
+| 0.826 | decay_trivial | 71% (153/216) | 70 | "What did I have for lunch on day 3?" |
+
+Two of the three marginal questions are in `revival` (weight 0.30
+in the fitness composite), so revival is over-represented as a
+noise source — a single revival flip swings composite by ~2pp.
+
+Other observations from the 216-replicate scan:
+- A `conflict` question is a **stable engine weakness** rather
+  than judge variance: "When is the Helios project deadline?"
+  is wrong 93% of the time (15/216 correct). Real bug, worth
+  investigating in the engine; not noise.
+- The `core_persistence` and `contextual_retention` questions
+  are uniformly stable. Those weights (0.30 + 0.10 = 0.40 of
+  composite) are noise-free.
+
+**What this means for Phase 2:** the remaining 30 trials will keep
+flipping the same 3-question coin. Don't expect new information
+beyond the existing best at 0.6525.
+
+**What this means for Phase 6 / paper:**
+- LTI-Bench v3 should reword the 3 marginal questions or expand
+  bench size from 42 to dilute single-question weight.
+- Re-judging just the 3 marginal questions with gpt-4o (vs the
+  pinned gpt-4o-2024-08-06) might be the cheapest fix — costs ~$0.10.
+- The conflict-resolution failure is a real engine signal, separate
+  from tuning. Worth a follow-up issue.
+
+**Reprioritized post-sweep plan (was 4 items):**
+- ~~Per-question variance analysis~~ → DONE.
+- Judge-variance baseline (~$2): less needed; mechanism now known.
+- Top-5 re-run at n=5 (~$5): still useful for ranking confidence.
+- Switch sampler: unlikely to help; sampler smartness can't beat
+  bench resolution.
 
 ### Cost projection
 

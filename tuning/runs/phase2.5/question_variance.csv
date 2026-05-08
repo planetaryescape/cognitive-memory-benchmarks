@@ -1,0 +1,43 @@
+subscore,question,expected,n_replicates,correct_count,correct_rate,flip_count,flip_rate,f1_mean,f1_stddev,variance_score
+revival,Was there anything about the weather I mentioned once?,nice this morning,216,130,0.6018518518518519,89,0.413953488372093,0.30769230769230765,0.0,0.9585
+revival,Did I ever mention traffic?,traffic on my commute,216,85,0.39351851851851855,105,0.4883720930232558,0.4018518518518518,0.007050591493521282,0.9546
+decay_trivial,What did I have for lunch on day 3?,pasta,216,153,0.7083333333333334,70,0.32558139534883723,0.7083333333333334,0.4555854909178778,0.8264
+associative,Tell me about the Helios project.,"Helios, deadline April 1st, Go backend",216,195,0.9027777777777778,40,0.18604651162790697,0.28492553399960807,0.028234573260574672,0.3511
+associative,What do you know about my home and commute?,"Park Slope Brooklyn, Subaru Outback",216,199,0.9212962962962963,32,0.14883720930232558,0.26097935880544576,0.0011383518364694524,0.29
+associative,What's my health situation?,"type 1 diabetes, shellfish allergy",216,200,0.9259259259259259,27,0.12558139534883722,0.45616644940316436,0.035335845591628945,0.2743
+conflict,When is the Helios project deadline?,April 1st,216,15,0.06944444444444445,28,0.13023255813953488,0.3907407407407408,0.042122826021135984,0.2585
+temporal_before_update,When is the Helios deadline?,March 15th,216,216,1.0,0,0.0,0.4,0.0,0.0
+temporal_before_update,What language is the Helios backend in?,Python,216,216,1.0,0,0.0,1.0,0.0,0.0
+temporal_before_update,Where am I going for vacation in May?,Tokyo,216,216,1.0,0,0.0,1.0,0.0,0.0
+temporal_before_update,When do I prefer to be in the office?,Mondays,216,216,1.0,0,0.0,1.0,0.0,0.0
+temporal_after_update,When is the Helios deadline?,April 1st,216,216,1.0,0,0.0,0.39722222222222225,0.023460340937403807,0.0
+temporal_after_update,What language is the Helios backend in?,Go,216,216,1.0,0,0.0,1.0,0.0,0.0
+temporal_after_update,Where am I going for vacation in May?,Lisbon,216,216,1.0,0,0.0,1.0,0.0,0.0
+temporal_after_update,What's my work-from-home situation?,fully remote,216,216,1.0,0,0.0,0.32364672364672364,0.08738012853319842,0.0
+core_persistence,What is my name?,Alex Chen,216,216,1.0,0,0.0,1.0,0.0,0.0
+core_persistence,What am I allergic to?,shellfish,216,216,1.0,0,0.0,1.0,0.0,0.0
+core_persistence,Where do I work?,Meridian Labs,216,216,1.0,0,0.0,1.0,0.0,0.0
+core_persistence,What's my partner's name?,Jordan,216,216,1.0,0,0.0,1.0,0.0,0.0
+core_persistence,What's my dog's name?,Pixel,216,216,1.0,0,0.0,1.0,0.0,0.0
+core_persistence,Do I have any chronic medical conditions?,type 1 diabetes,216,216,1.0,0,0.0,1.0,0.0,0.0
+core_persistence,What's my mother's name and where does she live?,"Eileen, Vancouver",216,216,1.0,0,0.0,0.6790123456790124,0.06309708570240215,0.0
+core_persistence,What neighborhood do I live in?,"Park Slope, Brooklyn",216,216,1.0,0,0.0,0.7406635802469135,0.04671671724357643,0.0
+decay_trivial,What documentary did I watch?,octopuses,216,216,1.0,0,0.0,0.5,0.0,0.0
+decay_trivial,What coffee shop did I try?,Bean Counter,216,216,1.0,0,0.0,1.0,0.0,0.0
+decay_trivial,What happened with my neighbor's cat?,stuck in a tree,216,216,1.0,0,0.0,0.451984126984127,0.041079793553278766,0.0
+decay_trivial,Did I get caught in the rain at some point?,"forgot umbrella, got rained on",216,216,1.0,0,0.0,0.5874961095549331,0.0108637500263493,0.0
+decay_trivial,Was there a problem with the elevator at any point?,broken,216,216,1.0,0,0.0,0.16722783389450058,0.0028680493501091857,0.0
+revival,Was there an incident with an animal at some point?,neighbor's cat in a tree,216,216,1.0,0,0.0,0.6658950617283951,0.01134023029066286,0.0
+revival,Have I had any minor weather mishaps recently?,"got rained on, forgot umbrella",216,216,1.0,0,0.0,0.5884055010893247,0.002501521387646218,0.0
+revival,Has anything in my building been broken lately?,elevator,216,216,1.0,0,0.0,0.18181818181818182,0.0,0.0
+conflict,What language is the Helios backend in?,Go,216,216,1.0,0,0.0,1.0,0.0,0.0
+conflict,Where am I going for vacation in May?,Lisbon,216,216,1.0,0,0.0,1.0,0.0,0.0
+conflict,What's my work-from-home situation?,fully remote,216,216,1.0,0,0.0,0.31680911680911683,0.06652554517544117,0.0
+contextual_retention,What project am I working on?,Helios,216,216,1.0,0,0.0,1.0,0.0,0.0
+contextual_retention,What language am I learning on weekends?,Rust,216,216,1.0,0,0.0,0.5092592592592593,0.06756500681880744,0.0
+contextual_retention,What am I training for?,half marathon,216,216,1.0,0,0.0,0.5714285714285715,0.0,0.0
+contextual_retention,What car do I drive?,2019 Subaru Outback,216,216,1.0,0,0.0,1.0,0.0,0.0
+contextual_retention,Who is my therapist?,Dr. Patel,216,216,1.0,0,0.0,1.0,0.0,0.0
+contextual_retention,What musical instrument am I taking lessons in?,guitar,216,216,1.0,0,0.0,1.0,0.0,0.0
+associative,What do you know about my family?,"Jordan (partner), Eileen (mother), Pixel (dog)",216,0,0.0,0,0.0,0.27205387205387205,0.02226361276579241,0.0
+associative,What recurring appointments or activities do I have?,"therapy Tuesdays Dr. Patel, guitar lessons Thursdays, half marathon training",216,0,0.0,0,0.0,0.4797435897435897,0.0021655699326834296,0.0
