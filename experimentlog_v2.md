@@ -777,3 +777,29 @@ accidental reverts.
   `locomo/results/v6/parallel/`).
 - **Phase 5** (LongMemEval-S sensitivity if the LoCoMo
   Phase 4 lift is < 1pp) — only if Phase 4 underwhelms.
+
+---
+
+## 2026-05-09 — Phase 4: LoCoMo conv0 reality check (in progress)
+
+**Status:** in-progress (started 06:42 BST; v0.4 + v0.5 in parallel;
+ETA ~08:15 BST). Last refresh 06:43.
+
+Validates that Phase 6 SDK default flips (commit `707758d`) actually
+improve a real benchmark, not just LTI-Bench's composite. Two
+locomo_eval runs on conv0 (152 questions) with the same production
+flag stack as the v6 CR-A baseline (0.470 F1).
+
+**Meaningful changes** in this comparison (adapter pins cst=2 either way):
+- `associative_boost`: 0.03 → 0.05
+- `base_decay_rates.semantic`: 120 → 240
+
+**Decision rule:**
+- v0.5 F1 ≥ v0.4 F1 + 1pp → run Phase 5 (full LoCoMo, ~$100, ~3.5h)
+- within ±1pp → no signal; document + stop
+- v0.5 F1 < v0.4 F1 - 1pp → Phase 6 ship wrong; roll back
+
+| config | F1 | LLM acc | status |
+|---|---|---|---|
+| v0.4 baseline | _running…_ | | started 06:42 |
+| v0.5 tuned    | _running…_ | | started 06:42 |

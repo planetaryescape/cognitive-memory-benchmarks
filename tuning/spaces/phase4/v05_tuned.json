@@ -1,0 +1,4 @@
+{
+  "_comment": "Phase 4 candidate: v0.5 SDK defaults (empty config_overrides — relies on the SDK 0.5.0 baked-in defaults from cognitive-memory-sdk commit 707758d: associative_boost=0.05, base_decay_rates.semantic=240). core_session_threshold isn't here because the benchmarks adapter pins cst=2 regardless of SDK default, so cst doesn't change between v0.4 and v0.5 in this comparison.",
+  "surface": "sdk"
+}

@@ -1,0 +1,10 @@
+{
+  "_comment": "Phase 4 baseline: v0.4 SDK defaults restored explicitly. Phase 6 changes flipped these in v0.5; here we override BACK to the paper-Table-2 / pre-tuning values so we can compare head-to-head against v0.5 on the same LoCoMo conv0 + same production flags. Note: core_session_threshold isn't here because the benchmarks adapter pins cst=2 regardless of SDK default — so cst doesn't change between v0.4 and v0.5 in this comparison.",
+  "surface": "sdk",
+  "config_overrides": {
+    "associative_boost": 0.03,
+    "base_decay_rates": {
+      "semantic": 120.0
+    }
+  }
+}
