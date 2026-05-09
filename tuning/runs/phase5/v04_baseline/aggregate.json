@@ -1,0 +1,69 @@
+{
+  "per_conv": [
+    {
+      "conv": 0,
+      "n_questions": 152,
+      "mean_f1": 0.44109021133167703,
+      "llm_accuracy": 0.6513157894736842
+    },
+    {
+      "conv": 1,
+      "n_questions": 81,
+      "mean_f1": 0.5032887147294899,
+      "llm_accuracy": 0.5802469135802469
+    },
+    {
+      "conv": 2,
+      "n_questions": 152,
+      "mean_f1": 0.46992678854694087,
+      "llm_accuracy": 0.5986842105263158
+    },
+    {
+      "conv": 3,
+      "n_questions": 199,
+      "mean_f1": 0.4001496690370769,
+      "llm_accuracy": 0.542713567839196
+    },
+    {
+      "conv": 4,
+      "n_questions": 178,
+      "mean_f1": 0.4435872658291406,
+      "llm_accuracy": 0.5617977528089888
+    },
+    {
+      "conv": 5,
+      "n_questions": 123,
+      "mean_f1": 0.4594962456387196,
+      "llm_accuracy": 0.6341463414634146
+    },
+    {
+      "conv": 6,
+      "n_questions": 150,
+      "mean_f1": 0.47901278700659505,
+      "llm_accuracy": 0.5466666666666666
+    },
+    {
+      "conv": 7,
+      "n_questions": 191,
+      "mean_f1": 0.39653303780311705,
+      "llm_accuracy": 0.5654450261780105
+    },
+    {
+      "conv": 8,
+      "n_questions": 156,
+      "mean_f1": 0.43317182723128783,
+      "llm_accuracy": 0.5512820512820513
+    },
+    {
+      "conv": 9,
+      "n_questions": 158,
+      "mean_f1": 0.46662963683106695,
+      "llm_accuracy": 0.6518987341772152
+    }
+  ],
+  "overall": {
+    "num_questions": 1540,
+    "mean_f1": 0.44366191005385747,
+    "llm_accuracy": 0.5857142857142857
+  }
+}

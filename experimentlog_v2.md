@@ -825,18 +825,56 @@ CR-A conv0 baseline (F1=0.470). Possible drift since baseline
 (Phase 0a-sdk made base_decay_rates a config field). Affects
 absolute numbers, not the delta.
 
-## 2026-05-09 — Phase 5: full LoCoMo head-to-head (in progress)
+## 2026-05-09 — Phase 5: full LoCoMo head-to-head (complete)
 
-**Status:** in-progress (started 08:00 BST; v0.4 + v0.5 sequential;
-ETA ~15:00 BST). Last refresh 08:00.
+**Status:** complete (started 08:00, finished 11:22 BST; 3h 22min wall;
+~$100). Last refresh 11:25 BST.
 
-Triggered by Phase 4's +2.92pp lift. 10 conversations × 2 candidates
-= 20 runs. Per-candidate: 10 parallel shards. Two candidates
-sequential to keep OpenAI API rate-limit pressure manageable.
-
-| candidate | shards done | overall F1 | LLM acc | status |
+| candidate | F1 | LLM acc | wall | n_q |
 |---|---|---|---|---|
-| v0.4 baseline | 0 / 10 | — | — | starting |
-| v0.5 tuned | _pending_ | — | — | queued |
+| v0.4 baseline | 0.4437 | 0.5857 | 6217s | 1540 |
+| v0.5 tuned    | **0.4624** | **0.6130** | 5954s | 1540 |
+| **delta**     | **+1.87pp** | **+2.73pp** | — | — |
 
-Cost ~$100, wall ~7h.
+**Both metrics improve.** Phase 4's "F1↑ but LLM acc 0pp" was conv0
+sample-size noise — at n=1540 the judge accuracy delta also surfaces.
+Unambiguous-win subcase per the Phase 5 decision tree.
+
+vs existing v6 CR-A reference (full LoCoMo):
+
+| | F1 | LLM acc |
+|---|---|---|
+| v6 CR-A | 0.448 | 0.584 |
+| Phase 5 v0.4 | 0.444 | 0.586 (≈ baseline) |
+| Phase 5 v0.5 | **0.462** | **0.613** |
+
+v0.5 ships **+1.4pp F1, +3.0pp LLM acc** over the existing v6 CR-A
+baseline. Real benchmark improvement worth a paper update.
+
+### Final cost ledger (whole campaign, Phase 0g → Phase 5)
+
+| phase | spend | wall |
+|---|---|---|
+| Phase 0g (smoke) | $1.30 | 22min |
+| Phase 1 (OFAT) | $14 | 9.5h |
+| Phase 2 (Optuna) | $15 | 12h |
+| Phase 2.5b (top-K confirm) | $2.50 | 2h |
+| Phase 3 (LoCoMo cross-check) | $2.50 | 56min |
+| Phase 4 (LoCoMo conv0 head-to-head) | $10 | 75min |
+| Phase 5 (full LoCoMo head-to-head) | $100 | 3h 22min |
+| **Total** | **~$145** | **~28h** (mostly compute) |
+
+10 commits across 2 repos (cognitive-memory-sdk + cognitive-memory-
+benchmarks). 0 failed runs across the full campaign. Phase 6 SDK
+(commit `707758d`, version 0.5.0) is fully validated end-to-end on
+the real benchmark.
+
+### Headline for paper / readme update
+
+> Empirical defaults tuning (cognitive-memory-benchmarks Phase 0g→5)
+> derives `associative_boost=0.05` (was 0.03) and
+> `base_decay_rates.semantic=240` (was 120 paper Table 2) for the
+> v0.5 SDK release. On full LoCoMo (1540 questions, identical
+> harness configuration), v0.5 lifts F1 from 0.444 → 0.462 (+1.87pp)
+> and LLM-judge accuracy from 0.586 → 0.613 (+2.73pp). Both metrics
+> agree the new defaults are an improvement.

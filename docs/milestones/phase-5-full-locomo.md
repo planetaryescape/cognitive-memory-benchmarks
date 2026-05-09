@@ -1,16 +1,11 @@
-# Phase 5 — full LoCoMo head-to-head (in progress)
+# Phase 5 — full LoCoMo head-to-head (complete)
 
-**Started:** 2026-05-09T08:00 BST (estimated)
-**Plan:** Full LoCoMo (10 conversations, ~1500 questions) with v0.4
-SDK defaults vs v0.5 SDK defaults. Same production flag stack as
-Phase 4 + v6 CR-A baseline.
-**Projected wall:** ~7h sequential (3.5h per candidate, 10 parallel
-shards within each candidate)
-**Projected cost:** ~$100 ($50 per candidate × 2)
-**Trigger:** Phase 4 conv0 showed v0.5 +2.92pp F1 over v0.4 → Phase 5
-GO per the decision rule.
-
-This is a live milestone, refreshed as candidates land.
+**Started:** 2026-05-09T08:00 BST
+**Completed:** 2026-05-09T11:22 BST
+**Wall:** 3h 22min (v0.4 6217s + v0.5 5954s, sequential)
+**Cost:** ~$100
+**Verdict:** **v0.5 wins +1.87pp F1, +2.73pp LLM accuracy** —
+unambiguous win on both metrics. Phase 6 SDK ship fully validated.
 
 ## Goal
 
@@ -34,12 +29,41 @@ extension of Phase 4's n=1×conv result.
     --model gpt-4o-mini
 ```
 
-## Live state
+## Final results
 
-| candidate | shards done | overall F1 | LLM acc | status |
+| candidate | F1 | LLM accuracy | wall | n_questions |
 |---|---|---|---|---|
-| v0.4 baseline | 0 / 10 | _running…_ | | started 08:00 |
-| v0.5 tuned | _pending_ | | | starts after v0.4 |
+| v0.4 baseline (paper) | **0.4437** | **0.5857** | 6217s (1.7h) | 1540 |
+| v0.5 tuned (SDK 0.5.0) | **0.4624** | **0.6130** | 5954s (1.65h) | 1540 |
+| **delta** | **+1.87pp** | **+2.73pp** | — | — |
+
+**Both metrics improve meaningfully.** The "F1 ↑ but LLM acc 0pp"
+pattern from Phase 4 conv0 was sample-size noise — at n=1540 the
+judge's binary accuracy delta also surfaces.
+
+### Subcase landed: unambiguous win
+
+Per the decision tree in the in-progress version of this doc,
+this is the **best subcase**: F1 delta ≥ +1pp AND LLM accuracy
+delta ≥ +1pp. Both metrics agree. v0.5 is now the official
+paper-numbers baseline.
+
+### Comparison to v6 CR-A reference
+
+| | F1 | LLM acc |
+|---|---|---|
+| v6 CR-A baseline (full LoCoMo, 1540 Q) | 0.448 | 0.584 |
+| Phase 5 v0.4 baseline (this run) | 0.444 | 0.586 |
+| Phase 5 v0.5 tuned (this run) | 0.462 | 0.613 |
+
+Phase 5 v0.4 ≈ v6 CR-A baseline (-0.4pp F1, +0.2pp LLM acc) —
+this run reproduces the existing baseline within noise. The
+4pp drift I worried about in Phase 4 (conv0 only) doesn't
+appear at full benchmark — was likely conv0-specific variance.
+
+**Real headline:** v0.5 ships +1.4pp F1 AND +3.0pp LLM acc over the
+existing v6 CR-A baseline. That's a real benchmark improvement
+worth a paper update.
 
 ## Decision tree (after both finish)
 
@@ -59,12 +83,33 @@ delta ≥ +1pp**, the win is unambiguous (both metrics agree). If
 F1 delta ≥ +1pp but llm_acc delta is 0±1pp (Phase 4's pattern at
 n=152), the win is real-but-narrow.
 
-## Pending
+## What this means for shipping
 
-- Phase 5 v0.4 baseline running (10 parallel shards). Bash task
-  notification will fire when wrapper exits.
-- Phase 5 v0.5 tuned will auto-start after v0.4 finishes (the
-  wrapper runs them sequentially).
+- **Phase 6 (cognitive-memory-sdk commit `707758d`, v0.5.0)** is
+  validated. The two empirically-tuned defaults that drive this
+  improvement on the benchmarks:
+  - `associative_boost`: 0.03 → 0.05
+  - `base_decay_rates.semantic`: 120 → 240
+- **`core_session_threshold` 3 → 2** is in v0.5 too but the
+  benchmarks adapter pinned cst=2 already, so the v0.5 shift on
+  cst doesn't drive this Phase 5 lift. Still defensible from
+  Phase 2 joint-search evidence (cst=3 trails 67% vs cst=1/2 at
+  ~92%).
+- **Paper update** can claim: "On LoCoMo full benchmark, our
+  empirically-tuned defaults (v0.5) lift F1 from 44.4% to 46.2%
+  and LLM accuracy from 58.6% to 61.3%, both relative to the
+  paper-faithful (v0.4) baseline at the same harness configuration."
+
+## Cost ledger (full session)
+
+- Phase 0g: $1.30
+- Phase 1: $14
+- Phase 2: $15
+- Phase 2.5b (top-K confirm): $2.50
+- Phase 3 (LoCoMo cross-check): $2.50
+- Phase 4 (LoCoMo conv0 head-to-head): $10
+- **Phase 5 (full LoCoMo head-to-head): ~$100**
+- Total: **~$145**
 
 ## Links
 
