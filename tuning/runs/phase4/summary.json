@@ -1,0 +1,12 @@
+{
+  "v04_f1": 0.4309583132725548,
+  "v05_f1": 0.46011824483746844,
+  "f1_delta_pp": 2.915993156491364,
+  "v04_llm_accuracy": 0.6381578947368421,
+  "v05_llm_accuracy": 0.6381578947368421,
+  "llm_acc_delta_pp": 0.0,
+  "n_questions": 152,
+  "v04_wall_seconds": 4371.137457847595,
+  "v05_wall_seconds": 4436.797500133514,
+  "verdict": "v0.5_wins_phase5_go"
+}

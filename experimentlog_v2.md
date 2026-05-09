@@ -803,3 +803,40 @@ flag stack as the v6 CR-A baseline (0.470 F1).
 |---|---|---|---|
 | v0.4 baseline | _running…_ | | started 06:42 |
 | v0.5 tuned    | _running…_ | | started 06:42 |
+
+### Phase 4 final results
+
+Both runs complete at 07:57 BST. Wall: 75 min parallel.
+
+| config | F1 | LLM acc | wall | n_q |
+|---|---|---|---|---|
+| v0.4 (paper) | 0.4310 | 0.6382 | 4371s | 152 |
+| v0.5 (tuned) | **0.4601** | 0.6382 | 4437s | 152 |
+| **delta** | **+2.92pp** | +0.00pp | — | — |
+
+**v0.5 wins by +2.92pp F1 — Phase 6 ship validated.** LLM judge
+accuracy unchanged (binary CORRECT/INCORRECT verdict matches on
+both); F1 improvement means v0.5 answers are closer in wording
+to ground truth. Phase 5 (full LoCoMo) will resolve whether the
+LLM accuracy delta separates from noise at larger N.
+
+Drift caveat: my v0.4 baseline (F1=0.431) is ~4pp below the v6
+CR-A conv0 baseline (F1=0.470). Possible drift since baseline
+(Phase 0a-sdk made base_decay_rates a config field). Affects
+absolute numbers, not the delta.
+
+## 2026-05-09 — Phase 5: full LoCoMo head-to-head (in progress)
+
+**Status:** in-progress (started 08:00 BST; v0.4 + v0.5 sequential;
+ETA ~15:00 BST). Last refresh 08:00.
+
+Triggered by Phase 4's +2.92pp lift. 10 conversations × 2 candidates
+= 20 runs. Per-candidate: 10 parallel shards. Two candidates
+sequential to keep OpenAI API rate-limit pressure manageable.
+
+| candidate | shards done | overall F1 | LLM acc | status |
+|---|---|---|---|---|
+| v0.4 baseline | 0 / 10 | — | — | starting |
+| v0.5 tuned | _pending_ | — | — | queued |
+
+Cost ~$100, wall ~7h.

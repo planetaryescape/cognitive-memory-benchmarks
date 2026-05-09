@@ -1,14 +1,10 @@
-# Phase 4 — LoCoMo conv0 reality check (in progress)
+# Phase 4 — LoCoMo conv0 reality check (complete)
 
 **Started:** 2026-05-09T06:42 BST
-**Plan:** Head-to-head LoCoMo conv0 with v0.4 SDK defaults vs v0.5
-SDK defaults (the Phase 6 tuned values from commit `707758d`).
-Production flag stack identical to existing v6 baseline so the
-result lands in the same metric space.
-**Projected wall:** ~96 min (matches v6 CR-A baseline at 5776s/conv)
-**Projected cost:** ~$10 ($5 per run × 2 in parallel)
-
-This is a live milestone, refreshed as runs land.
+**Completed:** 2026-05-09T07:57 BST
+**Wall:** 75 min (parallel; each run ~73-74 min)
+**Cost:** ~$10
+**Verdict:** **v0.5 wins by +2.92pp F1 → Phase 5 GO**
 
 ## Goal
 
@@ -50,12 +46,45 @@ Without these the F1 caps at ~0.31 (vanilla flags). With them the
 v6 baseline hits 0.470. We need the v0.4 vs v0.5 comparison in the
 0.470-ish range so the delta is meaningful.
 
-## Live trial state
+## Final results
 
-| config | trial dir | F1 | LLM accuracy | wall | status |
-|---|---|---|---|---|---|
-| v0.4 (paper defaults) | _running…_ | | | | started 06:42 |
-| v0.5 (SDK 0.5.0 tuned) | _running…_ | | | | started 06:42 |
+| config | F1 | LLM accuracy | wall | n_questions |
+|---|---|---|---|---|
+| v0.4 (paper defaults) | **0.4310** | 0.6382 | 4371s | 152 |
+| v0.5 (SDK 0.5.0 tuned) | **0.4601** | 0.6382 | 4437s | 152 |
+| **delta** | **+2.92pp** | +0.00pp | — | — |
+
+**Headline:** v0.5 improves F1 by +2.92pp on LoCoMo conv0 — well above
+the +1pp gate. Phase 6 SDK ship validated on a real benchmark, not
+just the LTI-Bench composite.
+
+### Nuance: F1 ↑, LLM accuracy unchanged
+
+LLM judge accuracy stayed at 0.6382 on both configs. This means
+v0.5's answers are **closer in wording** to ground truth (token F1
+improvement) but the judge's binary CORRECT/INCORRECT verdict is
+the same set of questions on both sides. Two interpretations:
+
+1. **Real improvement, just not big enough to flip marginals.**
+   F1 captures granular wording quality; the judge captures
+   coarse correctness. v0.5 makes answers tighter without changing
+   which questions cross the correctness threshold.
+2. **Possible noise overlap.** With 152 questions and judge
+   non-determinism, a 0pp delta on llm_accuracy at single-run is
+   not strong evidence either way.
+
+Phase 5 (full LoCoMo, 10 conversations, ~1500 Q) will resolve
+this — larger N gives the judge accuracy delta enough samples to
+separate from noise.
+
+### Drift caveat (vs v6 baseline)
+
+The existing v6 CR-A baseline (`locomo/results/v6/parallel/conv0.json`)
+hit F1=0.470 with the same flags. My Phase 4 v0.4 baseline at 0.431
+is ~4pp lower — possible drift from SDK changes since the v6 baseline
+(Phase 0a-sdk made `base_decay_rates` a config field). Doesn't affect
+the **delta** (same harness for v0.4 and v0.5 in this comparison),
+but worth noting if downstream readers compare absolute numbers.
 
 ## Decision rule
 
