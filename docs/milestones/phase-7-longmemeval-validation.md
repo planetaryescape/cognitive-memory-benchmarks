@@ -1,6 +1,6 @@
 # Phase 7 — LongMemEval-S validation (in progress)
 
-**Started:** 2026-05-10T~13:00 BST (estimated, kicking off shortly)
+**Started:** 2026-05-10T00:45 BST
 **Plan:** Head-to-head v0.4 vs v0.5 SDK defaults on LongMemEval-S
 (500 questions). Same configs as Phase 4/5; same pattern (one
 locomo_eval-style run per candidate, no tuning).
@@ -76,8 +76,8 @@ After both finish:
 
 ## Pending
 
-- Both runs in parallel. ETA ~03:30 BST tomorrow (14.5h from
-  ~13:00 today).
+- Both runs in parallel. ETA ~15:15 BST today (14.5h from
+  00:45 launch).
 - Bash background tasks fire completion notifications when each
   exits.
 

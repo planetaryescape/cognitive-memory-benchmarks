@@ -883,8 +883,8 @@ the real benchmark.
 
 ## 2026-05-10 — Phase 7: LongMemEval-S validation (in progress)
 
-**Status:** in-progress (started ~13:00 BST; v0.4 + v0.5 in parallel;
-ETA ~03:30 BST tomorrow). Last refresh 13:00.
+**Status:** in-progress (started 00:45 BST; v0.4 + v0.5 in parallel;
+ETA ~15:15 BST today). Last refresh 13:00.
 
 Third real-bench validation for v0.5 SDK ship. Same configs as
 Phase 4/5 (v04_baseline + v05_tuned), production flag stack
