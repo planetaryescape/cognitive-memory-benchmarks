@@ -878,3 +878,29 @@ the real benchmark.
 > harness configuration), v0.5 lifts F1 from 0.444 → 0.462 (+1.87pp)
 > and LLM-judge accuracy from 0.586 → 0.613 (+2.73pp). Both metrics
 > agree the new defaults are an improvement.
+
+---
+
+## 2026-05-10 — Phase 7: LongMemEval-S validation (in progress)
+
+**Status:** in-progress (started ~13:00 BST; v0.4 + v0.5 in parallel;
+ETA ~03:30 BST tomorrow). Last refresh 13:00.
+
+Third real-bench validation for v0.5 SDK ship. Same configs as
+Phase 4/5 (v04_baseline + v05_tuned), production flag stack
+matching the existing CR-B baseline (`--top-k 20 --deep-recall
+--rerank --max-workers 53`).
+
+**CR-B reference:** task-avg accuracy 71.6%, overall 72.6%.
+
+**Decision rule:**
+- v0.5 acc ≥ v0.4 + 1pp → "validated on 2 of 2 real benchmarks"
+- |delta| < 1pp → no-op on LongMemEval; document caveat
+- v0.5 < v0.4 by >1pp → v0.5 is LoCoMo-specific; reconsider ship
+
+| candidate | accuracy | task_avg | wall | status |
+|---|---|---|---|---|
+| v0.4 baseline | _running…_ | | | started 13:00 |
+| v0.5 tuned    | _running…_ | | | started 13:00 |
+
+Cost ~$100, wall ~14.5h.

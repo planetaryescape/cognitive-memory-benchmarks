@@ -442,7 +442,7 @@ def run_evaluation(
     data_path, adapter_name="cognitive_memory", model="gpt-4o-mini",
     output_path=None, verbose=True, top_k=20, deep_recall=False,
     rerank=False, rerank_factor=2, start_from=0, max_questions=None,
-    max_workers=53,
+    max_workers=53, trial_kwargs=None,
 ):
     adapter_kwargs = {"llm_model": model}
     if adapter_name == "cognitive_memory":
@@ -451,6 +451,11 @@ def run_evaluation(
         if rerank:
             adapter_kwargs["rerank"] = True
             adapter_kwargs["rerank_factor"] = rerank_factor
+        # Trial config kwargs (Phase 0c) — merged after explicit flags
+        # so config_overrides can flip arbitrary CognitiveMemoryConfig
+        # fields without conflicting with the harness's own knobs.
+        if trial_kwargs:
+            adapter_kwargs.update(trial_kwargs)
         adapter = CognitiveMemoryAdapter(**adapter_kwargs)
     elif adapter_name == "naive_rag":
         adapter = NaiveRAGAdapter(llm_model=model)
@@ -599,8 +604,22 @@ def main():
     parser.add_argument("--max-questions", type=int, default=None)
     parser.add_argument("--max-workers", type=int, default=53)
     parser.add_argument("--quiet", action="store_true")
+    parser.add_argument(
+        "--config", default=None,
+        help="Path to a tuning trial JSON config (Phase 0c). "
+        "Overrides CognitiveMemoryConfig fields per-trial.",
+    )
+    parser.add_argument(
+        "--surface", choices=["sdk", "daemon"], default=None,
+        help="Override the trial config's surface. CLI flag wins.",
+    )
 
     args = parser.parse_args()
+
+    from shared.trial_config import load_trial_config
+    trial_kwargs = load_trial_config(args.config)
+    if args.surface is not None:
+        trial_kwargs["surface"] = args.surface
 
     run_evaluation(
         data_path=args.data, adapter_name=args.adapter, model=args.model,
@@ -609,6 +628,7 @@ def main():
         rerank_factor=args.rerank_factor, start_from=args.start_from,
         max_questions=args.max_questions,
         max_workers=args.max_workers,
+        trial_kwargs=trial_kwargs,
     )
 
 
