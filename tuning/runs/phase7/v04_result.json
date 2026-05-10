@@ -12,8 +12,8 @@
       "is_abstention": false,
       "num_sessions": 53,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2721.7469215393066,
-      "ingest_time_s": 126.85190796852112
+      "retrieval_time_ms": 3239.2749786376953,
+      "ingest_time_s": 119.80269575119019
     },
     {
       "question_id": "118b2229",
@@ -23,12 +23,12 @@
       "prediction": "Your daily commute to work is 45 minutes each way.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4510.456085205078,
-      "ingest_time_s": 73.33740997314453
+      "retrieval_time_ms": 7110.282182693481,
+      "ingest_time_s": 121.83722805976868
     },
     {
       "question_id": "51a45a95",
@@ -42,8 +42,8 @@
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2575.6139755249023,
-      "ingest_time_s": 224.22088503837585
+      "retrieval_time_ms": 2491.7991161346436,
+      "ingest_time_s": 121.31650519371033
     },
     {
       "question_id": "58bf7951",
@@ -57,8 +57,8 @@
       "is_abstention": false,
       "num_sessions": 57,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2587.306022644043,
-      "ingest_time_s": 117.50401306152344
+      "retrieval_time_ms": 2774.308919906616,
+      "ingest_time_s": 181.17400193214417
     },
     {
       "question_id": "1e043500",
@@ -72,8 +72,8 @@
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2966.4511680603027,
-      "ingest_time_s": 138.59423303604126
+      "retrieval_time_ms": 6826.941967010498,
+      "ingest_time_s": 143.00756907463074
     },
     {
       "question_id": "c5e8278d",
@@ -87,8 +87,8 @@
       "is_abstention": false,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3419.4839000701904,
-      "ingest_time_s": 148.06993508338928
+      "retrieval_time_ms": 7308.2311153411865,
+      "ingest_time_s": 94.91760301589966
     },
     {
       "question_id": "6ade9755",
@@ -102,8 +102,8 @@
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 1999.8300075531006,
-      "ingest_time_s": 149.74658203125
+      "retrieval_time_ms": 3260.524034500122,
+      "ingest_time_s": 138.96411991119385
     },
     {
       "question_id": "6f9b354f",
@@ -117,8 +117,8 @@
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3241.2619590759277,
-      "ingest_time_s": 85.35218095779419
+      "retrieval_time_ms": 2731.100082397461,
+      "ingest_time_s": 108.10603094100952
     },
     {
       "question_id": "58ef2f1c",
@@ -128,12 +128,12 @@
       "prediction": "I don't have that information.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No",
+      "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2706.063747406006,
-      "ingest_time_s": 160.19939398765564
+      "retrieval_time_ms": 2138.025999069214,
+      "ingest_time_s": 119.17950177192688
     },
     {
       "question_id": "f8c5f88b",
@@ -147,8 +147,8 @@
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3241.955041885376,
-      "ingest_time_s": 128.74499893188477
+      "retrieval_time_ms": 4336.091041564941,
+      "ingest_time_s": 121.42729902267456
     },
     {
       "question_id": "5d3d2817",
@@ -162,8 +162,8 @@
       "is_abstention": false,
       "num_sessions": 53,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2670.6759929656982,
-      "ingest_time_s": 142.51134705543518
+      "retrieval_time_ms": 2441.3559436798096,
+      "ingest_time_s": 144.30162692070007
     },
     {
       "question_id": "7527f7e2",
@@ -177,8 +177,8 @@
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3063.4231567382812,
-      "ingest_time_s": 216.3672640323639
+      "retrieval_time_ms": 2782.701015472412,
+      "ingest_time_s": 105.93704104423523
     },
     {
       "question_id": "c960da58",
@@ -188,27 +188,27 @@
       "prediction": "You have 20 playlists on Spotify.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "yes",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3130.779981613159,
-      "ingest_time_s": 135.1217758655548
+      "retrieval_time_ms": 7205.986738204956,
+      "ingest_time_s": 69.50007796287537
     },
     {
       "question_id": "3b6f954b",
       "question_type": "single-session-user",
       "question": "Where did I attend for my study abroad program?",
       "ground_truth": "University of Melbourne in Australia",
-      "prediction": "You attended your study abroad program at the University of Melbourne.",
+      "prediction": "You attended the University of Melbourne for your study abroad program.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3686.110019683838,
-      "ingest_time_s": 123.310800075531
+      "retrieval_time_ms": 3464.9670124053955,
+      "ingest_time_s": 151.74534583091736
     },
     {
       "question_id": "726462e0",
@@ -222,8 +222,8 @@
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3462.143898010254,
-      "ingest_time_s": 108.70856499671936
+      "retrieval_time_ms": 3214.524030685425,
+      "ingest_time_s": 129.78187489509583
     },
     {
       "question_id": "94f70d80",
@@ -237,8 +237,8 @@
       "is_abstention": false,
       "num_sessions": 49,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2810.2269172668457,
-      "ingest_time_s": 135.7725191116333
+      "retrieval_time_ms": 2531.863212585449,
+      "ingest_time_s": 111.8116180896759
     },
     {
       "question_id": "66f24dbb",
@@ -252,8 +252,8 @@
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3314.232110977173,
-      "ingest_time_s": 168.92016696929932
+      "retrieval_time_ms": 2778.1028747558594,
+      "ingest_time_s": 78.73697304725647
     },
     {
       "question_id": "ad7109d1",
@@ -267,8 +267,8 @@
       "is_abstention": false,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2687.4070167541504,
-      "ingest_time_s": 90.2794599533081
+      "retrieval_time_ms": 3631.7358016967773,
+      "ingest_time_s": 120.14507794380188
     },
     {
       "question_id": "af8d2e46",
@@ -282,8 +282,8 @@
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3156.1970710754395,
-      "ingest_time_s": 123.73238110542297
+      "retrieval_time_ms": 2878.2548904418945,
+      "ingest_time_s": 133.28630113601685
     },
     {
       "question_id": "dccbc061",
@@ -297,8 +297,8 @@
       "is_abstention": false,
       "num_sessions": 49,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2562.173843383789,
-      "ingest_time_s": 237.41947507858276
+      "retrieval_time_ms": 2196.6283321380615,
+      "ingest_time_s": 116.83506512641907
     },
     {
       "question_id": "c8c3f81d",
@@ -308,12 +308,12 @@
       "prediction": "Your favorite brand for running shoes is Nike.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "yes",
       "is_abstention": false,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3294.0967082977295,
-      "ingest_time_s": 170.2983591556549
+      "retrieval_time_ms": 3170.0217723846436,
+      "ingest_time_s": 214.51822304725647
     },
     {
       "question_id": "8ebdbe50",
@@ -327,8 +327,8 @@
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2497.6959228515625,
-      "ingest_time_s": 123.04267525672913
+      "retrieval_time_ms": 1894.535779953003,
+      "ingest_time_s": 118.61125206947327
     },
     {
       "question_id": "6b168ec8",
@@ -342,8 +342,8 @@
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4534.520864486694,
-      "ingest_time_s": 128.2771499156952
+      "retrieval_time_ms": 5541.248083114624,
+      "ingest_time_s": 80.59340906143188
     },
     {
       "question_id": "75499fd8",
@@ -357,8 +357,8 @@
       "is_abstention": false,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 1922.234058380127,
-      "ingest_time_s": 89.00257802009583
+      "retrieval_time_ms": 2926.193952560425,
+      "ingest_time_s": 125.95857810974121
     },
     {
       "question_id": "21436231",
@@ -372,8 +372,8 @@
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2910.2799892425537,
-      "ingest_time_s": 103.03465700149536
+      "retrieval_time_ms": 5389.446973800659,
+      "ingest_time_s": 202.25951266288757
     },
     {
       "question_id": "95bcc1c8",
@@ -387,8 +387,8 @@
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 5047.935009002686,
-      "ingest_time_s": 96.29434990882874
+      "retrieval_time_ms": 2565.880060195923,
+      "ingest_time_s": 70.73699688911438
     },
     {
       "question_id": "0862e8bf",
@@ -398,12 +398,12 @@
       "prediction": "The name of your cat is Luna.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "yes",
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4043.5218811035156,
-      "ingest_time_s": 134.77293801307678
+      "retrieval_time_ms": 2942.162036895752,
+      "ingest_time_s": 132.73289489746094
     },
     {
       "question_id": "853b0a1d",
@@ -417,8 +417,8 @@
       "is_abstention": false,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2890.394926071167,
-      "ingest_time_s": 166.52085423469543
+      "retrieval_time_ms": 2487.8368377685547,
+      "ingest_time_s": 118.82159304618835
     },
     {
       "question_id": "a06e4cfe",
@@ -432,8 +432,8 @@
       "is_abstention": false,
       "num_sessions": 53,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3055.208921432495,
-      "ingest_time_s": 145.99774527549744
+      "retrieval_time_ms": 2896.7671394348145,
+      "ingest_time_s": 171.79951000213623
     },
     {
       "question_id": "37d43f65",
@@ -447,8 +447,8 @@
       "is_abstention": false,
       "num_sessions": 49,
       "num_retrieved": 20,
-      "retrieval_time_ms": 1907.7060222625732,
-      "ingest_time_s": 89.3738660812378
+      "retrieval_time_ms": 3890.896797180176,
+      "ingest_time_s": 109.8579409122467
     },
     {
       "question_id": "b86304ba",
@@ -462,8 +462,8 @@
       "is_abstention": false,
       "num_sessions": 41,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4819.967031478882,
-      "ingest_time_s": 57.06751108169556
+      "retrieval_time_ms": 4090.0888442993164,
+      "ingest_time_s": 74.28591990470886
     },
     {
       "question_id": "d52b4f67",
@@ -477,23 +477,23 @@
       "is_abstention": false,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 5066.758871078491,
-      "ingest_time_s": 95.15012407302856
+      "retrieval_time_ms": 2522.239923477173,
+      "ingest_time_s": 220.02344012260437
     },
     {
       "question_id": "25e5aa4f",
       "question_type": "single-session-user",
       "question": "Where did I complete my Bachelor's degree in Computer Science?",
       "ground_truth": "University of California, Los Angeles (UCLA)",
-      "prediction": "You completed your Bachelor's degree in Computer Science at UCLA.",
+      "prediction": "You completed your Bachelor's degree in Computer Science from UCLA.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "yes",
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4000.662088394165,
-      "ingest_time_s": 78.81076574325562
+      "retrieval_time_ms": 2485.836982727051,
+      "ingest_time_s": 81.52820801734924
     },
     {
       "question_id": "caf9ead2",
@@ -507,8 +507,8 @@
       "is_abstention": false,
       "num_sessions": 43,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2891.0062313079834,
-      "ingest_time_s": 48.07353711128235
+      "retrieval_time_ms": 2739.3407821655273,
+      "ingest_time_s": 77.64223098754883
     },
     {
       "question_id": "8550ddae",
@@ -522,8 +522,8 @@
       "is_abstention": false,
       "num_sessions": 42,
       "num_retrieved": 20,
-      "retrieval_time_ms": 6635.101318359375,
-      "ingest_time_s": 108.23208403587341
+      "retrieval_time_ms": 2196.3870525360107,
+      "ingest_time_s": 85.37947010993958
     },
     {
       "question_id": "60d45044",
@@ -537,23 +537,23 @@
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4202.177047729492,
-      "ingest_time_s": 141.63535380363464
+      "retrieval_time_ms": 3280.8399200439453,
+      "ingest_time_s": 124.98554182052612
     },
     {
       "question_id": "3f1e9474",
       "question_type": "single-session-user",
       "question": "Who did I have a conversation with about destiny?",
       "ground_truth": "Sarah",
-      "prediction": "You had a conversation about destiny with your friend Sarah.",
+      "prediction": "You talked to your friend Sarah about the belief that everything happens for a reason, which relates to the concept of destiny.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3302.942991256714,
-      "ingest_time_s": 150.25818800926208
+      "retrieval_time_ms": 5469.639778137207,
+      "ingest_time_s": 104.03378081321716
     },
     {
       "question_id": "86b68151",
@@ -567,8 +567,8 @@
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2880.5229663848877,
-      "ingest_time_s": 181.89881801605225
+      "retrieval_time_ms": 2342.701196670532,
+      "ingest_time_s": 129.1320459842682
     },
     {
       "question_id": "577d4d32",
@@ -578,57 +578,57 @@
       "prediction": "You stop checking work emails and messages by 7 pm.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3525.6121158599854,
-      "ingest_time_s": 99.63963103294373
+      "retrieval_time_ms": 3029.2718410491943,
+      "ingest_time_s": 74.76773405075073
     },
     {
       "question_id": "ec81a493",
       "question_type": "single-session-user",
       "question": "How many copies of my favorite artist's debut album were released worldwide?",
       "ground_truth": "500",
-      "prediction": "Only 500 copies of your favorite artist's debut album were released worldwide.",
+      "prediction": "There were only 500 copies of your favorite artist's debut album released worldwide.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3707.8189849853516,
-      "ingest_time_s": 152.29763102531433
+      "retrieval_time_ms": 3061.1629486083984,
+      "ingest_time_s": 88.48374819755554
     },
     {
       "question_id": "15745da0",
       "question_type": "single-session-user",
       "question": "How long have I been collecting vintage cameras?",
       "ground_truth": "three months",
-      "prediction": "You have been collecting vintage cameras for approximately six months as of November 2023.",
+      "prediction": "You have been collecting vintage cameras for approximately five months as of today, October 21, 2023.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 6224.845170974731,
-      "ingest_time_s": 89.21969199180603
+      "retrieval_time_ms": 3759.7551345825195,
+      "ingest_time_s": 79.2491557598114
     },
     {
       "question_id": "e01b8e2f",
       "question_type": "single-session-user",
       "question": "Where did I go on a week-long trip with my family?",
       "ground_truth": "Hawaii",
-      "prediction": "You went to Hawaii for a week with your family in April 2023.",
+      "prediction": "You went to Hawaii on a week-long trip with your family in April 2023.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 53,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2315.8111572265625,
-      "ingest_time_s": 93.00897693634033
+      "retrieval_time_ms": 8079.394102096558,
+      "ingest_time_s": 195.02153491973877
     },
     {
       "question_id": "bc8a6e93",
@@ -642,23 +642,23 @@
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4059.5028400421143,
-      "ingest_time_s": 68.0094428062439
+      "retrieval_time_ms": 6855.41296005249,
+      "ingest_time_s": 73.5425488948822
     },
     {
       "question_id": "ccb36322",
       "question_type": "single-session-user",
       "question": "What is the name of the music streaming service have I been using lately?",
       "ground_truth": "Spotify",
-      "prediction": "You have been using Spotify lately.",
+      "prediction": "You've been using Spotify lately.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "yes",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4929.347038269043,
-      "ingest_time_s": 62.7371621131897
+      "retrieval_time_ms": 4064.0058517456055,
+      "ingest_time_s": 82.97648477554321
     },
     {
       "question_id": "001be529",
@@ -668,12 +668,12 @@
       "prediction": "You waited over a year for the decision on your asylum application.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "yes",
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2302.6297092437744,
-      "ingest_time_s": 153.07586002349854
+      "retrieval_time_ms": 3574.8190879821777,
+      "ingest_time_s": 200.95095801353455
     },
     {
       "question_id": "b320f3f8",
@@ -687,8 +687,8 @@
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4974.062919616699,
-      "ingest_time_s": 155.09290599822998
+      "retrieval_time_ms": 6401.960134506226,
+      "ingest_time_s": 139.74470400810242
     },
     {
       "question_id": "19b5f2b3",
@@ -702,8 +702,8 @@
       "is_abstention": false,
       "num_sessions": 43,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2837.5837802886963,
-      "ingest_time_s": 79.88109588623047
+      "retrieval_time_ms": 3581.5858840942383,
+      "ingest_time_s": 107.05969405174255
     },
     {
       "question_id": "4fd1909e",
@@ -713,12 +713,12 @@
       "prediction": "You attended the Imagine Dragons concert at Xfinity Center.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "yes",
       "is_abstention": false,
       "num_sessions": 55,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2085.322618484497,
-      "ingest_time_s": 107.98517298698425
+      "retrieval_time_ms": 2301.568031311035,
+      "ingest_time_s": 146.62755489349365
     },
     {
       "question_id": "545bd2b5",
@@ -732,8 +732,8 @@
       "is_abstention": false,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2442.3768520355225,
-      "ingest_time_s": 154.0458550453186
+      "retrieval_time_ms": 2335.341215133667,
+      "ingest_time_s": 112.51014232635498
     },
     {
       "question_id": "8a137a7f",
@@ -747,8 +747,8 @@
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4722.833156585693,
-      "ingest_time_s": 162.79288291931152
+      "retrieval_time_ms": 6475.306987762451,
+      "ingest_time_s": 140.51687002182007
     },
     {
       "question_id": "76d63226",
@@ -762,8 +762,8 @@
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4654.688119888306,
-      "ingest_time_s": 134.80921006202698
+      "retrieval_time_ms": 4911.610126495361,
+      "ingest_time_s": 127.13752913475037
     },
     {
       "question_id": "86f00804",
@@ -773,12 +773,12 @@
       "prediction": "You are currently reading 'The Seven Husbands of Evelyn Hugo'.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "Yes",
       "is_abstention": false,
       "num_sessions": 43,
       "num_retrieved": 20,
-      "retrieval_time_ms": 1997.1039295196533,
-      "ingest_time_s": 150.2904713153839
+      "retrieval_time_ms": 2446.498155593872,
+      "ingest_time_s": 120.4097990989685
     },
     {
       "question_id": "8e9d538c",
@@ -788,27 +788,27 @@
       "prediction": "You found 17 skeins of worsted weight yarn in your stash.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2409.263849258423,
-      "ingest_time_s": 69.0335419178009
+      "retrieval_time_ms": 2154.564142227173,
+      "ingest_time_s": 69.9638249874115
     },
     {
       "question_id": "311778f1",
       "question_type": "single-session-user",
       "question": "How many hours did I spend watching documentaries on Netflix last month?",
       "ground_truth": "10",
-      "prediction": "You think you spent 10 hours watching documentaries on Netflix last month.",
+      "prediction": "You spent around 10 hours watching documentaries on Netflix last month.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 5456.501007080078,
-      "ingest_time_s": 104.2366099357605
+      "retrieval_time_ms": 2875.221014022827,
+      "ingest_time_s": 215.82226991653442
     },
     {
       "question_id": "c19f7a0b",
@@ -822,8 +822,8 @@
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2452.230930328369,
-      "ingest_time_s": 110.37932181358337
+      "retrieval_time_ms": 2839.3447399139404,
+      "ingest_time_s": 94.98493599891663
     },
     {
       "question_id": "4100d0a0",
@@ -837,8 +837,8 @@
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3104.795217514038,
-      "ingest_time_s": 88.64750623703003
+      "retrieval_time_ms": 3110.6579303741455,
+      "ingest_time_s": 150.90462398529053
     },
     {
       "question_id": "29f2956b",
@@ -852,8 +852,8 @@
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 5057.188987731934,
-      "ingest_time_s": 145.01688718795776
+      "retrieval_time_ms": 3020.603895187378,
+      "ingest_time_s": 215.18850684165955
     },
     {
       "question_id": "1faac195",
@@ -867,8 +867,8 @@
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3861.2918853759766,
-      "ingest_time_s": 71.49772524833679
+      "retrieval_time_ms": 4454.283952713013,
+      "ingest_time_s": 80.75272393226624
     },
     {
       "question_id": "faba32e5",
@@ -882,8 +882,8 @@
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2879.796028137207,
-      "ingest_time_s": 86.48358225822449
+      "retrieval_time_ms": 6400.9058475494385,
+      "ingest_time_s": 104.1628429889679
     },
     {
       "question_id": "f4f1d8a4",
@@ -897,8 +897,8 @@
       "is_abstention": false,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3915.4880046844482,
-      "ingest_time_s": 174.36620998382568
+      "retrieval_time_ms": 3423.8908290863037,
+      "ingest_time_s": 104.61657404899597
     },
     {
       "question_id": "c14c00dd",
@@ -912,8 +912,8 @@
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2491.7731285095215,
-      "ingest_time_s": 94.63617205619812
+      "retrieval_time_ms": 5684.078693389893,
+      "ingest_time_s": 75.87922883033752
     },
     {
       "question_id": "36580ce8",
@@ -923,12 +923,12 @@
       "prediction": "You initially thought you had a cold, but it turned out to be a bad case of bronchitis.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "Yes",
       "is_abstention": false,
       "num_sessions": 55,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2802.196979522705,
-      "ingest_time_s": 152.02354097366333
+      "retrieval_time_ms": 2860.506296157837,
+      "ingest_time_s": 160.4969367980957
     },
     {
       "question_id": "3d86fd0a",
@@ -938,27 +938,27 @@
       "prediction": "You met Sophia at a coffee shop in the city.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "yes",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 55,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2699.676752090454,
-      "ingest_time_s": 143.03896188735962
+      "retrieval_time_ms": 2436.518907546997,
+      "ingest_time_s": 172.6311650276184
     },
     {
       "question_id": "a82c026e",
       "question_type": "single-session-user",
       "question": "What game did I finally beat last weekend?",
       "ground_truth": "Dark Souls 3 DLC",
-      "prediction": "You finally beat the last boss in the Dark Souls 3 DLC last weekend, on May 20, 2023.",
-      "correct": true,
+      "prediction": "I don't have that information.",
+      "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "No",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2618.567943572998,
-      "ingest_time_s": 142.26491117477417
+      "retrieval_time_ms": 2521.9650268554688,
+      "ingest_time_s": 116.75856518745422
     },
     {
       "question_id": "0862e8bf_abs",
@@ -972,8 +972,8 @@
       "is_abstention": true,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2473.0403423309326,
-      "ingest_time_s": 118.99942898750305
+      "retrieval_time_ms": 4257.3089599609375,
+      "ingest_time_s": 122.0883800983429
     },
     {
       "question_id": "15745da0_abs",
@@ -987,8 +987,8 @@
       "is_abstention": true,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3088.608980178833,
-      "ingest_time_s": 156.49545288085938
+      "retrieval_time_ms": 3062.2777938842773,
+      "ingest_time_s": 110.50801396369934
     },
     {
       "question_id": "bc8a6e93_abs",
@@ -1002,8 +1002,8 @@
       "is_abstention": true,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3114.147901535034,
-      "ingest_time_s": 78.26044917106628
+      "retrieval_time_ms": 2771.4877128601074,
+      "ingest_time_s": 210.91779804229736
     },
     {
       "question_id": "19b5f2b3_abs",
@@ -1017,8 +1017,8 @@
       "is_abstention": true,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 1980.8101654052734,
-      "ingest_time_s": 62.87318706512451
+      "retrieval_time_ms": 3315.0720596313477,
+      "ingest_time_s": 81.1075451374054
     },
     {
       "question_id": "29f2956b_abs",
@@ -1032,8 +1032,8 @@
       "is_abstention": true,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3051.266670227051,
-      "ingest_time_s": 75.00014901161194
+      "retrieval_time_ms": 2780.651092529297,
+      "ingest_time_s": 69.51231980323792
     },
     {
       "question_id": "f4f1d8a4_abs",
@@ -1047,53 +1047,53 @@
       "is_abstention": true,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3102.4839878082275,
-      "ingest_time_s": 112.03433084487915
+      "retrieval_time_ms": 5226.6199588775635,
+      "ingest_time_s": 109.44354510307312
     },
     {
       "question_id": "0a995998",
       "question_type": "multi-session",
       "question": "How many items of clothing do I need to pick up or return from a store?",
       "ground_truth": 3,
-      "prediction": "You need to pick up your dry cleaning for the navy blue blazer and pick up the new pair of boots from Zara. That's a total of 2 items of clothing to pick up. You also mentioned looking into returns management software, but there are no specific returns mentioned in your memories. So, the total is 2 items to pick up.",
+      "prediction": "You need to pick up a new pair of boots from Zara, and you also need to handle returns for your online store, but the exact number of items to return isn't specified. So, you have at least one item to pick up and potentially more to return.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2823.9758014678955,
-      "ingest_time_s": 71.43033385276794
+      "retrieval_time_ms": 5394.7718143463135,
+      "ingest_time_s": 87.13621616363525
     },
     {
       "question_id": "6d550036",
       "question_type": "multi-session",
       "question": "How many projects have I led or am currently leading?",
       "ground_truth": 2,
-      "prediction": "You are currently leading one project with your team of five engineers, and you have also led the data analysis team for a comprehensive market analysis for a new product launch. Therefore, you have led or are currently leading a total of two projects.",
+      "prediction": "You are currently leading one project with your team of five engineers and have led the data analysis team in the Marketing Research class project. Therefore, you have led or are currently leading a total of two projects.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 1919.3801879882812,
-      "ingest_time_s": 91.3519229888916
+      "retrieval_time_ms": 3656.2697887420654,
+      "ingest_time_s": 105.14214396476746
     },
     {
       "question_id": "gpt4_59c863d7",
       "question_type": "multi-session",
       "question": "How many model kits have I worked on or bought?",
       "ground_truth": "I have worked on or bought five model kits. The scales of the models are: Revell F-15 Eagle (scale not mentioned), Tamiya 1/48 scale Spitfire Mk.V, 1/16 scale German Tiger I tank, 1/72 scale B-29 bomber, and 1/24 scale '69 Camaro.",
-      "prediction": "You have worked on or bought a total of five model kits: \n\n1. 1/72 scale B-29 bomber model kit\n2. 1/24 scale '69 Camaro\n3. Revell F-15 Eagle kit\n4. Tamiya 1/48 scale Spitfire Mk.V\n5. 1/16 scale German Tiger I tank (for the diorama)",
+      "prediction": "You have worked on or bought a total of 5 model kits: the Revell F-15 Eagle, the 1/72 scale B-29 bomber, the 1/24 scale '69 Camaro, the Tamiya 1/48 scale Spitfire Mk.V, and the 1/16 scale German Tiger I tank.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2730.560064315796,
-      "ingest_time_s": 100.06817317008972
+      "retrieval_time_ms": 2277.3120403289795,
+      "ingest_time_s": 126.18388104438782
     },
     {
       "question_id": "b5ef892d",
@@ -1107,23 +1107,23 @@
       "is_abstention": false,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2345.388174057007,
-      "ingest_time_s": 122.99872303009033
+      "retrieval_time_ms": 3065.566062927246,
+      "ingest_time_s": 108.68085718154907
     },
     {
       "question_id": "e831120c",
       "question_type": "multi-session",
       "question": "How many weeks did it take me to watch all the Marvel Cinematic Universe movies and the main Star Wars films?",
       "ground_truth": "3.5 weeks",
-      "prediction": "It took you about two weeks to watch all 22 Marvel Cinematic Universe movies and a week and a half to watch all the main Star Wars films. In total, that is approximately 3.5 weeks.",
+      "prediction": "It took you about two weeks to watch all the Marvel Cinematic Universe movies and a week and a half to watch all the main Star Wars films. In total, that is approximately 3.5 weeks.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "Yes",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2782.6480865478516,
-      "ingest_time_s": 125.23782396316528
+      "retrieval_time_ms": 3211.944818496704,
+      "ingest_time_s": 82.88532710075378
     },
     {
       "question_id": "3a704032",
@@ -1137,23 +1137,23 @@
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2861.5469932556152,
-      "ingest_time_s": 78.31754398345947
+      "retrieval_time_ms": 2490.6458854675293,
+      "ingest_time_s": 63.58575415611267
     },
     {
       "question_id": "gpt4_d84a3211",
       "question_type": "multi-session",
       "question": "How much total money have I spent on bike-related expenses since the start of the year?",
       "ground_truth": "$185",
-      "prediction": "You have spent a total of $65 on bike-related expenses since the start of the year: $40 for the new bike lights and $25 for the chain replacement.",
+      "prediction": "You have spent $40 on a new set of bike lights since the start of the year. I don't have information on any other bike-related expenses.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2881.3397884368896,
-      "ingest_time_s": 99.84720993041992
+      "retrieval_time_ms": 2356.4200401306152,
+      "ingest_time_s": 177.69325399398804
     },
     {
       "question_id": "aae3761f",
@@ -1167,8 +1167,8 @@
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2053.8439750671387,
-      "ingest_time_s": 98.82314682006836
+      "retrieval_time_ms": 2215.904712677002,
+      "ingest_time_s": 119.62473821640015
     },
     {
       "question_id": "gpt4_f2262a51",
@@ -1182,8 +1182,8 @@
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3148.5538482666016,
-      "ingest_time_s": 83.98349380493164
+      "retrieval_time_ms": 5258.840799331665,
+      "ingest_time_s": 94.90068984031677
     },
     {
       "question_id": "dd2973ad",
@@ -1191,44 +1191,44 @@
       "question": "What time did I go to bed on the day before I had a doctor's appointment?",
       "ground_truth": "2 AM",
       "prediction": "You went to bed at 2 AM on May 24, 2023, which was the day before your doctor's appointment on May 18, 2023.",
-      "correct": true,
+      "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 49,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2831.278085708618,
-      "ingest_time_s": 153.19267082214355
+      "retrieval_time_ms": 4888.501882553101,
+      "ingest_time_s": 93.90983080863953
     },
     {
       "question_id": "c4a1ceb8",
       "question_type": "multi-session",
       "question": "How many different types of citrus fruits have I used in my cocktail recipes?",
       "ground_truth": 3,
-      "prediction": "You have used lime and orange in your cocktail recipes. So, that's two different types of citrus fruits.",
+      "prediction": "You have used orange and lime in your cocktail recipes. So, that's two different types of citrus fruits.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 49,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2846.3752269744873,
-      "ingest_time_s": 95.2069571018219
+      "retrieval_time_ms": 2682.35182762146,
+      "ingest_time_s": 78.1440782546997
     },
     {
       "question_id": "gpt4_a56e767c",
       "question_type": "multi-session",
       "question": "How many movie festivals that I attended?",
       "ground_truth": "I attended four movie festivals.",
-      "prediction": "You attended two film festivals: AFI Fest and the Portland Film Festival.",
+      "prediction": "You attended three film festivals: the Portland Film Festival, AFI Fest in Los Angeles, and the Austin Film Festival.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3129.8060417175293,
-      "ingest_time_s": 158.71392583847046
+      "retrieval_time_ms": 3975.818157196045,
+      "ingest_time_s": 129.6353828907013
     },
     {
       "question_id": "6cb6f249",
@@ -1242,143 +1242,143 @@
       "is_abstention": false,
       "num_sessions": 41,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2602.3120880126953,
-      "ingest_time_s": 87.9751489162445
+      "retrieval_time_ms": 4482.243061065674,
+      "ingest_time_s": 139.46330380439758
     },
     {
       "question_id": "46a3abf7",
       "question_type": "multi-session",
       "question": "How many tanks do I currently have, including the one I set up for my friend's kid?",
       "ground_truth": 3,
-      "prediction": "You currently have four tanks: a 1-gallon tank for your friend's kid, a 5-gallon tank with a betta fish named Finley, and two 20-gallon tanks (one of which is named 'Amazonia').",
+      "prediction": "You currently have four tanks: a 1-gallon tank for your friend's kid, a 20-gallon community tank named 'Amazonia', a 5-gallon tank with your betta fish Finley, and the quarantine tank you are considering setting up.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2743.366003036499,
-      "ingest_time_s": 129.26478505134583
+      "retrieval_time_ms": 2522.397994995117,
+      "ingest_time_s": 74.88685083389282
     },
     {
       "question_id": "36b9f61e",
       "question_type": "multi-session",
       "question": "What is the total amount I spent on luxury items in the past few months?",
       "ground_truth": "$2,500",
-      "prediction": "In the past few months, you spent a total of $2,500 on luxury items: $1,200 on a designer handbag, $800 on a luxury evening gown, and $500 on a pair of leather boots.",
+      "prediction": "In the past few months, you spent $1,200 on a Gucci handbag, $500 on a pair of leather boots, and $800 on a luxury evening gown. The total amount spent on luxury items is $2,500.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2665.8198833465576,
-      "ingest_time_s": 115.13679909706116
+      "retrieval_time_ms": 3057.2500228881836,
+      "ingest_time_s": 140.59173607826233
     },
     {
       "question_id": "28dc39ac",
       "question_type": "multi-session",
       "question": "How many hours have I spent playing games in total?",
       "ground_truth": "140 hours",
-      "prediction": "You have spent approximately 70 hours on Assassin's Creed Odyssey, 30 hours on The Last of Us Part II (hard difficulty), 30 hours on The Last of Us Part II (normal difficulty), 5 hours on Hyper Light Drifter, and 10 hours on Celeste. \n\nTotal: 70 + 30 + 30 + 5 + 10 = 145 hours. \n\nYou have spent a total of 145 hours playing games.",
-      "correct": false,
+      "prediction": "You have spent approximately 70 hours on Assassin's Creed Odyssey, 10 hours on Celeste, 5 hours on Hyper Light Drifter, and 30 hours on The Last of Us Part II (hard difficulty), plus 25 hours on The Last of Us Part II (normal difficulty). \n\nTotal: 70 + 10 + 5 + 30 + 25 = 140 hours.\n\nSo, you have spent a total of approximately 140 hours playing games.",
+      "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No.",
+      "judge_raw": "Yes",
       "is_abstention": false,
       "num_sessions": 38,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3151.958227157593,
-      "ingest_time_s": 63.622106075286865
+      "retrieval_time_ms": 2819.002866744995,
+      "ingest_time_s": 81.1700439453125
     },
     {
       "question_id": "gpt4_2f8be40d",
       "question_type": "multi-session",
       "question": "How many weddings have I attended in this year?",
       "ground_truth": "I attended three weddings. The couples were Rachel and Mike, Emily and Sarah, and Jen and Tom.",
-      "prediction": "You have attended three weddings this year: your cousin's wedding in August 2023, your friend's wedding on October 7, 2023, and your college roommate's wedding on an unspecified date.",
+      "prediction": "You have attended four weddings this year: your cousin's wedding in August, your friend's wedding on October 7, 2023, your college roommate's wedding on October 14, 2023, and your cousin Rachel's wedding (date not specified, but it was also in 2023).",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2240.7548427581787,
-      "ingest_time_s": 75.31743884086609
+      "retrieval_time_ms": 2295.8390712738037,
+      "ingest_time_s": 81.33036518096924
     },
     {
       "question_id": "2e6d26dc",
       "question_type": "multi-session",
       "question": "How many babies were born to friends and family members in the last few months?",
       "ground_truth": 5,
-      "prediction": "In the last few months, the following babies were born to friends and family members:\n\n1. Rachel's son Max - March 2023\n2. Mike and Emma's daughter Charlotte - a few weeks after February 2023 (around March 2023)\n3. David's son Jasper - a few weeks ago (around May 2023)\n4. User's aunt's twins, Ava and Lily - April 2023\n\nIn total, there were 4 babies born.",
+      "prediction": "In the last few months, the following babies were born to friends and family members:\n\n1. Rachel's baby boy, Max - March 2023\n2. David's baby boy, Jasper - a few weeks ago from May 13, 2023\n3. Mike and Emma's baby girl, Charlotte - a few weeks after Rachel's baby shower in February 2023\n4. User's aunt's twins, Ava and Lily - April 2023\n\nIn total, there were 4 babies born.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 54,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2777.8570652008057,
-      "ingest_time_s": 135.29409384727478
+      "retrieval_time_ms": 2129.2710304260254,
+      "ingest_time_s": 139.62383794784546
     },
     {
       "question_id": "gpt4_15e38248",
       "question_type": "multi-session",
       "question": "How many pieces of furniture did I buy, assemble, sell, or fix in the past few months?",
       "ground_truth": "4",
-      "prediction": "In the past few months, you bought and assembled one IKEA bookshelf, bought one new wooden coffee table, and fixed one wobbly leg on your kitchen table. So, you have bought and fixed a total of three pieces of furniture.",
+      "prediction": "In the past few months, you bought and assembled one IKEA bookshelf, bought one new coffee table from West Elm, and fixed one wobbly leg on your kitchen table. This totals three pieces of furniture.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 1905.043125152588,
-      "ingest_time_s": 98.96714520454407
+      "retrieval_time_ms": 2286.747932434082,
+      "ingest_time_s": 61.50899696350098
     },
     {
       "question_id": "88432d0a",
       "question_type": "multi-session",
       "question": "How many times did I bake something in the past two weeks?",
       "ground_truth": 4,
-      "prediction": "In the past two weeks, you baked the following items:\n\n1. Whole wheat baguette on May 27, 2023.\n2. Chocolate cake for your sister's birthday on May 20, 2023.\n3. Whole wheat baguette on May 20, 2023.\n4. Cookies using the convection setting on May 18, 2023.\n\nThat's a total of 4 times.",
+      "prediction": "In the past two weeks, you baked something four times: a whole wheat baguette on May 20, a chocolate cake for your sister's birthday on May 21, cookies using the convection setting on May 25, and a batch of cookies on an unspecified date.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2913.8503074645996,
-      "ingest_time_s": 62.03539681434631
+      "retrieval_time_ms": 2095.273971557617,
+      "ingest_time_s": 74.0150032043457
     },
     {
       "question_id": "80ec1f4f",
       "question_type": "multi-session",
       "question": "How many different museums or galleries did I visit in the month of February?",
       "ground_truth": 2,
-      "prediction": "You visited three different museums or galleries in February: The Art Cube on February 15, the Natural History Museum on February 8, and you also attended the opening night of the exhibition 'Disrupting Reality' at The Art Cube on February 15.",
+      "prediction": "You visited three different places in February: The Art Cube on February 15, the Natural History Museum on February 8, and you attended the opening night of the exhibition at The Art Cube on February 15.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3589.7130966186523,
-      "ingest_time_s": 121.81567978858948
+      "retrieval_time_ms": 3176.6467094421387,
+      "ingest_time_s": 118.96999025344849
     },
     {
       "question_id": "d23cf73b",
       "question_type": "multi-session",
       "question": "How many different cuisines have I learned to cook or tried out in the past few months?",
       "ground_truth": 4,
-      "prediction": "You have learned to cook or tried out three different cuisines in the past few months: Indian cuisine (chicken tikka masala), vegan cuisine (including vegan lasagna), and Ethiopian cuisine (misir wot). Additionally, you tried Korean cuisine with bibimbap.",
-      "correct": true,
+      "prediction": "You have learned to cook or tried out the following cuisines in the past few months: Indian, Korean, vegan, Ethiopian, and Japanese. That's a total of five different cuisines.",
+      "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2868.1862354278564,
-      "ingest_time_s": 182.41270923614502
+      "retrieval_time_ms": 2210.9460830688477,
+      "ingest_time_s": 155.76538109779358
     },
     {
       "question_id": "gpt4_7fce9456",
@@ -1392,8 +1392,8 @@
       "is_abstention": false,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4999.334812164307,
-      "ingest_time_s": 62.167259216308594
+      "retrieval_time_ms": 7945.932149887085,
+      "ingest_time_s": 62.86286902427673
     },
     {
       "question_id": "d682f1a2",
@@ -1407,23 +1407,23 @@
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2709.739923477173,
-      "ingest_time_s": 106.28506898880005
+      "retrieval_time_ms": 2680.302143096924,
+      "ingest_time_s": 108.02088809013367
     },
     {
       "question_id": "7024f17c",
       "question_type": "multi-session",
       "question": "How many hours of jogging and yoga did I do last week?",
       "ground_truth": "0.5 hours",
-      "prediction": "Last week, you went for a 30-minute jog on May 20, 2023. You mentioned hoping to get back into yoga with one or two sessions a week, but there are no specific records of yoga sessions completed last week. Therefore, the total is 0.5 hours of jogging and 0 hours of yoga.",
-      "correct": true,
+      "prediction": "I don't have that information.",
+      "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3144.5040702819824,
-      "ingest_time_s": 95.67529296875
+      "retrieval_time_ms": 5024.5208740234375,
+      "ingest_time_s": 124.32666015625
     },
     {
       "question_id": "gpt4_5501fe77",
@@ -1437,8 +1437,8 @@
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3174.2560863494873,
-      "ingest_time_s": 79.55924701690674
+      "retrieval_time_ms": 2833.218812942505,
+      "ingest_time_s": 119.131422996521
     },
     {
       "question_id": "gpt4_2ba83207",
@@ -1452,68 +1452,68 @@
       "is_abstention": false,
       "num_sessions": 53,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2615.6389713287354,
-      "ingest_time_s": 150.70193791389465
+      "retrieval_time_ms": 6052.604913711548,
+      "ingest_time_s": 96.45561194419861
     },
     {
       "question_id": "2318644b",
       "question_type": "multi-session",
       "question": "How much more did I spend on accommodations per night in Hawaii compared to Tokyo?",
       "ground_truth": "$270",
-      "prediction": "You spent over $300 per night on accommodations in Hawaii, while in Tokyo, you spent around $30 per night. Therefore, you spent approximately $270 more per night in Hawaii compared to Tokyo.",
+      "prediction": "You spent $300 per night on accommodations in Maui and $30 per night in Tokyo. Therefore, you spent $270 more per night in Hawaii compared to Tokyo.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 41,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2886.944055557251,
-      "ingest_time_s": 73.76981925964355
+      "retrieval_time_ms": 3072.2150802612305,
+      "ingest_time_s": 67.48781633377075
     },
     {
       "question_id": "2ce6a0f2",
       "question_type": "multi-session",
       "question": "How many different art-related events did I attend in the past month?",
       "ground_truth": 4,
-      "prediction": "You attended two art-related events in the past month: the lecture on 'The Evolution of Street Art' at the Art Gallery on March 3, 2023, and the 'Women in Art' exhibition on February 10, 2023.",
+      "prediction": "You attended two art-related events in the past month: the 'Women in Art' exhibition on February 10, 2023, and the lecture on 'The Evolution of Street Art' at the Art Gallery on March 3, 2023.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2770.7011699676514,
-      "ingest_time_s": 88.45976209640503
+      "retrieval_time_ms": 2700.263023376465,
+      "ingest_time_s": 93.61759734153748
     },
     {
       "question_id": "gpt4_d12ceb0e",
       "question_type": "multi-session",
       "question": "What is the average age of me, my parents, and my grandparents?",
       "ground_truth": "59.6",
-      "prediction": "To calculate the average age, we have the following ages:\n\n- User: 32 years old\n- Dad: 58 years old\n- Mom: 55 years old\n- Grandpa: 78 years old\n- Grandma: 75 years old (note: she passed away in March 2023, but we will include her age for the average)\n\nNow, we add these ages together:  \n32 + 58 + 55 + 78 + 75 = 298\n\nNext, we divide by the number of individuals (5):  \n298 / 5 = 59.6\n\nThe average age is approximately 59.6 years.",
+      "prediction": "To calculate the average age:\n\n- User: 32 years old\n- Mom: 55 years old\n- Dad: 58 years old\n- Grandpa: 78 years old\n- Grandma: 75 years old (note: she passed away, but we include her age for the average)\n\nTotal age = 32 + 55 + 58 + 78 + 75 = 298 years\n\nNumber of people = 5\n\nAverage age = 298 / 5 = 59.6 years\n\nAnswer: The average age is 59.6 years.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 5394.2201137542725,
-      "ingest_time_s": 136.96545910835266
+      "retrieval_time_ms": 7601.830244064331,
+      "ingest_time_s": 110.40244913101196
     },
     {
       "question_id": "00ca467f",
       "question_type": "multi-session",
       "question": "How many doctor's appointments did I go to in March?",
       "ground_truth": 2,
-      "prediction": "You went to three doctor's appointments in March: one with Dr. Smith on March 3, one with Dr. Thompson on March 20, and you have an EMG test scheduled with Dr. Johnson on April 1 (which is not in March).",
+      "prediction": "You went to three doctor's appointments in March: one on March 3 with Dr. Smith, one on March 20 with Dr. Thompson, and you have an EMG test scheduled on April 1 with Dr. Johnson (which is just outside of March).",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3139.5931243896484,
-      "ingest_time_s": 78.19099593162537
+      "retrieval_time_ms": 3286.9699001312256,
+      "ingest_time_s": 79.13002705574036
     },
     {
       "question_id": "b3c15d39",
@@ -1527,8 +1527,8 @@
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3302.659034729004,
-      "ingest_time_s": 100.5624749660492
+      "retrieval_time_ms": 2268.232822418213,
+      "ingest_time_s": 123.44745016098022
     },
     {
       "question_id": "gpt4_31ff4165",
@@ -1542,23 +1542,23 @@
       "is_abstention": false,
       "num_sessions": 42,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2339.5981788635254,
-      "ingest_time_s": 119.127268075943
+      "retrieval_time_ms": 2157.2890281677246,
+      "ingest_time_s": 71.19152998924255
     },
     {
       "question_id": "eeda8a6d",
       "question_type": "multi-session",
       "question": "How many fish are there in total in both of my aquariums?",
       "ground_truth": 17,
-      "prediction": "In your 20-gallon tank, you have 10 neon tetras, 5 golden honey gouramis, and 1 small pleco catfish, totaling 16 fish. In your 10-gallon tank, you have 1 betta fish named Bubbles. Therefore, the total number of fish in both aquariums is 16 + 1 = 17 fish.",
+      "prediction": "In your 20-gallon tank, you have 10 neon tetras, 5 golden honey gouramis, and 1 small pleco catfish, totaling 16 fish. In your upgraded 10-gallon tank, you have 1 betta fish named Bubbles. Therefore, the total number of fish in both aquariums is 16 + 1 = 17 fish.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes",
       "is_abstention": false,
       "num_sessions": 49,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2326.603889465332,
-      "ingest_time_s": 110.03501605987549
+      "retrieval_time_ms": 2844.4249629974365,
+      "ingest_time_s": 112.23073410987854
     },
     {
       "question_id": "2788b940",
@@ -1568,42 +1568,42 @@
       "prediction": "You typically attend four fitness classes in a week: BodyPump on Mondays, Zumba on Tuesdays and Thursdays, and Hip Hop Abs on Saturdays.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No.",
+      "judge_raw": "No",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2965.8732414245605,
-      "ingest_time_s": 119.64384603500366
+      "retrieval_time_ms": 3383.1982612609863,
+      "ingest_time_s": 86.53403687477112
     },
     {
       "question_id": "60bf93ed",
       "question_type": "multi-session",
       "question": "How many days did it take for my laptop backpack to arrive after I bought it?",
       "ground_truth": "5 days. 6 days (including the last day) is also acceptable.",
-      "prediction": "Your laptop backpack arrived 5 days after you bought it. You purchased it on January 15, 2023, and it arrived on January 20, 2023.",
+      "prediction": "Your laptop backpack took 5 days to arrive after you bought it. You purchased it on January 15, 2023, and it arrived on January 20, 2023.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3072.5269317626953,
-      "ingest_time_s": 126.68128895759583
+      "retrieval_time_ms": 2503.977060317993,
+      "ingest_time_s": 140.92296195030212
     },
     {
       "question_id": "9d25d4e0",
       "question_type": "multi-session",
       "question": "How many pieces of jewelry did I acquire in the last two months?",
       "ground_truth": 3,
-      "prediction": "In the last two months, you acquired three pieces of jewelry: a pair of emerald earrings on May 13, 2023, a silver necklace with a small pendant on April 15, 2023, and your engagement ring a month ago from May 28, 2023.",
+      "prediction": "In the last two months, you acquired three pieces of jewelry: a pair of emerald earrings on May 14, 2023, a silver necklace with a small pendant on April 15, 2023, and your engagement ring about a month ago from May 28, 2023.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2180.7587146759033,
-      "ingest_time_s": 86.72471809387207
+      "retrieval_time_ms": 2826.8861770629883,
+      "ingest_time_s": 137.01335906982422
     },
     {
       "question_id": "129d1232",
@@ -1617,38 +1617,38 @@
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 4742.073059082031,
-      "ingest_time_s": 95.91905307769775
+      "retrieval_time_ms": 8313.797235488892,
+      "ingest_time_s": 104.72223901748657
     },
     {
       "question_id": "60472f9c",
       "question_type": "multi-session",
       "question": "How many projects have I been working on simultaneously, excluding my thesis?",
       "ground_truth": 2,
-      "prediction": "You have been working on two projects simultaneously, excluding your thesis: a group project for your Database Systems course and a group project for your Data Mining course.",
+      "prediction": "You have been working on two projects simultaneously, which are your group projects for the Database Systems course and the Data Mining course.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2497.770071029663,
-      "ingest_time_s": 76.46610116958618
+      "retrieval_time_ms": 3105.1251888275146,
+      "ingest_time_s": 73.73245525360107
     },
     {
       "question_id": "gpt4_194be4b3",
       "question_type": "multi-session",
       "question": "How many musical instruments do I currently own?",
       "ground_truth": "I currently own 4 musical instruments. I've had the Fender Stratocaster electric guitar for 5 years, the Yamaha FG800 acoustic guitar for 8 years, the 5-piece Pearl Export drum set for an unspecified amount of time, and the Korg B1 piano for 3 years.",
-      "prediction": "You currently own four musical instruments: a Yamaha FG800 acoustic guitar, a Korg B1 digital piano, a black Fender Stratocaster electric guitar, and a 5-piece Pearl Export drum set (which you are considering selling).",
+      "prediction": "You currently own four musical instruments: a Yamaha FG800 acoustic guitar, a black Fender Stratocaster electric guitar, a Korg B1 digital piano, and a Pearl Export drum set (which you are considering selling).",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2269.4079875946045,
-      "ingest_time_s": 81.56373000144958
+      "retrieval_time_ms": 2295.9728240966797,
+      "ingest_time_s": 129.59154415130615
     },
     {
       "question_id": "a9f6b44c",
@@ -1662,23 +1662,23 @@
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2540.5869483947754,
-      "ingest_time_s": 106.6186580657959
+      "retrieval_time_ms": 2220.181941986084,
+      "ingest_time_s": 69.45664191246033
     },
     {
       "question_id": "d851d5ba",
       "question_type": "multi-session",
       "question": "How much money did I raise for charity in total?",
       "ground_truth": "$3,750",
-      "prediction": "You raised a total of $3,750 for charity. This includes $1,000 for the local children's hospital, $250 for the local food bank, $500 for the American Cancer Society, and $2,000 for the local animal shelter.",
-      "correct": true,
+      "prediction": "You raised a total of $3,750 for charity. This includes $1,000 for the local children's hospital, $250 for the local food bank, $500 for the American Cancer Society, $2,000 for the local animal shelter, and $5,000 from the music benefit concert.",
+      "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2521.7809677124023,
-      "ingest_time_s": 127.39001202583313
+      "retrieval_time_ms": 2408.022165298462,
+      "ingest_time_s": 118.07028603553772
     },
     {
       "question_id": "5a7937c8",
@@ -1692,113 +1692,113 @@
       "is_abstention": false,
       "num_sessions": 42,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3129.741907119751,
-      "ingest_time_s": 113.04325222969055
+      "retrieval_time_ms": 2826.324939727783,
+      "ingest_time_s": 61.48444890975952
     },
     {
       "question_id": "gpt4_ab202e7f",
       "question_type": "multi-session",
       "question": "How many kitchen items did I replace or fix?",
       "ground_truth": "I replaced or fixed five items: the kitchen faucet, the kitchen mat, the toaster, the coffee maker, and the kitchen shelves.",
-      "prediction": "You replaced or fixed a total of 5 kitchen items: \n\n1. Fixed the kitchen shelves.\n2. Replaced the old toaster with a toaster oven.\n3. Replaced the old kitchen faucet with a new Moen one.\n4. Replaced the worn-out kitchen mat with a new one from IKEA.\n5. Replaced the old litter scoop (though not a kitchen item, it was mentioned in the context of kitchen maintenance). \n\nIf we only count kitchen items, it's 4.",
-      "correct": false,
+      "prediction": "You replaced or fixed a total of 5 kitchen items: \n\n1. Kitchen mat (replaced)\n2. Toaster (replaced with a toaster oven)\n3. Kitchen shelves (fixed)\n4. Kitchen faucet (replaced)\n5. Coffee maker (donated, which counts as a replacement)",
+      "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No.",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3014.522075653076,
-      "ingest_time_s": 103.65042304992676
+      "retrieval_time_ms": 6577.385902404785,
+      "ingest_time_s": 167.3535029888153
     },
     {
       "question_id": "gpt4_e05b82a6",
       "question_type": "multi-session",
       "question": "How many times did I ride rollercoasters across all the events I attended from July to October?",
       "ground_truth": "10 times",
-      "prediction": "You rode rollercoasters a total of 12 times across the events you attended from July to October:\n\n- SeaWorld San Diego: 3 times (Mako, Kraken, Manta)\n- Knott's Berry Farm: 1 time (Xcelerator)\n- Universal Studios Hollywood: 3 times (Revenge of the Mummy)\n- Disneyland: 3 times (Space Mountain: Ghost Galaxy)\n- Knott's Berry Farm: 1 time (noted in your plans for the Spooky Farm event, but not counted as a ride yet)\n\nTotal: 3 + 1 + 3 + 3 = 10 times. \n\n(Note: The additional visit to Knott's Berry Farm is not counted as you haven't specified how many rides you took during that visit yet.)",
+      "prediction": "You rode rollercoasters a total of 10 times across the events you attended from July to October:\n\n- SeaWorld San Diego (July 2023): 3 times (Mako, Kraken, Manta)\n- Disneyland (September 24, 2023): 3 times (Space Mountain: Ghost Galaxy)\n- Knott's Berry Farm (October 8, 2023): 1 time (Xcelerator)\n- Universal Studios Hollywood (October 15, 2023): 3 times (Revenge of the Mummy)\n\nTotal: 3 + 3 + 1 + 3 = 10 times.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3428.046941757202,
-      "ingest_time_s": 56.806747913360596
+      "retrieval_time_ms": 2850.933074951172,
+      "ingest_time_s": 63.896600008010864
     },
     {
       "question_id": "gpt4_731e37d7",
       "question_type": "multi-session",
       "question": "How much total money did I spend on attending workshops in the last four months?",
       "ground_truth": "$720",
-      "prediction": "You spent a total of $720 on attending workshops in the last four months. This includes $500 for the two-day digital marketing workshop, $200 for the writing workshop, and $20 for the mindfulness workshop.",
+      "prediction": "You spent a total of $720 on attending workshops in the last four months. This includes $500 for the digital marketing workshop, $20 for the mindfulness workshop, and $200 for the writing workshop. The photography workshop on February 22, 2023, was free.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "Yes",
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3498.164415359497,
-      "ingest_time_s": 129.78977012634277
+      "retrieval_time_ms": 2969.8896408081055,
+      "ingest_time_s": 107.49003171920776
     },
     {
       "question_id": "edced276",
       "question_type": "multi-session",
       "question": "How many days did I spend in total traveling in Hawaii and in New York City?",
       "ground_truth": "15 days",
-      "prediction": "You spent a total of 15 days traveling: 5 days in New York City and 10 days in Hawaii.",
+      "prediction": "You spent a total of 15 days traveling: 10 days in Hawaii and 5 days in New York City.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "yes",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2790.0750637054443,
-      "ingest_time_s": 129.5937762260437
+      "retrieval_time_ms": 3680.008888244629,
+      "ingest_time_s": 115.37513089179993
     },
     {
       "question_id": "10d9b85a",
       "question_type": "multi-session",
       "question": "How many days did I spend attending workshops, lectures, and conferences in April?",
       "ground_truth": "3 days",
-      "prediction": "You attended a workshop for 2 days (April 17 and 18) and a lecture on 1 day (April 10). In total, you spent 3 days attending workshops and lectures in April.",
+      "prediction": "You attended a workshop on April 17 and 18 (2 days) and a lecture on April 10 (1 day). In total, you spent 3 days attending workshops and lectures in April.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
+      "judge_raw": "Yes",
       "is_abstention": false,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3936.4659786224365,
-      "ingest_time_s": 124.63179326057434
+      "retrieval_time_ms": 6321.352958679199,
+      "ingest_time_s": 86.69438195228577
     },
     {
       "question_id": "e3038f8c",
       "question_type": "multi-session",
       "question": "How many rare items do I have in total?",
       "ground_truth": 99,
-      "prediction": "You have a total of 101 rare items: 57 rare records, 12 rare figurines, 5 rare books, and 25 rare coins.",
-      "correct": false,
+      "prediction": "You have a total of 99 rare items: 12 rare figurines, 57 rare records, 5 rare books, and 25 rare coins.",
+      "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No.",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2300.6417751312256,
-      "ingest_time_s": 64.62468194961548
+      "retrieval_time_ms": 2852.5218963623047,
+      "ingest_time_s": 176.31607174873352
     },
     {
       "question_id": "2b8f3739",
       "question_type": "multi-session",
       "question": "What is the total amount of money I earned from selling my products at the markets?",
       "ground_truth": "$495",
-      "prediction": "You earned a total of $465 from selling your products at the markets: $120 from fresh organic herbs, $225 from homemade jam, and $150 from potted herb plants (20 plants at $7.50 each).",
+      "prediction": "You earned a total of $465 from selling your products at the markets: $120 from fresh organic herbs, $225 from homemade jam, and $150 from potted herb plants.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 3987.725019454956,
-      "ingest_time_s": 110.87771797180176
+      "retrieval_time_ms": 2721.240997314453,
+      "ingest_time_s": 114.7725338935852
     },
     {
       "question_id": "1a8a66a6",
@@ -1812,83 +1812,83 @@
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2611.311912536621,
-      "ingest_time_s": 128.9003918170929
+      "retrieval_time_ms": 4012.4869346618652,
+      "ingest_time_s": 88.97344589233398
     },
     {
       "question_id": "c2ac3c61",
       "question_type": "multi-session",
       "question": "How many online courses have I completed in total?",
       "ground_truth": 5,
-      "prediction": "You have completed a total of 5 online courses: 2 on edX and 3 on Coursera.",
+      "prediction": "You have completed a total of five online courses: three on Coursera and two on edX.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "yes",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 53,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2258.3420276641846,
-      "ingest_time_s": 109.55151391029358
+      "retrieval_time_ms": 3825.637102127075,
+      "ingest_time_s": 144.51045513153076
     },
     {
       "question_id": "bf659f65",
       "question_type": "multi-session",
       "question": "How many music albums or EPs have I purchased or downloaded?",
       "ground_truth": 3,
-      "prediction": "You have purchased or downloaded three music albums or EPs: Billie Eilish's album 'Happier Than Ever' and The Whiskey Wanderers' EP 'Midnight Sky' (which you mentioned purchasing multiple times).",
+      "prediction": "You have purchased or downloaded three music albums or EPs: Billie Eilish's album 'Happier Than Ever', and The Whiskey Wanderers' EP 'Midnight Sky' (which you bought at the festival merchandise booth).",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 52,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2839.534044265747,
-      "ingest_time_s": 145.01503896713257
+      "retrieval_time_ms": 7013.293027877808,
+      "ingest_time_s": 142.9552128314972
     },
     {
       "question_id": "gpt4_372c3eed",
       "question_type": "multi-session",
       "question": "How many years in total did I spend in formal education from high school to the completion of my Bachelor's degree?",
       "ground_truth": "10 years",
-      "prediction": "You spent a total of 14 years in formal education from high school to the completion of your Bachelor's degree. This includes 4 years in high school (2010-2014) and 4 years for your Bachelor's degree (2016-2020), following 2 years for your Associate's degree (2014-2016).",
+      "prediction": "You spent a total of 14 years in formal education from high school to the completion of your Bachelor's degree. This includes 4 years in high school (2010-2014) and 4 years for your Bachelor's degree (2016-2020), plus 2 years for your Associate's degree (2014-2016).",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 45,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2179.9440383911133,
-      "ingest_time_s": 114.15078663825989
+      "retrieval_time_ms": 2690.471887588501,
+      "ingest_time_s": 159.89985585212708
     },
     {
       "question_id": "gpt4_2f91af09",
       "question_type": "multi-session",
       "question": "How many total pieces of writing have I completed since I started writing again three weeks ago, including short stories, poems, and pieces for the writing challenge?",
       "ground_truth": "23",
-      "prediction": "You have completed a total of 22 pieces of writing since you started writing again three weeks ago. This includes 17 poems, 5 short stories, and 1 piece for the writing challenge ('The Smell of Old Books').",
+      "prediction": "You have completed a total of 22 pieces of writing since you started writing again three weeks ago: 17 poems, 5 short stories, and 1 piece for the writing challenge ('The Smell of Old Books').",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 53,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2532.651901245117,
-      "ingest_time_s": 141.2294569015503
+      "retrieval_time_ms": 2620.0690269470215,
+      "ingest_time_s": 100.36704802513123
     },
     {
       "question_id": "81507db6",
       "question_type": "multi-session",
       "question": "How many graduation ceremonies have I attended in the past three months?",
       "ground_truth": 3,
-      "prediction": "You have attended three graduation ceremonies in the past three months: Alex's leadership development program graduation, Emma's preschool graduation, and Rachel's master's degree graduation.",
+      "prediction": "You have attended three graduation ceremonies in the past three months: your colleague Alex's graduation, your best friend Rachel's master's degree graduation, and your little cousin Emma's preschool graduation.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "yes",
+      "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2370.568037033081,
-      "ingest_time_s": 140.70116591453552
+      "retrieval_time_ms": 2422.334909439087,
+      "ingest_time_s": 136.12680983543396
     },
     {
       "question_id": "88432d0a_abs",
@@ -1902,8 +1902,8 @@
       "is_abstention": true,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2494.781017303467,
-      "ingest_time_s": 60.640774965286255
+      "retrieval_time_ms": 2298.1741428375244,
+      "ingest_time_s": 162.625403881073
     },
     {
       "question_id": "80ec1f4f_abs",
@@ -1917,8 +1917,8 @@
       "is_abstention": true,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2144.8378562927246,
-      "ingest_time_s": 80.65243697166443
+      "retrieval_time_ms": 2113.961935043335,
+      "ingest_time_s": 92.18757128715515
     },
     {
       "question_id": "eeda8a6d_abs",
@@ -1932,8 +1932,8 @@
       "is_abstention": true,
       "num_sessions": 49,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2650.3617763519287,
-      "ingest_time_s": 82.46878004074097
+      "retrieval_time_ms": 5201.791048049927,
+      "ingest_time_s": 110.63642907142639
     },
     {
       "question_id": "60bf93ed_abs",
@@ -1947,8 +1947,8 @@
       "is_abstention": true,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2713.9108180999756,
-      "ingest_time_s": 118.20213294029236
+      "retrieval_time_ms": 2990.090847015381,
+      "ingest_time_s": 133.63536190986633
     },
     {
       "question_id": "edced276_abs",
@@ -1962,23 +1962,23 @@
       "is_abstention": true,
       "num_sessions": 47,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2855.844020843506,
-      "ingest_time_s": 69.33038687705994
+      "retrieval_time_ms": 6159.948110580444,
+      "ingest_time_s": 56.55707383155823
     },
     {
       "question_id": "gpt4_372c3eed_abs",
       "question_type": "multi-session",
       "question": "How many years in total did I spend in formal education from high school to the completion of my Master's degree?",
       "ground_truth": "The information provided is not enough. You mentioned 4 years in high school (2010-2014), 2 years at PCC (2014-2016), and 4 years at UCLA (2016-2020). But you didn't mention the number of years you spend getting the Master's degree",
-      "prediction": "You spent a total of 8 years in formal education from high school to the completion of your Bachelor's degree. If you pursue a Master's degree, that would add approximately 1-2 more years, making it a total of 9-10 years depending on the duration of the Master's program.",
+      "prediction": "I don't have that information.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes",
+      "judge_raw": "Yes.",
       "is_abstention": true,
       "num_sessions": 44,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2455.310821533203,
-      "ingest_time_s": 96.50211811065674
+      "retrieval_time_ms": 2867.908000946045,
+      "ingest_time_s": 88.61305713653564
     },
     {
       "question_id": "8a2466db",
@@ -1992,38 +1992,38 @@
       "is_abstention": false,
       "num_sessions": 50,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2896.8539237976074,
-      "ingest_time_s": 115.22617101669312
+      "retrieval_time_ms": 4557.12103843689,
+      "ingest_time_s": 124.45914721488953
     },
     {
       "question_id": "06878be2",
       "question_type": "single-session-preference",
       "question": "Can you suggest some accessories that would complement my current photography setup?",
       "ground_truth": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
-      "prediction": "Based on your current photography setup, here are some accessories that would complement it:\n\n1. **Camera Bag**: Consider a durable and comfortable camera bag designed for Sony cameras, such as those from Think Tank Photo, Lowepro, or Peak Design.\n\n2. **Flash Protection**: A pouch like the Think Tank Photo Flash Pouch ($15) to protect your Godox V1 flash.\n\n3. **Tripod**: The Gitzo GT3543LS tripod, which supports up to 39.7 lbs (18 kg) and features the G-Lock Ultra system for quick adjustments.\n\n4. **External Battery Pack**: A portable battery pack that can charge your Sony A7R IV and other devices on the go.\n\n5. **Lens Cleaning Kit**: To maintain your Sony 24-70mm f/2.8 lens, consider a lens cleaning kit for proper care.\n\nThese accessories will enhance your photography experience and help you maintain your equipment.",
+      "prediction": "Based on your current photography setup, here are some accessory suggestions:\n\n1. **Camera Bag**: Look for a comfortable and durable camera bag to upgrade your current one.\n2. **Flash Case**: Consider the Think Tank Photo Flash Pouch ($15) or the Godox V1 Hard Case ($25) to protect your new flash.\n3. **External Battery Pack**: Find an external battery pack that can charge your Sony A7R IV for extended shooting sessions.\n4. **Tripod Accessories**: Since you're considering the Gitzo GT3543LS tripod, you might want to look into additional quick-release plates or a tripod bag for easier transport.\n5. **Lens Cleaning Kit**: A cleaning kit for your Sony 24-70mm f/2.8 lens to keep it in top condition.\n\nThese accessories will enhance your photography experience and help you maintain your gear.",
       "correct": true,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "Yes.",
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2362.4541759490967,
-      "ingest_time_s": 128.45410919189453
+      "retrieval_time_ms": 2893.728017807007,
+      "ingest_time_s": 138.05422616004944
     },
     {
       "question_id": "75832dbd",
       "question_type": "single-session-preference",
       "question": "Can you recommend some recent publications or conferences that I might find interesting?",
       "ground_truth": "The user would prefer suggestions related to recent research papers, articles, or conferences that focus on artificial intelligence in healthcare, particularly those that involve deep learning for medical image analysis. They would not be interested in general AI topics or those unrelated to healthcare.",
-      "prediction": "Based on your interest in multi-agent and multimodal reinforcement learning, I recommend looking into the following recent conferences and publications:\n\n1. **Conferences**: \n   - NeurIPS 2023 (December 10-16, 2023)\n   - ICML 2023 (July 23-29, 2023)\n   - ICLR 2023 (May 1-5, 2023)\n   - CVPR 2023 (June 18-22, 2023)\n   - ICCV 2023 (October 1-7, 2023)\n\n2. **Recent Publications**: \n   - Check the proceedings of the above conferences for the latest papers on multi-agent and multimodal reinforcement learning. You can also explore journals like the Journal of Machine Learning Research (JMLR) and IEEE Transactions on Neural Networks and Learning Systems for relevant articles.\n\nThese venues often feature cutting-edge research that aligns with your interests.",
+      "prediction": "Based on your interest in multi-agent and multimodal reinforcement learning, I recommend looking into recent publications in top AI conferences such as NeurIPS, CVPR, ICML, ICLR, and ICCV. You might also find relevant papers in the proceedings of these conferences from 2022 and 2023. Additionally, consider exploring recent articles in journals focused on reinforcement learning and multi-agent systems. If you need specific titles or authors, I don't have that information.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No",
       "is_abstention": false,
       "num_sessions": 48,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2753.541946411133,
-      "ingest_time_s": 91.68991327285767
+      "retrieval_time_ms": 4189.00203704834,
+      "ingest_time_s": 152.99116683006287
     },
     {
       "question_id": "0edc2aef",
@@ -2037,8 +2037,8 @@
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 7066.87068939209,
-      "ingest_time_s": 99.51944327354431
+      "retrieval_time_ms": 3563.347339630127,
+      "ingest_time_s": 96.39282202720642
     },
     {
       "question_id": "35a27287",
@@ -2052,8 +2052,8 @@
       "is_abstention": false,
       "num_sessions": 51,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2290.7209396362305,
-      "ingest_time_s": 84.45993399620056
+      "retrieval_time_ms": 3382.9221725463867,
+      "ingest_time_s": 83.61971402168274
     },
     {
       "question_id": "32260d93",
@@ -2067,188 +2067,38 @@
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2427.628755569458,
-      "ingest_time_s": 162.74697279930115
+      "retrieval_time_ms": 2934.781074523926,
+      "ingest_time_s": 182.2796230316162
     },
     {
       "question_id": "195a1a1b",
       "question_type": "single-session-preference",
       "question": "Can you suggest some activities that I can do in the evening?",
       "ground_truth": "The user would prefer suggestions that involve relaxing activities that can be done in the evening, preferably before 9:30 pm. They would not prefer suggestions that involve using their phone or watching TV, as these activities have been affecting their sleep quality.",
-      "prediction": "You could consider attending dance events or battles to network and improve your skills, or you might enjoy winding down with guided imagery exercises or meditation sessions. Additionally, if you're hosting a movie night, incorporating cultural activities could be a fun evening option.",
+      "prediction": "You could consider doing guided imagery exercises, which you mentioned exploring at the same time every day, either before bed or first thing in the morning. Additionally, you could incorporate cultural activities into your movie night to make it more engaging. If you're looking for something relaxing, you might also try a meditation session, as you planned to do one on May 30.",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2640.273094177246,
-      "ingest_time_s": 74.74121403694153
+      "retrieval_time_ms": 2303.8690090179443,
+      "ingest_time_s": 78.85803079605103
     },
     {
       "question_id": "afdc33df",
       "question_type": "single-session-preference",
       "question": "My kitchen's becoming a bit of a mess again. Any tips for keeping it clean?",
       "ground_truth": "The user would prefer responses that acknowledge and build upon their existing efforts to organize their kitchen, such as utilizing their new utensil holder to keep countertops clutter-free. They would also appreciate tips that address their concern for maintaining their granite surface, particularly around the sink area. Preferred responses would provide practical and actionable steps to maintain cleanliness, leveraging the user's current tools and setup. They might not prefer generic or vague suggestions that do not take into account their specific kitchen setup or concerns.",
-      "prediction": "To keep your kitchen clean, consider these tips:\n\n1. **Daily Cleaning Routine**: Set aside a few minutes each day to wipe down surfaces, wash dishes, and put away items.\n2. **Declutter**: Regularly check your utensil holder and other storage areas to remove items you no longer use.\n3. **Organize**: Use your new utensil holder effectively by grouping similar items together and keeping frequently used utensils within easy reach.\n4. **Clean as You Go**: While cooking, clean up spills and put away ingredients to prevent mess accumulation.\n5. **Schedule Deep Cleaning**: Plan a weekly or bi-weekly deep clean to tackle areas that need more attention, like the sink and countertops.\n\nImplementing these strategies can help maintain a tidy kitchen!",
-      "correct": true,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
-      "is_abstention": false,
-      "num_sessions": 46,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 2454.218864440918,
-      "ingest_time_s": 97.9157612323761
-    },
-    {
-      "question_id": "caf03d32",
-      "question_type": "single-session-preference",
-      "question": "I've been struggling with my slow cooker recipes. Any advice on getting better results?",
-      "ground_truth": "The user would prefer responses that provide tips and advice specifically tailored to their slow cooker experiences, utilizing their recent success with beef stew and interest in making yogurt in the slow cooker. They might not prefer general slow cooker recipes or advice unrelated to their specific experiences and interests.",
-      "prediction": "To improve your slow cooker recipes, consider the following tips:\n\n1. **Layering Ingredients**: Place denser ingredients like root vegetables at the bottom and more delicate items like herbs on top to prevent overcooking.\n\n2. **Avoid Overcrowding**: Ensure there's enough space for heat to circulate. If the pot is too full, cooking times may increase and results can be uneven.\n\n3. **Use the Right Liquid**: Slow cookers require less liquid than traditional cooking methods. Start with about 1 cup of liquid and adjust as needed.\n\n4. **Adjust Cooking Times**: If a recipe seems to take longer than expected, check the doneness of your ingredients. Cooking times can vary based on the model of your slow cooker.\n\n5. **Experiment with Seasoning**: Add spices and herbs at different stages of cooking. Some flavors develop better when added at the beginning, while others are best added towards the end.\n\n6. **Check the Temperature**: If your slow",
-      "correct": false,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No.",
-      "is_abstention": false,
-      "num_sessions": 51,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 2598.0541706085205,
-      "ingest_time_s": 98.76420998573303
-    },
-    {
-      "question_id": "54026fce",
-      "question_type": "single-session-preference",
-      "question": "I've been thinking about ways to stay connected with my colleagues. Any suggestions?",
-      "ground_truth": "The user would prefer responses that acknowledge their desire for social interaction and collaboration while working remotely, utilizing their previous experiences with company initiatives and team collaborations. They might prefer suggestions of virtual team-building activities, regular check-ins, or joining interest-based groups within the company. The user may not prefer generic suggestions that do not take into account their specific work situation or previous attempts at staying connected with colleagues.",
-      "prediction": "You could consider scheduling regular informal video calls for casual chats, similar to water cooler conversations. Additionally, creating or joining informal chat groups on platforms like Slack or Microsoft Teams for non-work-related conversations can help. Organizing virtual games or team-building exercises, such as trivia or online escape rooms, can also enhance social interactions. Lastly, celebrating milestones, birthdays, or work anniversaries with virtual parties or shout-outs can foster a sense of community.",
-      "correct": false,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No",
-      "is_abstention": false,
-      "num_sessions": 49,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 2775.095224380493,
-      "ingest_time_s": 131.7385618686676
-    },
-    {
-      "question_id": "06f04340",
-      "question_type": "single-session-preference",
-      "question": "What should I serve for dinner this weekend with my homegrown ingredients?",
-      "ground_truth": "The user would prefer dinner suggestions that incorporate their homegrown cherry tomatoes and herbs like basil and mint, highlighting recipes that showcase their garden produce. They might not prefer suggestions that do not utilize these specific ingredients or do not emphasize the use of homegrown elements.",
-      "prediction": "You could make a delicious quinoa salad with your roasted vegetables, cherry tomatoes, and mixed greens. You can also incorporate fresh basil and mint for added flavor. Consider serving it alongside a light protein, like grilled chicken or fish, to round out the meal.",
-      "correct": true,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
-      "is_abstention": false,
-      "num_sessions": 55,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 2668.5850620269775,
-      "ingest_time_s": 138.6193401813507
-    },
-    {
-      "question_id": "6b7dfb22",
-      "question_type": "single-session-preference",
-      "question": "I've been feeling a bit stuck with my paintings lately. Do you have any ideas on how I can find new inspiration?",
-      "ground_truth": "The user would prefer responses that build upon their existing sources of inspiration, such as revisiting Instagram art accounts or exploring new techniques from online tutorials. They might also appreciate suggestions that revisit previous themes they found enjoyable, like painting flowers. The user would not prefer generic or vague suggestions for finding inspiration, and would likely appreciate responses that utilize their recent 30-day painting challenge experience.",
-      "prediction": "You could try exploring different styles or techniques, such as incorporating more texture into your work, which you've mentioned before. Additionally, looking at flower paintings on Instagram might spark new ideas. You could also consider visiting local art galleries or nature for inspiration. Engaging in a 30-day painting challenge could help you push through the feeling of being stuck as well.",
-      "correct": true,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
-      "is_abstention": false,
-      "num_sessions": 45,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 7131.143093109131,
-      "ingest_time_s": 84.54817008972168
-    },
-    {
-      "question_id": "1a1907b4",
-      "question_type": "single-session-preference",
-      "question": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
-      "ground_truth": "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background.",
-      "prediction": "Given your interest in cocktails, I suggest making the Pimm's Cup with a Twist. You can enhance it with the Ruby Red Grapefruit simple syrup and muddle cucumber slices for added flavor. It's a refreshing choice, especially for a summer get-together!",
-      "correct": true,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
-      "is_abstention": false,
-      "num_sessions": 48,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 2800.858974456787,
-      "ingest_time_s": 82.24816679954529
-    },
-    {
-      "question_id": "09d032c9",
-      "question_type": "single-session-preference",
-      "question": "I've been having trouble with the battery life on my phone lately. Any tips?",
-      "ground_truth": "The user would prefer responses that build upon their previous mention of purchasing a portable power bank, such as suggestions on how to optimize its use, like ensuring it's fully charged before use. They might also appreciate tips on utilizing battery-saving features on their phone. The user may not prefer responses that suggest alternative solutions or unrelated advice.",
-      "prediction": "I don't have that information.",
-      "correct": false,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No",
-      "is_abstention": false,
-      "num_sessions": 43,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 2531.2819480895996,
-      "ingest_time_s": 77.02057814598083
-    },
-    {
-      "question_id": "38146c39",
-      "question_type": "single-session-preference",
-      "question": "I've been feeling like my chocolate chip cookies need something extra. Any advice?",
-      "ground_truth": "The user would prefer responses that build upon their previous experimentation with turbinado sugar, suggesting ingredients or techniques that complement its richer flavor. They might not prefer generic cookie-making advice or suggestions that don't take into account their existing use of turbinado sugar.",
-      "prediction": "You might consider adding a sprinkle of sea salt on top before baking for a sweet and salty contrast. You could also try incorporating chopped nuts, like walnuts or pecans, for added texture. Another option is to mix in some dark chocolate or toffee bits for a richer flavor.",
+      "prediction": "To keep your kitchen clean, consider these tips:\n\n1. **Daily Cleaning Routine**: Spend a few minutes each day wiping down surfaces and putting away items after use.\n2. **Declutter**: Regularly assess your kitchen items and remove anything you no longer need or use.\n3. **Organize**: Use your new utensil holder effectively to keep utensils in one place and off the countertops.\n4. **Clean as You Go**: While cooking, wash dishes or utensils you\u2019re done with to prevent a pile-up.\n5. **Set a Weekly Cleaning Schedule**: Dedicate time each week for deeper cleaning tasks like mopping floors and cleaning appliances.\n\nImplementing these habits can help maintain a clutter-free and tidy kitchen!",
       "correct": false,
       "judge_model": "gpt-4o-2024-08-06",
       "judge_raw": "No.",
       "is_abstention": false,
       "num_sessions": 46,
       "num_retrieved": 20,
-      "retrieval_time_ms": 2467.264175415039,
-      "ingest_time_s": 111.73913288116455
-    },
-    {
-      "question_id": "d24813b1",
-      "question_type": "single-session-preference",
-      "question": "I'm thinking of inviting my colleagues over for a small gathering. Any tips on what to bake?",
-      "ground_truth": "The user would prefer baking suggestions that take into account their previous success with the lemon poppyseed cake, such as variations of that recipe or other desserts that share similar qualities. They might prefer suggestions that balance impressiveness with manageability, considering their previous experience. The user may not prefer overly complex or unfamiliar recipes, or suggestions that do not build upon their existing baking experience.",
-      "prediction": "You could consider making chocolate chip cookies, as you've been trying to bake more cookies on weekends. Additionally, your Lemon Lavender Pound Cake would be a great option, especially since you plan to serve it at a birthday party. Spinach and Artichoke Dip is also a good choice for a gathering.",
-      "correct": false,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No.",
-      "is_abstention": false,
-      "num_sessions": 44,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 2210.0281715393066,
-      "ingest_time_s": 49.15178108215332
-    },
-    {
-      "question_id": "57f827a0",
-      "question_type": "single-session-preference",
-      "question": "I was thinking about rearranging the furniture in my bedroom this weekend. Any tips?",
-      "ground_truth": "The user would prefer responses that take into account their existing plans to replace the bedroom dresser and their interest in mid-century modern style, suggesting furniture layouts that accommodate the new dresser and incorporate elements of this design aesthetic. They might not prefer general furniture arrangement tips or suggestions that do not consider their specific design preferences.",
-      "prediction": "I don't have that information.",
-      "correct": false,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "No.",
-      "is_abstention": false,
-      "num_sessions": 51,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 2968.1010246276855,
-      "ingest_time_s": 180.70806503295898
-    },
-    {
-      "question_id": "95228167",
-      "question_type": "single-session-preference",
-      "question": "I'm getting excited about my visit to the music store this weekend. Any tips on what to look for in a new guitar?",
-      "ground_truth": "The user would prefer responses that highlight the differences between Fender Stratocaster and Gibson Les Paul electric guitars, such as the feel of the neck, weight, and sound profile. They might not prefer general tips on buying an electric guitar or suggestions that do not take into account their current guitar and desired upgrade.",
-      "prediction": "When visiting the music store, consider the following tips for choosing a new guitar:\n\n1. **Playability**: Check the neck feel and action. Make sure it\u2019s comfortable for your playing style, especially if you plan to fingerpick.\n\n2. **Tone**: Experiment with different pickups and settings. Since you're interested in a Les Paul, try both the neck and bridge pickups to see which tone you prefer.\n\n3. **Weight**: Keep in mind that Les Pauls are generally heavier (around 9-10 pounds) compared to Stratocasters (7-8 pounds). Make sure you\u2019re comfortable with the weight.\n\n4. **Features**: Look for models with coil-tap or coil-splitting options for more tonal versatility, especially if you want a sound similar to your Stratocaster.\n\n5. **Strings**: Consider trying heavier gauge strings (0.012 - 0.052 or 0.013 - 0.056) to see how they affect",
-      "correct": true,
-      "judge_model": "gpt-4o-2024-08-06",
-      "judge_raw": "Yes.",
-      "is_abstention": false,
-      "num_sessions": 49,
-      "num_retrieved": 20,
-      "retrieval_time_ms": 2491.960048675537,
-      "ingest_time_s": 177.1785638332367
+      "retrieval_time_ms": 5167.481899261475,
+      "ingest_time_s": 134.85016918182373
     }
   ],
   "meta": {
@@ -2257,7 +2107,7 @@
     "top_k": 20,
     "deep_recall": true,
     "rerank": true,
-    "total_questions": 150,
-    "elapsed_seconds": 17790.322441101074
+    "total_questions": 140,
+    "elapsed_seconds": 17050.564649105072
   }
 }

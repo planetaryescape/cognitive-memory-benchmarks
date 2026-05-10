@@ -1,16 +1,51 @@
-# Phase 7 — LongMemEval-S validation (re-running after billing fix)
+# Phase 7 — LongMemEval-S validation (BLOCKED — billing fix insufficient)
 
-**First attempt:** 2026-05-10T00:45-05:30 BST → FAILED at ~150/500
-questions with `openai.RateLimitError 429 - insufficient_quota`
-(account billing cap, not rate limit).
+**Attempt 1:** 2026-05-10T00:45-05:30 BST → failed at ~150/500
+with `insufficient_quota`.
+**Attempt 2:** 2026-05-10T08:03-13:00 BST → failed at ~140/500
+with **same** `insufficient_quota` after operator reportedly added
+OpenAI credits.
 
-**Re-launched:** 2026-05-10T08:03 BST after operator added OpenAI
-credits.
+**Status:** STOPPING. Each attempt burns $60-80 to hit the same
+wall. Operator must address the underlying account constraint
+before any further attempts.
 
-**Projected wall:** ~20h based on first attempt's measured pace
-(~25 questions/hour per parallel run when sharing rate limits).
-**Projected end:** ~04:00 BST tomorrow (May 11).
-**Projected cost:** ~$100 (full 500 Q × 2 candidates).
+## Suspected causes (operator to check)
+
+1. **Credits added were too small.** Each candidate run needs
+   ~$50-60 of headroom to complete (full 500 Q × $0.10-0.20/Q).
+   Two candidates in parallel = ~$100-120 headroom needed.
+   Adding e.g. $20 won't be enough.
+2. **Separate "Usage limit" cap.** OpenAI accounts can have a
+   hard monthly spend cap separate from the credit balance.
+   Even with credits available, hitting the cap raises 429
+   insufficient_quota. Check
+   https://platform.openai.com/settings/organization/limits.
+3. **Project-vs-organization scope.** If credits are at the
+   org level but the API key uses a project with its own cap,
+   the project cap binds.
+
+## Partial data (still inconclusive, but consistent across both attempts)
+
+Both attempts produced very similar partials:
+
+| metric | attempt 1 (n=150) | attempt 2 (n=140) |
+|---|---|---|
+| v0.4 overall acc | 71.33% | 71.43% |
+| v0.5 overall acc | 70.00% | 70.71% |
+| delta | -1.33pp | -0.72pp |
+
+v0.4 marginally ahead on this subset of questions both times. But
+both samples are dominated by single-session-user (~70 Q) where
+v0.4=v0.5; the temporal-reasoning, knowledge-update, single-session-
+assistant, and abstention categories — where v0.5's longer
+β_semantic could matter — never get touched.
+
+**This is NOT a Phase 6 rollback signal.** The Phase 5 LoCoMo win
+(+1.87pp F1, +2.73pp LLM acc on 1540 Q) is the load-bearing v0.5
+validation. Phase 7 was a "confirm on a second bench" check — at
+this point it's a known-incomplete validation, not a contradicting
+result.
 **Plan:** Head-to-head v0.4 vs v0.5 SDK defaults on LongMemEval-S
 (500 questions). Same configs as Phase 4/5; same pattern (one
 locomo_eval-style run per candidate, no tuning).

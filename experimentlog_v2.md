@@ -946,3 +946,19 @@ partial result.json files from the first attempt).
 Same setup as first attempt: parallel, --max-workers 53 each.
 ETA ~04:00 BST tomorrow (~20h wall). Background tasks: bkev60s36
 (v0.4), bksw4s83e (v0.5).
+
+### Phase 7 attempt 2 also FAILED (2026-05-10T~13:00 BST)
+
+Same `insufficient_quota` after operator added credits. Burned
+~$70 again to learn this. Both candidates at 140/500 with
+near-identical partial accuracy (v0.4 71.43%, v0.5 70.71%,
+delta -0.72pp). Partial coverage skewed identically to attempt 1.
+
+**STOPPING further retries.** Each attempt burns $60-80 hitting
+the same wall. Operator must:
+1. Check OpenAI credit balance is ≥$120 (need ~$60 per candidate)
+2. Check Settings → Limits for a separate monthly Usage Cap
+3. Verify the API key's project (not just org) has the headroom
+
+Two attempt total spend: ~$140. Total session: ~$285 of OpenAI.
+Phase 6 SDK ship still validated by Phase 5 LoCoMo result.
