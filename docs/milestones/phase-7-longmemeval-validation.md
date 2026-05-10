@@ -76,8 +76,10 @@ After both finish:
 
 ## Pending
 
-- Both runs in parallel. ETA ~15:15 BST today (14.5h from
-  00:45 launch).
+- Both runs in parallel. ETA revised at 01:44: 20/500 each after
+  1h ≈ 25 questions/hour per run (slower than CR-B's solo 34/h
+  because two parallel processes share OpenAI rate limits).
+  **New ETA ~20h wall, finish around 20:45 BST today.**
 - Bash background tasks fire completion notifications when each
   exits.
 
