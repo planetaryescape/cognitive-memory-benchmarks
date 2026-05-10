@@ -904,3 +904,35 @@ matching the existing CR-B baseline (`--top-k 20 --deep-recall
 | v0.5 tuned    | _running…_ | | | started 13:00 |
 
 Cost ~$100, wall ~14.5h.
+
+### Phase 7 FAILED at 30% (OpenAI billing block, 2026-05-10T~05:30 BST)
+
+Both runs hit `openai.RateLimitError 429 - insufficient_quota`
+at ~150/500 questions. **NOT a transient rate limit** — the
+account-level monthly billing cap was reached. Resuming requires
+the user to add credits / raise the cap.
+
+**Partial data (inconclusive):**
+- v0.4 overall: 71.33% (107/150)
+- v0.5 overall: 70.00% (105/150)
+- delta: -1.33pp (v0.4 ahead, but n=150 with skewed per-type
+  coverage — only single-session-user (n=70), single-session-
+  preference (n=18), multi-session (n=62) sampled. Temporal-
+  reasoning / knowledge-update / single-session-assistant /
+  abstention all at 0 samples.)
+
+**Why this is NOT a Phase 6 rollback signal:**
+- Per-type N is too small for a verdict (single-session-preference
+  n=18, one judge flip = 5.6pp swing).
+- The categories where v0.5 might win (multi-step memory tasks
+  benefiting from longer β_semantic) didn't get touched.
+- Phase 5 LoCoMo result (+1.87pp F1, +2.73pp LLM acc, n=1540) stands
+  as the load-bearing v0.5 validation.
+
+**Cost incurred this attempt:** ~$60-80 (300 questions × ~$0.20
+avg with full mem0 stack). Total session: previous $145 + ~$70 =
+~$215 of OpenAI spend.
+
+**Operator action required:** add credits at OpenAI; re-run Phase 7
+from scratch when billing has headroom. Phase 6 SDK ship not
+affected.

@@ -1,6 +1,11 @@
-# Phase 7 — LongMemEval-S validation (in progress)
+# Phase 7 — LongMemEval-S validation (FAILED, OpenAI billing block)
 
 **Started:** 2026-05-10T00:45 BST
+**Failed:** 2026-05-10T~05:30 BST (both runs at ~150/500 questions = ~30%)
+**Failure mode:** `openai.RateLimitError 429 - insufficient_quota` —
+account-level billing cap reached, NOT a transient per-minute rate
+limit. Resuming requires the user to add OpenAI credits / increase
+the billing limit before any more API runs.
 **Plan:** Head-to-head v0.4 vs v0.5 SDK defaults on LongMemEval-S
 (500 questions). Same configs as Phase 4/5; same pattern (one
 locomo_eval-style run per candidate, no tuning).
@@ -67,12 +72,47 @@ After both finish:
   Consider per-benchmark profiles or honest "tuned for LoCoMo-like
   conversational distributions" framing.
 
-## Live state
+## Partial data (inconclusive — see caveats)
 
-| candidate | accuracy | task_avg | wall | status |
-|---|---|---|---|---|
-| v0.4 baseline | _running…_ | | | starts ~13:00 |
-| v0.5 tuned | _running…_ | | | starts ~13:00 |
+Both runs got to 150/500 questions before failing. Per-type
+coverage is incomplete — only single-session-user (n=70),
+single-session-preference (n=18 of 30 expected), and multi-session
+(n=62 of 133 expected) were touched. Temporal-reasoning,
+knowledge-update, single-session-assistant, and abstention all
+have **0 samples** in this partial set.
+
+| metric | v0.4 (n=150) | v0.5 (n=150) | delta |
+|---|---|---|---|
+| overall accuracy | 71.33% | 70.00% | -1.33pp (v0.4 ahead) |
+| single-session-user | 90.0% (63/70) | 90.0% (63/70) | identical |
+| single-session-preference | 33.3% (6/18) | 27.8% (5/18) | -5.6pp (n=18) |
+| multi-session | 61.3% (38/62) | 59.7% (37/62) | -1.6pp (n=62) |
+
+### Why this is NOT a Phase 6 rollback signal
+
+1. **Sample sizes are tiny per-type.** single-session-preference at n=18
+   means a single judge flip moves the percentage by 5.6pp — the entire
+   "v0.4 wins" delta on that type fits inside one question's swing.
+2. **Question-type composition is heavily skewed.** The first 150
+   questions are dominated by single-session types where v0.4 and v0.5
+   tied at 90%. The categories where v0.5 might win (temporal-reasoning,
+   knowledge-update — multi-step memory tasks where longer β_semantic
+   would matter) didn't get touched.
+3. **The Phase 5 LoCoMo result (+1.87pp F1, +2.73pp LLM acc on 1540 Q)
+   stands.** v0.5 ship is still defensible on that evidence alone. Phase 7
+   was a "confirm on a second bench" check; it didn't run far enough to
+   say either way.
+
+## What to do next (operator action required)
+
+1. **Resolve the OpenAI billing block.** Add credits / increase
+   monthly cap at https://platform.openai.com/settings/organization/billing/overview
+2. Once billing has headroom: **re-run Phase 7 from scratch** with
+   `--start-from 0` (the partial files at `tuning/runs/phase7/v0{4,5}_result.json`
+   would resume from question 150 if `--start-from 150` is set, but a
+   clean re-run avoids any state from the failed runs).
+3. Phase 6 ship can stay as-is. Phase 7 is "nice to have" validation;
+   not load-bearing for the v0.5.0 ship.
 
 ## Pending
 
