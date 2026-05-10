@@ -936,3 +936,13 @@ avg with full mem0 stack). Total session: previous $145 + ~$70 =
 **Operator action required:** add credits at OpenAI; re-run Phase 7
 from scratch when billing has headroom. Phase 6 SDK ship not
 affected.
+
+### Phase 7 RE-LAUNCHED (2026-05-10T08:03 BST)
+
+User added OpenAI credits after the 05:30 billing-cap failure.
+Re-launched both v0.4 and v0.5 from scratch (overwriting the
+partial result.json files from the first attempt).
+
+Same setup as first attempt: parallel, --max-workers 53 each.
+ETA ~04:00 BST tomorrow (~20h wall). Background tasks: bkev60s36
+(v0.4), bksw4s83e (v0.5).

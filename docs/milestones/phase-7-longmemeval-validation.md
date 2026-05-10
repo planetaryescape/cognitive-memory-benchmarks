@@ -1,11 +1,16 @@
-# Phase 7 — LongMemEval-S validation (FAILED, OpenAI billing block)
+# Phase 7 — LongMemEval-S validation (re-running after billing fix)
 
-**Started:** 2026-05-10T00:45 BST
-**Failed:** 2026-05-10T~05:30 BST (both runs at ~150/500 questions = ~30%)
-**Failure mode:** `openai.RateLimitError 429 - insufficient_quota` —
-account-level billing cap reached, NOT a transient per-minute rate
-limit. Resuming requires the user to add OpenAI credits / increase
-the billing limit before any more API runs.
+**First attempt:** 2026-05-10T00:45-05:30 BST → FAILED at ~150/500
+questions with `openai.RateLimitError 429 - insufficient_quota`
+(account billing cap, not rate limit).
+
+**Re-launched:** 2026-05-10T08:03 BST after operator added OpenAI
+credits.
+
+**Projected wall:** ~20h based on first attempt's measured pace
+(~25 questions/hour per parallel run when sharing rate limits).
+**Projected end:** ~04:00 BST tomorrow (May 11).
+**Projected cost:** ~$100 (full 500 Q × 2 candidates).
 **Plan:** Head-to-head v0.4 vs v0.5 SDK defaults on LongMemEval-S
 (500 questions). Same configs as Phase 4/5; same pattern (one
 locomo_eval-style run per candidate, no tuning).
