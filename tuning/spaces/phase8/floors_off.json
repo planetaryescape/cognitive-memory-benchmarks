@@ -1,0 +1,10 @@
+{
+  "_comment": "Phase 8 ablation: decay floors set to 0. Tests the architectural claim that the core floor (0.6) is what keeps critical_fact_retention at 100% on LTI-Bench. If critical_fact_retention drops substantially with floors=0, the floor mechanism is responsible. If it doesn't drop, the architectural claim is over-stated.",
+  "surface": "sdk",
+  "config_overrides": {
+    "decay_floors": {
+      "core": 0.0,
+      "regular": 0.0
+    }
+  }
+}

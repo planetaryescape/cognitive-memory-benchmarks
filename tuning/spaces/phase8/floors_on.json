@@ -1,0 +1,4 @@
+{
+  "_comment": "Phase 8 baseline: paper-faithful decay floors (core=0.60, regular=0.02). Per CognitiveMemoryConfig defaults; empty override.",
+  "surface": "sdk"
+}
