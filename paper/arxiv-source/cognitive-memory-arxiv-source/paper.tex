@@ -1,12 +1,12 @@
 \documentclass[11pt,a4paper]{article}
 
 % Packages
-\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{xcolor}
 \usepackage[margin=1in]{geometry}
 \usepackage{natbib}
@@ -19,7 +19,11 @@
     citecolor=blue,
     urlcolor=blue
 }
-\setlength{\emergencystretch}{3em}
+\setlength{\emergencystretch}{6em}
+% Keep minor underfull-line diagnostics out of the arXiv build log while
+% preserving overfull-box warnings.
+\hbadness=3000
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Cognitive Memory for AI Agents:\\Decay Floors, Emergent Core Memories, and Retrieval-Driven Reinforcement}
 
@@ -27,7 +31,7 @@
   Bhekani Khumalo\\
   Independent Researcher\\
   \texttt{hello@bhekani.com}\\
-  \url{https://github.com/planetaryescape/blah.chat}
+  \url{https://www.bhekani.com}
 }
 
 \date{May 2026}
@@ -37,7 +41,7 @@
 \maketitle
 
 \begin{abstract}
-Most AI memory systems innovate at the edges of the memory lifecycle: deciding what to extract and how to retrieve it. The middle---what happens to a memory after it is stored and before it is retrieved---remains comparatively underexplored. Memories persist at the same weight they had on day one, whether they are an hour old or a month old, accessed fifty times or never. This paper presents \texttt{cognitive-memory}, an open-source memory architecture for LLM-based agents that draws on cognitive science to address this gap. We\footnote{This paper uses the editorial ``we'' throughout, following common convention in computer science. The work is solely that of the listed author.} introduce six design contributions: (1)~\emph{decay floors}, where memories fade according to Ebbinghaus-inspired exponential decay but never reach zero, preserving the possibility of future reactivation; (2)~\emph{emergent core memory detection}, where memories earn protected status through repeated access and cross-session stability rather than only through explicit tagging; (3)~\emph{two-tier retrieval boosting}, where direct retrieval and associative co-retrieval produce different reinforcement magnitudes, modelling the distinction between active recall and passive priming; (4)~\emph{associative memory linking} with differential reinforcement, where co-retrieved memories form and strengthen bidirectional connections; (5)~\emph{tiered hot/cold storage} inspired by the Complementary Learning Systems framework and Tulving's availability--accessibility distinction, where faint memories migrate out of the vector index but remain recoverable through associative retrieval or explicit deep recall; and (6)~\emph{reversible consolidation}, where superseded originals are preserved in cold storage rather than deleted, accessible as associated children of their summaries or via a deep recall retrieval mode analogous to the reactivation of silent engrams. We situate these mechanisms within the broader landscape of agent memory research, contrast our design philosophy with recent work such as FadeMem, describe a production deployment backing a consumer chat application, and report an empirical evaluation on LoCoMo and LongMemEval-S along with a controlled long-term-interaction benchmark. On LoCoMo we recover an overall F1 of 44.8\% with multi-hop F1 of 48.5\%; on LongMemEval-S we reach 70.2\% task-averaged accuracy, competitive with ENGRAM-class single-stage memory systems; ablations indicate that power-law decay is the single largest contributor; and on the controlled benchmark we retain 100\% of identity-critical facts across a 30-day mixed-access window.
+Most AI memory systems focus on two lifecycle edges: deciding what to extract and deciding how to retrieve it. The middle---what happens after a memory is stored but before it is retrieved---remains less settled. This paper presents \texttt{cognitive-memory}, an open-source memory architecture for LLM-based agents that treats memory as a dynamic lifecycle rather than a static vector index. The system combines decay floors, emergent core-memory promotion, two-tier retrieval reinforcement, associative linking, tiered hot/cold/stub storage, and reversible consolidation. Faint memories can become hard to retrieve without being immediately discarded, and retrieval itself changes future accessibility. We situate the design in cognitive-science work on forgetting, availability versus accessibility, and spreading activation, then evaluate it on LoCoMo, LongMemEval-S, and a controlled long-term-interaction benchmark. On LoCoMo, empirically tuned \texttt{cognitive-memory} defaults reach 46.2\% overall F1 and 51.3\% multi-hop F1; on LongMemEval-S, it reaches 71.6\% task-averaged accuracy, competitive with ENGRAM-class single-stage systems but behind higher-scoring or differently configured recent architectures. A controlled benchmark retains 100\% of identity-critical facts across a 30-day mixed-access window, while also exposing likely over-promotion to core status.
 \end{abstract}
 
 \section{Introduction}
@@ -48,9 +52,9 @@ This is not how biological memory works. Human memory is dynamic: it strengthens
 
 For AI agents, the engineering consequences of ignoring this middle phase are concrete. A memory system that retains everything at full strength produces context windows bloated with noise, stale facts weighted equally to fresh ones, and no way to distinguish a recurring preference from a passing remark. Consolidation---compressing old memories into summaries---is the field's most common response, but it is lossy and irreversible: the original memories are destroyed, and with them the ability to recover details that may become relevant again.
 
-This paper presents an alternative approach. Our system, \texttt{cognitive-memory}, implements biologically-inspired decay that dims memories without destroying them, retrieval-driven reinforcement that strengthens memories through use, and emergent core memory detection that protects critical information. The key philosophical commitment is that \textbf{a memory should not be pruned merely because it has become hard to retrieve}. Instead, memories fade to a floor: regular memories to a faint but non-zero level, core memories to a high floor that keeps them always accessible. This preserves the possibility of reactivation---the everyday experience of a forgotten detail flooding back when triggered by the right cue.
+This paper presents an alternative approach. Our system, \texttt{cognitive-memory}, implements biologically-inspired decay that dims memories without immediately destroying them, retrieval-driven reinforcement that strengthens memories through use, and emergent core memory detection that protects critical information. The key philosophical commitment is that \textbf{a memory should not be pruned merely because it has become hard to retrieve}. Instead, memories fade to a floor: regular memories to a faint but non-zero level, core memories to a high floor that keeps them always accessible. This preserves the possibility of reactivation during the memory's active or cold-storage window---the everyday experience of a forgotten detail flooding back when triggered by the right cue.
 
-We contribute: (1) a formal architecture grounded in specific cognitive science mechanisms; (2) several design elements not present in related work, particularly decay floors, emergent core memory promotion, and two-tier retrieval boosting; (3) an open-source implementation available as TypeScript and Python SDKs; (4) a description of its deployment in a production chat application, \texttt{blah.chat};\footnote{\url{https://blah.chat}} and (5) an empirical evaluation on LoCoMo, LongMemEval-S, and a controlled long-term-interaction benchmark targeted at the architectural claims (Section~\ref{sec:evaluation}).
+We contribute: (1) a formal architecture grounded in specific cognitive science mechanisms; (2) a particular combination of lifecycle design elements---decay floors, emergent core memory promotion, reversible consolidation, and two-tier retrieval boosting---that is not commonly treated as a first-class memory-management layer; (3) an open-source implementation available as TypeScript and Python SDKs; (4) a description of its deployment in a production chat application, \texttt{blah.chat};\footnote{\url{https://blah.chat}} and (5) an empirical evaluation on LoCoMo, LongMemEval-S, and a controlled long-term-interaction benchmark targeted at the architectural claims (Section~\ref{sec:evaluation}).
 
 \section{Related Work}
 
@@ -72,7 +76,11 @@ The most directly related work is FadeMem \citep{wei2026fademem}, published in J
 
 MemoryBank \citep{zhong2024memorybank} incorporates the Ebbinghaus forgetting curve to model memory strength decay and supports continual memory updating and user profile construction. SAGE \citep{sage2024} combines the Ebbinghaus curve with linguistic knowledge to optimize memory management, applying part-of-speech priority to determine information retention. Memoria \citep{memoria2023} addresses what it calls the ``fateful forgetting problem'' through a human-inspired memory architecture. MemOS \citep{kang2025memos} introduces TTL-based lifespan policies and state transitions (Generated $\rightarrow$ Activated $\rightarrow$ Merged $\rightarrow$ Archived $\rightarrow$ Expired).
 
-\paragraph{Concurrent and post-dating systems.} Three systems published shortly before or during our evaluation window sit close to our problem framing on long-horizon conversational memory benchmarks. ENGRAM \citep{patel2025engram} routes turns into episodic, semantic, and procedural records and reports state-of-the-art accuracy on LongMemEval-S at the time it was posted; it is the strongest single-stage baseline against which we compare. TiMem \citep{li2026timem} organises conversations through a Temporal Memory Tree that consolidates raw observations into progressively abstracted persona representations and reports 76.88\% on LongMemEval-S, exceeding ENGRAM and our own 70.2\%. EverMemOS \citep{hu2026evermemos} implements an engram-inspired lifecycle (episodic trace formation, semantic consolidation, reconstructive recollection) and reports 83.0\% on LongMemEval. Both TiMem and EverMemOS post-date our evaluation runs but pre-date publication of this paper; we acknowledge them here so that our LongMemEval-S result is not over-claimed (it is competitive with ENGRAM-class single-stage systems, but is not state-of-the-art on this benchmark as of mid-2026). Our contribution is an architectural one---decay floors, emergent core promotion, two-tier boosting---rather than a benchmark-leading numerical one, and the empirical results in Section~\ref{sec:evaluation} are reported as evidence that the architecture behaves as designed at competitive performance levels, not as a leaderboard claim.
+\paragraph{Recent and adjacent systems.} Several systems published shortly before or during our evaluation window sit close to our problem framing on long-horizon conversational memory benchmarks. ENGRAM \citep{patel2025engram} routes turns into episodic, semantic, and procedural records and reports strong LongMemEval-S accuracy at the time it was posted; it is the closest single-stage baseline against which we compare. TiMem \citep{li2026timem} organises conversations through a Temporal Memory Tree that consolidates raw observations into progressively abstracted persona representations and reports 76.88\% on LongMemEval-S, exceeding ENGRAM and our own 71.6\%. EverMemOS \citep{hu2026evermemos} implements an engram-inspired lifecycle (episodic trace formation, semantic consolidation, reconstructive recollection) and reports 83.0\% on LongMemEval. MAGMA \citep{jiang2026magma} represents each memory across semantic, temporal, causal, and entity graphs, retrieving by query-adaptive graph traversal rather than by a single flat similarity search. Hindsight \citep{latimer2025hindsight} treats memory as a structured substrate for reasoning, separating facts, experiences, entity summaries, and evolving beliefs, and reports substantially higher LongMemEval and LoCoMo results under larger or different backbone settings than those used here.
+
+The closest adjacent work to our preservation and scaling claims is All-Mem \citep{lv2026allmem}. All-Mem maintains a topology-structured memory bank with non-destructive consolidation, a bounded visible surface for online retrieval, and hop-bounded expansion from active anchors to archived evidence. This overlaps with our reversible consolidation and hot/cold retrieval motivation, but differs in mechanism: All-Mem evolves memory topology through offline SPLIT, MERGE, and UPDATE operations, whereas \texttt{cognitive-memory} focuses on continuous retention dynamics, decay floors, retrieval-driven reinforcement, emergent core promotion, and explicit availability--accessibility scoring.
+
+TiMem, EverMemOS, MAGMA, Hindsight, and All-Mem all pre-date publication of this paper, though several post-date our evaluation runs. We acknowledge them here so that our LongMemEval-S result is not over-claimed: it is competitive with ENGRAM-class single-stage systems, but it is not a leaderboard result as of mid-2026. Our contribution is an architectural one---decay floors, emergent core promotion, two-tier boosting, and graceful hot/cold/stub degradation---rather than a benchmark-leading numerical one, and the empirical results in Section~\ref{sec:evaluation} are reported as evidence that the architecture behaves as designed at competitive performance levels.
 
 The ``Memory in the Age of AI Agents'' survey \citep{liu2025memory} provides the most comprehensive recent overview, categorizing forgetting as one of three branches of memory evolution alongside consolidation and updating. That survey's taxonomy distinguishes memory by \emph{form} (token-level, parametric, latent) and \emph{function} (factual, experiential, working). Our system operates entirely at the token level---memories are discrete text records in an external store---and primarily serves the factual memory function, maintaining persistent knowledge about users and their preferences across sessions. This confirms that forgetting is an active area of research, though one still in its early stages with no dominant approach.
 
@@ -81,7 +89,7 @@ The ``Memory in the Age of AI Agents'' survey \citep{liu2025memory} provides the
 Our architecture draws on several established results from cognitive science and neuroscience:
 
 \begin{itemize}
-    \item \textbf{Ebbinghaus forgetting curves} \citep{ebbinghaus1885, murre2015replication}: Memory retention follows exponential decay, with the steepest drop occurring shortly after encoding.
+    \item \textbf{Ebbinghaus forgetting curves} \citep{ebbinghaus1885, murre2015replication}: Memory retention is often modelled by smooth decreasing curves, with the steepest drop occurring shortly after encoding. Exponential decay is a useful engineering prior; power-law curves may better capture longer tails in some settings.
     \item \textbf{Spaced repetition effects} \citep{cepeda2006distributed}: Memories accessed at increasing intervals develop greater long-term stability than those accessed in massed practice.
     \item \textbf{Spreading activation} \citep{collins1975spreading}: Retrieving one memory activates semantically related memories, with activation strength decreasing with associative distance.
     \item \textbf{Synaptic tagging} \citep{frey1997synaptic}: Certain memories receive biochemical tags during encoding that mark them for preferential long-term consolidation, independent of subsequent access patterns.
@@ -100,7 +108,7 @@ The \texttt{cognitive-memory} system operates as a middleware layer between an L
 
 Each memory is represented as a structured object with the following fields:
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{@{}lll@{}}
@@ -124,7 +132,7 @@ Each memory is represented as a structured object with the following fields:
 \subsection{Decay Model}
 \label{sec:decay}
 
-Retention is computed as a modified exponential decay function:
+Retention is computed as a configurable forgetting curve with a non-zero floor. The default SDK configuration uses a modified exponential decay function:
 
 \begin{equation}
 R(m) = \max\left(f_m,\; \exp\!\left(\frac{-\Delta t(m)}{S(m) \cdot B(m) \cdot \tau_c}\right)\right)
@@ -136,14 +144,23 @@ R(m) = \max\left(f_m,\; \exp\!\left(\frac{-\Delta t(m)}{S(m) \cdot B(m) \cdot \t
     \item $R(m) \in [f_m, 1]$ is the retention score for memory $m$
     \item $f_m$ is the \emph{decay floor} (see Section~\ref{sec:floors})
     \item $\Delta t(m)$ is days since last access
-    \item $S(m) \in [0, 1]$ is the stability parameter, representing resistance to decay
-    \item $B(m) = 1 + (\text{importance}(m) \times 2)$, capped at 3, is the importance boost
+    \item $S(m) \in [0, 1]$ is the stability parameter, representing resistance to decay. In implementation, the denominator uses $S_{\mathrm{eff}}=\max(S(m),\epsilon)$ with small $\epsilon>0$ to avoid division by zero for newly-created or malformed records.
+    \item $B(m) = 1 + (\text{importance}(m) \times 2)$ is the importance boost. If importance has already been normalized to $[0,1]$, this lies in $[1,3]$; the implementation also clamps it to 3 as a guardrail for adapters that ingest unnormalized importance scores.
     \item $\tau_c$ is the base retention time constant, dependent on memory category
 \end{itemize}
 
+We also implement a power-law variant used in the ablations in Section~\ref{sec:eval-decay}:
+
+\begin{equation}
+R_{\mathrm{power}}(m) = \max\left(f_m,\; \left(1 + \frac{\Delta t(m)}{S(m) \cdot B(m) \cdot \tau_c}\right)^{-\gamma}\right)
+\label{eq:power-retention}
+\end{equation}
+
+\noindent where $\gamma$ controls tail heaviness. The current benchmark comparison uses $\gamma = 1/\ln 2 \approx 1.4427$, chosen so that the power-law curve matches the exponential curve's one-time-constant e-folding point: at $\Delta t = S B \tau_c$, retention is approximately $e^{-1} \approx 0.368$. We retain the exponential form as the default because it is simpler and has been characterised across the full headline run; the power-law result is promising but currently measured only in preliminary single-conversation ablations.
+
 Base retention time constants are differentiated by category to reflect the different temporal profiles of memory types documented in cognitive science \citep{finley2025expanded}:
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{@{}lrl@{}}
@@ -152,7 +169,7 @@ Base retention time constants are differentiated by category to reflect the diff
 \midrule
 Episodic & 30 & Event memories fade relatively quickly \\
 Semantic & 90 & Factual knowledge persists longer \\
-Procedural & $\infty$ & Skills and procedures do not decay \\
+Procedural & $\infty$ & Skills and procedures do not decay; raw retention is fixed at 1.0 \\
 Core & 90 & High floor dominates; base rate matters less \\
 \bottomrule
 \end{tabular}
@@ -160,10 +177,10 @@ Core & 90 & High floor dominates; base rate matters less \\
 \label{tab:decay}
 \end{table}
 
-\subsection{Decay Floors: Never Delete}
+\subsection{Decay Floors: Never Zero by Score}
 \label{sec:floors}
 
-The central design commitment of this architecture is that \textbf{no memory reaches zero}. The decay floor $f_m$ enforces a minimum retention score:
+The central design commitment of this architecture is that \textbf{no memory reaches zero by decay score alone}. The decay floor $f_m$ enforces a minimum retention score:
 
 \begin{equation}
 f_m = \begin{cases}
@@ -174,11 +191,11 @@ f_m = \begin{cases}
 
 A regular memory at its floor (2\% retention) is unlikely to surface in normal retrieval, but it is not annihilated by the scoring function. Retrieval uses a softened accessibility term, $R^\alpha$ with default $\alpha=0.3$, so a floor-retained memory has $0.02^{0.3} \approx 0.309$ accessibility. With a highly specific semantic match of 0.9, its final score is therefore approximately $0.9 \times 0.309 \approx 0.278$, rather than $0.018$ under linear retention weighting. We term memories below 15\% retention \emph{faint}---rarely surfaced, but not pruned by decay alone.
 
-This stands in deliberate contrast to systems that prune memories below a threshold. FadeMem, for instance, imposes hard capacity caps (1000 long-term memories, 500 short-term) and allows memories to decay to removal \citep{wei2026fademem}. Our position is that deletion can destroy information that may become relevant in unpredictable future contexts. The cost of storing faint text records is usually small; the cost of permanently losing them is hard to predict.
+This stands in deliberate contrast to systems that immediately prune memories below a threshold. FadeMem, for instance, imposes hard capacity caps (1000 long-term memories, 500 short-term) and allows memories to decay to removal \citep{wei2026fademem}. Our position is not that full text should be retained forever in every deployment; Section~\ref{sec:tiered} describes cold-storage TTL and stub conversion. The stronger claim is that decay should first degrade accessibility, not abruptly erase recoverability. The cost of retaining faint text records for a configurable dormancy window is usually small; the cost of permanently losing them before their future relevance is known is hard to predict.
 
-This mirrors the neurobiological reality that memories are rarely truly erased. Rather, they become increasingly difficult to access as retrieval pathways weaken, while the underlying traces persist \citep{wixted2004psychology}. The common experience of a long-forgotten detail returning vividly when triggered by the right cue---a smell, a name, a location---is evidence that the memory was dimmed, not deleted.
+This mirrors one important strand of the neurobiological evidence: many apparent memory failures reflect weakened access rather than complete erasure \citep{wixted2004psychology}. The common experience of a long-forgotten detail returning vividly when triggered by the right cue---a smell, a name, a location---is evidence that at least some memories are dimmed, not deleted.
 
-To make this concrete: consider a user who mentions their cat's name in session 3, then never references it again. By session 20, that memory has decayed to its 2\% floor. In a deletion-based system, it is gone. In ours, it persists as a faint memory, invisible to normal retrieval. But when the user asks in session 47, ``what was my cat called?''---a query with high semantic similarity to exactly that memory---the retention floor allows it to surface. The retrieval boost then begins restoring its stability, and the memory re-enters active circulation. This is the specific behaviour that decay floors are designed to preserve, and it is not recoverable once a memory has been pruned.
+To make this concrete: consider a user who mentions their cat's name in session 3, then never references it again. By session 20, that memory has decayed to its 2\% floor. In a hard-pruning system, it may be gone. In ours, it persists as a faint memory during its active or cold-storage window, invisible to most normal retrieval. But when the user asks in session 47, ``what was my cat called?''---a query with high semantic similarity to exactly that memory---the retention floor allows it to surface. The retrieval boost then begins restoring its stability, and the memory re-enters active circulation. This is the specific behaviour that decay floors are designed to preserve before archival stub conversion occurs.
 
 \subsection{Core Memory Detection}
 \label{sec:core}
@@ -206,7 +223,7 @@ When the agent queries memory, results are scored by the product of semantic rel
 \label{eq:score}
 \end{equation}
 
-\noindent where $\text{sim}(m, q)$ is the cosine similarity between the memory embedding and the query embedding, $R(m)$ is the retention score from Equation~\ref{eq:retention}, and $\alpha$ controls how aggressively retention suppresses retrieval (default: $\alpha=0.3$). This means two memories with identical semantic content can produce different retrieval scores based on their temporal profiles, while faint memories remain accessible to highly specific cues.
+\noindent where $\text{sim}(m, q)$ is cosine similarity clipped to $[0,1]$, $R(m)$ is the retention score from Equation~\ref{eq:retention}, and $\alpha$ controls how aggressively retention suppresses retrieval (default: $\alpha=0.3$). This means two memories with identical semantic content can produce different retrieval scores based on their temporal profiles, while faint memories remain accessible to highly specific cues.
 
 This multiplicative interaction is the mechanism by which the system implements what Richards and Frankland~\citeyearpar{richards2017persistence} describe as memory's role in guiding intelligent decisions: recent, repeatedly-accessed information is foregrounded, while stale or rarely-used information recedes without being eliminated.
 
@@ -221,7 +238,7 @@ When a memory is retrieved, its temporal parameters are updated to reflect the a
 \text{stability}(m) &\leftarrow \min\!\left(1.0,\; \text{stability}(m) + 0.1 \times \min\!\left(2.0,\; \frac{\Delta t(m)}{7}\right)\right)
 \end{align}
 
-The stability update implements a spaced repetition effect: memories accessed after a longer gap receive a larger stability increment (up to a cap at 14 days), while memories accessed in rapid succession gain less stability per access \citep{cepeda2006distributed}. Stability is clamped to $[0, 1]$, so a memory that has been frequently accessed over a long period saturates at $S(m) = 1.0$, representing maximum resistance to decay. Figure~\ref{fig:boosting} illustrates the divergence: two memories with identical starting conditions, both retrieved every 7 days, develop markedly different stability and retention profiles depending on whether retrieval is direct or associative. Critically, only the directly retrieved memory accumulates enough stability to cross the core promotion threshold, gaining permanent floor protection that the associatively retrieved memory never earns.
+The stability update implements a spaced repetition effect: memories accessed after a longer gap receive a larger stability increment (up to a cap at 14 days), while memories accessed in rapid succession gain less stability per access \citep{cepeda2006distributed}. Stability is clamped to $[0, 1]$, so a memory that has been frequently accessed over a long period saturates at $S(m) = 1.0$, representing maximum resistance to decay. Figure~\ref{fig:boosting} illustrates the divergence: two memories with identical starting conditions, both retrieved every 7 days, develop markedly different stability and retention profiles depending on whether retrieval is direct or associative. Critically, only the directly retrieved memory accumulates enough stability to cross the core promotion threshold, gaining elevated floor protection that the associatively retrieved memory never earns.
 
 \paragraph{Associative retrieval.} When a memory is not a direct match but is \emph{associated} with a directly retrieved memory (see Section~\ref{sec:associations}), it receives a smaller boost:
 \begin{align}
@@ -234,7 +251,7 @@ This two-tier structure captures the observation that being directly recalled st
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{boosting_divergence.png}
-\caption{Simulated divergence between direct and associative retrieval over 90 days. Both memories start with identical parameters ($S = 0.1$, importance $= 0.5$, episodic category) and are retrieved every 7 days, with new sessions every 14 days. \textbf{Top:} Stability growth. The directly retrieved memory crosses the core promotion threshold ($S \geq 0.85$) at day 70 (green shaded region), while the associatively retrieved memory reaches only $S = 0.46$ and never qualifies. \textbf{Bottom:} Retention between retrieval events. At day 70, the directly retrieved memory's decay floor jumps from 0.02 to 0.60 upon core promotion (blue dashed line), guaranteeing it can never fade below 60\% retention. The associatively retrieved memory's floor remains at 0.02 throughout. The same 12 retrieval events, differentiated only by boost magnitude, produce fundamentally different long-term outcomes: one memory earns permanent protection, the other does not.}
+\caption{Simulated divergence between direct and associative retrieval over 90 days. Both memories start with identical parameters ($S = 0.1$, importance $= 0.5$, episodic category) and are retrieved every 7 days, with new sessions every 14 days. \textbf{Top:} Stability growth. The directly retrieved memory crosses the core promotion threshold ($S \geq 0.85$) at day 70 (green shaded region), while the associatively retrieved memory reaches only $S = 0.46$ and never qualifies. \textbf{Bottom:} Retention between retrieval events. At day 70, the directly retrieved memory's decay floor jumps from 0.02 to 0.60 upon core promotion (blue dashed line), guaranteeing it can never fade below 60\% retention while it remains a core memory. The associatively retrieved memory's floor remains at 0.02 throughout. The same 12 retrieval events, differentiated only by boost magnitude, produce fundamentally different long-term outcomes: one memory earns elevated floor protection, the other does not.}
 \label{fig:boosting}
 \end{figure}
 
@@ -266,12 +283,12 @@ This mechanism models spreading activation \citep{collins1975spreading}: retriev
 w(a, b) \leftarrow w(a, b) \times \exp\!\left(\frac{-\Delta t_w}{90}\right)
 \end{equation}
 
-\noindent where $\Delta t_w$ is days since the association was last strengthened (i.e., since $a$ and $b$ were last co-retrieved). The 90-day time constant means unused associations fade slowly but steadily: after 90 days without co-retrieval, an association retains approximately 37\% of its weight; after 180 days, approximately 13\%. Associations that fall below the retrieval threshold (0.3) no longer trigger associative retrieval, though they are not deleted and can be restored if co-retrieval resumes.
+\noindent where $\Delta t_w$ is days since the association was last strengthened (i.e., since $a$ and $b$ were last co-retrieved). The 90-day time constant means unused associations fade slowly but steadily: after 90 days without co-retrieval, an association retains approximately 37\% of its weight; after 180 days, approximately 13\%. Associations that fall below the retrieval threshold (0.3) no longer trigger associative retrieval from one endpoint alone. They can strengthen again if both endpoint memories are later retrieved together through direct semantic search, same-context ingestion, deep recall, or another hot-memory path.
 
 \subsection{Consolidation}
 \label{sec:consolidation}
 
-The system includes a consolidation process that clusters fading memories (retention below 0.2) by semantic similarity and compresses groups of five or more into summary memories. However, unlike typical consolidation approaches that discard originals after compression, our revised policy preserves them through the tiered storage mechanism described below. Original memories are clamped to the regular floor (0.02), marked with metadata linking them to their superseding summary (\texttt{supersededBy=<summaryId>}), and migrated to cold storage. In normal retrieval, superseded originals are not eligible as direct hits. They surface only as associated children when their superseding summary is retrieved, providing a lossless path back to the raw details when needed.
+The system includes a consolidation process that clusters fading memories (retention below 0.2) by semantic similarity and compresses groups of five or more into summary memories. However, unlike typical consolidation approaches that discard originals immediately after compression, our revised policy preserves them through the tiered storage mechanism described below. Original memories are clamped to the regular floor (0.02), marked with metadata linking them to their superseding summary (\texttt{supersededBy=<summaryId>}), and migrated to cold storage. In normal retrieval, superseded originals are not eligible as direct hits. They surface only as associated children when their superseding summary is retrieved, providing a reversible path back to the raw details during the cold-storage window.
 
 \subsection{Tiered Storage}
 \label{sec:tiered}
@@ -286,7 +303,7 @@ The cold store is not a graveyard. When a hot memory is retrieved and has associ
 
 \paragraph{Deep recall mode.} In neuroscience, ``silent engrams'' are memory traces that persist biologically but cannot be reactivated through natural retrieval cues; they require artificial stimulation (e.g., optogenetic activation of dentate gyrus neurons) to produce memory expression \citep{ryan2022forgetting, guskjolen2024forgetting}. Our superseded originals in cold storage are computationally analogous: they exist, they are available in Tulving's sense, but they are inaccessible through normal similarity search because they have been removed from the vector index.
 
-Deep recall mode provides the artificial stimulation. Normal search excludes cold memories, superseded originals, and lightweight stubs. The system exposes an optional retrieval parameter (\texttt{deep\_recall: true}) that temporarily includes cold memories and superseded originals in the direct candidate set, while stubs remain excluded. Superseded and expired items receive a multiplicative penalty (default: $0.5\times$ their normal score) to ensure they surface only when the query strongly matches. This is implemented as a parameter on the canonical \texttt{search()} function rather than a system-wide mode, keeping the API stateless and allowing the calling agent (or user) to decide when exhaustive recall is warranted---for example, when the user asks ``what exactly did I say about X three months ago?'' and a consolidated summary is insufficient. The compatibility \texttt{retrieve()} API delegates to \texttt{search()} and maps results back to the older scored-memory shape.
+Deep recall mode provides the artificial stimulation. Normal search excludes cold memories, superseded originals, expired transient records, and lightweight stubs. The system exposes an optional retrieval parameter (\texttt{deep\_recall: true}) that temporarily includes cold memories and superseded originals in the direct candidate set, while stubs remain excluded. Superseded records are memories replaced by a newer fact or a consolidation summary; expired transient records are time-scoped plans or temporary states whose validity window has ended; stubs are archival placeholders with content and pointers but no searchable embedding. Superseded and expired records receive a multiplicative penalty (default: $0.5\times$ their normal score) to ensure they surface only when the query strongly matches. This is implemented as a parameter on the canonical \texttt{search()} function rather than a system-wide mode, keeping the API stateless and allowing the calling agent (or user) to decide when exhaustive recall is warranted---for example, when the user asks ``what exactly did I say about X three months ago?'' and a consolidated summary is insufficient. The compatibility \texttt{retrieve()} API delegates to \texttt{search()} and maps results back to the older scored-memory shape.
 
 This design reflects the broader principle from Tulving and Pearlstone's work that apparent forgetting often represents a retrieval problem, not a storage problem \citep{tulving1966availability}. By changing the retrieval conditions (expanding the candidate set), information that was functionally forgotten becomes accessible again---without requiring that it pollute normal retrieval at all other times.
 
@@ -306,14 +323,14 @@ This design reflects the broader principle from Tulving and Pearlstone's work th
 
 FadeMem \citep{wei2026fademem} is the most closely related system, sharing our Ebbinghaus-inspired foundation. Table~\ref{tab:comparison} summarises the key differences.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
-\begin{tabular}{@{}p{3cm}p{5.5cm}p{5.5cm}@{}}
+\begin{tabular}{@{}L{3cm}L{5.5cm}L{5.5cm}@{}}
 \toprule
 \textbf{Design Choice} & \textbf{FadeMem} & \textbf{cognitive-memory (ours)} \\
 \midrule
-Decay endpoint & Memories can decay to removal; hard capacity caps (1000 LTM, 500 STM) & Decay never sets retention to zero; floors at 2\% (regular) and 60\% (core), with optional cold-storage stub conversion after TTL \\
+Decay endpoint & Memories can decay to removal; hard capacity caps (1000 LTM, 500 STM) & Decay never sets retention score to zero; floors at 2\% (regular) and 60\% (core), with full records eventually degrading to lightweight stubs after cold-storage TTL \\
 \addlinespace
 Memory hierarchy & Dual-layer (STM/LTM) with promotion criteria & Flat store with category-based decay rates; core as a category, not a layer \\
 \addlinespace
@@ -323,7 +340,7 @@ Retrieval reinforcement & Access strengthens retention & Two-tier: direct retrie
 \addlinespace
 Associative linking & Not described as a separate mechanism; memory fusion serves a related consolidation role & Bidirectional weighted associations with co-retrieval strengthening \\
 \addlinespace
-Index scaling & Hard capacity caps (1000 LTM, 500 STM); excess memories pruned & Tiered hot/cold storage; hot index bounded at $\sim$10\% of total (Figure~\ref{fig:cold_storage}) \\
+Index scaling & Hard capacity caps (1000 LTM, 500 STM); excess memories pruned & Tiered hot/cold/stub storage; hot index bounded at $\sim$10\% of total in simulation (Figure~\ref{fig:cold_storage}) \\
 \addlinespace
 Conflict resolution & LLM-guided classification into contradiction, update, overlap & LLM-guided detection adopting FadeMem's taxonomy; contradicted core memories are demoted to regular floor (Section~\ref{sec:limitations}) \\
 \addlinespace
@@ -334,7 +351,7 @@ Evaluation & Benchmark-based (MSC, LoCoMo, LTI-Bench) & Production deployment pl
 \label{tab:comparison}
 \end{table}
 
-The most significant philosophical difference is about deletion. FadeMem treats memory removal as a feature: by pruning irrelevant memories, it reduces storage by 45\% and improves retrieval precision. Our position is that the storage cost of retaining faint memories is often negligible for text-based agent memory (unlike, say, multimedia storage), and the unpredictability of future relevance makes early deletion a risky optimisation. We optimise retrieval precision not by removing faint memories but by down-weighting them through the multiplicative scoring in Equation~\ref{eq:score}, which achieves a similar practical effect without pruning active or cold records during normal retrieval.
+The most significant philosophical difference is about deletion timing. FadeMem treats memory removal as a feature: by pruning irrelevant memories, it reduces storage by 45\% and improves retrieval precision. Our position is that the storage cost of retaining faint text memories for a configurable dormancy window is often modest, and the unpredictability of future relevance makes early deletion a risky optimisation. We optimise retrieval precision not by immediately removing faint memories but by down-weighting them through the multiplicative scoring in Equation~\ref{eq:score}, migrating them out of the hot index, and eventually degrading long-dormant cold records to lightweight stubs.
 
 FadeMem's strengths relative to our system include its LLM-guided conflict resolution---which our system now adopts in deferred form (Section~\ref{sec:limitations})---and its memory fusion mechanism for consolidating related information.
 
@@ -375,95 +392,96 @@ The system is currently serving real users and includes an append-only audit log
 \section{Evaluation}
 \label{sec:evaluation}
 
-We evaluate \texttt{cognitive-memory} on three benchmarks: LoCoMo \citep{maharana2024locomo} for multi-session conversational QA, LongMemEval-S \citep{wu2024longmemeval} for long-horizon memory tasks across six question categories, and a controlled synthetic long-term-interaction harness (LTI-Bench) targeted at the architectural claims of this paper. We additionally report ablations on individual feature contributions, an oracle ceiling for context, and a judge-reliability check.
+We evaluate \texttt{cognitive-memory} on three benchmarks: LoCoMo \citep{maharana2024locomo} for multi-session conversational QA, LongMemEval-S \citep{wu2024longmemeval} for long-horizon memory tasks across six question categories, and a controlled synthetic long-term-interaction harness (LTI-Bench) targeted at the architectural claims of this paper. We additionally report ablations on individual feature contributions, an oracle evidence-context condition, and a judge-reliability check.
 
 \subsection{Setup}
 \label{sec:eval-setup}
 
-\paragraph{Models.} Memory extraction and answer generation use \texttt{gpt-4o-mini}. Embeddings use \texttt{text-embedding-3-small}. The LongMemEval-S task judge uses \texttt{gpt-4o-2024-08-06}, matching the benchmark's official setup. The LTI-Bench LLM-as-judge uses the same \texttt{gpt-4o-2024-08-06} judge for consistency.
+\paragraph{Models.} Memory extraction and answer generation use \texttt{gpt-4o-mini}; embeddings use \texttt{text-embedding-3-small}. LongMemEval-S and LTI-Bench both use \texttt{gpt-4o-2024-08-06} as the judge, matching LongMemEval's official setup and keeping judge-mediated results comparable across benchmarks.
 
-\paragraph{SDK.} The current-refresh LoCoMo, oracle, derived-analysis, and LTI-Bench runs reported here use \texttt{cognitive-memory} SDK \texttt{v0.3.0} installed from the local source tree after the v6 behavior fixes: \texttt{search()} is the canonical retrieval API, \texttt{retrieve()} is a compatibility wrapper, normal search excludes cold/superseded/stub records, deep recall includes cold and superseded records while still excluding stubs, and retrieval scoring uses $\operatorname{sim}(m,q) R(m)^\alpha$ with default $\alpha=0.3$. The LongMemEval-S result comes from the completed recorded 500-question run in the benchmark log. The benchmark repository records exact command, configuration, timestamp, output path, and SDK/worktree provenance in \texttt{experimentlog.md}.
+\paragraph{SDK and provenance.} Benchmark provenance spans two SDK states. LongMemEval-S, LTI-Bench, oracle, retrieval-quality, efficiency, judge-reliability, and ablation results come from the May 2026 current-refresh artifacts, where the logs record editable local SDK source observed as package version \texttt{0.3.0}, commit \texttt{905aba7}, and a dirty worktree after the v6 behavior fixes. The LoCoMo headline result is updated from the Phase 5 full-LoCoMo head-to-head using the v0.5 tuned SDK defaults shipped in \texttt{cognitive-memory-sdk} commit \texttt{707758d}, with benchmark artifacts at commit \texttt{82f08c2}. The current public package release is \texttt{0.5.0}; reported numbers should be traced to the logged artifacts, not inferred from package version alone. The canonical API is \texttt{search()}; \texttt{retrieve()} is a compatibility wrapper. Normal search excludes cold, superseded, and stub records. Deep recall includes cold and superseded records, while still excluding stubs. Retrieval scoring uses $\operatorname{sim}(m,q) R(m)^\alpha$ with default $\alpha=0.3$. The benchmark repository records exact commands, configurations, timestamps, output paths, and SDK/worktree provenance in \texttt{experimentlog\_v2.md}, \texttt{docs/milestones/}, \texttt{tuning/runs/runs.jsonl}, and per-trial artifacts.
 
 \paragraph{Hardware.} All runs are on a single machine (Apple Silicon, 128 GB RAM). Throughput is bounded by OpenAI API latency rather than local compute.
 
-\paragraph{Adapter configuration.} Default v6 configuration: exponential decay (with a separate condition for power-law), graph expansion at one hop, rerank enabled with factor three, hybrid lexical+dense search disabled (we ablate this). LoCoMo uses top-$k$ of 60 with dual-perspective ingestion and the Mem0-style answer prompt. LongMemEval-S uses top-$k$ of 20 with deep recall and rerank.
+\paragraph{Adapter configuration.} The default pipeline uses exponential decay (with a separate condition for power-law), graph expansion at one hop, rerank enabled with factor three, and hybrid lexical+dense search disabled (we ablate this). LoCoMo uses top-$k$ of 60 with dual-perspective ingestion and the Mem0-style answer prompt. LongMemEval-S uses top-$k$ of 20 with deep recall and rerank. The Phase 5 LoCoMo comparison isolates the v0.5 default changes that matter under the benchmark adapter: \texttt{associative\_boost} from 0.03 to 0.05 and semantic base decay from 120 to 240 days. The SDK's \texttt{core\_session\_threshold} also moved from 3 to 2, but the benchmark adapter already pinned it to 2 in both arms.
 
 \subsection{LoCoMo}
 \label{sec:eval-locomo}
 
 LoCoMo is a multi-session conversational QA benchmark with 10 conversations averaging 300 turns and 9k tokens, evaluated on five question categories: single-hop, multi-hop, temporal, open-domain, and adversarial. We score using token F1 against gold answers, following the benchmark's protocol.
 
-Table~\ref{tab:locomo} reports our headline result against published baselines. We achieve an overall F1 of 44.8\%, with multi-hop F1 of 48.5\%---approximately 1.7$\times$ Mem0's reported multi-hop F1 of 28.4\% on the same benchmark. The multi-hop category is the hardest in LoCoMo, requiring the system to combine evidence from multiple sessions; this is also the category where decay-floor and emergent-core mechanisms have the largest plausible benefit, since stale-but-relevant evidence from earlier sessions must remain retrievable.
+Table~\ref{tab:locomo} reports our headline result against published baselines and the paper-faithful v0.4 configuration. The v0.5 tuned defaults improve full-LoCoMo F1 from 44.4\% to 46.2\% (+1.87pp) and LLM-judge accuracy from 58.6\% to 61.3\% (+2.73pp) under the same harness configuration. Multi-hop F1 reaches 51.3\%, approximately 1.8$\times$ Mem0's reported multi-hop F1 of 28.4\% on the same benchmark. The multi-hop category is the hardest in LoCoMo, requiring the system to combine evidence from multiple sessions; this is also the category where decay-floor and emergent-core mechanisms have the largest plausible benefit, since stale-but-relevant evidence from earlier sessions must remain retrievable. The tuning gain is not uniform by category: temporal F1 falls from 24.1\% to 22.3\%, while multi-hop and open-domain gains drive the overall improvement.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
-\small
-\begin{tabular}{@{}lcccc@{}}
+\scriptsize
+\begin{tabular}{@{}lrrrrr@{}}
 \toprule
-\textbf{System} & \textbf{Single-hop} & \textbf{Multi-hop} & \textbf{Temporal} & \textbf{Overall F1} \\
+\textbf{System} & \textbf{Single} & \textbf{Multi} & \textbf{Temporal} & \textbf{Open} & \textbf{Overall} \\
 \midrule
-Mem0 \citep{chhikara2024mem0} & --- & 28.4 & --- & --- \\
+Mem0 \citep{chhikara2024mem0} & --- & 28.4 & --- & --- & --- \\
 \midrule
-\textbf{cognitive-memory (ours)} & --- & \textbf{48.5} & --- & \textbf{44.8} \\
+cognitive-memory v0.4 (paper-faithful) & 35.9 & 46.9 & \textbf{24.1} & 48.5 & 44.4 \\
+\textbf{cognitive-memory v0.5 (tuned)} & \textbf{36.1} & \textbf{51.3} & 22.3 & \textbf{50.4} & \textbf{46.2} \\
 \bottomrule
 \end{tabular}
-\caption{LoCoMo headline F1 (\%). Per-category single-hop, temporal, and open-domain numbers are present in the per-conversation result files in the benchmarks repository; we report the multi-hop and overall headlines here as the most directly comparable to published Mem0 numbers. The Mem0 multi-hop number is taken from \citet{chhikara2024mem0}.}
+\caption{LoCoMo F1 (\%) on the standard category 1--4 subset (n = 1540). The v0.4 and v0.5 rows are from the Phase 5 full-LoCoMo head-to-head artifacts in \texttt{tuning/runs/phase5/}. Mem0's published multi-hop value is the directly comparable literature number available from \citet{chhikara2024mem0}; other cross-paper LoCoMo comparisons use different settings and are treated as positioning context rather than controlled baselines.}
 \label{tab:locomo}
 \end{table}
 
 \subsection{LongMemEval-S}
 \label{sec:eval-lme}
 
-LongMemEval-S is the Small variant of LongMemEval, with 500 questions across six task types and approximately 53 haystack sessions per question. Following the benchmark's protocol, we use \texttt{gpt-4o-2024-08-06} as the judge and report task-averaged accuracy.
+LongMemEval-S is the Small variant of LongMemEval, with 500 questions across six task types and approximately 53 haystack sessions per question. Following the benchmark's protocol, we use \texttt{gpt-4o-2024-08-06} as the judge and report task-averaged accuracy. LongMemEval comparisons are sensitive to backbone model, judge model, retrieval budget, and whether the system uses a single-stage memory layer or a multi-stage reasoning architecture; we therefore treat cross-paper comparisons as positioning context rather than strict leaderboard evidence.
 
-Table~\ref{tab:lme} reports per-task and overall accuracy. We achieve 70.2\% task-averaged accuracy. The strongest concurrent single-stage baseline at the time of running, ENGRAM \citep{patel2025engram}, reports 71.4\%; we are within 1.2pp without any benchmark-specific tuning. Newer systems published shortly after our run window---TiMem \citep{li2026timem} at 76.88\% and EverMemOS \citep{hu2026evermemos} at 83.0\%---now exceed both ENGRAM and our result. We discuss this positioning further in Section~\ref{sec:limitations}.
+Table~\ref{tab:lme} reports per-task and overall accuracy. We achieve 71.6\% task-averaged accuracy. The closest concurrent single-stage baseline at the time of running, ENGRAM \citep{patel2025engram}, reports 71.4\%; our result is within 0.2pp of it without any benchmark-specific tuning. Other recent or differently configured systems---including TiMem \citep{li2026timem}, EverMemOS \citep{hu2026evermemos}, MAGMA \citep{jiang2026magma}, Hindsight \citep{latimer2025hindsight}, and All-Mem \citep{lv2026allmem}---now exceed or complicate both ENGRAM and our result. We discuss this positioning further in Section~\ref{sec:limitations}.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{@{}lcc@{}}
 \toprule
 \textbf{Task} & \textbf{n} & \textbf{Accuracy (\%)} \\
 \midrule
-single-session-user & 70 & 88.6 \\
-single-session-assistant & 56 & 73.2 \\
-single-session-preference & 30 & 36.7 \\
-multi-session & 133 & 75.9 \\
-temporal-reasoning & 133 & 62.4 \\
-knowledge-update & 78 & 84.6 \\
+single-session-user & 70 & 85.7 \\
+single-session-assistant & 56 & 76.8 \\
+single-session-preference & 30 & 46.7 \\
+multi-session & 133 & 69.9 \\
+temporal-reasoning & 133 & 64.7 \\
+knowledge-update & 78 & 85.9 \\
 \midrule
-Task-averaged & --- & \textbf{70.2} \\
-Overall & 500 & 72.8 \\
+Task-averaged & --- & \textbf{71.6} \\
+Overall & 500 & 72.6 \\
 Abstention accuracy & --- & 90.0 \\
 \midrule
-ENGRAM \citep{patel2025engram} (concurrent) & --- & 71.4 \\
 Full-context baseline (published) & --- & 56.2 \\
-TiMem \citep{li2026timem} (post-dating) & --- & 76.88 \\
-EverMemOS \citep{hu2026evermemos} (post-dating) & --- & 83.0 \\
+ENGRAM \citep{patel2025engram} (concurrent) & --- & 71.4 \\
+TiMem \citep{li2026timem} (recent comparison) & --- & 76.88 \\
+EverMemOS \citep{hu2026evermemos} (recent comparison) & --- & 83.0 \\
 \bottomrule
 \end{tabular}
-\caption{LongMemEval-S per-task accuracy and task-averaged accuracy. Our task-averaged result is competitive with concurrent single-stage memory systems and outperforms full-context by 14.0pp; newer multi-stage systems published after our run window exceed this. The single-session-preference category is our weakest, suggesting that short-window preference extraction is a capability gap rather than a long-horizon retention issue.}
+\caption{LongMemEval-S per-task accuracy and task-averaged accuracy. Our task-averaged result is competitive with concurrent ENGRAM-class single-stage memory systems and outperforms the published full-context baseline by 15.4pp; other systems and different backbone/settings exceed this. Hindsight reports substantially higher LongMemEval-family results under different settings, but is omitted from the table to avoid treating that number as a controlled LongMemEval-S baseline. The single-session-preference category is our weakest, suggesting that short-window preference extraction is a capability gap rather than a long-horizon retention issue.}
 \label{tab:lme}
 \end{table}
 
-\subsection{Oracle Ceiling}
+\subsection{Oracle Evidence Context}
 \label{sec:eval-oracle}
 
-To bound the question of whether overall F1 reflects retrieval quality or answer-generation quality, we ran an oracle condition on LoCoMo: for each question, the ground-truth evidence sessions are provided directly as context, bypassing the memory system. Using the same Mem0-style answer prompt and \texttt{gpt-4o-mini} answer model, the oracle achieves F1 of 63.9\% (LoCoMo scoring) / 61.1\% (Mem0 scoring). Our memory-system F1 of 44.8\% is therefore approximately 70.0\% of the LoCoMo oracle ceiling, with the remaining gap attributable to a combination of retrieval quality (Section~\ref{sec:eval-retrieval}) and answer-generation noise.
+To separate retrieval quality from answer-generation quality, we ran an oracle evidence-context condition on LoCoMo: for each question, the ground-truth evidence sessions are provided directly as context, bypassing the memory system. Using the same Mem0-style answer prompt and \texttt{gpt-4o-mini} answer model, this condition achieves F1 of 63.9\% (LoCoMo scoring) / 61.1\% (Mem0 scoring). This is not a true upper bound on the task, since the answer model can still fail to use perfect evidence. It is a same-model, same-prompt evidence condition that contextualizes the tuned memory-system F1 of 46.2\%, with the remaining gap attributable to a combination of retrieval quality (Section~\ref{sec:eval-retrieval}) and answer-generation noise.
 
 \subsection{Decay Comparison: Exponential vs Power-Law}
 \label{sec:eval-decay}
 
 Power-law forgetting curves often fit human memory data better than exponential at long timescales \citep{murre2015replication, wixted2004psychology}. We added a power-law option to the decay model and compared the two on LoCoMo conv 0 with otherwise default v6 configuration.
 
-Power-law decay achieves F1 of 29.5\% on conv 0 versus exponential's 25.0\%, a +4.6pp improvement in the controlled decay comparison. This is consistent with the cognitive-science intuition that retention curves are heavier-tailed than exponential at long horizons. We retain exponential as the default in the published SDK because the gain is single-conversation and we have not characterised it across the full corpus.
+Power-law decay achieves F1 of 29.5\% on conv 0 versus exponential's 25.0\%, a +4.6pp improvement in this controlled decay comparison. This run isolates the decay functional form under a narrower configuration than the ablation table below. It is therefore a separate sensitivity check, not a duplicate of Table~\ref{tab:ablations}. We retain exponential as the default in the published SDK because the gain is single-conversation and we have not characterised it across the full corpus.
 
 \subsection{Ablations}
 \label{sec:eval-ablations}
 
-Table~\ref{tab:ablations} reports per-feature ablations on LoCoMo conv 0. Each row toggles one feature relative to the v6 default configuration; F1 is on the same conversation across conditions. The headline finding is that power-law decay is the largest positive contributor, followed by rerank and hybrid search; graph expansion is effectively neutral in this single-conversation slice.
+Table~\ref{tab:ablations} reports preliminary per-feature ablations on LoCoMo conv 0. Each row toggles one feature relative to the v6 default configuration; F1 is on the same conversation across conditions. This is a broader default-pipeline ablation than the isolated decay comparison in Section~\ref{sec:eval-decay}, which is why the power-law absolute scores differ. In this single-conversation slice, power-law decay is the largest positive contributor, followed by rerank and hybrid search; graph expansion is effectively neutral. These results motivate further full-corpus ablations rather than establishing causal effects across LoCoMo as a whole.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{@{}lccc@{}}
@@ -476,7 +494,7 @@ Hybrid search (BM25 + dense) & 42.3 & 43.9 & +1.7 \\
 Graph expansion (1 hop) & 43.1 & 43.2 & +0.0 \\
 \bottomrule
 \end{tabular}
-\caption{Per-feature ablations on LoCoMo conv 0. Power-law decay is the largest single contributor in this slice; reranking and hybrid search are also positive, while graph expansion is approximately neutral. These are point estimates on a single conversation; full-corpus multi-seed ablations are future work (Section~\ref{sec:future}).}
+\caption{Preliminary per-feature ablations on LoCoMo conv 0 under the default pipeline. Power-law decay is the largest single contributor in this slice; reranking and hybrid search are also positive, while graph expansion is approximately neutral. These are point estimates on a single conversation; full-corpus multi-seed ablations are future work (Section~\ref{sec:future}).}
 \label{tab:ablations}
 \end{table}
 
@@ -485,7 +503,7 @@ Graph expansion (1 hop) & 43.1 & 43.2 & +0.0 \\
 
 LoCoMo annotates each question with the ground-truth dialog evidence (e.g., session-turn IDs). We post-process the per-question retrieved memory contents and compute Recall@$k$: the fraction of questions where any retrieved memory at top-$k$ contains the evidence text (Table~\ref{tab:recall}). Coverage is 99.7\% (1535 of 1540 questions have annotated evidence).
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{@{}cc@{}}
@@ -498,18 +516,18 @@ $k$ & \textbf{Recall@$k$ (\%)} \\
 60 & 35.6 \\
 \bottomrule
 \end{tabular}
-\caption{Evidence Recall@$k$ on LoCoMo (n = 1535 questions with evidence annotations). Even at $k = 60$, only 35.6\% of questions have any retrieved memory containing the gold evidence. Our F1 of 44.8\% is achieved despite this, suggesting answer-model robustness compensates for partial retrieval.}
+\caption{Evidence Recall@$k$ on LoCoMo (n = 1535 questions with evidence annotations). Even at $k = 60$, only 35.6\% of questions have any retrieved memory containing the gold evidence under lexical containment matching. This likely undercounts semantically useful paraphrases and consolidated evidence, but still indicates retrieval is a bottleneck.}
 \label{tab:recall}
 \end{table}
 
-The discrepancy between Recall@60 (35.6\%) and our overall F1 (44.8\%) is informative: even when the gold evidence is not in the top 60 retrieved memories, the answer model frequently produces a correct answer from related context. Retrieval is the bottleneck, not answer generation; improvements to retrieval ranking would translate more directly to F1 gains than improvements to the answer prompt.
+The discrepancy between Recall@60 (35.6\%) and our tuned overall F1 (46.2\%) is informative but not conclusive. The lexical evidence-containment metric likely underestimates semantically useful retrieval, especially when memories are paraphrased or consolidated. At the same time, the low recall indicates that retrieval remains a major bottleneck. The oracle evidence-context condition in Section~\ref{sec:eval-oracle} also leaves answer-generation and answer-utilisation headroom, so the current evidence does not isolate retrieval as the sole limiting factor.
 
 \subsection{Efficiency}
 \label{sec:eval-efficiency}
 
 Table~\ref{tab:efficiency} reports per-stage timing from the SDK trace, aggregated across the LoCoMo run. Vector search is sub-100ms; scoring is sub-millisecond. Extraction (one LLM call per ingested turn) dominates wall time at $\sim$16s per turn. Rerank and answer generation timing live outside the SDK trace---rerank is in the adapter layer, answer is in the eval harness---and are deployment-dependent.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{@{}lccc@{}}
@@ -529,9 +547,9 @@ Scoring (per query) & 0.61 & 0.58 & 0.71 \\
 \subsection{Judge Reliability}
 \label{sec:eval-judge}
 
-The LoCoMo headline F1 numbers depend on a token-F1 score against gold answers, which is robust on its own. The LongMemEval-S task-averaged accuracy is more load-bearing because it is judge-mediated. To check that the judge is consistent under prompt perturbation, we sampled 50 question-answer pairs stratified by category and correctness (8 buckets) from the LoCoMo run and re-judged with an alternative ``EQUIVALENT vs DIFFERENT'' prompt formulation.
+The LoCoMo headline F1 numbers depend on a token-F1 score against gold answers, which is robust on its own. LongMemEval-S and LTI-Bench are more load-bearing because they are judge-mediated. As a local sanity check, we sampled 50 question-answer pairs stratified by category and correctness (8 buckets) from the LoCoMo run and re-judged with an alternative ``EQUIVALENT vs DIFFERENT'' prompt formulation.
 
-We observe Cohen's $\kappa$ of 0.879 with 94\% raw agreement; 3 of 50 pairs disagreed. The judge is therefore reliable enough that judge-prompt details are unlikely to drive headline judge-mediated numbers within the precision we report.
+We observe Cohen's $\kappa$ of 0.879 with 94\% raw agreement; 3 of 50 pairs disagreed. This supports local prompt stability for the sampled checks, but it is not a full validation of the LongMemEval-S judge distribution and does not remove broader cross-paper comparability concerns around judge model, rubric, answer format, and retrieval budget.
 
 \subsection{LTI-Bench: Architectural Test}
 \label{sec:eval-lti}
@@ -553,7 +571,7 @@ The harness probes the system with 42 questions across eight probe types. Sessio
 
 \paragraph{Results.} Table~\ref{tab:lti} reports per-category accuracy and F1. Overall accuracy is 88.1\% across 42 probes; F1 is 69.7\%.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{@{}lccc@{}}
@@ -583,35 +601,44 @@ associative & 5 & 60.0 & 38.7 \\
     \item \emph{Emergent core promotion fires aggressively.} 66 of 85 stored memories (78\%) reach core status by day 30, including all 8 explicitly-tagged critical facts. The 78\% rate is high enough to flag in Section~\ref{sec:limitations} as a possible threshold-tuning issue.
     \item \emph{Conflict-driven supersession works.} All four updated facts return the post-update version at probe time after day 30; all four return the original (pre-update) version when probed at the time it was current (day 10--15 probes).
     \item \emph{Revival is partial.} 3 of 5 revival probes correctly retrieve a memory mentioned once and never re-accessed when prompted with an oblique cue. The failures show that decay floors preserve recoverability under direct probes, but oblique cues still depend on retrieval phrasing and ranking.
-    \item \emph{Associative retrieval is partial.} The two associative failures reflect a real limitation: a query like ``what do you know about my family?'' surfaces one of three family-related facts rather than the full cluster. A direct probe for any individual family fact succeeds; the failure is specifically in cross-fact recall, suggesting that single-shot retrieval surfaces a subset of an association cluster rather than the full set.
+    \item \emph{Associative retrieval is partial.} The two associative failures reflect a real limitation: a query like ``what do you know about my family?'' surfaces one of three family-related facts rather than the full cluster. A direct probe for any individual family fact succeeds; the failure is specifically in cross-fact recall, suggesting that the current association mechanism is an architectural scaffold whose downstream retrieval benefit is not yet strongly demonstrated.
 \end{itemize}
 
-The 42-probe sample is too small for strong statistical claims, and the scenario is hand-authored, so LTI-Bench is best read as a confirmatory architectural test rather than a generalisation benchmark. We report it because the benchmark categories above (LoCoMo, LongMemEval-S) measure end-to-end QA performance and do not directly probe the lifecycle properties this paper argues for.
+The 42-probe sample is too small for strong statistical claims, and the scenario is hand-authored, so LTI-Bench is best read as a confirmatory architectural test rather than a generalisation benchmark. The 78\% core-promotion rate should be read as a likely threshold-tuning failure mode, not as a success criterion. We report LTI-Bench because the benchmark categories above (LoCoMo, LongMemEval-S) measure end-to-end QA performance and do not directly probe the lifecycle properties this paper argues for.
+
+\section{Responsible Memory and User Control}
+\label{sec:responsible-memory}
+
+Agent memory systems store facts about people: names, family relationships, preferences, work context, locations, medical details, and other identity-bearing information. A preservation-first architecture therefore needs product and deployment constraints, not only retrieval mechanics. The SDK treats deletion, stubbing, and deep recall as policy surfaces that applications must expose deliberately.
+
+In production deployments, users should be able to inspect stored memories, delete individual memories, disable memory, and request deletion of cold records and stubs as well as hot records. Sensitive categories such as medical, legal, financial, identity, and location facts should require stricter extraction policy, shorter retention defaults, or explicit user confirmation depending on the application domain. Cold storage and reversible consolidation should not be interpreted as a right to retain everything indefinitely: they are mechanisms for avoiding accidental information loss within a configured dormancy window, not a substitute for consent, data minimisation, encryption, access control, and retention policy.
+
+Deep recall is also a user-control issue. Because it intentionally widens retrieval to include cold and superseded records, applications should reserve it for explicit user requests, audit workflows, or agent actions with clear justification. A consumer-facing agent should not silently use deep recall to surface sensitive or previously superseded memories in ordinary conversation. The benchmark harness exercises deep recall as an architectural capability; deployment policy must decide when that capability is appropriate.
 
 \section{Limitations and Open Questions}
 \label{sec:limitations}
 
 We are candid about the current limitations of this work:
 
-\paragraph{Parameter choices are heuristic.} The specific values used throughout---stability increments of 0.1 (direct) and 0.03 (associative), decay floors of 2\% and 60\%, base decay rates of 30 and 90 days, core promotion thresholds of 0.85 stability and 10 accesses across 3 sessions, the 0.5$\times$ deep recall penalty, the 90-day association decay constant, and the consolidation similarity threshold of 0.7---are informed guesses based on cognitive science analogies and manual tuning. They are not derived from principled optimisation. This paper is an architecture description; a subsequent empirical study using production audit logs will examine whether these values are reasonable and where they need adjustment.
+\paragraph{Most parameter choices remain heuristic.} The v0.5 SDK release empirically tunes three defaults: \texttt{associative\_boost} moves from 0.03 to 0.05, semantic base decay from 120 to 240 days, and \texttt{core\_session\_threshold} from 3 to 2. These changes are grounded in the Phase 0g--5 logs and validated by the full-LoCoMo head-to-head in Table~\ref{tab:locomo}. Other values---the direct boost of 0.1, decay floors of 2\% and 60\%, core promotion stability/access thresholds, the 0.5$\times$ deep recall penalty, the 90-day association decay constant, and the consolidation similarity threshold of 0.7---remain informed guesses based on cognitive science analogies and manual tuning. This paper is an architecture description; a subsequent empirical study using production audit logs will examine whether these values are reasonable and where they need adjustment.
 
 \paragraph{Deferred conflict handling.} Conflict handling is implemented as a queued maintenance process rather than an inline ingestion step. During ingestion, highly similar cross-session memories are queued as conflict candidates; \texttt{tick()} processes the queue with an LLM classifier using FadeMem's contradiction/update/overlap taxonomy \citep{wei2026fademem}. For contradictions or updates, the older record is linked to the newer one via \texttt{contradictedBy}; if the older record was core, its category is demoted so its floor drops from 60\% to 2\%. This avoids the O($N^2$) inline LLM bottleneck we observed during early LoCoMo runs, while still allowing corrected facts to supersede stale ones. The limitation is operational rather than conceptual: conflict resolution depends on maintenance cadence and queue processing, so a newly contradicted fact may persist until the next tick.
 
 \paragraph{Single-seed evaluation.} The benchmark numbers reported in Section~\ref{sec:evaluation} come from a single run per condition; we do not characterise variance across seeds. Concurrent systems we compare against \citep{chhikara2024mem0, wei2026fademem, patel2025engram} also report single-seed results, so the comparison is internally consistent, but absolute differences within a few percentage points should be read accordingly. Multi-seed evaluation is planned future work.
 
-\paragraph{LongMemEval-S only.} We evaluate on the Small variant of LongMemEval (500 questions, $\sim$53 haystack sessions per question) and not on the Medium or Oracle variants. The Medium variant has roughly an order of magnitude larger haystack and would require multi-day wall-clock time and substantially higher API spend; we treated single-S as sufficient given that it already lands within $\sim$1.2pp of the strongest concurrent baseline at the time of running (ENGRAM, \citealt{patel2025engram}). Newer systems posted shortly after our run window---TiMem~\citep{li2026timem} and EverMemOS~\citep{hu2026evermemos}---now exceed our LongMemEval-S accuracy; we discuss this in Section~\ref{sec:evaluation}.
+\paragraph{LongMemEval-S only.} We evaluate on the Small variant of LongMemEval (500 questions, $\sim$53 haystack sessions per question) and not on the Medium or Oracle variants. The Medium variant has roughly an order of magnitude larger haystack and would require multi-day wall-clock time and substantially higher API spend; we treated single-S as sufficient because it placed the system within 0.2pp of the closest concurrent baseline at the time of running (ENGRAM, \citealt{patel2025engram}). Recent or differently configured systems posted around our publication window---TiMem~\citep{li2026timem}, EverMemOS~\citep{hu2026evermemos}, MAGMA~\citep{jiang2026magma}, Hindsight~\citep{latimer2025hindsight}, and All-Mem~\citep{lv2026allmem}---now exceed or complicate our LongMemEval-S/LoCoMo positioning; we discuss this in Section~\ref{sec:evaluation}.
 
 \paragraph{Ablations on a single LoCoMo conversation.} The feature ablations in Section~\ref{sec:evaluation} (hybrid search, graph expansion, rerank, decay model) are run on conversation 0 only, not the full ten-conversation corpus. This was a cost choice: each ablation condition runs the full memory pipeline and the differences we observe are point estimates, not population estimates. Effect signs and rough magnitudes are likely informative; precise pp values are not.
 
 \paragraph{Controlled LTI-Bench is small-sample and synthetic.} Our LTI-Bench harness uses a hand-authored 30-day scenario with 28 facts and 42 probes across 8 probe types (Section~\ref{sec:eval-lti}). The scenario gives controlled access to the architectural properties the paper claims (decay floors, emergent core, conflict-driven supersession, time-aware retrieval), but the per-category sample sizes (n=4--8) are too small to support strong statistical claims about general-purpose conversational performance. We treat LTI-Bench as a confirmatory architectural test, not a generalisation benchmark.
 
-\paragraph{Run provenance.} The active LoCoMo, oracle, derived-analysis, and LTI-Bench numbers come from the May 2026 current-refresh artifacts. The active LongMemEval-S number comes from the completed 500-question benchmark artifact recorded in the run log. The SDK was installed from local source after the v6 behavior fixes, and the benchmark repository records exact commands, timestamps, output paths, commit identifiers, and dirty-worktree status in \texttt{experimentlog.md}. The final archival release should tag the exact SDK and benchmark commits used for the reported numbers.
+\paragraph{Run provenance.} Active benchmark numbers come from two logged artifact families: the May 2026 current-refresh artifacts for LongMemEval-S, LTI-Bench, oracle, retrieval, efficiency, judge reliability, and ablations; and the Phase 5 full-LoCoMo head-to-head for the tuned LoCoMo headline. The provenance source is therefore the artifact path plus commit/log chain, not the package version string alone. The final LoCoMo row traces to \texttt{tuning/runs/phase5/v05\_tuned/}, benchmark commit \texttt{82f08c2}, and SDK commit \texttt{707758d}; current-refresh results trace to the paths listed in Code Availability.
 
 \paragraph{Consolidation clustering is underspecified.} As noted in Section~\ref{sec:consolidation}, the consolidation mechanism clusters fading memories by semantic similarity and compresses groups into summaries. The current implementation computes pairwise cosine similarity between embeddings of fading memories and groups those exceeding a threshold (default: 0.7); the grouping size of five is a configurable parameter chosen to balance summary coherence against information density. However, the LLM that performs compression lacks a principled framework for deciding what to preserve and what to discard. It is making editorial judgments about salience without ground truth, and the resulting summaries are lossy even though the originals are now retained in cold storage.
 
-\paragraph{The preservation-first assumption is debatable.} As noted in Section~\ref{sec:tiered}, our preservation-first policy is grounded in the accessibility hypothesis---the view that forgetting primarily reflects retrieval failure rather than storage loss \citep{tulving1966availability}. This view is currently dominant, but there is evidence for genuine \emph{intrinsic forgetting}: active molecular mechanisms that degrade memory traces at the synaptic level \citep{davis2017biology}. Some memories may be truly erased, not merely made inaccessible. Our policy is a pragmatic engineering choice: for an AI system where text storage is cheap and information loss is irreversible, erring on the side of preservation is defensible even if the biological analogy is imperfect. The current SDK therefore separates retention decay from storage policy: decay floors prevent score collapse, cold migration controls index size, and a configurable cold-storage TTL can convert very old cold records into stubs.
+\paragraph{The preservation-first assumption is debatable.} As noted in Section~\ref{sec:tiered}, our preservation-first policy follows the accessibility hypothesis: forgetting often reflects retrieval failure rather than storage loss \citep{tulving1966availability}. There is also evidence for genuine \emph{intrinsic forgetting}, where active molecular mechanisms degrade memory traces \citep{davis2017biology}. Some memories may be erased, not merely made inaccessible. Our policy is pragmatic: text storage is cheap, information loss is irreversible, and the SDK can separate retention decay from storage policy. Decay floors prevent score collapse, cold migration controls index size, and a configurable cold-storage TTL can convert very old cold records into stubs.
 
-\paragraph{Core memory thresholds are arbitrary.} The thresholds for emergent core promotion (10 accesses, stability $\geq 0.85$, 3 distinct sessions) are configurable but not empirically validated. Too low, and trivial memories get promoted; too high, and genuinely important memories remain unprotected.
+\paragraph{Core memory thresholds remain unsettled.} The thresholds for emergent core promotion (10 accesses, stability $\geq 0.85$, and a configurable cross-session threshold) are only partially empirically validated. Phase 2 suggests the old threshold of 3 sessions underperforms thresholds of 1--2 in the joint search, and v0.5 ships a threshold of 2. Too low, however, and trivial memories get promoted; too high, and genuinely important memories remain unprotected. LTI-Bench makes this risk concrete: 66 of 85 stored memories (78\%) become core by day 30. That is likely too aggressive for a production memory system and should be treated as a threshold-tuning problem, not a desirable outcome.
 
 \paragraph{Scalability of associative graph.} The associative linking mechanism could produce a dense graph over time. Association weight decay (Section~\ref{sec:associations}) mitigates unbounded growth by allowing unused associations to fall below the retrieval threshold, but we have not yet characterised the scaling behaviour at production volumes or determined whether explicit pruning of weak associations is necessary.
 
@@ -621,30 +648,39 @@ We are candid about the current limitations of this work:
 Our immediate priorities are:
 
 \begin{enumerate}
-    \item \textbf{Production-data validation.} Using audit logs from \texttt{blah.chat} to validate or invalidate parameter choices: do memories actually follow Ebbinghaus-like curves under real usage; how many retrievals does it take for stability to plateau; what is the revival rate for faint memories.
+    \item \textbf{Production-data validation and privacy review.} Using audit logs from \texttt{blah.chat} to validate or invalidate parameter choices only after appropriate consent, minimisation, and privacy review: do memories actually follow Ebbinghaus-like curves under real usage; how many retrievals does it take for stability to plateau; what is the revival rate for faint memories.
     \item \textbf{Multi-seed and full-corpus ablations.} Re-running the ablation conditions in Section~\ref{sec:evaluation} across multiple seeds and across the full ten-conversation LoCoMo corpus, to convert the current point-estimate effect sizes into population estimates.
+    \item \textbf{Cross-benchmark validation of tuned defaults.} Phase 5 validates v0.5 defaults on full LoCoMo. LongMemEval-S should be rerun as a v0.4/v0.5 head-to-head before claiming the same defaults generalise across benchmark families.
     \item \textbf{Strengthening associative retrieval.} The LTI-Bench results (Section~\ref{sec:eval-lti}) flag associative retrieval as the weakest probe category: cross-fact queries return a subset of the relevant cluster rather than the full cluster. Candidate fixes include explicit graph-walk expansion at retrieval time, broader top-$k$ for associative-typed queries, and a query classifier that routes ``what do you know about $X$'' style queries to a different retrieval policy.
     \item \textbf{Cross-model generalisation.} Our evaluation uses gpt-4o-mini as the answer model and gpt-4o-2024-08-06 as the judge throughout. We have not characterised how the system performs with a Claude or Llama answer model, or whether the judge-model choice itself influences relative rankings.
-    \item \textbf{LongMemEval-M and Oracle.} Extending evaluation to the larger LongMemEval variants for a stronger comparison against newer systems such as TiMem and EverMemOS.
+    \item \textbf{LongMemEval-M and Oracle.} Extending evaluation to the larger LongMemEval variants for a stronger comparison against recent systems such as TiMem, EverMemOS, MAGMA, Hindsight, and All-Mem.
 \end{enumerate}
 
 \section{Conclusion}
 
 Forgetting in agent memory is not unsolved, but it is unsettled. Multiple systems now implement decay mechanisms inspired by cognitive science, and no single approach has emerged as dominant. This paper contributes to that active conversation by describing an architecture with several specific design commitments: that memories should not be pruned simply because they are currently inaccessible, that core status should be earnable through use rather than only assignable at extraction, that retrieval should produce differentiated reinforcement depending on whether access was direct or associative, and that associative links between memories should themselves be dynamic.
 
-These commitments are grounded in specific cognitive science mechanisms, implemented in open-source software, and deployed in a production application. Section~\ref{sec:evaluation} provides a first empirical pass: on LoCoMo we recover an overall F1 of 44.8\% with multi-hop F1 of 48.5\% (1.7$\times$ Mem0's reported multi-hop number); on LongMemEval-S we reach 70.2\% task-averaged accuracy, competitive with ENGRAM-class single-stage memory systems but behind newer architectures published after our run window; ablations indicate that power-law decay is the single largest contributor (+3.2pp on conv 0 in the ablation runner, +4.6pp in the controlled decay comparison); a controlled long-term-interaction harness shows 100\% retention of identity-critical facts across a 30-day mixed-access window, with 78\% of stored memories promoted to core. The numbers do not unambiguously settle whether decay floors and emergent core promotion improve downstream task performance over alternative architectures; they do indicate that the architecture is competitive at single-stage memory retrieval and that the specific architectural commitments behave as designed under controlled tests.
+These commitments are grounded in specific cognitive science mechanisms, implemented in open-source software, and deployed in a production application. Section~\ref{sec:evaluation} provides a first empirical pass: on LoCoMo the tuned v0.5 defaults recover an overall F1 of 46.2\% with multi-hop F1 of 51.3\% (1.8$\times$ Mem0's reported multi-hop number), improving over the paper-faithful v0.4 row by +1.87pp F1 and +2.73pp LLM-judge accuracy; on LongMemEval-S we reach 71.6\% task-averaged accuracy, competitive with ENGRAM-class single-stage memory systems but behind higher-scoring or differently configured architectures published around the same window; preliminary single-conversation ablations show decay-function sensitivity in that slice (+3.2pp on conv 0 in the ablation runner, +4.6pp in the controlled decay comparison); a controlled long-term-interaction harness shows 100\% retention of identity-critical facts across a 30-day mixed-access window, while also exposing likely over-promotion to core status. The numbers do not unambiguously settle whether decay floors and emergent core promotion improve downstream task performance over alternative architectures; they do indicate that the architecture is competitive at single-stage memory retrieval and that the specific architectural commitments behave as designed under controlled tests.
 
 \subsection*{Code Availability}
 
 The \texttt{cognitive-memory} package and the simulation code used to generate Figures~\ref{fig:boosting}, \ref{fig:monte_carlo}, and~\ref{fig:cold_storage} are available at:
 
 \begin{itemize}
-    \item SDK (TypeScript and Python): \href{https://github.com/planetaryescape/cognitive-memory}{planetaryescape/cognitive-memory}
-    \item Benchmarks code and per-run JSON results: \href{https://github.com/planetaryescape/cognitive-memory-benchmarks}{planetaryescape/cognitive-memory-benchmarks}
-    \item npm: \texttt{cognitive-memory} \quad PyPI: \texttt{cognitive-memory}
+\raggedright
+    \item SDK (TypeScript and Python): \href{https://github.com/planetaryescape/cognitive-memory}{https://github.com/planetaryescape/cognitive-memory}
+    \item Benchmarks code and per-run JSON results: \href{https://github.com/planetaryescape/cognitive-memory-benchmarks}{https://github.com/planetaryescape/cognitive-memory-benchmarks}
+    \item Paper source and PDF: \href{https://github.com/planetaryescape/cognitive-memory-benchmarks/tree/main/paper}{https://github.com/planetaryescape/cognitive-memory-benchmarks/tree/main/paper}
+    \item Main LoCoMo artifact: \texttt{tuning/runs/phase5/v05\_tuned/aggregate.json} and per-conversation \texttt{conv*.json}
+    \item LoCoMo v0.4/v0.5 comparison: \texttt{tuning/runs/phase5/summary.json}
+    \item Main LongMemEval-S artifact: \texttt{longmemeval/results/current\_sdk\_20260505/primary.json}
+    \item Main LTI-Bench artifact: \texttt{lti/results/current\_sdk\_20260505/run\_l\_v2.json}
+    \item Experiment provenance: \texttt{experimentlog\_v2.md}, \texttt{docs/milestones/}, \texttt{tuning/runs/runs.jsonl}, and per-trial \texttt{tuning/runs/lti-*}
+    \item npm package: \texttt{cognitive-memory} (latest public release \texttt{0.5.0})
+    \item PyPI package: \texttt{cognitive-memory} (latest public release \texttt{0.5.0})
 \end{itemize}
 
-The evaluation in Section~\ref{sec:evaluation} uses the benchmark artifacts recorded in the benchmarks repository's \texttt{experimentlog.md}. LoCoMo, oracle, derived analyses, and LTI-Bench use the May 2026 current-refresh artifacts; LongMemEval-S uses the completed 500-question artifact recorded in the same log.
+The evaluation in Section~\ref{sec:evaluation} uses the May 2026 current-refresh artifacts plus the Phase 5 full-LoCoMo v0.4/v0.5 head-to-head recorded in the benchmarks repository. LongMemEval-S and LTI-Bench numbers remain current-refresh results; the LoCoMo headline row is the later v0.5 tuned-default result.
 
 \bibliographystyle{plainnat}
 \bibliography{references}
