@@ -1,0 +1,11 @@
+{
+  "alpha": 0.05,
+  "ci_high": 0.5781966200021577,
+  "ci_low": 0.5037581497379712,
+  "mean": 0.5409773848700644,
+  "metric": "locomo-f1",
+  "n_boot": 10000,
+  "n_units": 5,
+  "source": "tuning/runs/locomo-0001/run-00/result.json",
+  "unit": "conversation"
+}
