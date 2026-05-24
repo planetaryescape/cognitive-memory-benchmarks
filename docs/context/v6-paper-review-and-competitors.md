@@ -38,7 +38,7 @@ Strong axis for this paper:
 Canonical local results:
 
 - LoCoMo Run A: 44.8 overall token F1, 48.5 multi-hop token F1, 59.4 LLM judge, 1540 QA.
-- LongMemEval-S Run B: 70.2 task-average, 72.8 overall. Near ENGRAM 71.4 task-average, not a clear surpass claim.
+- LongMemEval-S CR-B: 71.6 task-average, 72.6 overall. Effectively tied with ENGRAM 71.4 task-average, not a leaderboard claim because newer systems exceed both.
 - Decay comparison Run C: power-law 30.4 vs exponential 26.8 on LoCoMo conv0, +3.6 F1.
 - Oracle evidence Run E: 63.9 LoCoMo F1 with Mem0-style prompt re-run. Call this an oracle evidence baseline unless prompt/settings exactly match the main run.
 - Judge reliability: kappa 0.879, 94% raw agreement, 3 disagreements.
@@ -47,9 +47,9 @@ Do not cite evidence Recall@k, utilization probe, or efficiency table as complet
 
 ## Paper Fact-Check Fixes
 
-- `0.02^0.3 ~= 0.309`, not 0.29.
-- Effective floor multiplier is `0.309 / 0.02 ~= 15.5x`, not 14.5x.
-- With similarity 0.9, score is `0.9 * 0.309 ~= 0.278`, not 0.26.
+- `0.02^0.3 ~= 0.309`.
+- Effective floor multiplier is `0.309 / 0.02 ~= 15.5x`.
+- With similarity 0.9, score is `0.9 * 0.309 ~= 0.278`.
 - If `beta_c` appears in the denominator of `exp(-dt / (S B beta_c))`, it is a time constant, not a decay rate. Larger `beta_c` slows forgetting.
 - Avoid “one extraction call + one answer call” when reranking is enabled. Use: ingestion-time extraction call, query-time answer call, optional query-time rerank call.
 - Avoid “no external databases.” Use: no managed external vector DB required for reported experiments; local backend used.
@@ -101,4 +101,3 @@ Working interpretation:
 Safe related-work phrasing:
 
 > Supermemory reports strong LongMemEval-S performance using an open benchmark harness, but strict apples-to-apples comparison is limited by provider-specific retrieval budgets, answer prompts, and judge implementation details.
-

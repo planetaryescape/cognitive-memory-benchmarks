@@ -25,7 +25,7 @@ Even with the LLM judge, 2 of 4 v2 LTI failures were over-strict ("April 1, 2024
 
 ### Judge reliability is load-bearing — measure it
 
-Run M established κ = 0.919 inter-prompt agreement on 50 stratified samples. Without that number, the LongMemEval-S 70.2% headline would be hand-wavy. With it, we can defend the judge as the headline metric.
+Current-refresh judge reliability established κ = 0.879 inter-prompt agreement on 50 stratified LoCoMo samples. This is a useful local sanity check, not validation of the LongMemEval-S judge distribution. Before a peer-reviewed submission, run the same reliability check on LongMemEval-S.
 
 **Lesson:** If the headline depends on a judge, measure inter-prompt or inter-judge reliability as a separate run.
 
@@ -88,7 +88,7 @@ When the benchmark eval was actually done in March, none of these were updated f
 
 ## 7. Stale SOTA claims age fast
 
-The paper draft positioned 70.2% LongMemEval-S as "near ENGRAM SOTA". By the time we updated the paper (2 months later), TiMem (76.88%) and EverMemOS (83.0%) had been published. The framing was already obsolete.
+The paper draft first positioned an older LongMemEval-S result as "near ENGRAM SOTA"; the current refresh now reports 71.6%, within 0.2pp of ENGRAM. By the time we updated the paper, TiMem (76.88%) and EverMemOS (83.0%) had been published. The framing was already obsolete if written as SOTA.
 
 **Lesson:** SOTA claims in long-horizon ML benchmarks have a short shelf life. Either:
 1. Frame as "competitive with $X$-class systems" (positions on a class, not a number).
@@ -134,7 +134,7 @@ Run A and Run B both hit OpenAI quota mid-run. Both resumed cleanly because `loc
 
 ## 13. The "near-SOTA without tuning" framing
 
-We chose not to do benchmark-specific tuning for LongMemEval-S. With 70.2% / ENGRAM 71.4%, this is a 1.2pp gap that could plausibly close with a few task-specific knob adjustments. We didn't, and we said so in the paper.
+We chose not to do benchmark-specific tuning for LongMemEval-S. With 71.6% / ENGRAM 71.4%, the current refresh is within 0.2pp without task-specific knob adjustments. We still avoid leaderboard framing because newer systems exceed both.
 
 This is a deliberate framing choice. It says "the architecture works in default config" rather than "we got 71.5% by tuning." The trade-off: we could have plausibly beaten ENGRAM with tuning, and we'd have a stronger headline. We chose the cleaner story.
 
@@ -148,7 +148,7 @@ Ablation H showed `hybrid_search: true` (BM25 + dense union) loses 1.1pp on LoCo
 
 ## 15. Power-law decay > exponential, by a lot
 
-Ablation K showed power-law decay gives +3.6pp F1 on conv 0 vs exponential. This is the largest single-feature contribution in the ablation table.
+Ablation K and the later current-refresh sensitivity runs both point in the same direction: power-law decay helps on conv 0. Treat this as a single-conversation signal, not a settled full-corpus result.
 
 This is consistent with cognitive science: human retention curves are heavy-tailed at long horizons; exponential underestimates retention for old memories. The paper's "decay floors never reach zero" claim partially captures this, but power-law captures it more precisely.
 

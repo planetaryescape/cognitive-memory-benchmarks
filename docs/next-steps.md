@@ -1,6 +1,18 @@
 # Next Steps
 
+> Historical handoff from the May 2026 refresh. Some items below describe work
+> that has since been completed. Use `docs/current-refresh-20260505.md`,
+> `docs/benchmarks-overview.md`, and `docs/paper.md` for current paper and
+> benchmark truth.
+
 Explicit handoff for the next session — what's queued, what's blocked on what, and what we deliberately deferred.
+
+## Current arXiv readiness snapshot
+
+- Current PDF: `paper/cognitive-memory-arxiv-paper-v2.pdf`
+- Current source bundle: `paper/arxiv-source/cognitive-memory-arxiv-source-20260511.tar.gz`
+- Current build status: clean `tectonic paper.tex` build; no underfull/overfull boxes, no unresolved refs, no unresolved citations.
+- Remaining manual work: final human PDF proofread, arXiv UI metadata entry, generated-preview check, and recording the arXiv ID after submission.
 
 ## 1. State as of 2026-05-05 close-of-session
 
@@ -21,10 +33,10 @@ Explicit handoff for the next session — what's queued, what's blocked on what,
 - SDK repo: 3 untracked files (`package.json` (just `{}`), `package-lock.json`, `sdks/typescript/package-lock.json`). All probably noise.
 - Benchmarks repo: significant — 2 untracked log files (`experimentlog.md`, `experimentlog_v2.md`), 3 modified files (`locomo/locomo_eval.py`, `longmemeval/results/cm_full_run.json`, `shared/adapter.py`), and ~25 untracked files including all Run A–M result JSONs, ablation scripts, post-processing scripts, paper PDFs, paper update plan, this whole `docs/` directory, `lti/lti_bench.py` changes, `lti/results/v6_run_l*.{json,log}`.
 
-🟡 Pending decisions:
+🟡 Historical pending decisions at the time:
 - Whether to commit the benchmarks-repo working state (everything noted above) or keep the repo as a working area with tight gitignore.
-- Whether to fix the cosmetic LaTeX hbox warnings before final arXiv submission.
-- Whether to copy figure PDFs into `paper/` permanently (current state) or use `\graphicspath{{../simulations/}}` and remove the copies.
+- Whether to fix the cosmetic LaTeX hbox warnings before final arXiv submission. **Resolved:** fixed in the current May 7 build.
+- Whether to copy figure PDFs into `paper/` permanently (current state) or use `\graphicspath{{../simulations/}}` and remove the copies. **Resolved:** source bundle is standalone with figure PNGs.
 
 ## 2. Highest-priority pickups
 
@@ -52,15 +64,9 @@ The benchmarks repo has months of valuable research work uncommitted. Best order
 
 4. **Push.** `git push origin main` on each repo.
 
-### 2.2 Resolve cosmetic LaTeX warnings (~30 minutes)
+### 2.2 Resolve cosmetic LaTeX warnings
 
-In `paper/paper.tex`:
-- Line 317–332: FadeMem comparison table has long URLs causing underfull hbox. Solutions: `\sloppy` in scope, or `\url{}` with `\urlstyle{tt}` and breaks, or shorten the comparison text.
-- Line 385: Limitations paragraph has 98pt overflow. Probably one specific embedded inline citation or punctuation. Reword the offending sentence.
-- Line 590: Evaluation paragraph 2.9pt overflow — minor, may not even need fixing.
-- Line 643: Code Availability long URL. Wrap in `\nolinkurl` or add explicit linebreak.
-
-After fixing, rebuild with `cd paper && tectonic paper.tex && mv paper.pdf cognitive-memory-arxiv-paper-v2.pdf`.
+Resolved in the May 7 build. `tectonic paper.tex` now completes without underfull or overfull box diagnostics.
 
 ### 2.3 Final paper read-through (~1 hour)
 
@@ -110,7 +116,7 @@ This contrast story would strengthen the paper's architectural claims significan
 
 ### 3.3 Multi-seed Run A (3 days, ~$300)
 
-Run A on 3 different seeds, characterise variance. Convert the 44.8% F1 from a point estimate to "44.8% ± 1.X%". Same for multi-hop F1.
+Run full LoCoMo on 3 different seeds, characterise variance. Convert the 46.2% F1 from a point estimate to "46.2% +/- 1.X%". Same for multi-hop F1.
 
 This is paper-quality but expensive. Defer unless we're targeting a venue that requires it (e.g., a top-tier conference vs arXiv).
 
@@ -120,17 +126,17 @@ LongMemEval-M has ~10× the haystack of -S. Running it would let us compare dire
 
 Currently the dataset isn't in `longmemeval/data/` — would need to download. The runner script (`run_longmemeval.py`) already supports arbitrary data files.
 
-### 3.5 SDK release v0.3.0 to PyPI/npm (~2 hours)
+### 3.5 SDK release
 
-The persistence-bug fixes and deferred conflict resolution are on `main` but not released. Run the release-please workflow (it's configured per `905aba7`). PyPI v0.2.0 is from 9 March; the fixes have been sitting in main since 11–12 March.
+Check the SDK repository before acting. This note was written during the March/May refresh and may no longer reflect package state.
 
 If we publish, update the paper's Code Availability section with the release date.
 
 ## 4. Low-priority / nice-to-have
 
-### 4.1 LongMemEval-S re-run on SDK v0.3.0
+### 4.1 LongMemEval-S current refresh
 
-We currently report Run B numbers from v0.2.0. If the persistence bugs affected LongMemEval (they probably did — the `single-session-preference` 36.7% might benefit from working stability reinforcement), re-running on v0.3.0 might bump the headline. Cost: ~11h wall, ~30M tokens.
+Complete. Current paper/docs use CR-B: 71.6% task-averaged accuracy, 72.6% overall accuracy, 90.0% abstention.
 
 ### 4.2 LoCoMo full ablations (not just conv 0)
 

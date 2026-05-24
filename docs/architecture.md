@@ -275,15 +275,15 @@ Based on the empirical evaluation in the paper:
 
 **Strengths.**
 - 100% retention of identity-critical facts across a 30-day mixed-access window (LTI-Bench v2) vs FadeMem 82.1%.
-- Multi-hop F1 of 48.5% on LoCoMo, ~1.7× Mem0's 28.4%. Multi-hop is the category where decay floors and emergent core have the largest plausible benefit, and that's where we win biggest.
-- Power-law decay gives +3.6pp on LoCoMo conv 0 — the single largest single-feature contribution measured.
-- 70.2% task-averaged accuracy on LongMemEval-S, within 1.2pp of ENGRAM (the strongest concurrent single-stage baseline at the time of running) without any benchmark-specific tuning.
+- Multi-hop F1 of 51.3% on LoCoMo, ~1.8x Mem0's 28.4%. The v0.4 paper-faithful row was 48.5%, so the tuned defaults improve the strongest category without changing the benchmark adapter.
+- Power-law decay has the largest positive point estimate in the single-conversation ablation runner (+3.2pp) and the separate isolated decay-shape sensitivity run (+4.6pp), but both need full-corpus validation.
+- 71.6% task-averaged accuracy on LongMemEval-S, within 0.2pp of ENGRAM (the strongest concurrent single-stage baseline at the time of running) without any benchmark-specific tuning.
 
 **Weaknesses.**
 - **Associative retrieval is partial.** LTI-Bench v2 shows the system returning 1 of 3 family-related facts when queried with "what do you know about my family?". A direct probe for any individual fact succeeds; the failure is specifically in cross-fact / cluster recall.
 - **Hybrid search hurts on conversational text** (-1.1pp on conv 0). BM25 introduces noise on natural-language turns that dense embeddings handle better. Hybrid is off by default.
 - **Behind newer multi-stage architectures.** TiMem (76.88%) and EverMemOS (83.0%) post-date our run window and exceed our LongMemEval-S accuracy. We're competitive with single-stage memory systems; we are not benchmark-leading on LongMemEval-S as of mid-2026.
-- **Single-session-preference is the weak task on LongMemEval-S** (36.7%). Suggests preference extraction in short windows is a capability gap distinct from the long-horizon retention story.
+- **Single-session-preference is the weak task on LongMemEval-S** (46.7%). Suggests preference extraction in short windows is a capability gap distinct from the long-horizon retention story.
 
 ## 11. Reading order for someone new to the architecture
 

@@ -99,9 +99,9 @@ Use `experimentlog.md` as the source of truth.
 
 Canonical comparison points currently captured there:
 
-- LoCoMo Run A: overall F1 44.8%, multi-hop F1 48.5%.
+- LoCoMo Phase 5 v0.5 tuned default: overall F1 46.2%, multi-hop F1 51.3%.
 - Published multi-hop baselines: FadeMem 29.43%, Mem0 28.37%, MemGPT 9.46%.
-- LongMemEval-S Run B: task-averaged accuracy 70.2%.
+- LongMemEval-S CR-B: task-averaged accuracy 71.6%.
 - LTI-Bench Run L v2: overall 88.1% accuracy, F1 69.7%, critical retention 100%, 66/85 core.
 - LTI critical-retention comparison: 100% vs FadeMem 82.1%.
 

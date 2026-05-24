@@ -12,6 +12,7 @@ These are **operator notes**, not the public-facing docs. The public Astro docs 
 | [`sdk-internals.md`](./sdk-internals.md) | Code-level walkthrough: file map, retrieval pipeline stages with line refs, ingestion pipeline, conflict resolution architecture, TS vs Python divergences. |
 | [`repo-layout.md`](./repo-layout.md) | Where everything lives across the two repos post-move. Key paths, build commands, version pins. |
 | [`benchmarks-overview.md`](./benchmarks-overview.md) | All benchmark runs A–M: methodology, results, how to reproduce, caveats. |
+| [`current-refresh-20260505.md`](./current-refresh-20260505.md) | Current paper/docs benchmark artifacts, exact commands, and rerun notes. |
 | [`lti-bench.md`](./lti-bench.md) | LTI-Bench in detail: scenario, probe taxonomy, v1→v2 evolution, scoring, known weaknesses. |
 | [`paper.md`](./paper.md) | Paper status, build pipeline (tectonic), section map, what's done vs pending. |
 | [`lessons-and-gotchas.md`](./lessons-and-gotchas.md) | Captured learnings from working on this: things that bit us, principles to apply next time. |

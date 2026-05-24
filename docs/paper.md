@@ -1,15 +1,15 @@
 # Paper Status, Build, and Section Map
 
-The paper is `paper/paper.tex` (target: arXiv). Latest build: `paper/cognitive-memory-arxiv-paper-v2.pdf` (25 pages, 1.1 MB, 2026-05-06). A tested source bundle is at `paper/arxiv-source/cognitive-memory-arxiv-source-20260506.tar.gz`. The previous build `cognitive-memory-arxiv-paper.pdf` (Mar 4, 17 pages) is kept on disk for diffing.
+The paper is `paper/paper.tex` (target: arXiv). Latest build: `paper/cognitive-memory-arxiv-paper-v2.pdf` (27 pages, 1.1 MB, 2026-05-11). The mirrored arXiv source directory at `paper/arxiv-source/cognitive-memory-arxiv-source/` builds cleanly; the latest tested archive is `paper/arxiv-source/cognitive-memory-arxiv-source-20260511.tar.gz`. The previous build `cognitive-memory-arxiv-paper.pdf` (Mar 4, 17 pages) is kept on disk for diffing.
 
 ## 1. State
 
-- **Title**: Cognitive Memory for AI Agents: Decay Floors, Emergent Core Memories, and Retrieval-Driven Reinforcement
+- **Title**: Cognitive Memory for AI Agents: Preservation-First Decay, Core Promotion, and Retrieval-Driven Reinforcement
 - **Author**: Bhekani Khumalo (Independent Researcher), `hello@bhekani.com`
 - **Date stamp**: May 2026 (was February 2026 in pre-update build)
-- **Pages**: 25 (was 17)
+- **Pages**: 27 (was 17)
 - **arXiv version**: v1 when posted (paper has never been on arXiv; the Mar-4 build was a draft)
-- **Status**: Updated 2026-05-06 with current-refresh LoCoMo/oracle/derived/LTI artifacts and recorded LongMemEval-S provenance. Build clean. Only cosmetic underfull hbox warnings remain.
+- **Status**: Updated and rebuilt 2026-05-11 with Phase 5 full-LoCoMo v0.5 tuned-default results, Phase 8 decay-floor ablation negative result, plus the existing current-refresh LongMemEval-S, oracle, derived-analysis, and LTI artifacts. Current `tectonic paper.tex` build is clean: no unresolved references or citations.
 
 ## 2. Section map
 
@@ -20,11 +20,11 @@ The paper is `paper/paper.tex` (target: arXiv). Latest build: `paper/cognitive-m
 | 3 | Architecture | 96–301 | Memory representation, decay model (Eq. 1 + power-law variant), decay floors, core memory detection, retrieval scoring (Eq. 3), two-tier boosting (with Figs. 1 and 2 from simulations/), associative graph, consolidation, tiered storage (Fig. 3) |
 | 4 | Design Comparison with FadeMem | 303–339 | Side-by-side comparison table (Evaluation row updated to point at §6) |
 | 5 | Implementation | 340–372 | Adapter pattern, production deployment in blah.chat, audit log |
-| **6** | **Evaluation** ⭐ NEW | 376–595 | Setup, LoCoMo, LongMemEval-S, Oracle Ceiling, Decay Comparison, Ablations, Retrieval Quality, Efficiency, Judge Reliability, LTI-Bench — 10 subsections, 6 tables |
+| **6** | **Evaluation** ⭐ NEW | 376–595 | Setup, LoCoMo, LongMemEval-S, Oracle Evidence Context, Isolated Decay-Shape Sensitivity, Ablations, Retrieval Quality, Efficiency, Judge Reliability, LTI-Bench, and Phase 8 decay-floor negative result — 10 subsections, 6 tables |
 | 7 | Limitations and Open Questions | 596–620 | Reframed: was "no benchmark eval", now Single-seed, LongMemEval-S only, conv-0 ablations, controlled LTI-Bench small-sample, SDK version straddle, plus retained limitations on parameters, never-delete debate, core thresholds, associative graph scaling, consolidation underspecification |
-| 8 | Future Work | 621–636 | Reframed: was "do benchmark eval", now production-data validation, multi-seed, associative retrieval strengthening, cross-model generalisation, LongMemEval-M/Oracle |
-| 9 | Conclusion | 638–642 | Updated closing paragraph with actual numbers (44.8% F1, 70.2% LongMemEval-S, etc.) |
-| — | Code Availability | 644–652 | SDK + benchmarks repo URLs, npm/PyPI, and artifact provenance via `experimentlog.md` |
+| 8 | Future Work | 621–636 | Reframed: longer-horizon decay-floor ablation, production-data validation, multi-seed, associative retrieval strengthening, cross-model generalisation, LongMemEval-M/Oracle |
+| 9 | Conclusion | 638–642 | Updated closing paragraph with actual numbers plus Phase 8 null result |
+| — | Code Availability | 644–652 | SDK + benchmarks repo URLs, npm/PyPI, Phase 8 artifacts, and artifact provenance via `experimentlog_v2.md`, milestones, row log, and per-trial artifacts |
 
 ## 3. Tables and figures
 
@@ -33,8 +33,8 @@ The paper is `paper/paper.tex` (target: arXiv). Latest build: `paper/cognitive-m
 | Table 1 | Memory object schema | hand-written in tex | 102–119 |
 | Table 2 | Base decay rates by category | hand-written in tex | 145–158 |
 | Table 3 | Design comparison FadeMem vs ours | hand-written in tex | 308–334 |
-| Table 4 | LoCoMo headline F1 vs Mem0 | NEW, from experimentlog | 405–414 |
-| Table 5 | LongMemEval-S per-task accuracy | NEW, from longmemeval/results/v6/primary.json | 423–447 |
+| Table 4 | LoCoMo headline F1 vs Mem0 + v0.4 baseline | NEW, from Phase 5 artifacts | 405–414 |
+| Table 5 | LongMemEval-S per-task accuracy | NEW, from `longmemeval/results/current_sdk_20260505/primary.json` | 423–447 |
 | Table 6 | Ablation per-feature delta | NEW, from ablations/ + Run C | 467–479 |
 | Table 7 | Evidence Recall@k | NEW, from Run D | 491–500 |
 | Table 8 | Per-stage timing | NEW, from Run F | 511–520 |
@@ -82,16 +82,7 @@ Tectonic does multiple passes automatically (LaTeX, BibTeX, LaTeX, LaTeX) for cr
 
 ### Warnings to expect
 
-The current build emits these warnings (all cosmetic, none are errors):
-
-```
-warning: paper.tex:316–331: Underfull \hbox in FadeMem comparison table
-warning: paper.tex:384: Underfull \hbox in SDK provenance paragraph
-warning: paper.tex:613: Underfull \hbox in preservation-first paragraph
-warning: paper.tex:644: Underfull \hbox in Code Availability
-```
-
-These are typographic looseness warnings, not overflow or unresolved-reference errors.
+The current `tectonic paper.tex` build is clean. The only remaining log notes are harmless engine/package notes such as `inputenc` being ignored under a UTF-8 engine and LaTeX changing two `[h]` float placements to `[ht]`.
 
 ### Build verification
 
@@ -99,7 +90,7 @@ After build, verify content rendered correctly:
 
 ```bash
 cd ~/code/bhekanik/cognitive-memory-benchmarks/paper
-pdftotext cognitive-memory-arxiv-paper-v2.pdf - | grep -E "ENGRAM|LongMemEval|TiMem|EverMemOS|44\.8|48\.5|70\.2|88\.1|69\.7|LTI-Bench"
+pdftotext cognitive-memory-arxiv-paper-v2.pdf - | grep -E "ENGRAM|LongMemEval|TiMem|EverMemOS|46\.2|51\.3|71\.6|72\.6|88\.1|69\.7|LTI-Bench|707758d|82f08c2"
 # Should show citations as [Patel and Patel, 2025], [Li et al., 2026], [Hu et al., 2026]
 ```
 
@@ -124,15 +115,15 @@ If citations show as `[ENGRAM authors, 2025]` etc, the bib entries have placehol
 - Updated Design Comparison "Evaluation" row pointing at §6.
 - Implementation closing now references §6 and §sec:future.
 - New §6 Evaluation section with 10 subsections and 6 tables (the bulk of the diff).
-- New Limitations paragraphs: single-seed, LongMemEval-S only/current-refresh provenance, conv-0 ablations, and LTI small-sample.
+- New Limitations paragraphs: single-seed, LongMemEval-S only/current-refresh provenance, Phase 5 provenance, conv-0 ablations, and LTI small-sample.
 - New Future Work bullets: production data, multi-seed/full corpus ablations, associative retrieval strengthening, cross-model generalisation, LongMemEval-M/Oracle.
 - Updated Conclusion paragraph with actual numbers.
-- Code Availability extended: benchmarks repo URL, PyPI, and artifact provenance through `experimentlog.md`.
+- Code Availability extended: benchmarks repo URL, PyPI, and artifact provenance through `experimentlog_v2.md`, milestones, row log, and per-trial artifacts.
 
 ### Net change
 
 - Lines: 421 → 652 (+231 lines)
-- Pages: 17 → 24 (+7 pages)
+- Pages: 17 → 27 (+10 pages)
 - Sections: 8 → 9 (added §Evaluation)
 - Tables: 3 → 9 (added 6 tables)
 - Bib entries: ? → ?+5
@@ -142,7 +133,7 @@ If citations show as `[ENGRAM authors, 2025]` etc, the bib entries have placehol
 The Mar-4 paper had no benchmark numbers, so framing was about architectural commitments alone. The May-5 update has numbers, and they don't put us at the top of the LongMemEval-S leaderboard:
 
 - ENGRAM (Nov 2025) — 71.4% — concurrent baseline, what we lined up against
-- **Ours** — 70.2% — within 1.2pp without benchmark-specific tuning
+- **Ours** — 71.6% — practically indistinguishable from ENGRAM at reported precision
 - TiMem (Jan 2026) — 76.88%
 - EverMemOS (Jan 2026) — 83.0%
 
@@ -156,14 +147,14 @@ This is a deliberate positioning choice. It's defensible because:
 - ENGRAM was SOTA at the time we ran. We compared against the right baseline.
 - Our architectural contributions are independently interesting (decay floors, emergent core promotion are not in TiMem/EverMemOS).
 - LTI-Bench (controlled architectural test) is where the architectural claims are exercised directly.
-- Multi-hop F1 on LoCoMo is 1.7× Mem0 — that's a meaningful narrow win.
+- Multi-hop F1 on LoCoMo is 1.8× Mem0 after Phase 5 v0.5 tuning — that's a meaningful narrow win.
 
 ## 8. What's left to do on the paper
 
 Before posting to arXiv, in priority order:
 
 1. **Fix bib entry author lists** (DONE in current build) — was placeholders, now proper authors.
-2. **Cosmetic hbox cleanup** (mostly done) — current build has underfull warnings only, no overfull boxes.
+2. **Cosmetic hbox cleanup** (DONE) — current build has no underfull or overfull box diagnostics.
 3. **Add table cross-references** in prose — e.g., explicitly cite Tables 5–9 inline. Currently they're at-end-of-paragraph; some are not cited at all in the prose. Check.
 4. **Re-read Introduction + Abstract** — make sure they read naturally given the empirical addition. Don't just be a list of "we now have benchmarks."
 5. **Sanity-check citations** — `pdftotext | grep` after a final build to confirm all citations resolved (no `[?]` markers).
@@ -184,7 +175,7 @@ When ready to post:
 - [x] Figure PNGs are all in `paper/` (boosting_divergence, monte_carlo, cold_storage); they are rendered from the canonical simulation PDFs to avoid Type 3 fonts in the final arXiv PDF.
 - [x] No untracked LaTeX intermediates (`.aux`, `.log`, `.bbl`) get bundled into the source archive.
 - [x] arXiv metadata draft: `paper/arxiv-metadata.md`.
-- [x] Source archive — `paper/arxiv-source/cognitive-memory-arxiv-source-20260506.tar.gz` builds cleanly from a fresh extraction.
+- [x] Source archive — `paper/arxiv-source/cognitive-memory-arxiv-source-20260511.tar.gz` builds cleanly from a fresh extraction.
 - [ ] Once submitted, capture the arXiv ID and add it to `\arxivversion` field if the next revision adds one.
 
 ## 10. The plan doc
