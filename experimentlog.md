@@ -70,7 +70,7 @@ Notes:
 - Partial, failed, resumed, or superseded runs will be explicitly marked in this section before any result is used in the manuscript.
 - CR-B and CR-D started at 2026-05-06T11:37:11Z / 2026-05-06 12:37:11 BST to complete the missing current-refresh artifacts before final paper/docs updates. CR-B uses the current SDK editable install with `top_k=20`, `deep_recall=true`, `rerank=true`, `rerank_factor=3`, `max_workers=53`; CR-D uses Mem0-style oracle prompt with `gpt-4o-mini`.
 - CR-D completed at 2026-05-06T13:00:00Z / 2026-05-06 14:00:00 BST. Results: LoCoMo oracle F1 `0.639494` (`63.9%`), Mem0 scoring F1 `0.611019` (`61.1%`), single-hop `54.3%`, multi-hop `66.3%`, temporal `35.8%`, open-domain `69.5%`, evidence-only F1 `64.1%` (`n=1535`), wall time `1391s`. Artifact: `locomo/results/current_sdk_20260505/oracle_ceiling_mem0.json`.
-- CR-B progress check at 2026-05-06T13:22:36Z / 2026-05-06 14:22:36 BST: process still alive (PID `22321`) after ~1h45m. Partial artifact `longmemeval/results/current_sdk_20260505/primary.json` has `40` completed `per_question` entries (`total_questions=40`, `elapsed_seconds=5458.6`) and no final aggregate yet; `primary.log` remains empty. This partial is not usable for paper numbers. The active paper/docs therefore retain the completed recorded LongMemEval-S artifact (`70.2%`) and explicitly mark the current-refresh rerun as in progress.
+- CR-B progress check at 2026-05-06T13:22:36Z / 2026-05-06 14:22:36 BST: process still alive (PID `22321`) after ~1h45m. Partial artifact `longmemeval/results/current_sdk_20260505/primary.json` has `40` completed `per_question` entries (`total_questions=40`, `elapsed_seconds=5458.6`) and no final aggregate yet; `primary.log` remains empty. This checkpoint was not usable for paper numbers; CR-B later completed and superseded the temporary fallback.
 - CR-B stopped after 80 completed questions at 2026-05-06T15:57:14Z / 2026-05-06 16:57:14 BST without a final aggregate. Partial status: `80/500`, `66/80` correct (`82.5%`) across processed items only; not usable for paper numbers.
 - CR-B resume attempt at 2026-05-06T16:00:45Z / 2026-05-06 17:00:45 BST exposed a harness bug in the thread-safety monkey patch: `safe_search_similar()` did not accept the current adapter's `user_id` argument. The failed one-question smoke attempt did not modify the artifact.
 - CR-B harness fix at 2026-05-06T16:04:20Z / 2026-05-06 17:04:20 BST: `longmemeval/run_longmemeval.py` thread-safety patch now accepts `user_id` and applies the same user filter as the in-memory adapter. `py_compile` passed.
@@ -163,12 +163,14 @@ These are the NEW config parameters added in v6 with their default values:
 
 ---
 
-## Run Registry
+## Historical March Run Registry
+
+These Run A-M entries are retained for provenance. Active paper/docs numbers now use the `current_sdk_20260505` CR-A through CR-J registry at the top of this file.
 
 | Run ID | Benchmark | Status | Key Params | Key Result |
 |--------|-----------|--------|------------|------------|
 | A | LoCoMo v6 Primary | **COMPLETE** | mem0 prompt, dual-perspective, deep-recall, rerank×3, k=60, judge, deferred conflicts | F1=45.6%, multi-hop=48.9% |
-| B | LongMemEval-S | COMPLETE | k=20, deep-recall, rerank | Task-avg 70.2% (ENGRAM=71.4%) |
+| B | LongMemEval-S | COMPLETE, superseded by CR-B | k=20, deep-recall, rerank | Historical task-avg 70.2%; current CR-B task-avg 71.6% |
 | C | Decay Comparison | COMPLETE (PID 63422) | exp vs power-law on conv0 | Power +3.6% F1 over exp |
 | D | Evidence Recall@k | **COMPLETE** | Post-process Run A | R@60=36.3% (n=1535) |
 | E | Oracle Ceiling (LoCoMo) | COMPLETE | Ground-truth evidence as context | F1=63.9% (LoCoMo), 61.0% (Mem0) re-run w/ Mem0 prompt |
@@ -275,9 +277,9 @@ Per-conversation F1 (LoCoMo):
 
 ---
 
-### Run B — LongMemEval-S
+### Run B — LongMemEval-S (historical; superseded by CR-B)
 
-**Status**: PENDING
+**Status**: COMPLETE, historical. Superseded for paper/docs by CR-B in `longmemeval/results/current_sdk_20260505/primary.json`.
 
 **Command**:
 ```bash
@@ -319,8 +321,9 @@ Per-conversation F1 (LoCoMo):
 | Total time | 678.2 min (~11.3h) |
 
 **Observations**:
-- Nearly matches ENGRAM SOTA (70.2% vs 71.4%, Δ=−1.2%)
-- Significantly outperforms full-context baseline (70.2% vs 56.2%, +14.0%)
+- Historical result nearly matched ENGRAM (70.2% vs 71.4%, Δ=−1.2%).
+- Current-refresh CR-B improves this to 71.6% task-averaged accuracy and 72.6% overall accuracy.
+- Historical result significantly outperformed full-context baseline (70.2% vs 56.2%, +14.0%).
 - Strongest on single-session-user (88.6%) and knowledge-update (84.6%)
 - Weakest on single-session-preference (36.7%) — preferences are hard to extract/retrieve
 - High abstention accuracy (90.0%) = good at knowing when it doesn't know
@@ -604,7 +607,7 @@ Per-category:
 
 1. **Multi-hop F1 1.7× Mem0**: 48.9% vs 28.37%, largest gain on hardest category. Overall F1=45.6% (71.4% of oracle ceiling).
 2. **Power-law decay is the biggest single feature**: +3.6pp over exponential. Rerank adds +1.8pp. Hybrid search slightly hurts (-1.1pp).
-3. **Near-SOTA on LongMemEval-S**: 70.2% task-avg vs ENGRAM's 71.4%, without any benchmark-specific tuning.
+3. **Competitive on LongMemEval-S**: current-refresh CR-B reaches 71.6% task-avg vs ENGRAM's 71.4%, without any benchmark-specific tuning.
 4. **Deferred conflict resolution eliminates O(N²) bottleneck**: Ingestion went from hanging at session 19 to completing all 10 conversations in ~2h parallel.
 5. **LLM judge is reliable**: κ=0.919 inter-judge agreement (alternative prompt), 96% raw agreement on 50 stratified samples.
 
@@ -629,7 +632,7 @@ Per-category:
 |--------|------------------|-------|
 | ENGRAM | 71.40% | SOTA |
 | Full-context | 56.20% | — |
-| **Ours (v6)** | **70.20%** | Near-SOTA, +14% over full-context |
+| **Ours (CR-B current refresh)** | **71.6%** | Effectively tied with ENGRAM, +15.4pp over full-context |
 
 ---
 
@@ -649,7 +652,7 @@ Per-category:
 | 2026-03-09 | Run A restarted (PID 70413) after hang during session 19 ingestion |
 | 2026-03-09 | OpenAI quota exhaustion — all runs crashed with 429 insufficient_quota |
 | 2026-03-10 | Quota restored, Run B resumed from q340, Run A restarted |
-| 2026-03-10 | Run B complete: Task-avg 70.2% (near ENGRAM SOTA 71.4%) |
+| 2026-03-10 | Historical Run B complete: Task-avg 70.2% (superseded by CR-B current refresh: 71.6%) |
 | 2026-03-10 | Added thread-based timeouts (120s) to query + answer generation in locomo_eval |
 | 2026-03-11 | Root cause of Run A hangs diagnosed: O(N^2) LLM calls in inline conflict detection |
 | 2026-03-11 | Implemented deferred conflict resolution in both Python and TypeScript SDKs |
@@ -671,3 +674,7 @@ Per-category:
 | 2026-05-05 | **Run L v1 COMPLETE** (SDK v0.3.0): critical retention 100% (FadeMem 82.1%), 35/53 core, F1 macro ≈ 53% — superseded by v2 (substring scoring + ingest-all-then-probe were too noisy) |
 | 2026-05-05 | Run L runner refactored: time-stepped ingestion, llm_judge (gpt-4o-2024-08-06), expanded scenario 17→42 probes, +associative category |
 | 2026-05-05 | **Run L v2 COMPLETE** (canonical): overall 90.5% acc / F1 70.1% (n=42). Per-cat: core 100%, decay-trivial 100%, contextual 100%, temporal-before 100%, temporal-after 100%, conflict 75% (1 judge artifact), revival 80% (1 judge artifact), associative 60% (partial recall on cross-fact queries). Critical retention 100% vs FadeMem 82.1%; 67/85 core. |
+| 2026-05-15 | Phase 14 temporal reconstruction experiment started. Notes added at `docs/milestones/phase-14-temporal-reconstruction.md`; LoCoMo category-label correction identified; SDK temporal v1 implemented behind default-off flags for A/B validation. |
+| 2026-05-15 | Phase 14 no-cost relabel complete: corrected CR-A labels show temporal F1 0.4847 / judge 55.5% (n=321), while open-domain is the true weakest bucket at F1 0.2370 / judge 43.8% (n=96). Previous "weak temporal" diagnosis should not be cited without this correction. |
+| 2026-05-21 | Phase 14 controlled temporal smoke passed: default-off emits no temporal evidence; auto mode orders after-event evidence chronologically and prefers current state for `now` queries. Artifact: `tuning/runs/phase14-temporal-reconstruction/controlled_smoke.json`. |
+| 2026-05-21 | Phase 14 one-conversation LoCoMo A/B smoke attempted with extraction + dual perspective + deep recall + rerank, then stopped before metrics because ingestion was too slow for a cheap validation. Use pre-ingested/cache-backed or temporal-only slice next. |

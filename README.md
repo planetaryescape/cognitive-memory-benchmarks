@@ -1,17 +1,17 @@
 # cognitive-memory-benchmarks
 
-Benchmark suite for [cognitive-memory](https://github.com/planetaryescape/cognitive-memory) — a biologically-inspired agent memory system. Most headline numbers below come from the **`current_sdk_20260505` refresh** against editable local SDK package version `0.3.0` (legacy `v6/` artifacts remain on disk for provenance). The 2026-05 tuning campaign (Phase 0g→5) added a v0.4-vs-v0.5 head-to-head row at the bottom.
+Benchmark suite for [cognitive-memory](https://github.com/planetaryescape/cognitive-memory) - a biologically-inspired agent memory system. The active paper headline combines the **Phase 5 full-LoCoMo v0.5 tuned-default run** with the May 2026 **`current_sdk_20260505` refresh** for LongMemEval-S, LTI-Bench, oracle, retrieval, and ablation artifacts. Legacy `v6/` artifacts remain on disk for provenance.
 
 ## Headline Results
 
 | Benchmark | Status | Our Result | Comparison |
 |---|---|---|---|
-| **LoCoMo** (10 conv, 1540 QA) | Complete | **44.8% overall F1, 48.5% multi-hop F1** | Mem0 28.4% multi-hop · 70% of LoCoMo oracle evidence context condition (63.9% F1) |
+| **LoCoMo** (10 conv, 1540 QA) | Complete | **46.2% overall F1, 51.3% multi-hop F1** | Mem0 28.4% multi-hop; v0.4 paper-faithful row 44.4% overall / 48.5% multi-hop; 72% of LoCoMo oracle evidence context condition (63.9% F1) |
 | **LongMemEval-S** (500 questions) | Complete | **71.6% task-averaged accuracy, 72.6% overall accuracy** | ENGRAM 71.4% (concurrent) · Full-context 56.2% · TiMem 76.88% / EverMemOS 83.0% (post-dating) |
 | **LTI-Bench v2** (controlled, 42 probes) | Complete | **88.1% accuracy, 69.7% F1, 100% critical-fact retention** | FadeMem 82.1% critical retention |
 | **MemoryBench** (2025) | Scaffolded | — | Future work |
 
-Auxiliary measurements from the same refresh: **LoCoMo oracle evidence context condition 63.9% F1** (61.1% under Mem0 scoring), **evidence Recall@60 35.6%**, **decay model power-law +3.2pp over exponential**, **rerank +1.9pp**, **hybrid search +1.7pp**, **judge agreement 94% (Cohen's κ 0.879)**.
+Auxiliary current-refresh measurements: **LoCoMo oracle evidence context condition 63.9% F1** (61.1% under Mem0 scoring), **evidence Recall@60 35.6%**, **decay model power-law +3.2pp over exponential**, **rerank +1.9pp**, **hybrid search +1.7pp**, **judge agreement 94% (Cohen's kappa 0.879)**.
 
 ## v0.5 Empirical Default Tuning (Phase 0g→5, 2026-05)
 
@@ -28,9 +28,9 @@ A systematic tuning campaign on LTI-Bench (~$30 / 12h) followed by validation on
 | LoCoMo conv0 F1 | 0.4310 | 0.4601 | +2.92pp |
 | LongMemEval-S 500 QA accuracy | _attempted; OpenAI billing-cap blocked at 30%_ | _inconclusive_ | n/a |
 
-Methodology, per-phase milestones, full provenance: `docs/milestones/phase-{0-harness-extension,1-sensitivity-analysis,2-optuna-tuning,4-locomo-reality-check,5-full-locomo,7-longmemeval-validation}.md`. Single-author campaign; ~$245 spend / ~28h compute total. Phase 7 (LongMemEval-S validation) hit an account billing cap twice at 30% completion; partial data is inconclusive but consistent across both attempts. Phase 5 (full LoCoMo) is the load-bearing v0.5 validation.
+Methodology, per-phase milestones, full provenance: `experimentlog_v2.md`, `tuning/runs/runs.jsonl`, and `docs/milestones/phase-{0-harness-extension,1-sensitivity-analysis,2-optuna-tuning,4-locomo-reality-check,5-full-locomo,7-longmemeval-validation}.md`. Single-author campaign; ~$245 spend / ~28h compute total. Phase 7 (LongMemEval-S validation) hit an account billing cap twice at 30% completion; partial data is inconclusive but consistent across both attempts. Phase 5 (full LoCoMo) is the load-bearing v0.5 validation.
 
-Full per-run details, parameters, and per-category breakdowns: [`experimentlog.md`](./experimentlog.md). Operator notes: [`docs/`](./docs/README.md). Paper: [`paper/cognitive-memory-arxiv-paper-v2.pdf`](./paper/cognitive-memory-arxiv-paper-v2.pdf).
+Full per-run details, parameters, and per-category breakdowns: [`experimentlog_v2.md`](./experimentlog_v2.md) and [`experimentlog.md`](./experimentlog.md). Operator notes: [`docs/`](./docs/README.md). Paper: [`paper/cognitive-memory-arxiv-paper-v2.pdf`](./paper/cognitive-memory-arxiv-paper-v2.pdf).
 
 ## Setup
 
@@ -94,7 +94,7 @@ For each benchmark, we run up to three configurations:
 2. **Benchmark pure**: Follow official evaluation protocol exactly
 3. **Best tuned**: Our optimal config (Mem0 prompt, k=60, deep recall, hybrid search, LLM rerank)
 
-The headline numbers above use the `current_sdk_20260505` configurations shown in each benchmark README. See `experimentlog.md` and [`docs/current-refresh-20260505.md`](./docs/current-refresh-20260505.md) for exact parameters, artifact paths, and caveats.
+The LoCoMo headline above uses `tuning/runs/phase5/v05_tuned/aggregate.json`; LongMemEval-S, LTI-Bench, and auxiliary analyses use the `current_sdk_20260505` configurations shown in each benchmark README. See `experimentlog_v2.md`, `experimentlog.md`, and [`docs/current-refresh-20260505.md`](./docs/current-refresh-20260505.md) for exact parameters, artifact paths, and caveats.
 
 ## Directory Structure
 
@@ -114,7 +114,8 @@ docs/             # Operator notes (architecture walkthrough, lessons, next step
 
 | Runs | SDK | Provenance |
 |---|---|---|
-| `current_sdk_20260505` (LoCoMo, LongMemEval-S, LTI-Bench v2, oracle, ablations, decay, recall, judge reliability) | package version `0.3.0` from editable `../cognitive-memory-sdk/sdks/python` | See `experimentlog.md` and `docs/current-refresh-20260505.md` for exact commands, timestamps, output paths, and worktree state |
+| Phase 5 LoCoMo v0.4/v0.5 head-to-head | Python SDK v0.5.0 tuned defaults, SDK commit `707758d`; benchmark commit `82f08c2` | `tuning/runs/phase5/v05_tuned/aggregate.json`, `tuning/runs/phase5/summary.json`, `experimentlog_v2.md`, and `docs/milestones/phase-5-full-locomo.md` |
+| `current_sdk_20260505` (LoCoMo baseline, LongMemEval-S, LTI-Bench v2, oracle, ablations, decay, recall, judge reliability) | package version `0.3.0` from editable `../cognitive-memory-sdk/sdks/python` | See `experimentlog.md` and `docs/current-refresh-20260505.md` for exact commands, timestamps, output paths, and worktree state |
 | LongMemEval-S 500-question headline | current-refresh completed artifact | `longmemeval/results/current_sdk_20260505/primary.json` |
 | Historical March runs (`v6/` namespace) | v0.2.0 / v0.3.0 snapshots | Retained for provenance only |
 

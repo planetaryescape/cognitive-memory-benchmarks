@@ -27,3 +27,10 @@ longmemeval/data/longmemeval_s_cleaned.json
 
 # memorybench/ — external benchmark repo cloned at setup time, not source.
 memorybench/repo/
+
+# Generated peer-review split payloads. Keep manifests/ID files if desired;
+# avoid committing duplicated benchmark data.
+tuning/splits/**/locomo_dev.json
+tuning/splits/**/locomo_test.json
+tuning/splits/**/longmemeval_s_dev.json
+tuning/splits/**/longmemeval_s_test.json
