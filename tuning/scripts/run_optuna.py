@@ -24,7 +24,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import statistics
 import subprocess
 import sys
 import tempfile
@@ -98,6 +97,7 @@ def make_objective(
     phase_tag: str,
     n_repeats: int,
     score_keys: list[str],
+    extra_args: list[str],
 ):
     search_space = space["search_space"]
 
@@ -144,9 +144,7 @@ def make_objective(
                 "--score-keys",
                 *score_keys,
                 "--",
-                "--quiet",
-                "--judge-model",
-                "gpt-4o-2024-08-06",
+                *extra_args,
             ]
             proc = subprocess.run(
                 cmd, cwd=REPO_ROOT, capture_output=True, text=True, check=False
@@ -191,28 +189,49 @@ def main() -> int:
 
     space = json.loads(Path(args.space).read_text())
     study_name = space["study_name"]
-    n_trials = args.n_trials or space.get("n_trials", 50)
+    n_trials = args.n_trials if args.n_trials is not None else space.get("n_trials", 50)
     n_repeats = space.get("n_repeats_per_trial", 3)
     benchmark = space.get("benchmark", "lti")
     phase_tag = space.get("phase_tag", "phase2_optuna")
     weights = space["fitness"]["weights"]
     score_keys = space.get("score_keys", list(weights.keys()))
+    extra_args = space.get("extra_args")
+    if extra_args is None:
+        extra_args = ["--quiet", "--judge-model", "gpt-4o-2024-08-06"]
+    if not isinstance(extra_args, list):
+        raise RuntimeError("space.extra_args must be a list of CLI args")
+    if n_trials == 0:
+        print(
+            f"validated space={args.space} study={study_name} benchmark={benchmark} "
+            f"sampler={space.get('sampler', 'tpe')} seed={space.get('seed')}; no trials requested",
+            file=sys.stderr,
+        )
+        return 0
 
     RUNS_DIR.mkdir(parents=True, exist_ok=True)
     storage = f"sqlite:///{RUNS_DIR / f'{study_name}.db'}"
+    sampler_name = space.get("sampler", "tpe")
+    seed = space.get("seed")
+    if sampler_name == "random":
+        sampler = optuna.samplers.RandomSampler(seed=seed)
+    elif sampler_name == "tpe":
+        sampler = optuna.samplers.TPESampler(seed=seed)
+    else:
+        raise RuntimeError(f"unknown sampler {sampler_name!r}; expected 'random' or 'tpe'")
     study = optuna.create_study(
         study_name=study_name,
         storage=storage,
         direction="maximize",
         load_if_exists=args.resume,
+        sampler=sampler,
     )
 
     print(
         f"study={study_name} storage={storage} n_trials={n_trials} "
-        f"n_repeats={n_repeats} benchmark={benchmark}",
+        f"n_repeats={n_repeats} benchmark={benchmark} sampler={sampler_name} seed={seed}",
         file=sys.stderr,
     )
-    obj = make_objective(space, weights, benchmark, phase_tag, n_repeats, score_keys)
+    obj = make_objective(space, weights, benchmark, phase_tag, n_repeats, score_keys, extra_args)
     study.optimize(obj, n_trials=n_trials, show_progress_bar=False)
 
     print("\n=== best trial ===", file=sys.stderr)

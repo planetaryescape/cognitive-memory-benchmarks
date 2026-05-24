@@ -1,0 +1,12 @@
+{
+  "_comment": "Ablation: disable deep recall and make consolidation unreachable. Run with the same production CLI flags; adapter.deep_recall=false in this file overrides --deep-recall through trial config merge order.",
+  "surface": "sdk",
+  "adapter": {
+    "deep_recall": false
+  },
+  "config_overrides": {
+    "consolidation_retention_threshold": -1.0,
+    "consolidation_group_size": 1000000,
+    "deep_recall_penalty": 0.0
+  }
+}

@@ -85,3 +85,15 @@ def test_aggregate_walks_nested_score_keys():
     ]
     out = run_trial.aggregate(runs, ["by_category.single_hop"])
     assert abs(out["median"]["by_category.single_hop"] - 0.65) < 1e-9
+
+
+def test_backup_log_preserves_existing_file(tmp_path):
+    log = tmp_path / "stdout.log"
+    log.write_text("first attempt")
+
+    run_trial.backup_log(log)
+
+    backups = list(tmp_path.glob("stdout.log.*.bak"))
+    assert not log.exists()
+    assert len(backups) == 1
+    assert backups[0].read_text() == "first attempt"

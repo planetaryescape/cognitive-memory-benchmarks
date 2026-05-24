@@ -1,0 +1,7 @@
+{
+  "_comment": "Ablation: retrieval scoring ignores decay/accessibility by setting score = similarity * R^0.",
+  "surface": "sdk",
+  "config_overrides": {
+    "retrieval_score_exponent": 0.0
+  }
+}

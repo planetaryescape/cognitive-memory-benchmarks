@@ -170,6 +170,8 @@ to `BENCHMARKS` in `run_trial.py`.
 ## See also
 
 - `docs/parameter-tuning-plan.md` — parent plan, six-phase ladder.
+- `docs/peer-review-experiment-plan.md` — stricter dev/test tuning,
+  transfer, ablation, and CI protocol for venue submission.
 - `~/.claude/plans/now-create-a-plan-validated-yao.md` — Phase 0
   detailed plan that produced this scaffolding.
 - `experimentlog_v2.md` — narrative experiment log.

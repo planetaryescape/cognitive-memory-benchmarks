@@ -1,0 +1,9 @@
+{
+  "_comment": "Ablation: disable retrieval-driven direct/associative reinforcement and co-retrieval link strengthening.",
+  "surface": "sdk",
+  "config_overrides": {
+    "direct_boost": 0.0,
+    "associative_boost": 0.0,
+    "association_strengthen_amount": 0.0
+  }
+}

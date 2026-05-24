@@ -1,0 +1,60 @@
+{
+  "created_utc": "2026-05-11T16:45:45.580995+00:00",
+  "locomo": {
+    "dev_conversation_indices": [
+      0,
+      1,
+      5,
+      6,
+      7
+    ],
+    "dev_conversations": 5,
+    "dev_questions_all_categories": 891,
+    "source": "/Users/bhekanik/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/locomo/data/locomo10.json",
+    "test_conversation_indices": [
+      2,
+      3,
+      4,
+      8,
+      9
+    ],
+    "test_conversations": 5,
+    "test_questions_all_categories": 1095
+  },
+  "longmemeval_s": {
+    "dev_by_type": {
+      "knowledge-update": 31,
+      "multi-session": 53,
+      "single-session-assistant": 22,
+      "single-session-preference": 12,
+      "single-session-user": 28,
+      "temporal-reasoning": 53
+    },
+    "dev_question_ids_file": "longmemeval_s_dev_ids.json",
+    "dev_questions": 199,
+    "source": "/Users/bhekanik/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/longmemeval/data/longmemeval_s_cleaned.json",
+    "test_by_type": {
+      "knowledge-update": 47,
+      "multi-session": 80,
+      "single-session-assistant": 34,
+      "single-session-preference": 18,
+      "single-session-user": 42,
+      "temporal-reasoning": 80
+    },
+    "test_question_ids_file": "longmemeval_s_test_ids.json",
+    "test_questions": 301
+  },
+  "materialized_files": {
+    "locomo_dev": "locomo_dev.json",
+    "locomo_test": "locomo_test.json",
+    "longmemeval_s_dev": "longmemeval_s_dev.json",
+    "longmemeval_s_test": "longmemeval_s_test.json",
+    "written": true
+  },
+  "notes": [
+    "LoCoMo split unit is conversation; no questions from the same conversation cross dev/test.",
+    "LongMemEval-S split is stratified by question_type and abstention flag.",
+    "This is a clean protocol split, not a pristine benchmark: full benchmark results were already inspected before this split existed."
+  ],
+  "seed": 20260511
+}

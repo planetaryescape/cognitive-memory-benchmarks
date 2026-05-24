@@ -1,0 +1,41 @@
+{
+  "_comment": "Merged trial config",
+  "_provenance": {
+    "full_dev_conversation_ci": "tuning/runs/locomo-0001/run-00/bootstrap_ci_conversation.json",
+    "full_dev_f1": 0.5330867176260264,
+    "full_dev_llm_accuracy": 0.7058823529411765,
+    "full_dev_question_ci": "tuning/runs/locomo-0001/run-00/bootstrap_ci_question.json",
+    "full_dev_result": "tuning/runs/locomo-0001/run-00/result.json",
+    "full_dev_trial_id": "locomo-0001",
+    "proxy_f1": 0.5120735919069795,
+    "proxy_study": "tuning/runs/phase2/peer-review-locomo-dev-proxy-random.db",
+    "proxy_trial_id": "locomo-0002"
+  },
+  "_sources": [
+    "tuning/spaces/peer_review/locomo_dev_tuned_frozen.json",
+    "tuning/spaces/peer_review/ablations/no_core_promotion.json"
+  ],
+  "config_overrides": {
+    "association_retrieval_threshold": 0.2792106515353756,
+    "association_strengthen_amount": 0.05036594009510018,
+    "associative_boost": 0.05753774630110357,
+    "base_decay_rates": {
+      "episodic": 63.54502455449021,
+      "semantic": 112.7403797119418
+    },
+    "consolidation_retention_threshold": 0.20646378198524626,
+    "consolidation_similarity_threshold": 0.8316361980316461,
+    "core_access_threshold": 1000000,
+    "core_session_threshold": 1000000,
+    "core_stability_threshold": 2.0,
+    "decay_floors": {
+      "core": 0.628374822610891,
+      "regular": 0.08459603463561458
+    },
+    "deep_recall_penalty": 0.33165610060093514,
+    "direct_boost": 0.16729972824558545,
+    "power_decay_gamma": 1.497117744912785,
+    "retrieval_score_exponent": 0.13463510381712993
+  },
+  "surface": "sdk"
+}

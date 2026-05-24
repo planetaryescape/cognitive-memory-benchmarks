@@ -1,0 +1,9 @@
+{
+  "_comment": "Ablation: disable core promotion by making all promotion thresholds unreachable.",
+  "surface": "sdk",
+  "config_overrides": {
+    "core_access_threshold": 1000000,
+    "core_stability_threshold": 2.0,
+    "core_session_threshold": 1000000
+  }
+}

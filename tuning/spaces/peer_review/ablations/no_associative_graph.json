@@ -1,0 +1,12 @@
+{
+  "_comment": "Ablation: disable associative retrieval expansion and graph hops without changing direct vector retrieval.",
+  "surface": "sdk",
+  "adapter": {
+    "graph_hops": 0
+  },
+  "config_overrides": {
+    "association_retrieval_threshold": 2.0,
+    "graph_expansion_hops": 0,
+    "bridge_discovery": false
+  }
+}

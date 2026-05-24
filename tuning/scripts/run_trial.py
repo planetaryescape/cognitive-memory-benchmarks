@@ -42,6 +42,8 @@ RUNS_JSONL = RUNS_DIR / "runs.jsonl"
 # Module is run via `python -m`; the harness writes its result JSON to
 # the path passed via the output arg.
 BENCHMARKS: dict[str, tuple[str, str]] = {
+    "locomo": ("locomo.locomo_eval", "--output"),
+    "longmemeval": ("longmemeval.run_longmemeval", "--output"),
     "lti": ("lti.lti_bench", "--output"),
     "ablation": ("analysis.ablation_runner", "--output"),
 }
@@ -75,6 +77,19 @@ def next_trial_id(benchmark: str) -> str:
     return f"{benchmark}-{n:04d}"
 
 
+def backup_log(path: Path) -> None:
+    """Preserve prior stdout/stderr when resuming an existing trial."""
+    if not path.exists():
+        return
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    backup = path.with_name(f"{path.name}.{stamp}.bak")
+    suffix = 1
+    while backup.exists():
+        backup = path.with_name(f"{path.name}.{stamp}.{suffix}.bak")
+        suffix += 1
+    path.replace(backup)
+
+
 def run_one(
     benchmark: str,
     config_path: str | None,
@@ -95,6 +110,8 @@ def run_one(
 
     stdout_log = out_dir / "stdout.log"
     stderr_log = out_dir / "stderr.log"
+    backup_log(stdout_log)
+    backup_log(stderr_log)
     t0 = time.time()
     with open(stdout_log, "w") as so, open(stderr_log, "w") as se:
         proc = subprocess.run(
@@ -185,6 +202,11 @@ def main() -> int:
         help="Dotted keys to aggregate across sub-runs",
     )
     p.add_argument(
+        "--trial-id",
+        default=None,
+        help="Reuse an existing trial directory, typically with benchmark --resume.",
+    )
+    p.add_argument(
         "--",
         dest="separator",
         nargs="?",
@@ -194,7 +216,9 @@ def main() -> int:
     if extra_args and extra_args[0] == "--":
         extra_args = extra_args[1:]
 
-    trial_id = next_trial_id(args.benchmark)
+    trial_id = args.trial_id or next_trial_id(args.benchmark)
+    if not trial_id.startswith(f"{args.benchmark}-"):
+        raise ValueError(f"--trial-id must start with {args.benchmark}-")
     trial_dir = RUNS_DIR / trial_id
     trial_dir.mkdir(parents=True, exist_ok=True)
 
