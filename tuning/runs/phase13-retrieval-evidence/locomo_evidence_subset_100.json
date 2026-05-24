@@ -1,0 +1,1888 @@
+{
+  "candidate_counts": {
+    "multi-hop": 168,
+    "open-domain": 51,
+    "single-hop": 464,
+    "temporal": 157
+  },
+  "category_counts": {
+    "multi-hop": 40,
+    "open-domain": 15,
+    "single-hop": 15,
+    "temporal": 30
+  },
+  "created_utc": "2026-05-21T21:10:57.142442+00:00",
+  "data_source": "tuning/splits/peer_review_20260511/locomo_test.json",
+  "manifest_source": "tuning/splits/peer_review_20260511/manifest.json",
+  "questions": [
+    {
+      "answer": "homeless shelter, gym, church",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D4:1",
+        "D2:1",
+        "D19:1",
+        "D14:10"
+      ],
+      "evidence_texts": [
+        "Hey John, great news - I'm now friends with one of my fellow volunteers! We both love helping others. How have you been since we last chatted?",
+        "Hey John, been a few days since we chatted. In the meantime, I donated my old car to a homeless shelter I volunteer at yesterday. How's the campaign going? I'm keen to hearabout it.",
+        "Hey John, been good since we talked? I got some great news to share - I joined a gym last week! It's been super positive - I'm sticking to my workout routine and the people are awesome. The atmosphere is so welcoming.",
+        "Just yesterday I joined a nearby church. I wanted to feel closer to a community and my faith. So far it's been really great!"
+      ],
+      "original_conv_index": 2,
+      "question": "Where has Maria made friends?",
+      "question_index": 6,
+      "subset_index": 0
+    },
+    {
+      "answer": "A doll, a film camera",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D5:13",
+        "D3:15"
+      ],
+      "evidence_texts": [
+        "It reminds me of something from my childhood. I had a little doll like this and it always made me feel better. It reminds me to always look out for others, especially when they're feeling down.",
+        "Wow, nature can be so beautiful! It reminds me of the film camera I had as a kid, I took plenty of beach pics. Thanks for sharing."
+      ],
+      "original_conv_index": 2,
+      "question": "What items des John mention having as a child?",
+      "question_index": 7,
+      "subset_index": 1
+    },
+    {
+      "answer": "Oregon, Florida",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D19:23",
+        "D18:3"
+      ],
+      "evidence_texts": [
+        "Yeah, John! I have a picture from a vacation in Florida. The colors were amazing, and I had a feeling of gratitude just sitting there with my family. It's in moments like these we make the best memories, ya know?",
+        "Glad you're finding comfort, John. That mountaineering trip sounds amazing. Did you reach the summit? When I was younger, my family and I went on a road trip to Oregon."
+      ],
+      "original_conv_index": 2,
+      "question": "What states has Maria vacationed at?",
+      "question_index": 35,
+      "subset_index": 2
+    },
+    {
+      "answer": "Weight training, Circuit training, Kickboxing, yoga",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D25:17",
+        "D25:13",
+        "D10:1",
+        "D1:4"
+      ],
+      "evidence_texts": [
+        "I've done weight training so far too. It was challenging but peaceful, kinda like yoga.",
+        "Yeah, they offer a a bunch, like yoga, kickboxing, and circuit training. It keeps things interesting!",
+        "Hey Maria, I'm so excited to tell you I started a weekend yoga class with a colleague - it's awesome! I feel great, both mentally and physically after each session. I'd been wanting to try yoga for a while and finally took the plunge. Simple stretching and breathing is having such a positive effect on my wellbeing. And the instructor is great too.",
+        "Woah, Maria, that sounds cool! I'm doing kickboxing and it's giving me so much energy."
+      ],
+      "original_conv_index": 2,
+      "question": "What exercises has John done?",
+      "question_index": 47,
+      "subset_index": 3
+    },
+    {
+      "answer": "Toy drive, Community food drive, veterans, domestic violence",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D3:5",
+        "D6:12",
+        "D29:4",
+        "D29:10"
+      ],
+      "evidence_texts": [
+        "We held some events and got to meet some people. We went to a homeless shelter to give out food and supplies. Seeing the smiles on their faces, we knew we made a real difference. We also organized a toy drive for kids in need. It was amazing seeing the community come together to spread some joy.",
+        "Seeing the effect unemployment has on our neighbors made me decide to act. I wanted to help out in these tough times by doing a community food drive. We can all make a difference!",
+        "I set up a 5K charity run in our neighborhood. It was all for a good cause - to help out veterans and their families. We were able to raise some funds! Here's a pic from the day.",
+        "Yep, we worked with a local organization that helps victims of domestic abuse. We raised awareness and funds at the event for the cause \u2014 it's unfortunate how many people suffer from it."
+      ],
+      "original_conv_index": 2,
+      "question": "What causes has John done events for?",
+      "question_index": 57,
+      "subset_index": 4
+    },
+    {
+      "answer": "Coco, Shadow",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D30:1",
+        "D31:4"
+      ],
+      "evidence_texts": [
+        "Hey John! Long time no talk! Guess what - I got a puppy two weeks ago! Her name's Coco and she's adorable.",
+        "Her name is Shadow! She's full of energy and always puts a smile on my face. She's been a great addition to my life. They get along great."
+      ],
+      "original_conv_index": 2,
+      "question": "What are Maria's dogs' names?",
+      "question_index": 60,
+      "subset_index": 5
+    },
+    {
+      "answer": "first screenplay on drama and romance, third screenplay on loss identity and connection",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D14:1",
+        "D3:1",
+        "D2:7",
+        "D24:12",
+        "D24:13"
+      ],
+      "evidence_texts": [
+        "Nate, after finishing my screenplay I got a rejection letter from a major company. It really bummed me out.",
+        "Hey Nate, long time no see! The screenplay I sent in to the film festival has been on my mind all day everyday. I keep bouncing between crazy emotions like relief, excitement and worry! Fingers crossed a producer or director falls in love with it and it ends up on the big screen - that would be awesome!",
+        "Woohoo, Nate! I'm feeling a rollercoaster of emotions - relief, excitement, some anxiety - over finishing this project. Now I'm gonna submit it to some film festivals and (hopefully) get producers and directors to check it out. Here's hoping!",
+        "Well, I had a bit of a setback recently - another rejection from a production company.",
+        "Bummer, Joanna. Is this the one you sent to a film contest? Rejections suck, but don't forget they don't define you. Keep at it and you'll find the perfect opportunity."
+      ],
+      "original_conv_index": 3,
+      "question": "Which of Joanna's screenplay were rejected from production companies?",
+      "question_index": 23,
+      "subset_index": 6
+    },
+    {
+      "answer": "Screenplays,books, online blog posts, journal",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D2:3",
+        "D17:14",
+        "D18:1",
+        "D18:5"
+      ],
+      "evidence_texts": [
+        "Woo! I finally finished my first full screenplay and printed it last Friday. I've been working on for a while, such a relief to have it all done!",
+        "I will! I actually started on a book recently since my movie did well!",
+        "Hey Nate, long time no talk! I've been busy with writing projects and really going all out with it. It's been the best thing ever - a mix of highs and lows - and my journal's pretty much my rock. Writing's such a huge part of me now.",
+        "Yep. Last week, someone wrote me a letter after reading an online blog post I made about a hard moment in my life. Their words touched me; they said my story had brought them comfort. It was awesome to realize my words had that kind of power. It reminded me why I love writing."
+      ],
+      "original_conv_index": 3,
+      "question": "What kind of writings does Joanna do?",
+      "question_index": 30,
+      "subset_index": 7
+    },
+    {
+      "answer": "Chess, Catan.",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D16:2",
+        "D23:7"
+      ],
+      "evidence_texts": [
+        "That's really cool Joanna! I hope it does well, and I've been doing great! The gaming party was a great success! We even played some Chess afterward just for fun.",
+        "We played this game Catan - it's a great strategy game where you build settlements and trade resources. I love it!"
+      ],
+      "original_conv_index": 3,
+      "question": "What board games has Nate played?",
+      "question_index": 46,
+      "subset_index": 8
+    },
+    {
+      "answer": "A tournament and agaming convention.",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D14:8",
+        "D23:1"
+      ],
+      "evidence_texts": [
+        "I've been doing great - I just won another regional video game tournament last week! It was so cool, plus I met some new people. Connecting with fellow gamers is always awesome.",
+        "Hey Joanna, it's been a couple days since we last talked. Something exciting happened last Friday. I went to a game convention and met new people who weren't from my normal circle. It was a bit overwhelming but it reminded me of the good times gaming can bring."
+      ],
+      "original_conv_index": 3,
+      "question": "What places has Nate met new people?",
+      "question_index": 47,
+      "subset_index": 9
+    },
+    {
+      "answer": "25 May, 2022",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D13:9",
+        "D24:2"
+      ],
+      "evidence_texts": [
+        "Yep, Joanna. It's great! Looky here, I got this new pup for you!",
+        "Hey Nate! I have been revising and perfecting the recipe I made for my family and it turned out really tasty. What's been happening with you?"
+      ],
+      "original_conv_index": 3,
+      "question": "When did Nate get Tilly for Joanna?",
+      "question_index": 51,
+      "subset_index": 10
+    },
+    {
+      "answer": "Personal experiences,her own journey ofself discovery, Nate,nature, validation,stories about findingcourage and takingrisks, people she knows, stuff she sees, imagination",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D4:6",
+        "D7:6",
+        "D11:11",
+        "D26:3",
+        "D26:7",
+        "D25:10"
+      ],
+      "evidence_texts": [
+        "Yeah, definitely! I'm keen to try your recipe. Always up for something sweet.",
+        "That's amazing, Nate! Your boldness really inspired me. It reminded me of this gorgeous sunset I saw while hiking the other day. It made me realize the importance of showing the world who we are.",
+        "Nature totally inspires me and it's so calming to be surrounded by its beauty. Hiking has opened up a whole new world for me and I feel like a different person now.",
+        "Thanks, Nate! The meetings went really well. I felt confident discussing my script and vision and they seemed interested and excited. They loved the elements of self-discovery in it. It was so validating to be taken seriously. I'm feeling hopeful and inspired about the future!",
+        "Yup, I still remember this story from when I was 10. It was about a brave little turtle who was scared but explored the world anyway. Maybe even back then, I was inspired by stories about finding courage and taking risks. It's still a part of my writing today.",
+        "I got ideas from everywhere: people I know, stuff I saw, even what I imagined. It's cool to see how an idea takes shape into a person with their own wants, worries, and wishes."
+      ],
+      "original_conv_index": 3,
+      "question": "What is Joanna inspired by?",
+      "question_index": 55,
+      "subset_index": 11
+    },
+    {
+      "answer": "Gamecube, PC,Playstation.",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D22:2",
+        "D27:21",
+        "D27:15"
+      ],
+      "evidence_texts": [
+        "Hey Joanna! That tart looks yummy! Lately, I've been doing great - I won a really big video game tournament last week and it was awesome! I still can't believe I made so much money from it.",
+        "It really is! But it's also really important to have something like this for my career, otherwise I would never be able to beat my competition.",
+        "Great to hear! On another note, I just upgraded some of my equipment at home. Check it out!"
+      ],
+      "original_conv_index": 3,
+      "question": "What mediums does Nate use to play games?",
+      "question_index": 61,
+      "subset_index": 12
+    },
+    {
+      "answer": "Nature",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D11:9",
+        "D28:23"
+      ],
+      "evidence_texts": [
+        "It was awesome, Nate. The sound of that place and the beauty of nature made me so calm and peaceful. Everything else faded away and all that mattered was the present.",
+        "That sounds incredible! Nature truly has a way of reminding us to appreciate the beauty around us, and moments like those really stay with you. These critters also make me appreciate life's little joys. And guess what? I got them a new friend!"
+      ],
+      "original_conv_index": 3,
+      "question": "What do both Joanna and Nate appreciate the beauty of?",
+      "question_index": 71,
+      "subset_index": 13
+    },
+    {
+      "answer": "coconut milk icecream, dairy-free chocolate cake with berries, chocolate and mixed-berry icecream, dairy-free chocolate mousse",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D3:4",
+        "D3:10",
+        "D21:10",
+        "D3:12"
+      ],
+      "evidence_texts": [
+        "Thanks, Joanna. Not much has changed for me, but I just discovered that I can make coconut milk icecream and gave it a try. It was actually pretty good, so I'm proud of myself.",
+        "I love coconut milk, but I also enjoy chocolate and mixed berry flavors.",
+        "Coconut milk ice cream is one of my favorites as you might be able to tell, but I also love a dairy-free chocolate mousse. It's super creamy and tastes like the real thing. What's been your favorite dairy-free sweet treat so far?",
+        "Well I also made a dairy-free chocolate cake with berries on it the other day, maybe you would like that!"
+      ],
+      "original_conv_index": 3,
+      "question": "What are Nate's favorite desserts?",
+      "question_index": 75,
+      "subset_index": 14
+    },
+    {
+      "answer": "seven",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D1:3",
+        "D10:4",
+        "D14:8",
+        "D17:1",
+        "D19:1",
+        "D22:2",
+        "D27:1"
+      ],
+      "evidence_texts": [
+        "Hey Joanna! That's cool! I won my first video game tournament last week - so exciting!",
+        "Gaming has been my focus - practicing a lot and even winning a few tournaments. Last week I won my second tournament!",
+        "I've been doing great - I just won another regional video game tournament last week! It was so cool, plus I met some new people. Connecting with fellow gamers is always awesome.",
+        "Hey Joanna, check this out! I won my fourth video game tournament on Friday! It was awesome competing and showing off my skills - and the victory was indescribable. I'm really proud that I can make money doing what I love. This one was online!",
+        "Woah Joanna, I won an international tournament yesterday! It was wild. Gaming has brought me so much success and now I'm able to make a living at something I'm passionate about - I'm loving it.",
+        "Hey Joanna! That tart looks yummy! Lately, I've been doing great - I won a really big video game tournament last week and it was awesome! I still can't believe I made so much money from it.",
+        "Hey Joanna! Hope you\u2019re doing alright. Crazy thing happened - I was in the final of a big Valorant tournament last Saturday, and I won! It was the best feeling to see my name as the champion. Tournaments really bring out strong emotions in me."
+      ],
+      "original_conv_index": 3,
+      "question": "How many tournaments has Nate won?",
+      "question_index": 80,
+      "subset_index": 15
+    },
+    {
+      "answer": "6",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D3:3",
+        "D5:2",
+        "D22:4",
+        "D23:7",
+        "D24:2"
+      ],
+      "evidence_texts": [
+        "Thank you! Scoring those points was an incredible experience. The atmosphere was electric, and my teammates and I were thrilled. We pulled off a tough win!",
+        "Hi Tim! Nice to hear from you. Glad you could reconnect. As for me, lots of stuff happened since we last talked. Last week I had a crazy game - crazy intense! We won it by a tight score. Scoring that last basket and hearing the crowd cheer was awesome!",
+        "That frog looks yummy! I haven't had one in ages. Been having some wild games lately, we played a top team and it was tough, but we fought hard and got the win! It's awesome having my team to push us all.",
+        "I've had some thrilling games in my career. My favorite was when we were down 10 in the 4th and I hit the buzzer-beater shot to win. The atmosphere was incredible and it was such a thrilling experience. Those moments make me love basketball so much.",
+        "Hey Tim! Nice to talk again. The b-ball games have been crazy. We had a real battle against another team last week. It was close until the final buzzer but we got the win."
+      ],
+      "original_conv_index": 4,
+      "question": "How many games has John mentioned winning?",
+      "question_index": 17,
+      "subset_index": 16
+    },
+    {
+      "answer": "J.K. Rowling, R.R. Martin, Patrick Rothfuss, Paulo Coelho, and J. R. R. Tolkien.",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D1:14",
+        "D2:7",
+        "D4:7",
+        "D5:15",
+        "D:11:26",
+        "D20:21",
+        "D26:36"
+      ],
+      "evidence_texts": [
+        "It's been going well! Last week I talked to my friend who is a fan of Harry Potter and we're figuring out ideas, so it's been great to get lost in that magical world!",
+        "Yeah, John! Count on me for support. Can't wait to see what's up! This is my book collection so far.",
+        "For sure! Harry Potter and Game of Thrones are amazing - I'm totally hooked! I could chat about them forever!",
+        "It's a book by Patrick Rothfuss and it's awesome! The way the author builds the world and characters is amazing. You should read it!",
+        "Glad you like it! The Hobbit is great, but have you read that other popular fantasy series? It's also awesome!",
+        "I'm really excited to watch this new show that's coming out called \"The Wheel of Time\". It's based on a book series that I love."
+      ],
+      "original_conv_index": 4,
+      "question": "What authors has Tim read books from?",
+      "question_index": 18,
+      "subset_index": 17
+    },
+    {
+      "answer": "Soup, a slow cooker meal, and honey garlic chicken with roasted veg.",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D10:4",
+        "D15:30",
+        "D15:31",
+        "D15:32"
+      ],
+      "evidence_texts": [
+        "Cool, Tim! Taking the plunge and presenting can be tough, but awesome work! Progress is progress, keep it up. By the way, I've been trying out cooking recipes. Made this tasty soup recently - it was real good!",
+        "Yep, I totally get it! Cuddling up with a book is my chill time. And when I'm away from the court, cooking is therapy for me. It's a good way to be creative and experiment with flavors while taking a break. Here's a photo of me cooking a meal.",
+        "That slow cooker meal looks yum! Cooking is a great way to chill and be creative. Do you have any favorite recipes you can show me?",
+        "Definitely! I make this yummy honey garlic chicken with roasted veg a lot. It's one of my favorites. I'm always trying out new recipes, so let me know if you want suggestions!"
+      ],
+      "original_conv_index": 4,
+      "question": "What has John cooked?",
+      "question_index": 42,
+      "subset_index": 18
+    },
+    {
+      "answer": "Yoga, strength training",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D8:5",
+        "D20:2"
+      ],
+      "evidence_texts": [
+        "Thanks! Took some trial and error but I figured out a schedule with both basketball stuff and strength training to balance it out. Listening to my body and giving it enough rest made it easier to push myself during practice but also look after me. Here's my workout plan. It helps a lot with staying on track.",
+        "Hi Tim! Congrats on your success! Keep it up, you're doing great! I'm also trying out yoga to get a little extra strength and flexibility. It's challenging but worth it."
+      ],
+      "original_conv_index": 4,
+      "question": "What does John do to supplement his basketball training?",
+      "question_index": 52,
+      "subset_index": 19
+    },
+    {
+      "answer": "piano, violin",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D8:12",
+        "D21:11"
+      ],
+      "evidence_texts": [
+        "Things have been great since we last talked - I've been focusing on school and reading a bunch of fantasy books. It's a nice way to take a break from all the stress. I've also started learning how to play the piano - it's a learning curve, but it's so satisfying seeing the progress I make! Life's good.",
+        "I'm learning how to play the violin now. I'm mostly into classical music but I'm keen to try out jazz and film scores too. It's a great way to chill and get creative."
+      ],
+      "original_conv_index": 4,
+      "question": "What instruments does Tim play?",
+      "question_index": 57,
+      "subset_index": 20
+    },
+    {
+      "answer": "Rockies, Jasper",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D1:2",
+        "D1:4",
+        "D2:1"
+      ],
+      "evidence_texts": [
+        "Hey Sam! Good to see you! Yeah, I just got back from a trip with my family in my new Prius.",
+        "My old prius broke down, decided to get it repaired and sell it. Glad you asked, we went to Rockies, check it out.",
+        "Hey Sam, good to hear from you! Since we last talked, lots has been happening! Last weekend, I took my family on a road trip to Jasper. It was amazing! We drove through the Icefields Parkway and the glaciers and lakes were gorgeous. I got a shot of a glacier, check it out!"
+      ],
+      "original_conv_index": 8,
+      "question": "Where has Evan been on roadtrips with his family?",
+      "question_index": 2,
+      "subset_index": 21
+    },
+    {
+      "answer": "two",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D1:4",
+        "D2:1"
+      ],
+      "evidence_texts": [
+        "My old prius broke down, decided to get it repaired and sell it. Glad you asked, we went to Rockies, check it out.",
+        "Hey Sam, good to hear from you! Since we last talked, lots has been happening! Last weekend, I took my family on a road trip to Jasper. It was amazing! We drove through the Icefields Parkway and the glaciers and lakes were gorgeous. I got a shot of a glacier, check it out!"
+      ],
+      "original_conv_index": 8,
+      "question": "How many roadtrips did Evan take in May 2023?",
+      "question_index": 6,
+      "subset_index": 22
+    },
+    {
+      "answer": "Weight problem",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D2:6",
+        "D3:4",
+        "D24:12",
+        "D24:14",
+        "D5:5",
+        "D6:2",
+        "D7:2",
+        "D7:12",
+        "D8:1",
+        "D10:6",
+        "D12:1",
+        "D13:2",
+        "D14:1",
+        "D15:1",
+        "D16:3",
+        "D17:3",
+        "D24:20",
+        "D25:1",
+        "D25:3"
+      ],
+      "evidence_texts": [
+        "Thanks, Evan. Appreciate the offer, but had a check-up with my doctor a few days ago and, yikes, the weight wasn't great. It was pretty eye-opening.",
+        "Nah, no changes for me. Still enjoying my soda and candy, although I know it's not the best habit to have.",
+        "Thanks, Evan! Haven't seen a doctor in a while, but it's probably a good idea to get some advice. I'm going to make an appointment soon.",
+        "I'm gonna ask the doc about a balanced diet plan and getting advice on low-impact exercises, given my current situation.",
+        "Ginger snaps are my weakness for sure! Dealing with health issues has been tough, but it's made me appreciate the good moments more. These are the ones who bring lots of joy even through the hard times.",
+        "Hey Evan! Good to hear from you. Wow, Canada sounds amazing! That photo looks stunning. Wish I could do something like that. Things have been a bit challenging for me lately; some stuff has been hard on my health.",
+        "Hey Evan, sorry to hear about what happened. I can imagine how hard it must have been for you. Things haven't been easy for me either. Had a tough week and a doc's appointment, so it was kinda like a wake-up call to take better care of myself. On a bright side, I'm taking a cooking class to learn how to make healthier meals.",
+        "I have been feeling a mix of emotions - somewhat concerned about my health but also motivated to make positive changes. Taking things one step at a time.",
+        "Hey Evan, some big news: I'm on a diet and living healthier! Been tough, but I'm determined.",
+        "It's usually stress, boredom, or just wanting comfort. You know, those sugary treats are so tempting, right?",
+        "Hey Evan, hope you're doing okay. I wanted to chat about something that's been bothering me lately... I went for a check-up Monday and my doc said my weight's a serious health risk - if I don't make changes soon, it can get worse. I know I made jokes about it, but it's really hitting me. Been having a hard time.",
+        "Hey Evan! It's been a rough week - I gave in and bought some unhealthy snacks. I feel kinda guilty. How's it going for you? That painting is awesome! Did you paint it?",
+        "Hey Evan! I've been missing our chats. I had quite the health scare last weekend - ended up in the ER with a severe stomachache. Turns out, it was gastritis, which was pretty alarming. It was a wake-up call for me to start prioritizing my health, like adopting a more nutritious diet and getting regular exercise. On top of that, my phone's been giving me a hard time, adding to the stress.",
+        "Morning, Evan. I've been trying to keep up with my new health routine, but it's tough. My family's really pushing for it, and I feel so pressured.",
+        "Thanks, Evan! Appreciate your support. It's been a journey, and being chosen as a coach is a great step in my quest for better health.",
+        "Woah, Evan, that must've been scary! Phew, it was just a misunderstanding. A health scare can really make you re-evaluate what's important. As for me, I've been dealing with some discomfort and it's been limiting my movement. I've been trying to make changes diet-wise, but it can be hard.",
+        "Between a healthier diet and yoga, I\u2019m hoping for some positive changes.",
+        "Hey Evan, been a few days since we last chatted. Hope you're doing OK. A lot's happened since then. Got issues with my health, it's been rough. Feels like this weight's keeping me from fully living. Trying to stay positive, not easy.",
+        "Hey Evan, that does sound like a tough situation. I'm doing my best with my health. How did your partner take the news about the rose bushes?"
+      ],
+      "original_conv_index": 8,
+      "question": "What health issue did Sam face that motivated him to change his lifestyle?",
+      "question_index": 11,
+      "subset_index": 23
+    },
+    {
+      "answer": "soda, candy",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D3:4"
+      ],
+      "evidence_texts": [
+        "Nah, no changes for me. Still enjoying my soda and candy, although I know it's not the best habit to have."
+      ],
+      "original_conv_index": 8,
+      "question": "What kind of unhealthy snacks does Sam enjoy eating?",
+      "question_index": 15,
+      "subset_index": 24
+    },
+    {
+      "answer": "Malfunctioning self-checkout machines.",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D3:16",
+        "D22:19"
+      ],
+      "evidence_texts": [
+        "Cool, can't wait! Thank you. By the way, I'm coming from the shop and I had a frustrating issue at the supermarket. The self-checkout machines were all broken, my mood is terrible now!",
+        "Thanks, Evan! I'll give these a try. They look yum. Your help means a lot to me. Btw you know what? I went to the store again and, unsurprisingly, had issues with the self-checkout. It's becoming a regular annoyance."
+      ],
+      "original_conv_index": 8,
+      "question": "What recurring issue frustrates Sam at the grocery store?",
+      "question_index": 16,
+      "subset_index": 25
+    },
+    {
+      "answer": "He says she's cool, incredible, like something out of a movie, and that he feels alive around her. Every moment with her is fun and energetic, also Evan feels really lucky to have someone who gets him.",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D5:1",
+        "D5:3",
+        "D23:3"
+      ],
+      "evidence_texts": [
+        "Hey Sam, how's it going? Last week I went on a trip to Canada and something unreal happened - I met this awesome Canadian woman and it was like something out of a movie. She's incredible and being with her makes me feel alive.",
+        "Woah. such a nice view! Thanks, Sam! She's definitely great. Every moment with her is really fun and energizing. It's a nice change, especially after dealing with health issues. But you never know what life's gonna throw at you. Btw look what life has thrown for me right now haha.",
+        "Thanks, Sam! It was an awesome moment, and I feel really lucky to have found someone who gets me. Plus, our families are really happy for us - that's the best part!"
+      ],
+      "original_conv_index": 8,
+      "question": "How does Evan describe the woman and his feelings for her that he met in Canada?",
+      "question_index": 21,
+      "subset_index": 26
+    },
+    {
+      "answer": "he's flying over a cityscape.",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D6:14",
+        "D24:22"
+      ],
+      "evidence_texts": [
+        "Oh, I'll definitely be your cheerleader once I get some sleep, Evan! Funny you mention that, I had this amazing dream last night where I was soaring over skyscrapers. It felt incredible! Makes me wonder what it signifies...",
+        "That looks zen. Gonna go for some beach walks - thanks for the tip, Evan! I want to brag, I had that recurring dream again where I'm flying over skyscrapers!"
+      ],
+      "original_conv_index": 8,
+      "question": "What is the recurring dream that Sam keeps having?",
+      "question_index": 33,
+      "subset_index": 27
+    },
+    {
+      "answer": "injured at a soccer game, fell off his bike",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D7:1",
+        "D20:3"
+      ],
+      "evidence_texts": [
+        "Hey Sam, what's up? It's been a few days since we talked. How have you been? Life's been tough lately - my son had a soccer accident last Saturday and hurt his ankle, it was tough seeing him hurt! I just been looking after him and taking him to the doctor. As a dad, it's hard to watch your kid go through something like that.",
+        "It's not easy for us right now, my son had an accident last Tuesday, he fell off his bike and it was rough. But he's doing better now. How are you dealing with all this?"
+      ],
+      "original_conv_index": 8,
+      "question": "What accidents has Evan's son faced lately?",
+      "question_index": 34,
+      "subset_index": 28
+    },
+    {
+      "answer": "grilled vegetables, grilled chicken and veggie stir-fry, poutine",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D7:8",
+        "D8:7",
+        "D23:26"
+      ],
+      "evidence_texts": [
+        "Yeah definitely, Evan. I have a tasty and easy roasted veg recipe that I can share with you. Oh, by the way, how have you been doing after the soccer incident? Must've been tough.",
+        "Sure, I'm loving this recipe I found. It's a flavorful and healthy grilled chicken and veggie stir-fry. Wanna give it a go?",
+        "Sounds amazing, Ev! Skiing, trying local dishes, and enjoying the breathtaking views - the perfect honeymoon. Have an incredible time creating unforgettable memories!"
+      ],
+      "original_conv_index": 8,
+      "question": "What kind of foods or recipes has Sam recommended to Evan?",
+      "question_index": 36,
+      "subset_index": 29
+    },
+    {
+      "answer": "painting, hiking, reading books, biking, skiing, snowboarding, ice skating, swimming, camping, kayaking",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D1:14",
+        "D1:6",
+        "D4:8",
+        "D6:1",
+        "D8:30",
+        "D9:6",
+        "D25:8",
+        "D25:10"
+      ],
+      "evidence_texts": [
+        "Yep, it's a great stress-buster. I started doing this a few years back.",
+        "We all hiked the trails last week - the views were amazing!",
+        "Go for it, Sam! It's tough at first, but you got this. Try flavored seltzer water instead. It can be a great alternative to soda. Btw I can't stop thinking about that new mystery novel I started. It's so gripping!",
+        "Hey Sam, long time no talk! Hope you're doing great. I just got back from a rad vacay with my new SO in Canada. Tried some awesome activities too - think hiking, biking... all that cool stuff. We loved exploring the outdoors together, it was so awesome!",
+        "Skiing, snowboarding, and ice skating are all fun winter activities I enjoy.",
+        "Yeah, PT for my knee is on the cards. Hopefully I'll get an appointment soon. Till then, just keeping it low-key and swimming to stay active.",
+        "Glad to hear it! Nature really has a way of calming and reviving the soul. Last summer, I took this pic on a camping trip - it was such an amazing sunset. Moments like these remind us of the beauty of life, even during tough times.",
+        "I had a great time kayaking and watching the sunset last summer - it was truly unforgettable. Being out on the water is so peaceful."
+      ],
+      "original_conv_index": 8,
+      "question": "What kind of hobbies does Evan pursue?",
+      "question_index": 50,
+      "subset_index": 30
+    },
+    {
+      "answer": "Helping lost tourists and experiencing unexpected adventures in the city.",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D11:6",
+        "D14:2"
+      ],
+      "evidence_texts": [
+        "I do my favorite watercolor painting to keep me busy. It's a chill way to relax and get into the colors. By the way, something happened two weeks ago! You're not gonna believe this, I had a bit of an adventure recently. Helped a lost tourist find their way, and we ended up taking an unexpected tour around the city. It was a blast!",
+        "Hey Sam, sorry to hear about that. Gastritis can be tough. Taking care of ourselves is important. BTW, I've been focusing on fitness and it's been really beneficial for my overall well-being. Funny thing, I had another encounter with a lost tourist recently. Seems like helping tourists is becoming a recurring theme in my life!"
+      ],
+      "original_conv_index": 8,
+      "question": "What recurring adventure does Evan have with strangers?",
+      "question_index": 55,
+      "subset_index": 31
+    },
+    {
+      "answer": "his partner gets pregnant and they get married",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D19:1",
+        "D21:2"
+      ],
+      "evidence_texts": [
+        "Hey Sam, hope you're doing good. Wanted to share some amazing news - my partner is pregnant! We're so excited! It's been a while since we had a kiddo around.",
+        "Hey Sam! Long time no see! Been up and down lately, got married last week - how about you?"
+      ],
+      "original_conv_index": 8,
+      "question": "Which two significant life events occur in Evan's life in December 2023 with his partner?",
+      "question_index": 69,
+      "subset_index": 32
+    },
+    {
+      "answer": "hiking",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D20:6",
+        "D22:1"
+      ],
+      "evidence_texts": [
+        "I used to love hiking, but it's been a while since I had the chance to do it.",
+        "Hey Evan! I\u2019m really getting into this healthier lifestyle\u2014just took my friends on an epic hiking trip last Friday!"
+      ],
+      "original_conv_index": 8,
+      "question": "Which activity did Sam resume in December 2023 after a long time?",
+      "question_index": 72,
+      "subset_index": 33
+    },
+    {
+      "answer": "mansion in Japan, luxury car Ferrari 488 GTB",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D1:3",
+        "D2:1"
+      ],
+      "evidence_texts": [
+        "That event sounds great! Something really exciting happened to me - I just had a big life change! Here's my new mansion - pretty cool huh?",
+        "Hey Dave, been a few days, so I wanted to let you in on some cool news.  I just got a new car and it's amazing! Finally owning a luxury car was a dream come true and I'm so stoked."
+      ],
+      "original_conv_index": 9,
+      "question": "What items did Calvin buy in March 2023?",
+      "question_index": 1,
+      "subset_index": 34
+    },
+    {
+      "answer": "Aerosmith, The Fireworks",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D2:10",
+        "D23:9"
+      ],
+      "evidence_texts": [
+        "Wow, there were so many great bands! If I had to pick a favorite, it would definitely be Aerosmith. Their performance was incredible. I'll show you a pic I took when they were playing.",
+        "The Fireworks headlined the festival."
+      ],
+      "original_conv_index": 9,
+      "question": "Which bands has Dave enjoyed listening to?",
+      "question_index": 3,
+      "subset_index": 35
+    },
+    {
+      "answer": "music festival, car museum, Shibuya crossing, Shinjuku",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D3:1",
+        "D12:7",
+        "D24:19"
+      ],
+      "evidence_texts": [
+        "Hey Dave! Long time no see. I just went to an awesome music thingy in Tokyo - so cool!",
+        "Aww, that's cool, Dave. Reminiscing is always fun! That pic you shared takes me back to my trip to the Ferrari dealership. I saw a lot of amazing cars, but as for me, my car is the best and  I'm pretty proud of this. Sure, it's just material, but it reminds me of my hard work and dedication. It really inspires me. Take a look at this beauty!",
+        "Yeah definitely! Shibuya Crossing is like Tokyo's Times Square, and I was excited to explore Shinjuku. Plus, there's amazing food there, can't wait to try it again! Look at the photo of Shibuya Crossing at night, that's amazing!"
+      ],
+      "original_conv_index": 9,
+      "question": "Which places or events has Calvin visited in Tokyo?",
+      "question_index": 19,
+      "subset_index": 36
+    },
+    {
+      "answer": "auto engineering",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D13:3",
+        "D5:5",
+        "D4:5",
+        "D3:12"
+      ],
+      "evidence_texts": [
+        "Thanks, Calvin! This is a dream come true for me, as I've always wanted to learn auto engineering and work on building a custom car.",
+        "Thanks Calvin! Appreciate the support. I'm gonna keep learning more about auto engineering, maybe even build a custom car from scratch someday - that's the dream! For now, just gonna keep working on this project and assisting customers.",
+        "Thanks! Appreciate the support. My dream was to open a shop and it's a step towards my other dream of working on classic cars. I love their design and engineering.",
+        "Last weekend I went to a car show. Classic cars are so charming and the dedication people put into restoring them is amazing. That's why I'm so into auto engineering. Can't wait to show you some when you come to Boston! Oh, almost forgot to send a photo, look at this beautiful car!"
+      ],
+      "original_conv_index": 9,
+      "question": "What is Dave's main passion?",
+      "question_index": 23,
+      "subset_index": 37
+    },
+    {
+      "answer": "two",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D3:12",
+        "D22:1"
+      ],
+      "evidence_texts": [
+        "Last weekend I went to a car show. Classic cars are so charming and the dedication people put into restoring them is amazing. That's why I'm so into auto engineering. Can't wait to show you some when you come to Boston! Oh, almost forgot to send a photo, look at this beautiful car!",
+        "Hey Calvin! What\u2019s up? Last Friday I went to the car show. I saw some awesome cars and got to mess with car mods! There were so many cool machines around, it was so much fun! Take a look at this beautiful car!"
+      ],
+      "original_conv_index": 9,
+      "question": "How many car shows has Dave attended?",
+      "question_index": 47,
+      "subset_index": 38
+    },
+    {
+      "answer": "attending a car show with Dad, working on an old car in a neighbor's garage when he was young, spent a summer restoring an old car with Dad",
+      "category": 1,
+      "category_name": "multi-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D26:6",
+        "D25:12",
+        "D12:2",
+        "D12:4"
+      ],
+      "evidence_texts": [
+        "Thanks, Calvin! It's always been my thing. My dad took me to my first car show when I was 10, and I was wow-ed! I was hooked and wanted to learn more. Now I'm an automotive engineer and it's crazy to think that something so powerful and cool can be made from small parts.",
+        "Yeah, it's a way for me to express myself and work through my emotions. It's like my own form of therapy.",
+        "Hey Calvin, I understand the stress of getting a car serviced. Fixing cars is like therapy for me. Growing up working on cars with my dad, refurbishing them gives me a sense of fulfillment.",
+        "Yeah, definitely! I have fond memories of working on cars with my dad as a kid. We spent one summer restoring an old car. It was hard work, but seeing the end result and knowing that we did it together was really satisfying."
+      ],
+      "original_conv_index": 9,
+      "question": "Which events in Dave's life inspired him to take up auto engineering?",
+      "question_index": 58,
+      "subset_index": 39
+    },
+    {
+      "answer": "her mother",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D13:16"
+      ],
+      "evidence_texts": [
+        "Wow, John! It's great when you have that kind of support. My mom and I made some dinner together last night!"
+      ],
+      "original_conv_index": 2,
+      "question": "Who did Maria have dinner with on May 3, 2023?",
+      "question_index": 0,
+      "subset_index": 40
+    },
+    {
+      "answer": "December 2022",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D3:15"
+      ],
+      "evidence_texts": [
+        "Wow, nature can be so beautiful! It reminds me of the film camera I had as a kid, I took plenty of beach pics. Thanks for sharing."
+      ],
+      "original_conv_index": 2,
+      "question": "When did Maria go to the beach?",
+      "question_index": 5,
+      "subset_index": 41
+    },
+    {
+      "answer": "In 2013",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D17:1"
+      ],
+      "evidence_texts": [
+        "Hey Maria, long time no talk! Life's been pretty wild lately. The toughest thing to deal with is that we had to say goodbye to Max. He was such an important part of our family for 10 years and it's so hard to think he's not here wagging that tail anymore."
+      ],
+      "original_conv_index": 2,
+      "question": "When did John get his dog Max?",
+      "question_index": 31,
+      "subset_index": 42
+    },
+    {
+      "answer": "The sunday before 3` July 2023",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D26:4"
+      ],
+      "evidence_texts": [
+        "Thanks, Maria! It's been tough, but really rewarding. The training was intense and taxing, but it changed my view on helping others. Last Sunday we had our first call-out, and it was intense. We responded to a situation and our team worked together to help those in need. Seeing their relief was awesome."
+      ],
+      "original_conv_index": 2,
+      "question": "When did John have his first firefighter call-out?",
+      "question_index": 48,
+      "subset_index": 43
+    },
+    {
+      "answer": "two weeks",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D30:1",
+        "D31:2"
+      ],
+      "evidence_texts": [
+        "Hey John! Long time no talk! Guess what - I got a puppy two weeks ago! Her name's Coco and she's adorable.",
+        "Wow, John! You're doing great things. Kudos for helping kids learn. On another note, I just adopted this cute pup from a shelter last week. She brings so much joy! I feel blessed to be able to give her a home."
+      ],
+      "original_conv_index": 2,
+      "question": "How many weeks passed between Maria adopting Coco and Shadow?",
+      "question_index": 63,
+      "subset_index": 44
+    },
+    {
+      "answer": "The Friday before 23January, 2022",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D2:3"
+      ],
+      "evidence_texts": [
+        "Woo! I finally finished my first full screenplay and printed it last Friday. I've been working on for a while, such a relief to have it all done!"
+      ],
+      "original_conv_index": 3,
+      "question": "When did Joanna finish her first screenplay?",
+      "question_index": 7,
+      "subset_index": 45
+    },
+    {
+      "answer": "finished her screenplay and printed it",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D2:3"
+      ],
+      "evidence_texts": [
+        "Woo! I finally finished my first full screenplay and printed it last Friday. I've been working on for a while, such a relief to have it all done!"
+      ],
+      "original_conv_index": 3,
+      "question": "What major achievement did Joanna accomplish in January 2022?",
+      "question_index": 9,
+      "subset_index": 46
+    },
+    {
+      "answer": "Lord of the Rings",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D10:1"
+      ],
+      "evidence_texts": [
+        "Hey Nate, how's it going? I took your reccomendation and watched \"The Lord of the Rings\" Trilogy last night! It was awesome!"
+      ],
+      "original_conv_index": 3,
+      "question": "What movie did Joanna watch on 1 May, 2022?",
+      "question_index": 17,
+      "subset_index": 47
+    },
+    {
+      "answer": "May 2022",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D12:13",
+        "D12:14"
+      ],
+      "evidence_texts": [
+        "Wow, that looks great Joanna! Is that your third one?",
+        "Yep! I chose to write about this because it's really personal. It's about loss, identity, and connection. It's a story I've had for ages but just got the guts to write it. It was hard, but I'm so proud of it."
+      ],
+      "original_conv_index": 3,
+      "question": "When did Joanna start writing her third screenplay?",
+      "question_index": 22,
+      "subset_index": 48
+    },
+    {
+      "answer": "The weekend after 3June, 2022.",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D14:20"
+      ],
+      "evidence_texts": [
+        "Sounds great! Have fun with that. I'm organizing a gaming party two weekends later - it'll be hectic but fun!"
+      ],
+      "original_conv_index": 3,
+      "question": "When is Nate hosting a gaming party?",
+      "question_index": 24,
+      "subset_index": 49
+    },
+    {
+      "answer": "The weekend after 3June, 2022.",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D14:19"
+      ],
+      "evidence_texts": [
+        "Yep, I'm hiking with some buddies this weekend. We're checking out a new trail with a rad waterfall. Can't wait! Do you have any fun plans?"
+      ],
+      "original_conv_index": 3,
+      "question": "When did Joanna hike with her buddies?",
+      "question_index": 25,
+      "subset_index": 50
+    },
+    {
+      "answer": "The week before 3June, 2022",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D14:8"
+      ],
+      "evidence_texts": [
+        "I've been doing great - I just won another regional video game tournament last week! It was so cool, plus I met some new people. Connecting with fellow gamers is always awesome."
+      ],
+      "original_conv_index": 3,
+      "question": "When did Nate win his third tourney?",
+      "question_index": 26,
+      "subset_index": 51
+    },
+    {
+      "answer": "The weekend of 24June, 2022.",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D16:11"
+      ],
+      "evidence_texts": [
+        "Awesome! I'm going to make it for my family this weekend - can't wait!"
+      ],
+      "original_conv_index": 3,
+      "question": "When is Joanna going to make Nate's ice cream for her family?",
+      "question_index": 29,
+      "subset_index": 52
+    },
+    {
+      "answer": "The week before 22August, 2022.",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D19:6"
+      ],
+      "evidence_texts": [
+        "I'm good! Was super nervous last week when I shared my book with my writers group but got some great feedback. My hard work is paying off, it's such an awesome feeling!"
+      ],
+      "original_conv_index": 3,
+      "question": "When did Joanna share her book with her writers group?",
+      "question_index": 36,
+      "subset_index": 53
+    },
+    {
+      "answer": "5 October, 2022",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D22:1"
+      ],
+      "evidence_texts": [
+        "Hey Nate, hi! Yesterday, I tried my newest dairy-free recipe and it was a winner with my family! Mixing and matching flavors is fun and I'm always trying new things. How about you?"
+      ],
+      "original_conv_index": 3,
+      "question": "When did Joanna make a chocolate tart with raspberries?",
+      "question_index": 41,
+      "subset_index": 54
+    },
+    {
+      "answer": "The week before October 13th, 2023.",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D13:1"
+      ],
+      "evidence_texts": [
+        "Hey John! It's been ages since we last talked. Guess what? Last week I went to a Harry Potter conference in the UK - it was incredible! There were so many people who shared the same love of HP as me, it was like a magical family. I felt so inspired and like I got a new lease of life. I love how my passion for fantasy stuff brings me closer to people from all over the world, it's pretty cool."
+      ],
+      "original_conv_index": 4,
+      "question": "Which week did Tim visit the UK for the Harry Potter Conference?",
+      "question_index": 37,
+      "subset_index": 55
+    },
+    {
+      "answer": "December 11, 2023",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D23:2"
+      ],
+      "evidence_texts": [
+        "Hey John, I had a tough time with my English lit class. Did an analysis on this series and I think it went ok!"
+      ],
+      "original_conv_index": 4,
+      "question": "When did John achieve a career-high assist performance?",
+      "question_index": 60,
+      "subset_index": 56
+    },
+    {
+      "answer": "painting",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D10:12",
+        "D10:13",
+        "D10:14"
+      ],
+      "evidence_texts": [
+        "Sounds great, Evan! Can you help me pick out the stuff? Let's plan a painting session soon. I'm really excited!",
+        "Yeah, Sam - let's do it! Let's get everything ready and paint next Saturday. Can't wait!",
+        "Sounds good, Evan! Can't wait to paint with you next Saturday. It'll be a fun and creative activity."
+      ],
+      "original_conv_index": 8,
+      "question": "Which activity do Evan and Sam plan on doing together during September 2023?",
+      "question_index": 52,
+      "subset_index": 57
+    },
+    {
+      "answer": "October 2022",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D12:2"
+      ],
+      "evidence_texts": [
+        "Hey Sam, tough news. Yeah, our health can really put a damper on things. I started lifting weights one year ago and it's been a journey. It was a struggle at first, but I'm seeing some gains. You interested in trying it out?"
+      ],
+      "original_conv_index": 8,
+      "question": "When did Evan start lifting weights?",
+      "question_index": 58,
+      "subset_index": 58
+    },
+    {
+      "answer": "work-related stress",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D13:4"
+      ],
+      "evidence_texts": [
+        "Thanks, Evan! Yeah, I just couldn't resist them. Gotta do better. As for me, just dealing with work stress and trying to stay motivated."
+      ],
+      "original_conv_index": 8,
+      "question": "What kind of stress was Sam dealing with in October 2023?",
+      "question_index": 61,
+      "subset_index": 59
+    },
+    {
+      "answer": "weekend before 17 October, 2023.",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D14:1"
+      ],
+      "evidence_texts": [
+        "Hey Evan! I've been missing our chats. I had quite the health scare last weekend - ended up in the ER with a severe stomachache. Turns out, it was gastritis, which was pretty alarming. It was a wake-up call for me to start prioritizing my health, like adopting a more nutritious diet and getting regular exercise. On top of that, my phone's been giving me a hard time, adding to the stress."
+      ],
+      "original_conv_index": 8,
+      "question": "When was Sam in the ER?",
+      "question_index": 63,
+      "subset_index": 60
+    },
+    {
+      "answer": "December, 2023",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D16:24"
+      ],
+      "evidence_texts": [
+        "Awesome, let's do it! Let's plan it for next month, I'm already excited about exploring it together!"
+      ],
+      "original_conv_index": 8,
+      "question": "When did Evan and Sam planned a trip to the beach together?",
+      "question_index": 67,
+      "subset_index": 61
+    },
+    {
+      "answer": "Attending a Weight Watchers meeting",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D18:6"
+      ],
+      "evidence_texts": [
+        "Exactly, it's all about finding the silver lining. Speaking of new things, I attended a Weight Watchers meeting yesterday. Learned some great tips."
+      ],
+      "original_conv_index": 8,
+      "question": "What was Sam doing on December 4, 2023?",
+      "question_index": 68,
+      "subset_index": 62
+    },
+    {
+      "answer": "few days before 17 December, 2023.",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D20:13",
+        "D20:15"
+      ],
+      "evidence_texts": [
+        "Yeah, trying something new and succeeding gives a great feeling of accomplishment. Give it a go, even if it's just a little thing. You'll be amazed!",
+        "\nThis is a contemporary figurative painting that I've finished few days ago, emphasizing the emotional state through expressive brushwork and vibrant color choices. It captures a moment of introspection, where the subject is deeply immersed in thought. Very proud of it!"
+      ],
+      "original_conv_index": 8,
+      "question": "When did Evan finish the painting that's hanging in the exhibit?",
+      "question_index": 76,
+      "subset_index": 63
+    },
+    {
+      "answer": "between 26 March and 20 April 2023",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D3:1"
+      ],
+      "evidence_texts": [
+        "Hey Dave! Long time no see. I just went to an awesome music thingy in Tokyo - so cool!"
+      ],
+      "original_conv_index": 9,
+      "question": "When did Calvin first travel to Tokyo?",
+      "question_index": 0,
+      "subset_index": 64
+    },
+    {
+      "answer": "July 2023",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D8:10"
+      ],
+      "evidence_texts": [
+        "I booked a trip to a mountainous region for next month! Finally gonna be able to see those majestic peaks! Gonna be an amazing experience!"
+      ],
+      "original_conv_index": 9,
+      "question": "When did Dave take a trip to mountainous regions?",
+      "question_index": 16,
+      "subset_index": 65
+    },
+    {
+      "answer": "last week of August 2023",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D17:6"
+      ],
+      "evidence_texts": [
+        "Wow, Dave, that's awesome! You should be really proud of yourself for bringing joy to others. I booked a flight ticket to Boston last week! I'm so excited about my upcoming trip to Boston. Look at this! See you soon, buddy!"
+      ],
+      "original_conv_index": 9,
+      "question": "When did Calvin book flight tickets to Boston?",
+      "question_index": 35,
+      "subset_index": 66
+    },
+    {
+      "answer": "September 14, 2023",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D19:1"
+      ],
+      "evidence_texts": [
+        "Hey Calvin! Long time no talk! Got some cool news to share - last night was a blast! My band and I were jamming and the music just kept flowing. We had so much fun rehearsing! Also, last weekend, I had the opportunity to attend a rock concert here in Boston. Just take a look at what an amazing atmosphere it was!"
+      ],
+      "original_conv_index": 9,
+      "question": "When did Dave have a great jam session with his band?",
+      "question_index": 38,
+      "subset_index": 67
+    },
+    {
+      "answer": "two weeks",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D14:1",
+        "D17:1"
+      ],
+      "evidence_texts": [
+        "Hey Cal, how's it going? Something cool happened since last we talked - I got to go to a car workshop in San Francisco! So cool to dive into the world of car restoration and see all the different techniques. People were really passionate and dedicated - truly inspiring!",
+        "Hey Calvin! Been a while, what's up? I'm tied up with car stuff lately, yesterday I came back from San Francsico with some great insights and knowledge on car modification that I want to share with you! Changing things around, and giving an old car a new life - so satisfying!"
+      ],
+      "original_conv_index": 9,
+      "question": "How long was the car modification workshop in San Francisco?",
+      "question_index": 62,
+      "subset_index": 68
+    },
+    {
+      "answer": "Tokyo",
+      "category": 2,
+      "category_name": "temporal",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D28:1"
+      ],
+      "evidence_texts": [
+        "Hey Dave! It's been a while! Crazy stuff has been happening. Last week I threw a small party at my Japanese house for my new album. It was amazing, so much love from my fam and friends! Take a look at the photo of the party in the mansion, it was so energizing!"
+      ],
+      "original_conv_index": 9,
+      "question": "Where was Calvin located in the last week of October 2023?",
+      "question_index": 67,
+      "subset_index": 69
+    },
+    {
+      "answer": "Yes",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D8:18",
+        "D8:20"
+      ],
+      "evidence_texts": [
+        "Wow, having symbols of travel memories in our homes is so cool! Last week I retook the aptitude test with some great results, and I feel drawn to serving my country in this way.",
+        "Yeah, I chatted with my family and friends about it. They've been supportive and understand why I want to volunteer. I'm really proud to have this opportunity!"
+      ],
+      "original_conv_index": 2,
+      "question": "Would John be considered a patriotic person?",
+      "question_index": 14,
+      "subset_index": 70
+    },
+    {
+      "answer": "Independence Day",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D21:3"
+      ],
+      "evidence_texts": [
+        "Hey John! They were great, their smiles warmed my heart. But something not so great happened yesterday..."
+      ],
+      "original_conv_index": 2,
+      "question": "Around which US holiday did Maria get into a car accident?",
+      "question_index": 39,
+      "subset_index": 71
+    },
+    {
+      "answer": "beach",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D22:15"
+      ],
+      "evidence_texts": [
+        "Yeah, Maria. Little things like this can make a big impact in how we think. Oh, and here's a pic I got from my walk last week. It always reminds me to take a break, breathe, and appreciate nature."
+      ],
+      "original_conv_index": 2,
+      "question": "Does John live close to a beach or the mountains?",
+      "question_index": 41,
+      "subset_index": 72
+    },
+    {
+      "answer": "No, he has goals specifically in the U.S. like joining the military and running for office.",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D24:3",
+        "D7:2"
+      ],
+      "evidence_texts": [
+        "I heard some cool stories from an elderly veteran named Samuel. It was inspiring and heartbreaking, but seeing their resilience really filled me with hope. It reminded me why I wanted to join the military.",
+        "Hey Maria! Wanted to let you know that I'm running for office again. It's been a wild ride, but I'm more excited than ever! How have you been?"
+      ],
+      "original_conv_index": 2,
+      "question": "Would John be open to moving to another country?",
+      "question_index": 45,
+      "subset_index": 73
+    },
+    {
+      "answer": "A Nintendo Switch; since the game \"Xenoblade 2\" is made for this console.",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D27:23"
+      ],
+      "evidence_texts": [
+        "Yep! I'm currently playing this awesome fantasy RPG called \"Xeonoblade Chronicles\" and it's been a blast! I highly reccomend it if you've never played it before. "
+      ],
+      "original_conv_index": 3,
+      "question": "What Console does Nate own?",
+      "question_index": 60,
+      "subset_index": 74
+    },
+    {
+      "answer": "Pomodoro technique",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D18:3",
+        "D18:7"
+      ],
+      "evidence_texts": [
+        "Ouch, bummer about the injury. Hang tight. This week has been swamped with exams for me but I'm plowing through.",
+        "That's cool! I like breaking up my studying into smaller parts. 25 minutes on, then 5 minutes off for something fun. It's less overwhelming and keeps me on track."
+      ],
+      "original_conv_index": 4,
+      "question": "Which popular time management technique does Tim use to prepare for exams?",
+      "question_index": 27,
+      "subset_index": 75
+    },
+    {
+      "answer": "John Williams",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D8:14",
+        "D8:16"
+      ],
+      "evidence_texts": [
+        "Thanks! I love playing different songs on the piano, but my favorite one to jam to is a theme from a movie I really enjoy. It brings back lots of great memories.",
+        "Yeah, \"Harry Potter and the Philosopher's Stone\" is special to me. It was the first movie from the series and brings back some great memories. Watching it with my family was amazing. It was so magical!"
+      ],
+      "original_conv_index": 4,
+      "question": "Which popular music composer's tunes does Tim enjoy playing on the piano?",
+      "question_index": 28,
+      "subset_index": 76
+    },
+    {
+      "answer": "California or Florida",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D10:9"
+      ],
+      "evidence_texts": [
+        "Thanks! Excited to try this. Love experimenting with spices. By the way, have you been to Universal Studios? Planning a trip there next month."
+      ],
+      "original_conv_index": 4,
+      "question": "Which US states might Tim be in during September 2023 based on his plans of visiting Universal Studios?",
+      "question_index": 32,
+      "subset_index": 77
+    },
+    {
+      "answer": "Skellig Michael, Malin Head, Loop Head, Ceann Sib\u00e9al, and Brow Head because they are Star Wars filming locations.",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D1:18",
+        "D27:21",
+        "D28:1"
+      ],
+      "evidence_texts": [
+        "I went to a place in London a few years ago - it was like walking into a Harry Potter movie! I also went on a tour which was amazing. Have you been to any of the real Potter places? I'd love to explore them someday!",
+        "Definitely Star Wars! It's my favorite and never gets old. What about you, do you have any favorite fantasy films?",
+        "Hey John, long time no talk. On Friday, I got great news - I'm finally in the study abroad program I applied for! Next month, I'm off to Ireland for a semester."
+      ],
+      "original_conv_index": 4,
+      "question": "Which Star Wars-related locations would Tim enjoy during his visit to Ireland?",
+      "question_index": 70,
+      "subset_index": 78
+    },
+    {
+      "answer": "Canada",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D2:1"
+      ],
+      "evidence_texts": [
+        "Hey Sam, good to hear from you! Since we last talked, lots has been happening! Last weekend, I took my family on a road trip to Jasper. It was amazing! We drove through the Icefields Parkway and the glaciers and lakes were gorgeous. I got a shot of a glacier, check it out!"
+      ],
+      "original_conv_index": 8,
+      "question": "Which country was Evan visiting in May 2023?",
+      "question_index": 5,
+      "subset_index": 79
+    },
+    {
+      "answer": "camping trip in the outdoors",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D2:1",
+        "D2:3",
+        "D19:1",
+        "D19:3"
+      ],
+      "evidence_texts": [
+        "Hey Sam, good to hear from you! Since we last talked, lots has been happening! Last weekend, I took my family on a road trip to Jasper. It was amazing! We drove through the Icefields Parkway and the glaciers and lakes were gorgeous. I got a shot of a glacier, check it out!",
+        "Hey Sam, thanks for asking! It was great - fresh air, peacefulness and a cozy cabin surrounded by mountains and forests made it feel like a real retreat.",
+        "Hey Sam, hope you're doing good. Wanted to share some amazing news - my partner is pregnant! We're so excited! It's been a while since we had a kiddo around.",
+        "So excited and a bit nervous! It's been a while since I had a toddler around but I'm really looking forward to it. Parenthood is so rewarding. I still remember when my first child was born, the joy was amazing. Looking forward to witness the miracle of life and build more memories with my family!"
+      ],
+      "original_conv_index": 8,
+      "question": "Which type of vacation would Evan prefer with his family, walking tours in metropolitan cities or camping trip in the outdoors?",
+      "question_index": 10,
+      "subset_index": 80
+    },
+    {
+      "answer": "Evan and Sam would likely advise embracing small, consistent changes\u200b\u200b, finding stress-relieving activities like hiking\u200b\u200b, painting, and road trips\u200b\u200b, and the importance of friendship and support in navigating challenges\u200b\u200b.",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D3:10",
+        "D3:15",
+        "D22:1",
+        "D8:17",
+        "D8:22",
+        "D9:8",
+        "D9:11",
+        "D14:7",
+        "D14:12",
+        "D12:7",
+        "D12:11"
+      ],
+      "evidence_texts": [
+        "Yeah, you're right. It takes time, but I'm up for keep trying and making those tiny changes.",
+        "Sure Sam, I'd be glad to help. Let's get together and I'll show you some basic exercises. We'll reach our goals!",
+        "Hey Evan! I\u2019m really getting into this healthier lifestyle\u2014just took my friends on an epic hiking trip last Friday!",
+        "Cool, Evan! What have you been learning in those classes?",
+        "Thanks Sam! I aim to capture the vibe of nature in my paintings, conveying the peacefulness of being outdoors.",
+        "Yeah, thanks for the push, Sam. Oh, hey, I came across this pic when I was tidying up. I took a road trip last month - the scenery was stunning and nature really chilled me out.",
+        "I haven't gone on a road trip in ages, but I love being surrounded by nature. It's so tranquil and refreshing. I'd love to go hiking more, but it can be a bit challenging sometimes. However, I am working on becoming healthier, so maybe a road trip and a hike will be possible soon.",
+        "Sounds awesome, Evan! Can't wait to go on a hike with you. It's going to be a fun challenge and a great opportunity to appreciate the beauty of nature.",
+        "Sure thing! Our hike is going to be awesome, I can tell. I'm always here to support you.",
+        "Thanks, Evan. I appreciate your support. It really means a lot to me. I'll definitely keep you posted on my progress.",
+        "Wow, Evan, that's really inspiring. Gonna keep believing in it!"
+      ],
+      "original_conv_index": 8,
+      "question": "Considering their conversations and personal growth, what advice might Evan and Sam give to someone facing a major life transition or challenge?",
+      "question_index": 19,
+      "subset_index": 81
+    },
+    {
+      "answer": "every three months",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D2:6",
+        "D7:2",
+        "D12:1"
+      ],
+      "evidence_texts": [
+        "Thanks, Evan. Appreciate the offer, but had a check-up with my doctor a few days ago and, yikes, the weight wasn't great. It was pretty eye-opening.",
+        "Hey Evan, sorry to hear about what happened. I can imagine how hard it must have been for you. Things haven't been easy for me either. Had a tough week and a doc's appointment, so it was kinda like a wake-up call to take better care of myself. On a bright side, I'm taking a cooking class to learn how to make healthier meals.",
+        "Hey Evan, hope you're doing okay. I wanted to chat about something that's been bothering me lately... I went for a check-up Monday and my doc said my weight's a serious health risk - if I don't make changes soon, it can get worse. I know I made jokes about it, but it's really hitting me. Been having a hard time."
+      ],
+      "original_conv_index": 8,
+      "question": "How often does Sam get health checkups?",
+      "question_index": 43,
+      "subset_index": 82
+    },
+    {
+      "answer": "California",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D13:14"
+      ],
+      "evidence_texts": [
+        "We're traveling through Lake Tahoe! I heard it's great for kayaking."
+      ],
+      "original_conv_index": 8,
+      "question": "Which US state was Sam travelling in during October 2023?",
+      "question_index": 57,
+      "subset_index": 83
+    },
+    {
+      "answer": "Yes; he want's to grow his fanbase",
+      "category": 3,
+      "category_name": "open-domain",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D12:11",
+        "D27:1"
+      ],
+      "evidence_texts": [
+        "My plan for now is to expand my brand worldwide and grow my fanbase. I want my music to reach more people and make an impact. Working with artists from around the globe and challenging myself to create special music are goals of mine too. Look at the photo of how I performed with the boys last night, they are great at the music!",
+        "Hey Dave! Since we last talked, I went to a networking event to meet more artists. So cool! The people I met will help me build up my fan base. Super excited about what it could lead to. You? Anything new since we last spoke?"
+      ],
+      "original_conv_index": 9,
+      "question": "Does Calvin wish to become more popular?",
+      "question_index": 21,
+      "subset_index": 84
+    },
+    {
+      "answer": "politics and the government",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 0,
+      "evidence_ids": [
+        "D12:1"
+      ],
+      "evidence_texts": [
+        "Hey Maria, hope you're doing okay. Since we chatted last, I've been blogging about politics and the government. It's been a really satisfying experience and I care about making a real impact. We need way better education and infrastructure and I know firsthand how this impacts neighborhoods."
+      ],
+      "original_conv_index": 2,
+      "question": "What topic has John been blogging about recently?",
+      "question_index": 88,
+      "subset_index": 85
+    },
+    {
+      "answer": "Start thinking about a drama and publish a screenplay",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 1,
+      "evidence_ids": [
+        "D11:16"
+      ],
+      "evidence_texts": [
+        "Hey, we should go together sometime, don't you think? Maybe I'll start to think of a drama myself and publish my own screenplay."
+      ],
+      "original_conv_index": 3,
+      "question": "What creative activity does Nate joke about pursuing after being inspired by their hikes with Jo?",
+      "question_index": 120,
+      "subset_index": 86
+    },
+    {
+      "answer": "youth sports and fair chances in sports",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D26:21"
+      ],
+      "evidence_texts": [
+        "I've been working on supporting youth sports and fighting for fair chances in sports for underserved communities. It's important to me that every kid has access to good sports programs. I've been collaborating with organizations to create more opportunities for young athletes and help them succeed. It's amazing to see the difference sports make in people's lives."
+      ],
+      "original_conv_index": 4,
+      "question": "What is one cause that John supports with his influence and resources?",
+      "question_index": 161,
+      "subset_index": 87
+    },
+    {
+      "answer": "crazy feeling, sense of accomplishment",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 2,
+      "evidence_ids": [
+        "D29:6"
+      ],
+      "evidence_texts": [
+        "Thanks! It felt crazy. It's not just about the signing, but it's about feeling like all the hard work paid off - like all those training hours weren't for nothing."
+      ],
+      "original_conv_index": 4,
+      "question": "What was Johns's reaction to sealing the deal with the beverage company?",
+      "question_index": 176,
+      "subset_index": 88
+    },
+    {
+      "answer": "friend's advice",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D1:16"
+      ],
+      "evidence_texts": [
+        "My friend got me into it and gave me some advice, and I was hooked right away!"
+      ],
+      "original_conv_index": 8,
+      "question": "How did Evan get into watercolor painting?",
+      "question_index": 84,
+      "subset_index": 89
+    },
+    {
+      "answer": "Yoga",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D18:8"
+      ],
+      "evidence_texts": [
+        "The meeting was really insightful, and that smoothie bowl was a hit! Yoga's a great choice, it's done wonders for my flexibility and stress levels. You should definitely try it."
+      ],
+      "original_conv_index": 8,
+      "question": "What did Sam suggest Evan try for stress relief and flexibility?",
+      "question_index": 131,
+      "subset_index": 90
+    },
+    {
+      "answer": "embracing the creative process without restraint",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D21:16"
+      ],
+      "evidence_texts": [
+        "I painted this with a sense of joy and freedom. The spontaneous strokes and bold colors reflect a playful and liberated mood, embracing the creative process without restraint."
+      ],
+      "original_conv_index": 8,
+      "question": "How did Evan describe the process of creating the painting with the bird flying over it?",
+      "question_index": 142,
+      "subset_index": 91
+    },
+    {
+      "answer": "The Godfather",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D24:18"
+      ],
+      "evidence_texts": [
+        "The salad idea from a restaurant is a smart move, Evan! And thanks for the exercise tips. Also I watched The Godfather last night, and it motivated me to keep up with my routine. \"I'm gonna make him an offer he can't refuse\" - now that's motivation!"
+      ],
+      "original_conv_index": 8,
+      "question": "What movie did Sam watch that motivated him to keep up with his routine?",
+      "question_index": 151,
+      "subset_index": 92
+    },
+    {
+      "answer": "for a drunken night",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 3,
+      "evidence_ids": [
+        "D25:2"
+      ],
+      "evidence_texts": [
+        "Hey Sam, sorry to hear about your health. It's tough when it gets in the way of life. You're being positive, but remember to take care of yourself too. By the way, I had to apologize to my partner for that drunken night, it was pretty embarrassing."
+      ],
+      "original_conv_index": 8,
+      "question": "Why did Evan apologize to his partner?",
+      "question_index": 154,
+      "subset_index": 93
+    },
+    {
+      "answer": "music gear and favorite microphone",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D6:3"
+      ],
+      "evidence_texts": [
+        "Hey Dave, not everything has been going smoothly. I had an incident last week where my place got flooded, but thankfully, I managed to save my music gear and favorite microphone. It's been tough, but I'm staying positive and looking forward to getting everything fixed up."
+      ],
+      "original_conv_index": 9,
+      "question": "What did Calvin manage to save during the flood incident?",
+      "question_index": 81,
+      "subset_index": 94
+    },
+    {
+      "answer": "Therapy and a way to get away from everyday stress",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D22:5"
+      ],
+      "evidence_texts": [
+        "Thanks Calvin! I've spent a lot of time and effort on it. It's not just a hobby, it's a passion. It's like therapy, a way to get away from everyday stress. When I was little I'd spend hours in my dad's garage, tinkering with engines - it was like my own sanctuary. Now I'm lucky enough to do this as a job, to take something broken and make it into something awesome."
+      ],
+      "original_conv_index": 9,
+      "question": "What does working on cars represent for Dave?",
+      "question_index": 119,
+      "subset_index": 95
+    },
+    {
+      "answer": "Ferrari",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D23:16"
+      ],
+      "evidence_texts": [
+        "C'mon, remember how great you are! Keep going for those dreams. You got this! You know what Dave? Last week, I got a new Ferrari! It's a masterpiece on wheels. Excited for thrilling rides and unforgettable journeys! Perhaps a photo of this unique beauty will lift your mood."
+      ],
+      "original_conv_index": 9,
+      "question": "What did Calvin recently get that is a \"masterpiece on wheels\"?",
+      "question_index": 121,
+      "subset_index": 96
+    },
+    {
+      "answer": "how much music means to him, it's like his passion and purpose",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D26:9"
+      ],
+      "evidence_texts": [
+        "It was unreal, Dave. Being up there with someone I admire - it was a dream come true. The energy, the crowd - it made me realize how much music means to me, it's like my passion and my purpose."
+      ],
+      "original_conv_index": 9,
+      "question": "What realization did the nightclub experience bring to Calvin?",
+      "question_index": 139,
+      "subset_index": 97
+    },
+    {
+      "answer": "It's fulfilling and motivating",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D26:11"
+      ],
+      "evidence_texts": [
+        "Definitely, Dave. It's awesome to find something that makes us happy. It's fulfilling and motivating too. I'm so glad we're on this journey together and curious to see what happens next!"
+      ],
+      "original_conv_index": 9,
+      "question": "What do Dave and Calvin agree on regarding their pursuits?",
+      "question_index": 140,
+      "subset_index": 98
+    },
+    {
+      "answer": "Writing lyrics and notes",
+      "category": 4,
+      "category_name": "single-hop",
+      "conv_index": 4,
+      "evidence_ids": [
+        "D28:34"
+      ],
+      "evidence_texts": [
+        "Yes, Calvin, writing lyrics and notes - that's awesome! It will boost my motivation! Writing lyrics boosts my motivation to grow!"
+      ],
+      "original_conv_index": 9,
+      "question": "What tools does Calvin use to boost his motivation for music?",
+      "question_index": 147,
+      "subset_index": 99
+    }
+  ],
+  "quotas": {
+    "multi-hop": 40,
+    "open-domain": 15,
+    "single-hop": 15,
+    "temporal": 30
+  },
+  "seed": 20260514,
+  "selected_count": 100
+}

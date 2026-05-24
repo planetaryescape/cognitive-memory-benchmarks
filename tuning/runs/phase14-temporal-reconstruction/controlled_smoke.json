@@ -1,0 +1,50 @@
+{
+  "status": "pass",
+  "checks": {
+    "default_off_emits_no_temporal_evidence": true,
+    "auto_orders_after_evidence_chronologically": true,
+    "off_current_query_can_pick_stale_semantic_state": true,
+    "auto_current_query_prefers_current_state": true
+  },
+  "scenarios": {
+    "off": {
+      "mode": "off",
+      "after_results": [
+        "Alex resumed light running.",
+        "Alex started physiotherapy.",
+        "Alex injured her ankle."
+      ],
+      "after_temporal_evidence": [],
+      "current_results": [
+        "Jamie lives in Manchester.",
+        "Jamie lives in London."
+      ],
+      "current_temporal_evidence": []
+    },
+    "auto": {
+      "mode": "auto",
+      "after_results": [
+        "Alex injured her ankle.",
+        "Alex started physiotherapy.",
+        "Alex resumed light running."
+      ],
+      "after_temporal_evidence": [
+        "Alex injured her ankle.",
+        "Alex started physiotherapy.",
+        "Alex resumed light running."
+      ],
+      "current_results": [
+        "Jamie lives in London.",
+        "Jamie lives in Manchester."
+      ],
+      "current_temporal_evidence": [
+        "Jamie lives in London.",
+        "Jamie lives in Manchester."
+      ]
+    }
+  },
+  "notes": [
+    "Controlled smoke only; not a LoCoMo quality estimate.",
+    "Use this as a preflight before paid/slow LoCoMo A/B."
+  ]
+}
