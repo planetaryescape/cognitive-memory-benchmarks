@@ -240,8 +240,8 @@ def generate_answer(
 ) -> str:
     """Generate an answer using retrieved memories as context."""
     if client is None:
-        from openai import OpenAI
-        client = OpenAI()
+        from shared.openai_clients import make_chat_client
+        client = make_chat_client()
 
     # Deduplicate retrieved memories (exact content matches)
     if query_result.retrieved_memories:
@@ -257,6 +257,7 @@ def generate_answer(
             retrieval_time_ms=query_result.retrieval_time_ms,
             answer=query_result.answer,
             memories_considered=query_result.memories_considered,
+            temporal_evidence=getattr(query_result, "temporal_evidence", []),
         )
 
     # Format retrieved memories
@@ -277,7 +278,7 @@ def generate_answer(
         for mem in (query_result.retrieved_memories or []):
             content_lower = mem.content.lower()
             ts = mem.created_at or ""
-            formatted = f"{ts}: {mem.content}" if ts else mem.content
+            formatted = mem.temporal_context or (f"{ts}: {mem.content}" if ts else mem.content)
             # Assign to speaker based on whose name appears in the memory
             a_match = speaker_a.lower() in content_lower if speaker_a else False
             b_match = speaker_b.lower() in content_lower if speaker_b else False
@@ -295,7 +296,7 @@ def generate_answer(
     elif memories_text is None:
         memories_parts = []
         for i, mem in enumerate(query_result.retrieved_memories, 1):
-            memories_parts.append(f"{i}. {mem.content}")
+            memories_parts.append(f"{i}. {mem.temporal_context or mem.content}")
         memories_text = "\n".join(memories_parts)
 
     # Select prompt template and format
@@ -328,14 +329,16 @@ def generate_answer(
     if max_tokens is not None:
         api_kwargs["max_tokens"] = max_tokens
 
-    for attempt in range(3):
+    for attempt in range(5):
         try:
             resp = client.chat.completions.create(**api_kwargs)
             return resp.choices[0].message.content.strip()
         except Exception as e:
-            if attempt < 2 and ("500" in str(e) or "server_error" in str(e)):
+            err_str = str(e).lower()
+            retryable = any(k in err_str for k in ("500", "502", "503", "529", "server_error", "rate_limit", "timeout", "connection"))
+            if attempt < 4 and retryable:
                 import time as _time
-                _time.sleep(2 ** attempt)
+                _time.sleep(min(60, 2 ** attempt * 2))
                 continue
             raise
 
@@ -508,6 +511,119 @@ def evaluate_conversation(
     return results
 
 
+def build_result_payload(
+    all_results: list[dict],
+    *,
+    status: str,
+    adapter_name: str,
+    model: str,
+    answer_temperature: float,
+    answer_max_tokens: int | None,
+    prompt_mode: str,
+    dual_perspective: bool,
+    deep_recall: bool,
+    custom_extraction_instructions: str | None,
+    rerank: bool,
+    rerank_factor: int,
+    top_k: int | None,
+    use_judge: bool,
+    requested_conversations: int,
+    elapsed_seconds: float,
+) -> dict:
+    """Build result JSON for both checkpoints and final outputs."""
+    agg = aggregate_results(all_results)
+
+    mem0_valid = [r for r in all_results if r.get("category", 5) <= 4]
+    if mem0_valid and "error" not in agg:
+        overall_f1_mem0 = sum(r["f1_mem0"] for r in mem0_valid) / len(mem0_valid)
+        overall_bleu1 = sum(r["bleu1"] for r in mem0_valid) / len(mem0_valid)
+        by_cat_mem0 = {}
+        for cat_id, cat_name in LOCOMO_CATEGORIES.items():
+            if cat_id == 5:
+                continue
+            cat_results = [r for r in mem0_valid if r.get("category") == cat_id]
+            if cat_results:
+                by_cat_mem0[cat_name] = {
+                    "count": len(cat_results),
+                    "mean_f1": sum(r["f1_mem0"] for r in cat_results) / len(cat_results),
+                    "mean_bleu1": sum(r["bleu1"] for r in cat_results) / len(cat_results),
+                }
+        agg["mem0_f1_method"] = {
+            "overall_f1": overall_f1_mem0,
+            "overall_bleu1": overall_bleu1,
+            "by_category": by_cat_mem0,
+            "note": "Mem0's exact metrics: set-based F1 (no stemming) + BLEU-1 (nltk)",
+        }
+
+    completed_indices = sorted({int(r.get("conv_index", 0)) for r in all_results})
+    agg["meta"] = {
+        "status": status,
+        "adapter": adapter_name,
+        "model": model,
+        "answer_temperature": answer_temperature,
+        "answer_max_tokens": answer_max_tokens,
+        "prompt_mode": prompt_mode,
+        "dual_perspective": dual_perspective,
+        "deep_recall": deep_recall,
+        "custom_extraction_instructions": bool(custom_extraction_instructions),
+        "rerank": rerank,
+        "rerank_factor": rerank_factor if rerank else None,
+        "top_k_override": top_k,
+        "use_judge": use_judge,
+        "num_conversations": requested_conversations,
+        "completed_conversations": len(completed_indices),
+        "completed_conversation_indices": completed_indices,
+        "total_questions": len(all_results),
+        "total_time_seconds": elapsed_seconds,
+        "timestamp": datetime.now().isoformat(),
+    }
+    return {
+        "status": status,
+        "aggregate": agg,
+        "per_question": all_results,
+    }
+
+
+def write_result_payload(output_path: str, payload: dict) -> None:
+    """Atomically write a result/checkpoint JSON file."""
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    tmp = output.with_name(output.name + ".tmp")
+    tmp.write_text(json.dumps(payload, indent=2, default=str) + "\n")
+    tmp.replace(output)
+
+
+def load_resume_checkpoint(output_path: str, requested_conversations: int) -> tuple[list[dict], int, bool]:
+    """Load completed conversation results from an existing checkpoint."""
+    if not output_path:
+        return [], 0, False
+    checkpoint = Path(output_path)
+    if not checkpoint.exists():
+        return [], 0, False
+
+    payload = json.loads(checkpoint.read_text())
+    existing_results = payload.get("per_question") or []
+    completed_indices = sorted(
+        {
+            int(row.get("conv_index", -1))
+            for row in existing_results
+            if 0 <= int(row.get("conv_index", -1)) < requested_conversations
+        }
+    )
+    if not completed_indices:
+        return [], 0, False
+
+    resume_from = max(completed_indices) + 1
+    kept_results = [
+        row
+        for row in existing_results
+        if int(row.get("conv_index", -1)) in completed_indices
+        and int(row.get("conv_index", -1)) < resume_from
+    ]
+    is_complete = payload.get("status") == "complete" and resume_from >= requested_conversations
+    return kept_results, resume_from, is_complete
+
+
 def run_evaluation(
     data_path: str,
     adapter_name: str = "cognitive_memory",
@@ -531,6 +647,7 @@ def run_evaluation(
     graph_hops: int = None,
     decay_model: str = None,
     trial_kwargs: dict = None,
+    resume: bool = False,
 ):
     """
     Run full LoCoMo evaluation.
@@ -589,17 +706,38 @@ def run_evaluation(
     if max_conversations:
         data = data[:max_conversations]
 
-    # Initialize OpenAI client with timeout to prevent hangs
-    from openai import OpenAI
-    client = OpenAI(timeout=120.0)
+    # Initialize chat client with timeout to prevent hangs.
+    from shared.openai_clients import make_chat_client
+    client = make_chat_client(timeout=float(os.getenv("OPENAI_CHAT_TIMEOUT", "120")))
 
     # Run evaluation
     all_results = []
+    effective_start_from = start_from
+    if resume and output_path:
+        all_results, checkpoint_start_from, checkpoint_complete = load_resume_checkpoint(
+            output_path,
+            requested_conversations=len(data),
+        )
+        effective_start_from = max(start_from, checkpoint_start_from)
+        all_results = [
+            row
+            for row in all_results
+            if int(row.get("conv_index", -1)) < effective_start_from
+        ]
+        if checkpoint_complete and effective_start_from >= len(data):
+            print(f"Resume checkpoint already complete: {output_path}")
+            return json.loads(Path(output_path).read_text())["aggregate"]
+        if checkpoint_start_from > 0:
+            print(
+                f"Resuming from {output_path}: "
+                f"loaded {len(all_results)} question rows; "
+                f"next conversation {effective_start_from}"
+            )
     total_start = time.time()
 
     for i, conversation in enumerate(data):
-        if i < start_from:
-            print(f"\n--- Skipping conversation {i} (resuming from {start_from}) ---")
+        if i < effective_start_from:
+            print(f"\n--- Skipping conversation {i} (resuming from {effective_start_from}) ---")
             continue
         conv_results = evaluate_conversation(
             conversation=conversation,
@@ -615,54 +753,49 @@ def run_evaluation(
             top_k_override=top_k,
         )
         all_results.extend(conv_results)
+        if output_path:
+            payload = build_result_payload(
+                all_results,
+                status="partial",
+                adapter_name=adapter_name,
+                model=model,
+                answer_temperature=answer_temperature,
+                answer_max_tokens=answer_max_tokens,
+                prompt_mode=prompt_mode,
+                dual_perspective=dual_perspective,
+                deep_recall=deep_recall,
+                custom_extraction_instructions=custom_extraction_instructions,
+                rerank=rerank,
+                rerank_factor=rerank_factor,
+                top_k=top_k,
+                use_judge=use_judge,
+                requested_conversations=len(data),
+                elapsed_seconds=time.time() - total_start,
+            )
+            write_result_payload(output_path, payload)
+            print(f"  Checkpoint saved to {output_path} after conversation {i}")
 
     total_time = time.time() - total_start
 
-    # Aggregate (LoCoMo standard F1)
-    agg = aggregate_results(all_results)
-
-    # Also aggregate Mem0-method F1 and BLEU-1 for apples-to-apples comparison
-    mem0_valid = [r for r in all_results if r.get("category", 5) <= 4]
-    if mem0_valid:
-        overall_f1_mem0 = sum(r["f1_mem0"] for r in mem0_valid) / len(mem0_valid)
-        overall_bleu1 = sum(r["bleu1"] for r in mem0_valid) / len(mem0_valid)
-        by_cat_mem0 = {}
-        _cats = LOCOMO_CATEGORIES
-        for cat_id, cat_name in _cats.items():
-            if cat_id == 5:
-                continue
-            cat_results = [r for r in mem0_valid if r.get("category") == cat_id]
-            if cat_results:
-                by_cat_mem0[cat_name] = {
-                    "count": len(cat_results),
-                    "mean_f1": sum(r["f1_mem0"] for r in cat_results) / len(cat_results),
-                    "mean_bleu1": sum(r["bleu1"] for r in cat_results) / len(cat_results),
-                }
-        agg["mem0_f1_method"] = {
-            "overall_f1": overall_f1_mem0,
-            "overall_bleu1": overall_bleu1,
-            "by_category": by_cat_mem0,
-            "note": "Mem0's exact metrics: set-based F1 (no stemming) + BLEU-1 (nltk)",
-        }
-
-    agg["meta"] = {
-        "adapter": adapter_name,
-        "model": model,
-        "answer_temperature": answer_temperature,
-        "answer_max_tokens": answer_max_tokens,
-        "prompt_mode": prompt_mode,
-        "dual_perspective": dual_perspective,
-        "deep_recall": deep_recall,
-        "custom_extraction_instructions": bool(custom_extraction_instructions),
-        "rerank": rerank,
-        "rerank_factor": rerank_factor if rerank else None,
-        "top_k_override": top_k,
-        "use_judge": use_judge,
-        "num_conversations": len(data),
-        "total_questions": len(all_results),
-        "total_time_seconds": total_time,
-        "timestamp": datetime.now().isoformat(),
-    }
+    payload = build_result_payload(
+        all_results,
+        status="complete",
+        adapter_name=adapter_name,
+        model=model,
+        answer_temperature=answer_temperature,
+        answer_max_tokens=answer_max_tokens,
+        prompt_mode=prompt_mode,
+        dual_perspective=dual_perspective,
+        deep_recall=deep_recall,
+        custom_extraction_instructions=custom_extraction_instructions,
+        rerank=rerank,
+        rerank_factor=rerank_factor,
+        top_k=top_k,
+        use_judge=use_judge,
+        requested_conversations=len(data),
+        elapsed_seconds=total_time,
+    )
+    agg = payload["aggregate"]
 
     # Print results
     print(f"\n{'='*60}")
@@ -698,12 +831,7 @@ def run_evaluation(
 
     # Save results
     if output_path:
-        os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
-        with open(output_path, "w") as f:
-            json.dump({
-                "aggregate": agg,
-                "per_question": all_results,
-            }, f, indent=2, default=str)
+        write_result_payload(output_path, payload)
         print(f"\nDetailed results saved to {output_path}")
 
     return agg
@@ -788,6 +916,10 @@ def main():
         help="Skip conversations before this index (for resuming interrupted runs)"
     )
     parser.add_argument(
+        "--resume", action="store_true",
+        help="Load existing output checkpoint and continue from the next missing conversation."
+    )
+    parser.add_argument(
         "--extraction-mode", default="semantic",
         choices=["raw", "semantic", "hybrid"],
         help="SDK extraction mode: raw (verbatim turns), semantic (LLM facts), hybrid (both)"
@@ -865,6 +997,7 @@ def main():
         graph_hops=args.graph_hops,
         decay_model=args.decay_model,
         trial_kwargs=trial_kwargs,
+        resume=args.resume,
     )
 
 

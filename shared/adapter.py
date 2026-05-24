@@ -38,6 +38,9 @@ class RetrievalResult:
     access_count: int = 0
     age_days: float = 0.0
     created_at: str = ""  # ISO timestamp string for memory formatting
+    temporal_context: str = ""
+    temporal_status: str = ""
+    event_time: str = ""
 
 
 @dataclass
@@ -47,6 +50,7 @@ class QueryResult:
     answer: str = ""
     retrieval_time_ms: float = 0.0
     memories_considered: int = 0
+    temporal_evidence: list[dict] = field(default_factory=list)
 
 
 class MemoryAdapter(ABC):
@@ -262,9 +266,24 @@ class CognitiveMemoryAdapter(MemoryAdapter):
 
     def _get_rerank_client(self):
         if self._rerank_client is None:
-            from openai import OpenAI
-            self._rerank_client = OpenAI(timeout=120.0)
+            from shared.openai_clients import make_chat_client
+            self._rerank_client = make_chat_client(timeout=120.0)
         return self._rerank_client
+
+    def _format_temporal_context(self, memory, fallback_date: str = "") -> tuple[str, str, str]:
+        temporal = getattr(memory, "temporal", {}) or {}
+        event_time = temporal.get("event_time", {}) if isinstance(temporal, dict) else {}
+        valid_time = temporal.get("valid_time", {}) if isinstance(temporal, dict) else {}
+        mentioned_at = temporal.get("mentioned_at", {}) if isinstance(temporal, dict) else {}
+        event_start = event_time.get("start") if isinstance(event_time, dict) else ""
+        status = valid_time.get("status", "") if isinstance(valid_time, dict) else ""
+        mentioned = mentioned_at.get("timestamp", "") if isinstance(mentioned_at, dict) else ""
+        label = event_start or mentioned or fallback_date
+        if label:
+            context = f"[event_time={label}; status={status or 'unknown'}] {memory.content}"
+        else:
+            context = memory.content
+        return context, status or "", event_start or ""
 
     def _rerank_memories(self, question: str, memories: list, top_k: int) -> list:
         """Re-rank retrieved memories using LLM relevance scoring."""
@@ -345,6 +364,9 @@ class CognitiveMemoryAdapter(MemoryAdapter):
             created_at_str = ""
             if r.memory.created_at:
                 created_at_str = r.memory.created_at.strftime("%Y-%m-%d")
+            temporal_context, temporal_status, event_time = self._format_temporal_context(
+                r.memory, created_at_str,
+            )
 
             retrieved.append(RetrievalResult(
                 content=r.memory.content,
@@ -356,6 +378,9 @@ class CognitiveMemoryAdapter(MemoryAdapter):
                 access_count=r.memory.access_count,
                 age_days=age_days,
                 created_at=created_at_str,
+                temporal_context=temporal_context,
+                temporal_status=temporal_status,
+                event_time=event_time,
             ))
 
         # Re-rank if enabled
@@ -366,6 +391,7 @@ class CognitiveMemoryAdapter(MemoryAdapter):
             retrieved_memories=retrieved,
             retrieval_time_ms=(time.time() - start) * 1000,
             memories_considered=len(self.memory.adapter.hot),
+            temporal_evidence=getattr(search_response, "temporal_evidence", []),
         )
 
     def get_stats(self):
@@ -442,8 +468,8 @@ Respond with just a number between 0.0 and 1.0."""
 
     def _get_client(self):
         if self._client is None:
-            from openai import OpenAI
-            self._client = OpenAI()
+            from shared.openai_clients import make_chat_client
+            self._client = make_chat_client()
         return self._client
 
     def _score_importance_batch(self, turns: list[str]) -> list[float]:
@@ -841,8 +867,8 @@ class HybridMemoryAdapter(MemoryAdapter):
 
     def _get_rerank_client(self):
         if self._rerank_client is None:
-            from openai import OpenAI
-            self._rerank_client = OpenAI(timeout=120.0)
+            from shared.openai_clients import make_chat_client
+            self._rerank_client = make_chat_client(timeout=120.0)
         return self._rerank_client
 
     def _rerank_results(self, question: str, results: list[RetrievalResult], top_k: int) -> list[RetrievalResult]:

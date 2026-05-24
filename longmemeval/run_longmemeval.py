@@ -258,8 +258,8 @@ def _parse_longmemeval_date(date_str: str) -> str:
 
 def generate_answer(question, query_result, client=None, model="gpt-4o-mini"):
     if client is None:
-        from openai import OpenAI
-        client = OpenAI()
+        from shared.openai_clients import make_chat_client
+        client = make_chat_client()
 
     if not query_result.retrieved_memories:
         memories_text = "(No relevant memories found)"
@@ -295,8 +295,8 @@ def generate_answer(question, query_result, client=None, model="gpt-4o-mini"):
 
 def judge_answer(question, answer, response, question_type, question_id, client=None):
     if client is None:
-        from openai import OpenAI
-        client = OpenAI()
+        from shared.openai_clients import make_chat_client
+        client = make_chat_client()
 
     is_abstention = "_abs" in question_id
     if is_abstention:
@@ -474,8 +474,8 @@ def run_evaluation(
     if max_questions:
         data = data[:max_questions]
 
-    from openai import OpenAI
-    client = OpenAI()
+    from shared.openai_clients import make_chat_client
+    client = make_chat_client()
 
     # Load existing results for resume
     existing_results = []

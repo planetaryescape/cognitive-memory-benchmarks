@@ -138,7 +138,7 @@ def compute_recall_at_k(results_path: str, evidence_map: dict, k_values: list[in
     results["total_with_evidence"] = total
     results["total_with_retrieved"] = matched
 
-    cat_names = {1: "single-hop", 2: "multi-hop", 3: "temporal", 4: "open-domain"}
+    cat_names = {1: "multi-hop", 2: "temporal", 3: "open-domain", 4: "single-hop"}
     results["by_category"] = {}
     for k in k_values:
         for cat, scores in recall_by_cat[k].items():

@@ -4,36 +4,36 @@
 
 ## Status: Complete (LongMemEval-S)
 
-Run B canonical result, 2026-03-10. A May 2026 current-refresh rerun is in progress under `longmemeval/results/current_sdk_20260505/`; use the recorded Run B number until that rerun completes and is logged.
+Current-refresh canonical result, completed 2026-05-07. Historical Run B from 2026-03-10 remains in `longmemeval/results/v6/` for provenance only.
 
 ## Headline
 
 | Metric | Value |
 |---|---|
-| **Task-averaged accuracy** | **70.2%** |
-| Overall accuracy | 72.8% |
+| **Task-averaged accuracy** | **71.6%** |
+| Overall accuracy | 72.6% |
 | Abstention accuracy | 90.0% |
 
 | Task | n | Accuracy |
 |---|---:|---:|
-| single-session-user | 70 | 88.6% |
-| single-session-assistant | 56 | 73.2% |
-| single-session-preference | 30 | 36.7% |
-| multi-session | 133 | 75.9% |
-| temporal-reasoning | 133 | 62.4% |
-| knowledge-update | 78 | 84.6% |
+| single-session-user | 70 | 85.7% |
+| single-session-assistant | 56 | 76.8% |
+| single-session-preference | 30 | 46.7% |
+| multi-session | 133 | 69.9% |
+| temporal-reasoning | 133 | 64.7% |
+| knowledge-update | 78 | 85.9% |
 
 ## Comparison
 
 | System | Task-averaged | Notes |
 |---|---:|---|
 | Full-context baseline | 56.2% | Published |
-| **cognitive-memory (ours)** | **70.2%** | Run B, default v6 config, no benchmark-specific tuning |
+| **cognitive-memory (ours)** | **71.6%** | Current-refresh CR-B, default v6 config, no benchmark-specific tuning |
 | ENGRAM | 71.4% | Concurrent baseline at run time |
 | TiMem | 76.88% | Post-dating system, multi-stage architecture |
 | EverMemOS | 83.0% | Post-dating system, engram-inspired lifecycle |
 
-We are within 1.2pp of ENGRAM (the strongest single-stage baseline at run time) without benchmark-specific tuning. Newer multi-stage systems (TiMem, EverMemOS) exceed our result; we acknowledge this in the paper rather than over-claiming.
+We are within 0.2pp of ENGRAM (the strongest single-stage baseline at run time) without benchmark-specific tuning. Newer multi-stage systems (TiMem, EverMemOS) exceed our result; we acknowledge this in the paper rather than over-claiming.
 
 ## Reproduction
 
@@ -41,13 +41,15 @@ We are within 1.2pp of ENGRAM (the strongest single-stage baseline at run time) 
 .venv/bin/python longmemeval/run_longmemeval.py \
   --data longmemeval/data/longmemeval_s_cleaned.json \
   --adapter cognitive_memory \
+  --model gpt-4o-mini \
   --top-k 20 \
   --deep-recall \
   --rerank --rerank-factor 3 \
-  --output longmemeval/results/v6/primary.json
+  --max-workers 53 \
+  --output longmemeval/results/current_sdk_20260505/primary.json
 ```
 
-The runner accepts `--resume-from <q_index>` for quota-resumable runs (Run B exhausted OpenAI quota at q339 and resumed cleanly).
+The runner accepts `--start-from <q_index>` for resumable runs. CR-B completed the first 80 questions, fixed a thread-safety patch bug, then resumed from `--start-from 80`.
 
 ## Configuration
 
@@ -59,11 +61,11 @@ The runner accepts `--resume-from <q_index>` for quota-resumable runs (Run B exh
 | Answer model | gpt-4o-mini |
 | Judge model | gpt-4o-2024-08-06 (LongMemEval official) |
 | Embedding model | text-embedding-3-small (1536 dims) |
-| SDK provenance | See `experimentlog.md`; Run B is a recorded completed artifact, while the May 2026 current-refresh rerun is still in progress |
+| SDK provenance | See `experimentlog.md`; CR-B is the completed current-refresh artifact |
 
 ## Cost
 
-~30M tokens total, ~11.3h wall.
+`52328.0s` wall across original plus resumed run. See `longmemeval/results/current_sdk_20260505/primary_resume_80.log` and `experimentlog.md`.
 
 ## What's not run
 
@@ -80,4 +82,4 @@ To run -M, the dataset would need to be downloaded (currently only `longmemeval_
 4. **Temporal Reasoning** — time-aware questions
 5. **Abstention** — knowing when you don't know
 
-The architecture's strengths (decay floors, conflict detection, temporal awareness) align with abilities 3–5. Run B's strongest tasks were single-session-user (88.6%), knowledge-update (84.6%), and abstention (90.0%); weakest was single-session-preference (36.7%).
+The architecture's strengths (decay floors, conflict detection, temporal awareness) align with abilities 3–5. CR-B's strongest tasks were single-session-user (85.7%), knowledge-update (85.9%), and abstention (90.0%); weakest was single-session-preference (46.7%).

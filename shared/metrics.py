@@ -153,8 +153,8 @@ def llm_judge(
     Returns {"correct": bool, "raw_response": str}
     """
     if client is None:
-        from openai import OpenAI
-        client = OpenAI()
+        from shared.openai_clients import make_chat_client
+        client = make_chat_client()
 
     prompt = LLM_JUDGE_PROMPT.format(
         question=question,
@@ -239,10 +239,12 @@ def memory_efficiency_score(
 # ---------------------------------------------------------------------------
 
 LOCOMO_CATEGORIES = {
-    1: "single-hop",
-    2: "multi-hop",
-    3: "temporal",
-    4: "open-domain",
+    # Official LoCoMo category counts in locomo10:
+    # 1=multi-hop (282), 2=temporal (321), 3=open-domain (96), 4=single-hop (841).
+    1: "multi-hop",
+    2: "temporal",
+    3: "open-domain",
+    4: "single-hop",
     5: "adversarial",  # excluded from standard eval
 }
 

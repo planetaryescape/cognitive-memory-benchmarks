@@ -49,7 +49,7 @@ run_tick_during_ingestion = False (in benchmark adapter)
 ```
 
 Reasoning:
-- retrieval_score_exponent=0.3: At R=0.02, R^0.3=0.29. Faded memories get 29% effective weight instead of 2%. High-sim faded memory (0.9*0.29=0.26) can compete with low-sim fresh (0.4*1.0=0.40).
+- retrieval_score_exponent=0.3: At R=0.02, R^0.3≈0.309. Faded memories get 30.9% effective weight instead of 2%. High-sim faded memory (0.9*0.309≈0.278) can compete with low-sim fresh (0.4*1.0=0.40).
 - Episodic 30->45: extends effective life by 50%. With stability=0.25 (imp=0.5): effective_rate = 0.25*2.0*45 = 22.5 days. Hits floor in ~88 days vs ~23 days.
 - Semantic 90->120: with stability=0.25: effective_rate = 0.25*2.0*120 = 60 days. Hits floor in ~235 days.
 - Initial stability with importance: imp=0.5 -> stability=0.25, imp=0.9 -> stability=0.37
@@ -1488,7 +1488,7 @@ No other system uses this formulation. Standard approaches:
 - **Separate factors**: Generative Agents uses recency * relevance * importance (three separate exponentials)
 - **Graph traversal**: Zep/SYNAPSE use BFS/spreading activation
 
-Our insight: at R=0.02, R^0.3=0.29. A highly relevant faded memory (sim=0.9, score=0.26) can compete with a less relevant fresh memory (sim=0.4, score=0.40). With alpha=1.0, the faded memory gets 0.018 — invisible. The power law lets relevance dominate while retention provides a soft tiebreaker.
+Our insight: at R=0.02, R^0.3≈0.309. A highly relevant faded memory (sim=0.9, score≈0.278) can compete with a less relevant fresh memory (sim=0.4, score=0.40). With alpha=1.0, the faded memory gets 0.018 — invisible. The power law lets relevance dominate while retention provides a soft tiebreaker.
 
 Alpha=0.3 was empirically tuned through benchmark iterations.
 
@@ -1660,9 +1660,9 @@ Starting from a near-zero baseline where the system answered "I don't know" to 8
 | **A** | Official protocol | 28.2% | 26.0% | Defensible baseline |
 | **B** | FadeMem settings | 27.7% | 24.6% | Competitor comparison |
 
-*Conv 0 only — full 10-conv Run H in progress. Numbers will be updated when complete.
+*Historical conv 0-only note. The later full current-refresh LoCoMo result is tracked in `experimentlog.md` and `docs/current-refresh-20260505.md`.
 
-### Status: RUN H IN PROGRESS
+### Status: historical Run H plan, superseded by current refresh
 
 Full 10-conv Run H launched. Conv 0 shows +7.3pp overall and +7.6pp multi-hop over Run F. Core claims pending full results:
 
