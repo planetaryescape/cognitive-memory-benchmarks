@@ -1,6 +1,6 @@
 # Phase 14 - Temporal Reconstruction Experiment
 
-Status: implementation complete; controlled smoke passed; LoCoMo A/B pending.
+Status: implementation complete; controlled smoke passed; dev-slice LoCoMo A/B run 2026-05-24 — marginal signal, NOT adopted. Classifier precision is the blocker. Full-split run deferred.
 
 ## Hypothesis
 
@@ -109,3 +109,58 @@ small temporal-only QA slice before spending on full off-vs-auto LoCoMo.
 ## Adoption Gate
 
 Adopt only if temporal evidence recall or temporal F1 improves without more than 1pp non-temporal regression, and manual audit shows fewer ordering/date/status failures.
+
+## Dev-Slice A/B Result (2026-05-24)
+
+Cheap ingest-once-retrieve-twice A/B on the most temporal-rich held-out
+conversation (conv-42: 29 sessions, 40 temporal / 159 non-temporal Qs).
+Script: `analysis/temporal_ab_dev_slice.py`. Artifact:
+`tuning/runs/phase14-temporal-reconstruction/dev_slice_ab.json`.
+
+Setup: frozen tuned config, single-perspective ingestion, no LLM rerank,
+extraction+embeddings on OpenAI, answers on local LM Studio `gpt-oss-120b`,
+token-F1. Same ingested store for both arms; `temporal_query_mode` flipped live
+(SDK reads it at search time). The entire temporal path is gated on
+`mode=="auto" AND _is_temporal_query`, so non-temporal queries are byte-identical
+between arms — only classifier false positives can change a non-temporal answer.
+
+Numbers:
+
+| Slice | n | F1 off | F1 auto | delta |
+|-------|---|--------|---------|-------|
+| temporal (cat 2) | 40 | 0.296 | 0.310 | **+0.014** (3 up / 0 down / 37 same) |
+| non-temporal false positives | 18 | 0.190 | 0.175 | −0.015 (2 up / 2 down) |
+| projected over all 159 non-temporal | 159 | — | — | **−0.0017** |
+
+Automated gate passes (temporal up; non-temporal within 1pp). **But this is a
+noise-level result and is NOT adopted.** Reasons:
+
+- +1.4pp temporal rests on only 3 of 40 questions; single conversation, no CI.
+- Only **44/215 (20%)** of ingested memories carry `event_time`. Chronological
+  ordering keys on `event_time`/`mentioned_at`, so the mechanism is starved.
+- Real per-question regressions exist where the classifier over-fires.
+
+Manual audit (mechanism):
+
+- **Wins** are real where the question asks *when*: auto's score-boost +
+  chronological ordering surfaces the *specific dated* memory (e.g. "Nate won his
+  **first** tournament" replaces the generic "won a large tournament"), letting
+  the answer model pin the date.
+- **Regressions** all come from classifier false positives — questions that
+  *mention* time but ask *what/how* ("...after someone wrote her a letter",
+  "...near Fort Wayne **last summer**"). Chronological reorder demotes the
+  relevant memory out of the top-k. Chronology is the wrong sort key there.
+
+Diagnosis: the bottleneck is `_is_temporal_query` **precision** (33/40 temporal
+recall is fine; 18/159 = 11% non-temporal false-positive rate is not). It fires
+on any "when/after/last/how long" regardless of whether the *answer* is a time.
+
+### Decision
+
+- Do **not** flip the default; keep `temporal_query_mode="off"`.
+- Do **not** spend on the full held-out-split run yet — the dev slice does not
+  clear the bar that would justify it.
+- Cheapest high-ROI next step: tighten `_is_temporal_query` precision (require
+  the question to *ask for* a time/date, not merely mention one), then re-run
+  this same dev slice. Secondary: investigate why only 20% of memories get
+  `event_time` from extraction — the mechanism is metadata-starved upstream.
