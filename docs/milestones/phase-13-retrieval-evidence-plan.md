@@ -1,6 +1,6 @@
 # Phase 13 - retrieval-level evidence recall plan
 
-Status: subset and minimum annotation packet regenerated after Phase 12 full-split local rows completed; manual annotation pending.
+Status: COMPLETE (2026-05-24). LLM-judged evidence recall over all 100 questions x 5 conditions. Full architecture leads on every metric; deep-recall is load-bearing. See "Result" below.
 
 ## Purpose
 
@@ -182,3 +182,55 @@ Use this as controlled architecture evidence, not cross-paper benchmark evidence
 Suggested claim if results support it:
 
 Controlled retrieval-level annotations show that the full memory architecture retrieves complete evidence more often on multi-hop and temporal held-out questions than vector-only retrieval and targeted mechanism ablations, supporting memory architecture as a first-class optimization target beyond answer-model choice.
+
+## Result (2026-05-24)
+
+Annotation method: LLM-as-judge (local LM Studio `gpt-oss-120b`) filled
+`covers_evidence_ids` for every retrieved memory, one batched call per
+(question, condition). Script: `analysis/locomo_evidence_judge.py`
+(500 rows, 0 errors, 75 min). Recall computed by the existing
+`analysis/locomo_manual_retrieval_score.py`. Judged packet:
+`tuning/runs/phase13-retrieval-evidence/retrieval_annotation_packet_judged.json`;
+scores: `retrieval_evidence_scored.{json,md}`.
+
+Overall (n=100, top-k shown = 20):
+
+| Condition | MRR | Recall@10 | Complete@10 | Recall@20 | Complete@20 |
+|-----------|----:|----------:|------------:|----------:|------------:|
+| **Full** | **0.532** | **0.632** | **0.500** | **0.690** | **0.580** |
+| Vector-only | 0.445 | 0.590 | 0.450 | 0.687 | 0.550 |
+| No associative graph | 0.518 | 0.589 | 0.460 | 0.670 | 0.530 |
+| No consolidation / deep recall | 0.443 | 0.517 | 0.370 | 0.583 | 0.430 |
+| No reinforcement | 0.506 | 0.582 | 0.450 | 0.619 | 0.480 |
+
+**Full leads on every metric.** Full vs each ablation, Recall@10:
+Vector-only +4.2pp, No-associative-graph +4.3pp, No-reinforcement +4.9pp,
+No-consolidation/deep-recall +11.5pp.
+
+Findings:
+
+- **The advantage is concentrated in ranking, not just top-20 coverage.** At @20
+  Full (0.690) and Vector-only (0.687) nearly converge on recall, but Full's MRR
+  is +8.7pp (0.532 vs 0.445) and Complete@10 is +5pp. The architecture surfaces
+  evidence *higher*, which is what an answer model actually consumes.
+- **Deep recall is load-bearing.** Removing consolidation/deep-recall (−11.5pp
+  Recall@10, −13pp Complete@10) hurts *more* than going fully vector-only
+  (−4.2pp). Deep recall surfaces superseded/cold memories that hold evidence;
+  without it the remaining machinery promotes the wrong memories.
+- **Biggest wins on the weak buckets.** By category (Recall@10 / Complete@10),
+  Full vs Vector-only: open-domain 0.574/0.400 vs 0.374/0.200 (**+20pp / 2x**),
+  temporal 0.600/0.567 vs 0.500/0.467 (+10pp). Multi-hop is ~tied
+  (0.614 vs 0.609).
+- **Honest cost on trivial lookups.** single-hop: Vector-only beats Full
+  (0.933 vs 0.800 Recall@10, n=15). The extra mechanisms add noise where a
+  direct vector hit already suffices.
+- **Cross-check with Phase 14.** The architecture *retrieves* temporal evidence
+  better than vector-only here (+10pp), even though Phase 14's temporal
+  *reordering* did not lift answer F1 — consistent with the bottleneck being the
+  temporal query classifier / answer step, not evidence presence.
+
+Caveats: single LLM judge, not human-validated this run (inter-rater kappa not
+measured for this task; Run M established kappa=0.919 for answer judging, a
+different task). n=100 stratified subset. Report as controlled architecture
+evidence, not a cross-paper benchmark number. A human spot-check of a sample
+would harden it before paper inclusion.
