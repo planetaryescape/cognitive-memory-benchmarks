@@ -1,0 +1,485 @@
+{
+  "instructions": "For each item, decide which gold evidence IDs the memory_text actually supports \u2014 i.e. a reader could derive that evidence's fact from the memory alone (shared topic/names alone do NOT count). Put the IDs in `user_decision` as a list (empty list [] if none). Use only IDs from the item's `evidence`. Do NOT look at the truth file; the judge's call is held aside for scoring.",
+  "items": [
+    {
+      "spot_check_id": 0,
+      "category": "temporal",
+      "condition": "Vector-only",
+      "question": "What was Sam doing on December 4, 2023?",
+      "answer": "Attending a Weight Watchers meeting",
+      "evidence": [
+        {
+          "id": "D18:6",
+          "text": "Exactly, it's all about finding the silver lining. Speaking of new things, I attended a Weight Watchers meeting yesterday. Learned some great tips."
+        }
+      ],
+      "memory_rank": 5,
+      "memory_text": "Evan: Hey Sam, what's up? Long time no see, huh? Lots has happened.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 1,
+      "category": "multi-hop",
+      "condition": "No reinforcement",
+      "question": "Which places or events has Calvin visited in Tokyo?",
+      "answer": "music festival, car museum, Shibuya crossing, Shinjuku",
+      "evidence": [
+        {
+          "id": "D3:1",
+          "text": "Hey Dave! Long time no see. I just went to an awesome music thingy in Tokyo - so cool!"
+        },
+        {
+          "id": "D12:7",
+          "text": "Aww, that's cool, Dave. Reminiscing is always fun! That pic you shared takes me back to my trip to the Ferrari dealership. I saw a lot of amazing cars, but as for me, my car is the best and  I'm pretty proud of this. Sure, it's just material, but it reminds me of my hard work and dedication. It really inspires me. Take a look at this beauty!"
+        },
+        {
+          "id": "D24:19",
+          "text": "Yeah definitely! Shibuya Crossing is like Tokyo's Times Square, and I was excited to explore Shinjuku. Plus, there's amazing food there, can't wait to try it again! Look at the photo of Shibuya Crossing at night, that's amazing!"
+        }
+      ],
+      "memory_rank": 3,
+      "memory_text": "Calvin is excited to visit Shibuya Crossing and Shinjuku while in Tokyo.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 2,
+      "category": "single-hop",
+      "condition": "Full",
+      "question": "What do Dave and Calvin agree on regarding their pursuits?",
+      "answer": "It's fulfilling and motivating",
+      "evidence": [
+        {
+          "id": "D26:11",
+          "text": "Definitely, Dave. It's awesome to find something that makes us happy. It's fulfilling and motivating too. I'm so glad we're on this journey together and curious to see what happens next!"
+        }
+      ],
+      "memory_rank": 8,
+      "memory_text": "Calvin intends to check out Dave's garage for ideas for future projects.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 3,
+      "category": "single-hop",
+      "condition": "Full",
+      "question": "What topic has John been blogging about recently?",
+      "answer": "politics and the government",
+      "evidence": [
+        {
+          "id": "D12:1",
+          "text": "Hey Maria, hope you're doing okay. Since we chatted last, I've been blogging about politics and the government. It's been a really satisfying experience and I care about making a real impact. We need way better education and infrastructure and I know firsthand how this impacts neighborhoods."
+        }
+      ],
+      "memory_rank": 19,
+      "memory_text": "John is passionate about improving education in his community.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 4,
+      "category": "single-hop",
+      "condition": "No reinforcement",
+      "question": "How did Evan describe the process of creating the painting with the bird flying over it?",
+      "answer": "embracing the creative process without restraint",
+      "evidence": [
+        {
+          "id": "D21:16",
+          "text": "I painted this with a sense of joy and freedom. The spontaneous strokes and bold colors reflect a playful and liberated mood, embracing the creative process without restraint."
+        }
+      ],
+      "memory_rank": 1,
+      "memory_text": "Evan painted a work that expresses joy and freedom using spontaneous strokes and bold colors",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 5,
+      "category": "temporal",
+      "condition": "Full",
+      "question": "When is Nate hosting a gaming party?",
+      "answer": "The weekend after 3June, 2022.",
+      "evidence": [
+        {
+          "id": "D14:20",
+          "text": "Sounds great! Have fun with that. I'm organizing a gaming party two weekends later - it'll be hectic but fun!"
+        }
+      ],
+      "memory_rank": 3,
+      "memory_text": "Nate is preparing custom controller decorations for each guest attending the gaming party on 2022-06-18.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 6,
+      "category": "open-domain",
+      "condition": "Vector-only",
+      "question": "Would John be considered a patriotic person?",
+      "answer": "Yes",
+      "evidence": [
+        {
+          "id": "D8:18",
+          "text": "Wow, having symbols of travel memories in our homes is so cool! Last week I retook the aptitude test with some great results, and I feel drawn to serving my country in this way."
+        },
+        {
+          "id": "D8:20",
+          "text": "Yeah, I chatted with my family and friends about it. They've been supportive and understand why I want to volunteer. I'm really proud to have this opportunity!"
+        }
+      ],
+      "memory_rank": 7,
+      "memory_text": "John: Wow, having symbols of travel memories in our homes is so cool! Last week I retook the aptitude test with some great results, and I feel drawn to serving my country in this way.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 7,
+      "category": "multi-hop",
+      "condition": "No reinforcement",
+      "question": "What health issue did Sam face that motivated him to change his lifestyle?",
+      "answer": "Weight problem",
+      "evidence": [
+        {
+          "id": "D2:6",
+          "text": "Thanks, Evan. Appreciate the offer, but had a check-up with my doctor a few days ago and, yikes, the weight wasn't great. It was pretty eye-opening."
+        },
+        {
+          "id": "D3:4",
+          "text": "Nah, no changes for me. Still enjoying my soda and candy, although I know it's not the best habit to have."
+        },
+        {
+          "id": "D24:12",
+          "text": "Thanks, Evan! Haven't seen a doctor in a while, but it's probably a good idea to get some advice. I'm going to make an appointment soon."
+        },
+        {
+          "id": "D24:14",
+          "text": "I'm gonna ask the doc about a balanced diet plan and getting advice on low-impact exercises, given my current situation."
+        },
+        {
+          "id": "D5:5",
+          "text": "Ginger snaps are my weakness for sure! Dealing with health issues has been tough, but it's made me appreciate the good moments more. These are the ones who bring lots of joy even through the hard times."
+        },
+        {
+          "id": "D6:2",
+          "text": "Hey Evan! Good to hear from you. Wow, Canada sounds amazing! That photo looks stunning. Wish I could do something like that. Things have been a bit challenging for me lately; some stuff has been hard on my health."
+        },
+        {
+          "id": "D7:2",
+          "text": "Hey Evan, sorry to hear about what happened. I can imagine how hard it must have been for you. Things haven't been easy for me either. Had a tough week and a doc's appointment, so it was kinda like a wake-up call to take better care of myself. On a bright side, I'm taking a cooking class to learn how to make healthier meals."
+        },
+        {
+          "id": "D7:12",
+          "text": "I have been feeling a mix of emotions - somewhat concerned about my health but also motivated to make positive changes. Taking things one step at a time."
+        },
+        {
+          "id": "D8:1",
+          "text": "Hey Evan, some big news: I'm on a diet and living healthier! Been tough, but I'm determined."
+        },
+        {
+          "id": "D10:6",
+          "text": "It's usually stress, boredom, or just wanting comfort. You know, those sugary treats are so tempting, right?"
+        },
+        {
+          "id": "D12:1",
+          "text": "Hey Evan, hope you're doing okay. I wanted to chat about something that's been bothering me lately... I went for a check-up Monday and my doc said my weight's a serious health risk - if I don't make changes soon, it can get worse. I know I made jokes about it, but it's really hitting me. Been having a hard time."
+        },
+        {
+          "id": "D13:2",
+          "text": "Hey Evan! It's been a rough week - I gave in and bought some unhealthy snacks. I feel kinda guilty. How's it going for you? That painting is awesome! Did you paint it?"
+        },
+        {
+          "id": "D14:1",
+          "text": "Hey Evan! I've been missing our chats. I had quite the health scare last weekend - ended up in the ER with a severe stomachache. Turns out, it was gastritis, which was pretty alarming. It was a wake-up call for me to start prioritizing my health, like adopting a more nutritious diet and getting regular exercise. On top of that, my phone's been giving me a hard time, adding to the stress."
+        },
+        {
+          "id": "D15:1",
+          "text": "Morning, Evan. I've been trying to keep up with my new health routine, but it's tough. My family's really pushing for it, and I feel so pressured."
+        },
+        {
+          "id": "D16:3",
+          "text": "Thanks, Evan! Appreciate your support. It's been a journey, and being chosen as a coach is a great step in my quest for better health."
+        },
+        {
+          "id": "D17:3",
+          "text": "Woah, Evan, that must've been scary! Phew, it was just a misunderstanding. A health scare can really make you re-evaluate what's important. As for me, I've been dealing with some discomfort and it's been limiting my movement. I've been trying to make changes diet-wise, but it can be hard."
+        },
+        {
+          "id": "D24:20",
+          "text": "Between a healthier diet and yoga, I\u2019m hoping for some positive changes."
+        },
+        {
+          "id": "D25:1",
+          "text": "Hey Evan, been a few days since we last chatted. Hope you're doing OK. A lot's happened since then. Got issues with my health, it's been rough. Feels like this weight's keeping me from fully living. Trying to stay positive, not easy."
+        },
+        {
+          "id": "D25:3",
+          "text": "Hey Evan, that does sound like a tough situation. I'm doing my best with my health. How did your partner take the news about the rose bushes?"
+        }
+      ],
+      "memory_rank": 6,
+      "memory_text": "Sam is trying to change his diet.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 8,
+      "category": "multi-hop",
+      "condition": "No consolidation/deep recall",
+      "question": "What kind of writings does Joanna do?",
+      "answer": "Screenplays,books, online blog posts, journal",
+      "evidence": [
+        {
+          "id": "D2:3",
+          "text": "Woo! I finally finished my first full screenplay and printed it last Friday. I've been working on for a while, such a relief to have it all done!"
+        },
+        {
+          "id": "D17:14",
+          "text": "I will! I actually started on a book recently since my movie did well!"
+        },
+        {
+          "id": "D18:1",
+          "text": "Hey Nate, long time no talk! I've been busy with writing projects and really going all out with it. It's been the best thing ever - a mix of highs and lows - and my journal's pretty much my rock. Writing's such a huge part of me now."
+        },
+        {
+          "id": "D18:5",
+          "text": "Yep. Last week, someone wrote me a letter after reading an online blog post I made about a hard moment in my life. Their words touched me; they said my story had brought them comfort. It was awesome to realize my words had that kind of power. It reminded me why I love writing."
+        }
+      ],
+      "memory_rank": 16,
+      "memory_text": "Joanna describes writing as an escape, a way to express feelings, and healing.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 9,
+      "category": "open-domain",
+      "condition": "Full",
+      "question": "Considering their conversations and personal growth, what advice might Evan and Sam give to someone facing a major life transition or challenge?",
+      "answer": "Evan and Sam would likely advise embracing small, consistent changes\u200b\u200b, finding stress-relieving activities like hiking\u200b\u200b, painting, and road trips\u200b\u200b, and the importance of friendship and support in navigating challenges\u200b\u200b.",
+      "evidence": [
+        {
+          "id": "D3:10",
+          "text": "Yeah, you're right. It takes time, but I'm up for keep trying and making those tiny changes."
+        },
+        {
+          "id": "D3:15",
+          "text": "Sure Sam, I'd be glad to help. Let's get together and I'll show you some basic exercises. We'll reach our goals!"
+        },
+        {
+          "id": "D22:1",
+          "text": "Hey Evan! I\u2019m really getting into this healthier lifestyle\u2014just took my friends on an epic hiking trip last Friday!"
+        },
+        {
+          "id": "D8:17",
+          "text": "Cool, Evan! What have you been learning in those classes?"
+        },
+        {
+          "id": "D8:22",
+          "text": "Thanks Sam! I aim to capture the vibe of nature in my paintings, conveying the peacefulness of being outdoors."
+        },
+        {
+          "id": "D9:8",
+          "text": "Yeah, thanks for the push, Sam. Oh, hey, I came across this pic when I was tidying up. I took a road trip last month - the scenery was stunning and nature really chilled me out."
+        },
+        {
+          "id": "D9:11",
+          "text": "I haven't gone on a road trip in ages, but I love being surrounded by nature. It's so tranquil and refreshing. I'd love to go hiking more, but it can be a bit challenging sometimes. However, I am working on becoming healthier, so maybe a road trip and a hike will be possible soon."
+        },
+        {
+          "id": "D14:7",
+          "text": "Sounds awesome, Evan! Can't wait to go on a hike with you. It's going to be a fun challenge and a great opportunity to appreciate the beauty of nature."
+        },
+        {
+          "id": "D14:12",
+          "text": "Sure thing! Our hike is going to be awesome, I can tell. I'm always here to support you."
+        },
+        {
+          "id": "D12:7",
+          "text": "Thanks, Evan. I appreciate your support. It really means a lot to me. I'll definitely keep you posted on my progress."
+        },
+        {
+          "id": "D12:11",
+          "text": "Wow, Evan, that's really inspiring. Gonna keep believing in it!"
+        }
+      ],
+      "memory_rank": 6,
+      "memory_text": "Evan offers to help Sam get started with basic exercises and meet up to show them.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 10,
+      "category": "single-hop",
+      "condition": "Full",
+      "question": "Why did Evan apologize to his partner?",
+      "answer": "for a drunken night",
+      "evidence": [
+        {
+          "id": "D25:2",
+          "text": "Hey Sam, sorry to hear about your health. It's tough when it gets in the way of life. You're being positive, but remember to take care of yourself too. By the way, I had to apologize to my partner for that drunken night, it was pretty embarrassing."
+        }
+      ],
+      "memory_rank": 17,
+      "memory_text": "Evan's spouse is from Canada",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 11,
+      "category": "single-hop",
+      "condition": "No reinforcement",
+      "question": "What tools does Calvin use to boost his motivation for music?",
+      "answer": "Writing lyrics and notes",
+      "evidence": [
+        {
+          "id": "D28:34",
+          "text": "Yes, Calvin, writing lyrics and notes - that's awesome! It will boost my motivation! Writing lyrics boosts my motivation to grow!"
+        }
+      ],
+      "memory_rank": 13,
+      "memory_text": "Calvin writes lyrics and notes in a notebook as part of his creative process.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 12,
+      "category": "open-domain",
+      "condition": "Full",
+      "question": "Which popular time management technique does Tim use to prepare for exams?",
+      "answer": "Pomodoro technique",
+      "evidence": [
+        {
+          "id": "D18:3",
+          "text": "Ouch, bummer about the injury. Hang tight. This week has been swamped with exams for me but I'm plowing through."
+        },
+        {
+          "id": "D18:7",
+          "text": "That's cool! I like breaking up my studying into smaller parts. 25 minutes on, then 5 minutes off for something fun. It's less overwhelming and keeps me on track."
+        }
+      ],
+      "memory_rank": 16,
+      "memory_text": "Tim says taking a break gives a chance to reconnect with oneself and tackle life\u2019s challenges with a new outlook",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 13,
+      "category": "temporal",
+      "condition": "No associative graph",
+      "question": "When is Joanna going to make Nate's ice cream for her family?",
+      "answer": "The weekend of 24June, 2022.",
+      "evidence": [
+        {
+          "id": "D16:11",
+          "text": "Awesome! I'm going to make it for my family this weekend - can't wait!"
+        }
+      ],
+      "memory_rank": 14,
+      "memory_text": "Nate thought Joanna's revised recipe looked super good",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 14,
+      "category": "single-hop",
+      "condition": "No reinforcement",
+      "question": "How did Evan describe the process of creating the painting with the bird flying over it?",
+      "answer": "embracing the creative process without restraint",
+      "evidence": [
+        {
+          "id": "D21:16",
+          "text": "I painted this with a sense of joy and freedom. The spontaneous strokes and bold colors reflect a playful and liberated mood, embracing the creative process without restraint."
+        }
+      ],
+      "memory_rank": 3,
+      "memory_text": "The painting Evan made gives him a massive rush of joy",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 15,
+      "category": "multi-hop",
+      "condition": "Full",
+      "question": "Which places or events has Calvin visited in Tokyo?",
+      "answer": "music festival, car museum, Shibuya crossing, Shinjuku",
+      "evidence": [
+        {
+          "id": "D3:1",
+          "text": "Hey Dave! Long time no see. I just went to an awesome music thingy in Tokyo - so cool!"
+        },
+        {
+          "id": "D12:7",
+          "text": "Aww, that's cool, Dave. Reminiscing is always fun! That pic you shared takes me back to my trip to the Ferrari dealership. I saw a lot of amazing cars, but as for me, my car is the best and  I'm pretty proud of this. Sure, it's just material, but it reminds me of my hard work and dedication. It really inspires me. Take a look at this beauty!"
+        },
+        {
+          "id": "D24:19",
+          "text": "Yeah definitely! Shibuya Crossing is like Tokyo's Times Square, and I was excited to explore Shinjuku. Plus, there's amazing food there, can't wait to try it again! Look at the photo of Shibuya Crossing at night, that's amazing!"
+        }
+      ],
+      "memory_rank": 4,
+      "memory_text": "Calvin plans to explore the Shinjuku district of Tokyo",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 16,
+      "category": "temporal",
+      "condition": "No consolidation/deep recall",
+      "question": "When did Nate win his third tourney?",
+      "answer": "The week before 3June, 2022",
+      "evidence": [
+        {
+          "id": "D14:8",
+          "text": "I've been doing great - I just won another regional video game tournament last week! It was so cool, plus I met some new people. Connecting with fellow gamers is always awesome."
+        }
+      ],
+      "memory_rank": 9,
+      "memory_text": "Nate won a regional video game tournament the week before June 3, 2022 (approximately May 27\u201131, 2022)",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 17,
+      "category": "open-domain",
+      "condition": "No reinforcement",
+      "question": "Which Star Wars-related locations would Tim enjoy during his visit to Ireland?",
+      "answer": "Skellig Michael, Malin Head, Loop Head, Ceann Sib\u00e9al, and Brow Head because they are Star Wars filming locations.",
+      "evidence": [
+        {
+          "id": "D1:18",
+          "text": "I went to a place in London a few years ago - it was like walking into a Harry Potter movie! I also went on a tour which was amazing. Have you been to any of the real Potter places? I'd love to explore them someday!"
+        },
+        {
+          "id": "D27:21",
+          "text": "Definitely Star Wars! It's my favorite and never gets old. What about you, do you have any favorite fantasy films?"
+        },
+        {
+          "id": "D28:1",
+          "text": "Hey John, long time no talk. On Friday, I got great news - I'm finally in the study abroad program I applied for! Next month, I'm off to Ireland for a semester."
+        }
+      ],
+      "memory_rank": 15,
+      "memory_text": "Tim is excited about the Harry Potter attractions at Universal Studios.",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 18,
+      "category": "multi-hop",
+      "condition": "No associative graph",
+      "question": "What items des John mention having as a child?",
+      "answer": "A doll, a film camera",
+      "evidence": [
+        {
+          "id": "D5:13",
+          "text": "It reminds me of something from my childhood. I had a little doll like this and it always made me feel better. It reminds me to always look out for others, especially when they're feeling down."
+        },
+        {
+          "id": "D3:15",
+          "text": "Wow, nature can be so beautiful! It reminds me of the film camera I had as a kid, I took plenty of beach pics. Thanks for sharing."
+        }
+      ],
+      "memory_rank": 15,
+      "memory_text": "John and the volunteers raised donations of canned food, toiletries, and clothes",
+      "user_decision": null
+    },
+    {
+      "spot_check_id": 19,
+      "category": "open-domain",
+      "condition": "Vector-only",
+      "question": "Around which US holiday did Maria get into a car accident?",
+      "answer": "Independence Day",
+      "evidence": [
+        {
+          "id": "D21:3",
+          "text": "Hey John! They were great, their smiles warmed my heart. But something not so great happened yesterday..."
+        }
+      ],
+      "memory_rank": 10,
+      "memory_text": "John: Thanks, Maria. Your kind words mean a lot. Yeah, it's been tough with car trouble and money problems, but I stay positive and find a way. This picture reminds me of a road trip we took last year; even with bumps along the way, there's still beauty and hope.",
+      "user_decision": null
+    }
+  ]
+}

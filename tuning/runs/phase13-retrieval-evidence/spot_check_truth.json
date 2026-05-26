@@ -1,0 +1,109 @@
+{
+  "items": [
+    {
+      "spot_check_id": 0,
+      "judge_decision": []
+    },
+    {
+      "spot_check_id": 1,
+      "judge_decision": [
+        "D24:19"
+      ]
+    },
+    {
+      "spot_check_id": 2,
+      "judge_decision": []
+    },
+    {
+      "spot_check_id": 3,
+      "judge_decision": []
+    },
+    {
+      "spot_check_id": 4,
+      "judge_decision": [
+        "D21:16"
+      ]
+    },
+    {
+      "spot_check_id": 5,
+      "judge_decision": [
+        "D14:20"
+      ]
+    },
+    {
+      "spot_check_id": 6,
+      "judge_decision": [
+        "D8:18"
+      ]
+    },
+    {
+      "spot_check_id": 7,
+      "judge_decision": [
+        "D24:14",
+        "D8:1"
+      ]
+    },
+    {
+      "spot_check_id": 8,
+      "judge_decision": []
+    },
+    {
+      "spot_check_id": 9,
+      "judge_decision": [
+        "D3:15"
+      ]
+    },
+    {
+      "spot_check_id": 10,
+      "judge_decision": []
+    },
+    {
+      "spot_check_id": 11,
+      "judge_decision": [
+        "D28:34"
+      ]
+    },
+    {
+      "spot_check_id": 12,
+      "judge_decision": []
+    },
+    {
+      "spot_check_id": 13,
+      "judge_decision": []
+    },
+    {
+      "spot_check_id": 14,
+      "judge_decision": [
+        "D21:16"
+      ]
+    },
+    {
+      "spot_check_id": 15,
+      "judge_decision": [
+        "D24:19"
+      ]
+    },
+    {
+      "spot_check_id": 16,
+      "judge_decision": [
+        "D14:8"
+      ]
+    },
+    {
+      "spot_check_id": 17,
+      "judge_decision": []
+    },
+    {
+      "spot_check_id": 18,
+      "judge_decision": []
+    },
+    {
+      "spot_check_id": 19,
+      "judge_decision": []
+    }
+  ],
+  "stratification": {
+    "false": 10,
+    "true": 10
+  }
+}
