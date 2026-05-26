@@ -229,8 +229,23 @@ Findings:
   *reordering* did not lift answer F1 — consistent with the bottleneck being the
   temporal query classifier / answer step, not evidence presence.
 
-Caveats: single LLM judge, not human-validated this run (inter-rater kappa not
-measured for this task; Run M established kappa=0.919 for answer judging, a
-different task). n=100 stratified subset. Report as controlled architecture
-evidence, not a cross-paper benchmark number. A human spot-check of a sample
-would harden it before paper inclusion.
+Caveats: LLM judge (not human). n=100 stratified subset. Report as controlled
+architecture evidence, not a cross-paper benchmark number.
+
+### Judge reliability (2026-05-26)
+
+Quantified the single-judge caveat with an alternative-prompt re-judge (same
+model, reworded prompt — the Run M methodology), `analysis/locomo_evidence_judge_reliability.py`
+over a stratified 20-question x 5-condition sample (2000 per-memory decisions).
+Artifact: `tuning/runs/phase13-retrieval-evidence/judge_reliability.json`.
+
+- Cohen's kappa (per-memory "covers >=1 evidence"): **0.754** (substantial).
+- Raw agreement: **96.4%**. Exact-set agreement (identical ID sets): **95.8%**.
+
+The gap between high raw agreement and moderate kappa is the prevalence effect:
+most retrieved memories cover no evidence, so the "no" class dominates and chance
+agreement is high, deflating kappa. The two prompts agree on 96% of decisions, so
+the condition ranking (Full > ablations) is robust to prompt wording. Substantial
+but below Run M's 0.919 (answer judging is an easier task than evidence matching)
+and below the 0.8 "strong" line — a human spot-check would still harden it before
+paper inclusion, but the result is reliable enough to cite as controlled evidence.

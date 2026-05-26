@@ -1,0 +1,14 @@
+{
+  "judged_packet": "tuning/runs/phase13-retrieval-evidence/retrieval_annotation_packet_judged.json",
+  "second_judge": "openai/gpt-oss-120b (alternative prompt)",
+  "sample_questions": 20,
+  "sample_rows": 100,
+  "memory_decisions": 2000,
+  "binary_covers_any": {
+    "cohens_kappa": 0.7543,
+    "raw_agreement": 0.964,
+    "n": 2000
+  },
+  "exact_set_agreement": 0.958,
+  "interpretation": "kappa on the per-memory 'covers >=1 evidence' decision between the primary judge and a reworded second prompt (same model). >0.8 = strong; 0.6-0.8 = substantial. Exact-set agreement is stricter (identical ID sets)."
+}
