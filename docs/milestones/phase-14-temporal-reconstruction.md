@@ -1,6 +1,6 @@
 # Phase 14 - Temporal Reconstruction Experiment
 
-Status: implementation complete; controlled smoke passed; dev-slice A/B run twice. 2026-05-24 v1 was marginal and exposed classifier-precision as the blocker. 2026-05-26 classifier tightened (SDK `fix(temporal)`) and v2 re-run shows a clean positive signal (FP rate 11.3% -> 1.9%, temporal +2.75pp). Default still OFF pending a full-split paired run; single-conv n=40 cannot flip a global default.
+Status: CLOSED 2026-05-26. Full held-out-split paired A/B run with bootstrap CI; mean temporal delta +0.75pp but 95% CI [-1.05pp, +2.83pp] crosses zero, and per-conv deltas are heterogeneous (3 positive, 2 negative). **Do not adopt; default stays OFF.** Classifier precision fix (SDK `ee3015a`) is kept — it's a precision bug fix valuable independent of adoption.
 
 ## Hypothesis
 
@@ -208,3 +208,67 @@ The fix is clean:
   dev-slice signal — but it is a separate, larger spend, not part of this
   dev-slice loop. Also still worth investigating the ~20% `event_time` extraction
   yield, which caps the mechanism upstream.
+
+## Full Held-Out-Split Paired A/B (2026-05-26)
+
+Ran `analysis/temporal_ab_full_split.py` over all 5 LoCoMo-test conversations
+(conv-41/42/43/49/50) with the same ingest-once-retrieve-twice pattern and lean
+config used in the dev slice. 158 cat-2 temporal questions, 685 non-temporal
+questions, 20 classifier-FPs to score for regression. Total wall time ~3.5h.
+Artifact: `tuning/runs/phase14-temporal-reconstruction/full_split_ab.json`.
+
+### Aggregate (n=158 paired)
+
+| Slice | n | F1 off | F1 auto | mean delta | 95% bootstrap CI | P(delta>0) |
+|-------|---|--------|---------|------------|------------------|------------|
+| Temporal | 158 | 0.424 | 0.432 | **+0.0075** | **[-0.0105, +0.0283]** | 0.78 |
+| Non-temporal FPs | 20 | 0.375 | 0.423 | +0.048 | [-0.0198, +0.1394] | — |
+| Projected non-temp over 685 | 685 | — | — | **+0.0014** | — | — |
+
+Per-question counts: 12 improved / 10 regressed / 136 unchanged. Non-temporal
+regression is effectively zero — the FPs are sparse and a few even improve
+under auto.
+
+### Per-conversation deltas (the real story)
+
+| Conv | n | mean delta | up/down/same | event_time / mem |
+|------|---|-----------:|:-------------|:-----------------|
+| conv-41 | 27 | **+0.027** | 3/2/22 | 59/302 (19%) |
+| conv-42 | 40 | +0.006 | 3/2/35 | 78/293 (27%) |
+| conv-43 | 26 | **-0.023** | 2/2/22 | 53/326 (16%) |
+| conv-49 | 33 | **-0.024** | 1/4/28 | 62/253 (25%) |
+| conv-50 | 32 | **+0.051** | 3/0/29 | 71/347 (20%) |
+
+3 of 5 conversations show a positive delta, 2 negative. The dev-slice
+(conv-42, +0.006 here vs +0.028 in v2) was near the middle of this
+distribution — close to mean, not representative of variance. Mechanism helps
+where temporal event ordering is informative (conv-41, conv-50) and hurts where
+the question set leans semantic/lookup or temporal answers don't actually live
+in chronologically-orderable events (conv-43, conv-49).
+
+### Decision: do_not_adopt
+
+- **Temporal 95% CI [-1.05pp, +2.83pp] crosses zero.** P(delta>0) = 0.78 is
+  suggestive, not significant. We cannot flip a global default on a sub-1pp
+  mean with an interval that includes zero.
+- **Non-temporal regression is effectively zero** (+0.001 projected) — the
+  classifier precision fix is doing its job, so the mechanism is at least not
+  harmful in aggregate.
+- **Default stays `temporal_query_mode = "off"`.** Phase 14 is closed.
+- **What the classifier fix kept**: removing the systematic FP problem
+  (11.3% -> ~3% across full split, mostly LoCoMo-mislabeled temporal Qs).
+  That's a real precision bug fix worth keeping in the SDK regardless.
+
+### What would actually move the needle (not pursued here)
+
+- **Upstream `event_time` yield.** Across the full split, only 16-27% of
+  ingested memories carry `event_time`. The chronological-ordering mechanism
+  is starved at the extraction layer; fixing extraction to populate
+  `event_time` more often would lift the ceiling before any retrieval tuning.
+- **A separate ranking strategy per question subtype.** Auto-mode applies the
+  same chronological reorder to all temporal-classified questions. Per-conv
+  results suggest "sequence" questions and "current-state" questions want
+  different policies than "specific event time" questions; a finer router
+  could capture per-conv-41/50 wins without per-conv-43/49 losses.
+
+Neither is in scope for closing this thread.
