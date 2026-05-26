@@ -1,6 +1,6 @@
 # Phase 14 - Temporal Reconstruction Experiment
 
-Status: implementation complete; controlled smoke passed; dev-slice LoCoMo A/B run 2026-05-24 — marginal signal, NOT adopted. Classifier precision is the blocker. Full-split run deferred.
+Status: implementation complete; controlled smoke passed; dev-slice A/B run twice. 2026-05-24 v1 was marginal and exposed classifier-precision as the blocker. 2026-05-26 classifier tightened (SDK `fix(temporal)`) and v2 re-run shows a clean positive signal (FP rate 11.3% -> 1.9%, temporal +2.75pp). Default still OFF pending a full-split paired run; single-conv n=40 cannot flip a global default.
 
 ## Hypothesis
 
@@ -164,3 +164,47 @@ on any "when/after/last/how long" regardless of whether the *answer* is a time.
   the question to *ask for* a time/date, not merely mention one), then re-run
   this same dev slice. Secondary: investigate why only 20% of memories get
   `event_time` from extraction — the mechanism is metadata-starved upstream.
+
+## Dev-Slice A/B v2 — after classifier fix (2026-05-26)
+
+Tightened `_is_temporal_query` (SDK `fix(temporal)`, Python + TS, tested): a
+query is temporal only when it leads with a time/duration interrogative
+(when / how long / what year / ...), is a what-happened-before/after sequence
+question, or contains a whole-word current-state marker. The old list matched
+"after/before/first/last/now" anywhere (and "now" inside "know"). Re-ran the
+same dev slice (conv-42); artifact `dev_slice_ab_v2.json`.
+
+| Metric | v1 | v2 |
+|--------|----|----|
+| Non-temporal FP rate | 11.3% (18/159) | **1.9% (3/159)** |
+| Temporal recall | 82.5% (33/40) | 82.5% (33/40) |
+| Temporal F1 delta (off->auto) | +1.4pp | **+2.75pp** (7 up / 1 down / 32 same) |
+| Projected non-temporal regression | −0.17pp | −0.21pp |
+
+(Absolute off-arm F1 differs across runs because each re-ingests with slight
+LLM-extraction non-determinism; the within-run delta is the valid signal.)
+
+The fix is clean:
+
+- The 3 residual "false positives" are all genuinely temporal-phrased questions
+  LoCoMo labels as cat 1/3/4 ("When did Nate get Tilly", "For how long...",
+  "...currently playing"). The classifier is *correct* to fire; the residual is
+  LoCoMo label noise, not classifier error.
+- The 1 temporal "regression" is a token-F1 artifact (off "Week of Jan 14" vs
+  auto "Jan 14"; gold "the week before Jan 21" — both essentially correct).
+- Real what/how false positives (the v1 −0.27 regressions) are gone.
+
+### Decision (v2)
+
+- **Classifier fix adopted** (committed to the SDK) — it's a precision bug fix
+  that helps any temporal work and removes non-temporal harm, independent of
+  whether `temporal_query_mode` is ever defaulted on.
+- **`temporal_query_mode` default stays OFF.** The dev slice now shows a clean
+  positive signal, but a single conversation (n=40, no CI) cannot justify
+  flipping a global default. The dev slice has done its job: it confirmed the
+  classifier was the blocker and that the mechanism helps once precision is fixed.
+- **To actually adopt the default**, run the full held-out split (5 convs, paired
+  bootstrap CI, production feature config). That is now justified by the clean
+  dev-slice signal — but it is a separate, larger spend, not part of this
+  dev-slice loop. Also still worth investigating the ~20% `event_time` extraction
+  yield, which caps the mechanism upstream.
