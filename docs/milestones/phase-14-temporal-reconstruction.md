@@ -272,3 +272,52 @@ in chronologically-orderable events (conv-43, conv-49).
   could capture per-conv-41/50 wins without per-conv-43/49 losses.
 
 Neither is in scope for closing this thread.
+
+## Addendum: extraction yield diagnostic and fix (2026-05-27)
+
+The Phase 14 closure named "16-27% `event_time` extraction yield" as the
+upstream blocker. A focused diagnostic on conv-42 session_2 (14 memories,
+`gpt-4o-mini` extraction) showed the blocker was misidentified:
+
+| Field | Pre-fix yield | Boost contribution |
+|-------|---:|---|
+| `mentioned_at.timestamp` | 100% | sort-key fallback (always covers ordering) |
+| `event_time.start` | 7% | **<=0.05** via confidence — minor |
+| `raw_time_expressions` | **0%** | **+0.15** on when/date/before/after queries |
+| `valid_time.status` non-unknown | **7%** (1 of 14 was "planned"; rest "unknown") | **+/-0.35** on current-state queries |
+
+The two load-bearing fields (`raw_time_expressions`, `valid_time.status`) were
+near-empty. Both were marked `(optional)` in the extraction prompt and the LLM
+rationally skipped them. `event_time` was already not a critical contributor —
+my closure framing was wrong on that point.
+
+### Fix
+
+SDK commit `ecfcd2e` (Python + TS extraction prompts):
+
+- Mark `valid_time.status` REQUIRED with explicit guidance ("current" as the
+  default for lasting memories; never default to "unknown").
+- Mark `raw_time_expressions` REQUIRED with directives to include explicit
+  dates, relative phrases, durations, current-state markers, and the
+  conversation date for memories anchored to "around now".
+- Update the example to show every memory carrying both fields.
+- Add critical rule 8 enforcing this.
+
+After the fix, re-running the same diagnostic:
+
+| Field | After |
+|-------|---:|
+| `raw_time_expressions` populated | **100%** (14/14) |
+| `valid_time.status` non-unknown | **100%** (14/14): current 10 / completed 2 / in_progress 1 / planned 1 |
+| `event_time.start` | 0% (LLM moved date phrases into raw_time_expressions; net positive trade given the boost weights) |
+
+Tests still pass (py 78, ts 91); they mock the LLM, so the prompt change is
+unobservable to them.
+
+### Implication for Phase 14
+
+This is the upstream lever the closure pointed at. The mechanism's drivers are
+no longer starved. **Whether to re-run the full held-out-split A/B is a fresh
+decision** — Phase 14 was closed with the prior extraction; the gate could plausibly
+flip now. A re-run of `analysis/temporal_ab_full_split.py` against the fixed
+SDK would say. Not auto-initiated here.
