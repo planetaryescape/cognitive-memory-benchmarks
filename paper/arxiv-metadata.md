@@ -14,7 +14,7 @@ Most AI memory systems focus on extraction and retrieval, leaving the stored-mem
 
 ## Comments
 
-28 pages, 10 tables, 3 figures. Code and benchmark artifacts available at https://github.com/planetaryescape/cognitive-memory and https://github.com/planetaryescape/cognitive-memory-benchmarks.
+29 pages, 10 tables, 3 figures. Code and benchmark artifacts available at https://github.com/planetaryescape/cognitive-memory and https://github.com/planetaryescape/cognitive-memory-benchmarks.
 
 ## Suggested Categories
 

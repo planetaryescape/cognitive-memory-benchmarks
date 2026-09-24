@@ -7,7 +7,7 @@ Current source-of-truth files:
 
 - Manuscript: `paper/paper.tex`
 - Latest PDF: `paper/cognitive-memory-arxiv-paper-v2.pdf`
-- arXiv source bundle: `paper/arxiv-source/cognitive-memory-arxiv-source-20260511.tar.gz`
+- arXiv source bundle: `paper/arxiv-source/cognitive-memory-arxiv-source-20260531.tar.gz`
 - Paper status map: `docs/paper.md`
 - Benchmark registry: `docs/benchmarks-overview.md`
 - Reproducibility record: `docs/current-refresh-20260505.md`
@@ -31,11 +31,11 @@ evaluation as future work. The current May 2026 manuscript now includes:
 
 - Submit as arXiv v1. The March PDF was never posted.
 - Use `cs.AI` as the primary category; cross-list to `cs.CL` and `cs.LG` if desired.
-- Report only logged artifacts in the paper: Phase 5 for LoCoMo, current-refresh for LongMemEval-S/LTI/auxiliary analyses.
+- Report only logged artifacts in the paper: Phase 5 for LoCoMo, current-refresh for LongMemEval-S/LTI/auxiliary analyses, and Phase 12/13/15 as mechanism or positioning controls.
 - Treat historical Runs A-K/L/M as provenance, not active paper numbers.
 - Keep single-seed and conv0-only ablation caveats in Limitations.
 - Frame LongMemEval-S as competitive with ENGRAM-class single-stage systems while acknowledging newer TiMem/EverMemOS results.
-- Keep NaiveRAG full-corpus comparison, LongMemEval-M, and multi-seed runs as future work.
+- Keep LongMemEval-M, multi-seed runs, and benchmark-spec full-corpus ablations as future work. NaiveRAG full-corpus comparison is complete and folded in as positioning evidence.
 
 ## Remaining Before Submission
 

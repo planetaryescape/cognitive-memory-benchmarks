@@ -10,27 +10,27 @@ this checklist in another, and copy-paste.
 - **Endorsement**: first-time submitters to `cs.AI` may need an endorsement
   code from an existing arXiv author in that category. Check
   https://arxiv.org/user/endorse if prompted.
-- **Source bundle** (this build): `paper/arxiv-source/cognitive-memory-arxiv-source-20260526.tar.gz`
-  (995 KB, source-only — paper.tex, references.bib, 3 PNG figures).
+- **Source bundle** (this build):
+  `paper/arxiv-source/cognitive-memory-arxiv-source-20260615.tar.gz`
+  (973 KB, source-only — paper.tex, references.bib, 3 PNG figures).
   arXiv builds the PDF from source; do not include `paper.pdf`.
 
-## Decide first: incorporate new results, or submit as-is?
+## Current result-inclusion status
 
-The current paper.tex does **not** include this session's findings:
+The current `paper.tex` folds in the completed Phase 13 and Phase 15 findings:
 
 - Phase 13 retrieval-evidence recall (Full > vector-only/ablations on every
   metric; +20pp open-domain, +10pp temporal evidence recall; deep-recall
   load-bearing). Validated κ=0.754.
-- Phase 14 temporal reconstruction: classifier-precision fix landed; dev-slice
-  shows +2.75pp temporal with 1.9% non-temporal FP (clean signal but n=40);
-  default stays off pending the full held-out-split run (currently in flight).
+- Phase 15 NaiveRAG baseline (overall near-tie; large temporal win for
+  Cognitive Memory; NaiveRAG ahead on simple lookup categories).
 
-These are **paper-relevant positive findings**. If you want them in v1, ask me
-to add a §6.x "Controlled retrieval evidence" subsection + Phase 14 footnote
-first, then re-tar and re-submit. If you submit now, they go in v2.
-
-Submitting as-is is defensible: the current paper's claims stand independently
-and the new results extend rather than contradict them.
+Phase 14 temporal reconstruction remains default-off. The pre-fix full
+held-out split did not clear the adoption gate (+0.75pp, 95% CI crosses zero).
+The post-prompt-fix rerun is blocked in the current shell until
+`OPENAI_API_KEY` is available for OpenAI embeddings; do not cite an after-fix
+full-split result unless `full_split_ab_after_prompt_yield_fix.json` exists and
+has a final summary.
 
 ## Submission flow (~10 min)
 
@@ -41,9 +41,9 @@ and the new results extend rather than contradict them.
 3. **Article type**: "New submission" → "Standard arXiv".
 
 4. **Upload files**: drag-drop or browse to
-   `paper/arxiv-source/cognitive-memory-arxiv-source-20260526.tar.gz`. arXiv
+   `paper/arxiv-source/cognitive-memory-arxiv-source-20260615.tar.gz`. arXiv
    will extract and pre-process. Wait for "Process" to finish; verify the
-   generated PDF preview (28 pages, 1.1 MB).
+   generated PDF preview.
 
 5. **Metadata** — copy-paste exactly:
 
@@ -64,7 +64,7 @@ and the new results extend rather than contradict them.
 
    - **Comments**:
      ```
-     28 pages, 10 tables, 3 figures. Code and benchmark artifacts available at https://github.com/planetaryescape/cognitive-memory and https://github.com/planetaryescape/cognitive-memory-benchmarks.
+     29 pages, 10 tables, 3 figures. Code and benchmark artifacts available at https://github.com/planetaryescape/cognitive-memory and https://github.com/planetaryescape/cognitive-memory-benchmarks.
      ```
 
    - **Primary category**: `cs.AI`
@@ -99,7 +99,7 @@ and the new results extend rather than contradict them.
 
 | What | Path |
 |---|---|
-| Source bundle | `paper/arxiv-source/cognitive-memory-arxiv-source-20260526.tar.gz` |
+| Source bundle | `paper/arxiv-source/cognitive-memory-arxiv-source-20260615.tar.gz` |
 | Source directory | `paper/arxiv-source/cognitive-memory-arxiv-source/` |
 | Metadata draft | `paper/arxiv-metadata.md` |
 | Locally built PDF | `paper/paper.pdf` |
