@@ -140,11 +140,11 @@ This is a deliberate framing choice. It says "the architecture works in default 
 
 **Lesson:** Decide upfront whether your headline claim is "out-of-the-box performance" or "best achievable performance." Don't slide between them in the paper. Each is defensible; mixing them isn't.
 
-## 14. Hybrid search hurts on conversational text
+## 14. Hybrid search is a measurement, not a slogan
 
-Ablation H showed `hybrid_search: true` (BM25 + dense union) loses 1.1pp on LoCoMo conv 0. BM25's tokenisation and natural-language conversational text don't mix well — BM25 picks up lexical noise (frequent stopwords, proper-noun overlap) that dense embeddings handle better.
+An early conv-0 pilot showed `hybrid_search: true` (BM25 + dense union) losing 1.1pp on LoCoMo conv 0. The later current-refresh ablation table showed a small positive point estimate (+1.7pp). Both are single-conversation signals.
 
-**Lesson:** Hybrid search is the default-good answer in academic benchmarks (especially document retrieval), but on conversational data with fluid pronouns and paraphrase, it can hurt. Test before turning on.
+**Lesson:** Hybrid search is the default-good answer in many document-retrieval settings, but conversational memory has pronouns, paraphrase, and repeated named entities. Treat hybrid as a workload-specific knob and validate it before turning it on by default.
 
 ## 15. Power-law decay > exponential, by a lot
 
@@ -160,7 +160,7 @@ We kept exponential as the SDK default because we have not characterised the gai
 
 Figure 2 (`simulations/monte_carlo.pdf`) shows 500 randomised retrieval schedules under direct vs associative boosting. The key result: 76.8% of directly retrieved memories cross core threshold by day 90; 0% of associative-only memories ever do.
 
-This figure is the best argument for the two-tier boosting design. The mechanism is simple (direct: +0.1, associative: +0.03), but the long-run consequence (one promotes, the other never does) is strikingly bimodal.
+This figure is the best argument for the two-tier boosting design. The mechanism is simple (direct: +0.1, associative: +0.05 in v0.5 defaults; older paper configs used +0.03), but the long-run consequence (one promotes, the other never does) is strikingly bimodal.
 
 **Lesson:** When designing an architecture with two-tier dynamics, run a Monte Carlo across realistic randomised schedules. The aggregate behaviour is what matters; a single-trajectory plot (Figure 1) makes the point but a 500-run distribution (Figure 2) defends it.
 
@@ -212,3 +212,43 @@ This session generated several reusable rules worth capturing if the user wants:
 - "When a major Future Work item gets done, update the paper's Limitations / Future Work / Abstract immediately, don't batch" (from §6)
 
 These haven't been saved as memory yet — surfaced for the user to choose from.
+
+## 21. A null ablation can improve the paper
+
+Phase 8 tested the cleanest decay-floor story and got a null: floors-off retained 100% of critical facts on the 30-day LTI-Bench scenario. That falsified the easy attribution. The stronger interpretation is narrower: stability accumulation through repeated direct retrieval, plus `R^0.3` softening, was enough to keep high-similarity critical facts near the top.
+
+**Lesson:** When a mechanism ablation returns null, update the attribution immediately. Keep the result, but move the causal claim to the mechanism the ablation actually supports. "The system works here" and "this specific knob caused it" are different claims.
+
+## 22. Architecture controls are not benchmark results
+
+Phase 12 ran local-model controls with LM Studio's `openai/gpt-oss-120b`, OpenAI embeddings, token F1 only, and the judge disabled. Those rows are useful because they hold the slice/model/prompt mostly fixed while changing architecture. They are not comparable to LoCoMo leaderboard numbers.
+
+**Lesson:** Use architecture controls to test mechanism direction. Use benchmark-spec runs for public comparability. Never mix the two in the same headline table.
+
+## 23. Retrieval evidence is cleaner than answer F1 for memory claims
+
+Phase 13 measured evidence MRR, Recall@10, Complete@10, Recall@20, and Complete@20 over retrieved memories before answer generation. The full architecture led every retrieval-level metric, while answer-level F1 remained noisier because it entangles retrieval, answer-model behavior, judge behavior, and prompt format.
+
+**Lesson:** If the claim is about memory architecture, measure whether the right evidence is retrieved. Answer F1 is necessary, but it is too entangled to carry the whole causal story.
+
+## 24. Lifecycle memory is not a universal RAG replacement
+
+The Phase 15 in-house NaiveRAG baseline changed the claim. Cognitive Memory beat NaiveRAG narrowly overall and strongly on temporal questions, but NaiveRAG did better on simple lookup categories. That is not a failure; it is the shape of the contribution.
+
+**Lesson:** A lifecycle memory system should be sold on the problems lifecycle actually solves: changing facts, temporal state, reinforcement, consolidation, and provenance. Plain vector retrieval is still a strong baseline for direct factual lookup.
+
+## 25. Long evaluations need checkpoints before ambition
+
+Phase 12 lost time to local-model timeouts and aborted rows before the runner had proper checkpoints. The fix was boring and decisive: per-conversation partial files, `status: partial`, resume flags, explicit trial IDs, log backups, and a preflight that catches SDK expiry/date issues before a 13-hour run.
+
+**Lesson:** For long benchmark sweeps, checkpoint after every independently useful unit. A run that cannot resume is not a run plan; it is a bet on the machine staying lucky.
+
+## 26. Temporal memory needs yield before architecture
+
+Phase 14 started from a real concern: lifecycle memory is not automatically temporal memory. The SDK added event-time metadata, validity status, query routing, softer temporal decay, and chronological evidence serialization. The controlled smoke passed, but the held-out paired A/B did not clear the adoption gate: +0.75pp mean temporal delta with a confidence interval crossing zero. The default stayed `temporal_query_mode="off"`.
+
+The useful surprise was where the issue actually lived. The first classifier was too broad, so non-temporal queries entered the temporal path. After that fix, the extraction prompt still failed to populate the load-bearing fields often enough. The important missing fields were not mostly resolved event dates; they were `raw_time_expressions` and `valid_time.status`. The prompt fix made those required, which means any future adoption decision needs a fresh A/B.
+
+Phase 14 also corrected the LoCoMo category mapping: `1=multi-hop`, `2=temporal`, `3=open-domain`, `4=single-hop`, `5=adversarial`. That made the old "temporal is weakest" diagnosis less solid. Some of the apparent temporal weakness was label drift.
+
+**Lesson:** For temporal memory features, measure metadata yield and classifier precision before trusting the retrieval architecture. A temporal layer without populated time/status fields is just a wider retrieval mode with a nicer name.

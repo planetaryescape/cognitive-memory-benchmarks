@@ -5,13 +5,19 @@
 > `docs/benchmarks-overview.md`, and `docs/paper.md` for current paper and
 > benchmark truth.
 
+> 2026-05-31 update: Phase 8, 12, 13, 14, and 15 have changed the research queue.
+> Decay floors are not proven load-bearing on 30-day LTI-Bench; local-model
+> architecture controls are useful but off-spec; retrieval-evidence controls
+> now provide the cleanest retrieval-mechanism evidence; NaiveRAG has been run
+> and folded into the paper as positioning evidence.
+
 Explicit handoff for the next session — what's queued, what's blocked on what, and what we deliberately deferred.
 
 ## Current arXiv readiness snapshot
 
 - Current PDF: `paper/cognitive-memory-arxiv-paper-v2.pdf`
-- Current source bundle: `paper/arxiv-source/cognitive-memory-arxiv-source-20260511.tar.gz`
-- Current build status: clean `tectonic paper.tex` build; no underfull/overfull boxes, no unresolved refs, no unresolved citations.
+- Current source bundle: `paper/arxiv-source/cognitive-memory-arxiv-source-20260615.tar.gz`
+- Current build status: `tectonic paper.tex` succeeds locally after Phase 13/15 source edits. Remaining warnings are the known cosmetic underfull hboxes around the LoCoMo table.
 - Remaining manual work: final human PDF proofread, arXiv UI metadata entry, generated-preview check, and recording the arXiv ID after submission.
 
 ## 1. State as of 2026-05-05 close-of-session
@@ -26,7 +32,7 @@ Explicit handoff for the next session — what's queued, what's blocked on what,
 - Both experimentlogs updated (run registry, changelog, full Run L details)
 - Paper update plan written: `paper/paper-update-plan.md` with all 6 unresolved questions resolved
 - `paper.tex` updated: new §Evaluation, abstract/intro/limitations/future-work/conclusion rewritten, Design Comparison table updated, +5 bib entries (LoCoMo, LongMemEval, ENGRAM, TiMem, EverMemOS), date bumped May 2026
-- Paper rebuilt via `tectonic`: `paper/cognitive-memory-arxiv-paper-v2.pdf` (24 pages, 241 KB, citations resolved)
+- Paper rebuilt via `tectonic`: `paper/cognitive-memory-arxiv-paper-v2.pdf` (superseded 24-page May 5 build; see current snapshot above for the active build)
 - `docs/` directory created with this set of operator notes
 
 ⚠️ Uncommitted across both repos:
@@ -35,7 +41,7 @@ Explicit handoff for the next session — what's queued, what's blocked on what,
 
 🟡 Historical pending decisions at the time:
 - Whether to commit the benchmarks-repo working state (everything noted above) or keep the repo as a working area with tight gitignore.
-- Whether to fix the cosmetic LaTeX hbox warnings before final arXiv submission. **Resolved:** fixed in the current May 7 build.
+- Whether to fix the cosmetic LaTeX hbox warnings before final arXiv submission. **Mostly resolved:** only cosmetic underfull hboxes remain around the LoCoMo table.
 - Whether to copy figure PDFs into `paper/` permanently (current state) or use `\graphicspath{{../simulations/}}` and remove the copies. **Resolved:** source bundle is standalone with figure PNGs.
 
 ## 2. Highest-priority pickups
@@ -71,7 +77,7 @@ Resolved in the May 7 build. `tectonic paper.tex` now completes without underful
 ### 2.3 Final paper read-through (~1 hour)
 
 - Open the PDF, scan every page.
-- Check that all 9 tables are referenced in prose (some new ones may not be).
+- Check that all 10 tables are referenced in prose (some new ones may not be).
 - Check that the contributions list in the Introduction matches the abstract.
 - Check Conclusion's numerical claims match Evaluation section's tables.
 - Check there are no leftover `\todo{}` or commented-out paragraphs.
@@ -99,34 +105,29 @@ LTI-Bench v2 flagged associative retrieval as the architectural weak spot (60% a
 
 To validate, re-run LTI-Bench v2 — associative category should jump from 60% → 90%+. Same controlled benchmark, same methodology, demonstrates causal effect of the fix.
 
-### 3.2 Run NaiveRAG comparison on LoCoMo (1 day, ~$100 in API)
+### 3.2 Run NaiveRAG comparison on LoCoMo (done, folded into paper)
 
-`shared/adapter.py:548` defines `NaiveRAGAdapter` but it has never been run on the full LoCoMo corpus. Adding this column to the headline F1 table would give an in-house architectural-mechanism contrast (vs Mem0/FadeMem published numbers, which come from different codebases).
+Phase 15 ran the full in-house NaiveRAG LoCoMo baseline. Artifact: `locomo/results/naive_rag/run_n_v0.5.json`. Result: Cognitive Memory is narrowly ahead overall and much stronger on temporal questions, while NaiveRAG is better on simple lookup categories. See `docs/milestones/phase-15-naive-rag-baseline.md`.
 
-If we do this, also run NaiveRAG through LTI-Bench. The expected per-category breakdown:
-- core_persistence: probably passes (recent facts always retrievable)
-- contextual: passes
-- decay_trivial: probably passes (NaiveRAG doesn't decay, returns everything)
-- revival: passes for the same reason
-- conflict: FAILS — no supersession mechanism, returns both old and new
-- temporal_before / temporal_after: FAILS — no time-aware retrieval
-- associative: probably similar to ours (LoCoMo lacks bidirectional graph)
+Phase 15 is now represented in the paper as positioning evidence, not as a new headline benchmark row.
 
-This contrast story would strengthen the paper's architectural claims significantly.
+### 3.3 Temporal reconstruction re-run after prompt fix
 
-### 3.3 Multi-seed Run A (3 days, ~$300)
+Phase 14 is closed and `temporal_query_mode` remains off by default. The post-close extraction prompt fix made `raw_time_expressions` and `valid_time.status` load-bearing instead of optional in practice. A fresh held-out paired A/B was attempted for submission cleanup, but this shell lacks `OPENAI_API_KEY` for OpenAI embeddings. Resume only after that key is available; do not switch to hash/local embeddings and treat it as the same experiment.
+
+### 3.4 Multi-seed Run A (3 days, ~$300)
 
 Run full LoCoMo on 3 different seeds, characterise variance. Convert the 46.2% F1 from a point estimate to "46.2% +/- 1.X%". Same for multi-hop F1.
 
 This is paper-quality but expensive. Defer unless we're targeting a venue that requires it (e.g., a top-tier conference vs arXiv).
 
-### 3.4 LongMemEval-M run (2–3 days, ~$300, multi-day wall)
+### 3.5 LongMemEval-M run (2–3 days, ~$300, multi-day wall)
 
 LongMemEval-M has ~10× the haystack of -S. Running it would let us compare directly against TiMem (76.88%) and EverMemOS (83.0%), both of which report -M numbers. Expected: we land somewhere in the middle. The point is to have the comparable number, not necessarily to win.
 
 Currently the dataset isn't in `longmemeval/data/` — would need to download. The runner script (`run_longmemeval.py`) already supports arbitrary data files.
 
-### 3.5 SDK release
+### 3.6 SDK release
 
 Check the SDK repository before acting. This note was written during the March/May refresh and may no longer reflect package state.
 
@@ -138,9 +139,11 @@ If we publish, update the paper's Code Availability section with the release dat
 
 Complete. Current paper/docs use CR-B: 71.6% task-averaged accuracy, 72.6% overall accuracy, 90.0% abstention.
 
-### 4.2 LoCoMo full ablations (not just conv 0)
+### 4.2 LoCoMo full ablations (partially addressed off-spec)
 
 Runs H–K are conv 0 only. Full-corpus ablations would convert the per-feature deltas from point estimates to corpus-average estimates. Cost: ~4× Run A's cost (one run per ablation condition, all 10 convs). ~$400 + 8h wall.
+
+Phase 12 provides a cheaper off-spec version under a local chat model. It is useful as an architecture-control sanity check, but it does not replace benchmark-spec full-corpus ablations with the OpenAI answer/judge setup.
 
 ### 4.3 Cross-model generalisation
 
@@ -181,7 +184,8 @@ cd ~/code/bhekanik/cognitive-memory-benchmarks
 
 # Verify environment
 .venv/bin/python -c "import cognitive_memory; print('SDK:', cognitive_memory.__version__)"
-# Should print "SDK: 0.3.0"
+# Should print the SDK version recorded for the run you intend to reproduce;
+# current local SDK is 0.5.1.
 
 # Look at recent logs
 head -20 experimentlog_v2.md          # remaining-work tracker

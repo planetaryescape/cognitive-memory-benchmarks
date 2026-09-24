@@ -8,6 +8,8 @@ Active current-refresh namespace for LongMemEval-S, LTI-Bench, oracle, retrieval
 
 Historical `v6/` artifacts remain on disk for provenance only.
 
+Phase 12-15 controls live under the milestone docs. Phase 12, 13, and 15 are now folded into the paper as mechanism or positioning evidence; they are not replacements for the benchmark-spec headline rows above.
+
 ## 1. Active run registry
 
 | Run | Benchmark | Status | Active artifact | What it measures |
@@ -24,6 +26,10 @@ Historical `v6/` artifacts remain on disk for provenance only.
 | CR-H | Feature activation | COMPLETE | `locomo/results/current_sdk_20260505/feature_activation.json` | Graph/validity/bridge activation |
 | CR-I | Judge reliability | COMPLETE | `locomo/results/current_sdk_20260505/judge_reliability.json` | Inter-prompt agreement |
 | CR-J | Ablations | COMPLETE | `analysis/results/current_sdk_20260505/ablation_results.json` | Per-feature deltas on conv 0 |
+| P12 | Local-model architecture controls | COMPLETE | `tuning/runs/locomo-0026/`, `locomo-0029/`-`locomo-0035/` | Off-spec LoCoMo-test controls under local `openai/gpt-oss-120b`; token F1 only |
+| P13 | Retrieval evidence controls | COMPLETE | `tuning/runs/phase13-retrieval-evidence/` | Evidence recall/MRR independent of answer generation |
+| P14 | Temporal reconstruction A/B | COMPLETE; after-fix rerun blocked | `tuning/runs/phase14-temporal-reconstruction/full_split_ab.json` | Temporal reordering test; default stayed off |
+| P15 | NaiveRAG baseline | COMPLETE | `locomo/results/naive_rag/run_n_v0.5.json` | In-house vector-only baseline under the same LoCoMo harness |
 
 ## 2. Common setup
 
@@ -49,6 +55,7 @@ Historical `v6/` artifacts remain on disk for provenance only.
 - 10 conversations; 1540 category 1-4 QA used for the standard LoCoMo result
 - Phase 5 artifact: `tuning/runs/phase5/v05_tuned/aggregate.json`
 - Production flags: `top-k 60`, dual-perspective ingestion, deep recall, rerank factor 3, Mem0-style answer prompt, judge enabled
+- Category labels were corrected during Phase 14: `1=multi-hop`, `2=temporal`, `3=open-domain`, `4=single-hop`, `5=adversarial`. Do not cite pre-Phase-14 per-category tables unless they were recomputed with this mapping.
 
 ### LongMemEval-S (CR-B)
 
@@ -71,6 +78,7 @@ Historical `v6/` artifacts remain on disk for provenance only.
 - **F1: 69.7%**
 - **Critical fact retention: 100%**
 - 28 facts, 28 daily sessions, 42 probes, 8 probe types
+- Phase 8 falsified the simple "decay floors caused critical retention" claim on this 30-day scenario: floors-off also retained 100% of critical facts. The likely load-bearing mechanism here is stability accumulation plus softened retention weighting (`R^0.3`), with longer-horizon floor tests still open.
 - See [`lti-bench.md`](./lti-bench.md) for scenario details.
 
 ### Derived analyses
@@ -80,6 +88,15 @@ Historical `v6/` artifacts remain on disk for provenance only.
 - Isolated decay-shape sensitivity: power-law **29.5%** vs exponential **25.0%** on conv 0, **+4.6pp**.
 - Ablation runner, conv 0: power-law **+3.2pp**, rerank **+1.9pp**, hybrid search **+1.7pp**, graph expansion **+0.0pp**.
 - Judge reliability: **94%** raw agreement, Cohen's κ **0.879**.
+
+### Post-paper mechanism checks
+
+These rows are intentionally not headline benchmark numbers.
+
+- **Local-model architecture control (Phase 12).** Under local `openai/gpt-oss-120b` chat calls, OpenAI `text-embedding-3-small` embeddings, and token F1 only, the full system beat vector-only by +4.6pp overall and heuristic defaults by +5.1pp on the held-out LoCoMo-test split. It also beat no-consolidation/deep-recall by +2.5pp. Reinforcement, associative graph, core promotion, and retention weighting were mixed or negative in this off-spec setup.
+- **Retrieval evidence controls (Phase 13).** Full architecture led all retrieval-level metrics on a 100-question stratified sample: MRR 0.532, Recall@10 0.632, Complete@10 0.500, Recall@20 0.690, Complete@20 0.580. The cleanest evidence is ranking quality, not raw top-20 coverage.
+- **Temporal reconstruction (Phase 14).** Held-out paired A/B showed a small, uncertain temporal gain (+0.75pp, 95% CI [-1.05pp, +2.83pp]), so `temporal_query_mode` remains off by default. The follow-up prompt fix made `valid_time.status` and `raw_time_expressions` reliably populated, but the after-fix full A/B is not complete; the attempted rerun is blocked until `OPENAI_API_KEY` is available for embeddings.
+- **NaiveRAG baseline (Phase 15).** With the same harness, prompt, answer model, embeddings, and token-F1 scoring, Cognitive Memory beat NaiveRAG narrowly overall (44.77% vs 43.71%) and strongly on temporal questions (48.47% vs 20.54%), while NaiveRAG was better on single-hop, multi-hop, and open-domain categories. The architecture claim is lifecycle-specific, not "beats vector retrieval everywhere."
 
 ## 4. Reproduction commands
 
@@ -222,8 +239,8 @@ Order-of-magnitude API costs:
 
 - LongMemEval-M and LongMemEval-Oracle.
 - MemoryBench 2025.
-- Full in-house NaiveRAG LoCoMo run.
 - Cross-model runs with Claude, Gemini, or Llama answer models.
 - Multi-seed runs.
+- Benchmark-spec full-corpus mechanism ablations with the OpenAI answer/judge setup.
 
 These are paper limitations or future work, not hidden results.

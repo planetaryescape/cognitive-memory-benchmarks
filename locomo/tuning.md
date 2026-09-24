@@ -240,7 +240,9 @@ Key learning: iter5 experiments were largely fruitless rabbit holes because:
 ### Other systems (LLM Judge metric, NOT token F1 — not directly comparable)
 - Mem0: 66.9% overall, Memobase: 75.8% overall, Zep: 66.0% overall
 
-## Current Best Config (Iteration 4)
+## Historical best config at the time (Iteration 4)
+
+This section is an old tuning snapshot, not the current SDK truth. Current active defaults and benchmark numbers are in `../README.md`, `../docs/benchmarks-overview.md`, and `../experimentlog.md`.
 
 Files modified from original:
 - `locomo_eval.py`: Answer prompt matches LoCoMo official format, max_tokens=32, top_k=20

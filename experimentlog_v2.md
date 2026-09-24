@@ -68,7 +68,8 @@ Prep notes:
 | G — Utilization Probe | 540 candidates/query avg | 60 retrieved, all 10 convs |
 | H-K — Ablations | rerank +1.8pp, power +3.6pp | hybrid -1.1pp, graph +0.6pp |
 | E — Oracle Ceiling | F1=63.9% (Mem0 prompt re-run) | Re-run with Mem0 prompt: F1=63.9% (LoCoMo), 61.0% (Mem0) |
-| L — LTI-Bench (v2) | Overall 90.5% acc, F1 70.1%, critical retention 100%, 67/85 core | SDK v0.3.0; n=42; time-stepped + llm_judge; associative is weak spot (60%) |
+| L — LTI-Bench (v2 historical) | Overall 90.5% acc, F1 70.1%, critical retention 100%, 67/85 core | SDK v0.3.0; superseded for active paper/docs by CR-C |
+| CR-C — LTI-Bench current refresh | Overall 88.1% acc, F1 69.7%, critical retention 100%, 66/85 core | Active current-refresh artifact: `lti/results/current_sdk_20260505/run_l_v2.json` |
 
 ---
 

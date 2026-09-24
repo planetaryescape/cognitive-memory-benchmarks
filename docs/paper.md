@@ -1,15 +1,15 @@
 # Paper Status, Build, and Section Map
 
-The paper is `paper/paper.tex` (target: arXiv). Latest build: `paper/cognitive-memory-arxiv-paper-v2.pdf` (27 pages, 1.1 MB, 2026-05-11). The mirrored arXiv source directory at `paper/arxiv-source/cognitive-memory-arxiv-source/` builds cleanly; the latest tested archive is `paper/arxiv-source/cognitive-memory-arxiv-source-20260511.tar.gz`. The previous build `cognitive-memory-arxiv-paper.pdf` (Mar 4, 17 pages) is kept on disk for diffing.
+The paper is `paper/paper.tex` (target: arXiv). Latest named build: `paper/cognitive-memory-arxiv-paper-v2.pdf` (29 pages, 1.1 MB, 2026-06-15). The mirrored arXiv source directory at `paper/arxiv-source/cognitive-memory-arxiv-source/` builds cleanly; the latest source archive on disk is `paper/arxiv-source/cognitive-memory-arxiv-source-20260615.tar.gz`. The previous build `cognitive-memory-arxiv-paper.pdf` (Mar 4, 17 pages) is kept on disk for diffing.
 
 ## 1. State
 
 - **Title**: Cognitive Memory for AI Agents: Preservation-First Decay, Core Promotion, and Retrieval-Driven Reinforcement
 - **Author**: Bhekani Khumalo (Independent Researcher), `hello@bhekani.com`
 - **Date stamp**: May 2026 (was February 2026 in pre-update build)
-- **Pages**: 27 (was 17)
+- **Pages**: 29 (was 17)
 - **arXiv version**: v1 when posted (paper has never been on arXiv; the Mar-4 build was a draft)
-- **Status**: Updated and rebuilt 2026-05-11 with Phase 5 full-LoCoMo v0.5 tuned-default results, Phase 8 decay-floor ablation negative result, plus the existing current-refresh LongMemEval-S, oracle, derived-analysis, and LTI artifacts. Current `tectonic paper.tex` build is clean: no unresolved references or citations.
+- **Status**: Source updated for submission cleanup with Phase 5 full-LoCoMo v0.5 tuned-default results, Phase 8 decay-floor ablation negative result, the held-out protocol split, Phase 12 local-model controls, Phase 13 retrieval-evidence controls, and Phase 15 NaiveRAG baseline. Phase 14 remains default-off; the after-prompt-fix full-split rerun is blocked until `OPENAI_API_KEY` is available for embeddings.
 
 ## 2. Section map
 
@@ -20,8 +20,8 @@ The paper is `paper/paper.tex` (target: arXiv). Latest build: `paper/cognitive-m
 | 3 | Architecture | 96–301 | Memory representation, decay model (Eq. 1 + power-law variant), decay floors, core memory detection, retrieval scoring (Eq. 3), two-tier boosting (with Figs. 1 and 2 from simulations/), associative graph, consolidation, tiered storage (Fig. 3) |
 | 4 | Design Comparison with FadeMem | 303–339 | Side-by-side comparison table (Evaluation row updated to point at §6) |
 | 5 | Implementation | 340–372 | Adapter pattern, production deployment in blah.chat, audit log |
-| **6** | **Evaluation** ⭐ NEW | 376–595 | Setup, LoCoMo, LongMemEval-S, Oracle Evidence Context, Isolated Decay-Shape Sensitivity, Ablations, Retrieval Quality, Efficiency, Judge Reliability, LTI-Bench, and Phase 8 decay-floor negative result — 10 subsections, 6 tables |
-| 7 | Limitations and Open Questions | 596–620 | Reframed: was "no benchmark eval", now Single-seed, LongMemEval-S only, conv-0 ablations, controlled LTI-Bench small-sample, SDK version straddle, plus retained limitations on parameters, never-delete debate, core thresholds, associative graph scaling, consolidation underspecification |
+| **6** | **Evaluation** ⭐ NEW | 376–630 | Setup, LoCoMo, LongMemEval-S, Oracle Evidence Context, Isolated Decay-Shape Sensitivity, Ablations, Retrieval Quality, Efficiency, Judge Reliability, LTI-Bench, and Phase 8 decay-floor negative result — 10 subsections, 7 evaluation tables |
+| 7 | Limitations and Open Questions | 596–620 | Reframed: was "no benchmark eval", now single-seed, LongMemEval-S only, conv-0 ablations, controlled LTI-Bench small-sample, current-refresh provenance, plus retained limitations on parameters, never-delete debate, core thresholds, associative graph scaling, consolidation underspecification |
 | 8 | Future Work | 621–636 | Reframed: longer-horizon decay-floor ablation, production-data validation, multi-seed, associative retrieval strengthening, cross-model generalisation, LongMemEval-M/Oracle |
 | 9 | Conclusion | 638–642 | Updated closing paragraph with actual numbers plus Phase 8 null result |
 | — | Code Availability | 644–652 | SDK + benchmarks repo URLs, npm/PyPI, Phase 8 artifacts, and artifact provenance via `experimentlog_v2.md`, milestones, row log, and per-trial artifacts |
@@ -35,10 +35,11 @@ The paper is `paper/paper.tex` (target: arXiv). Latest build: `paper/cognitive-m
 | Table 3 | Design comparison FadeMem vs ours | hand-written in tex | 308–334 |
 | Table 4 | LoCoMo headline F1 vs Mem0 + v0.4 baseline | NEW, from Phase 5 artifacts | 405–414 |
 | Table 5 | LongMemEval-S per-task accuracy | NEW, from `longmemeval/results/current_sdk_20260505/primary.json` | 423–447 |
-| Table 6 | Ablation per-feature delta | NEW, from ablations/ + Run C | 467–479 |
-| Table 7 | Evidence Recall@k | NEW, from Run D | 491–500 |
-| Table 8 | Per-stage timing | NEW, from Run F | 511–520 |
-| Table 9 | LTI-Bench per-category | NEW, from Run L v2 | 555–580 |
+| Table 6 | Ablation per-feature delta | NEW, from ablations/ + Run C | 468–486 |
+| Table 7 | Local-model architecture control | NEW, from Phase 12 | 491–510 |
+| Table 8 | Evidence Recall@k | NEW, from Run D | 520–532 |
+| Table 9 | Per-stage timing | NEW, from Run F | 542–558 |
+| Table 10 | LTI-Bench per-category | NEW, from Run L v2 | 583–608 |
 | Figure 1 | Boosting divergence (single trajectory) | `paper/boosting_divergence.png` rendered from `simulations/boosting_divergence.pdf` | 233–238 |
 | Figure 2 | Monte Carlo boosting analysis | `paper/monte_carlo.png` rendered from `simulations/monte_carlo.pdf` | 244–250 |
 | Figure 3 | Tiered storage scaling | `paper/cold_storage.png` rendered from `simulations/cold_storage.pdf` | 294–298 |
@@ -154,8 +155,8 @@ This is a deliberate positioning choice. It's defensible because:
 Before posting to arXiv, in priority order:
 
 1. **Fix bib entry author lists** (DONE in current build) — was placeholders, now proper authors.
-2. **Cosmetic hbox cleanup** (DONE) — current build has no underfull or overfull box diagnostics.
-3. **Add table cross-references** in prose — e.g., explicitly cite Tables 5–9 inline. Currently they're at-end-of-paragraph; some are not cited at all in the prose. Check.
+2. **Cosmetic hbox cleanup** — current build has only cosmetic underfull hboxes around the LoCoMo table; no unresolved refs or citations.
+3. **Rebuild after cleanup edits** — rebuild `paper.pdf`, refresh `cognitive-memory-arxiv-paper-v2.pdf`, and refresh the source bundle.
 4. **Re-read Introduction + Abstract** — make sure they read naturally given the empirical addition. Don't just be a list of "we now have benchmarks."
 5. **Sanity-check citations** — `pdftotext | grep` after a final build to confirm all citations resolved (no `[?]` markers).
 6. **arXiv metadata**: title, authors, abstract, comments, primary class. The arXiv submission UI asks for these separately from the PDF.
@@ -175,7 +176,7 @@ When ready to post:
 - [x] Figure PNGs are all in `paper/` (boosting_divergence, monte_carlo, cold_storage); they are rendered from the canonical simulation PDFs to avoid Type 3 fonts in the final arXiv PDF.
 - [x] No untracked LaTeX intermediates (`.aux`, `.log`, `.bbl`) get bundled into the source archive.
 - [x] arXiv metadata draft: `paper/arxiv-metadata.md`.
-- [x] Source archive — `paper/arxiv-source/cognitive-memory-arxiv-source-20260511.tar.gz` builds cleanly from a fresh extraction.
+- [x] Source archive — `paper/arxiv-source/cognitive-memory-arxiv-source-20260531.tar.gz` builds cleanly from a fresh extraction.
 - [ ] Once submitted, capture the arXiv ID and add it to `\arxivversion` field if the next revision adds one.
 
 ## 10. The plan doc

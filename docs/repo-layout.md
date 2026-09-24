@@ -1,26 +1,24 @@
 # Repo Layout — Where Everything Lives
 
-Two repos work together: the **SDK** (the published library) and the **benchmarks** (research code, paper, eval scripts). Both moved to `~/code/bhekanik/` on 2026-05-05 from the old `~/repos/` location.
+Two repos work together inside the local `~/code/bhekanik/cognitive-memory/` workspace: the **SDK** (the published library) and the **benchmarks** (research code, paper, eval scripts). The current local layout nests them as sibling git repos.
 
 ## 1. The two repos
 
 | Repo | Path | GitHub | Purpose |
 |---|---|---|---|
-| SDK | `~/code/bhekanik/cognitive-memory/` | `planetaryescape/cognitive-memory` | Published TS+Python SDK + Astro docs site |
-| Benchmarks | `~/code/bhekanik/cognitive-memory-benchmarks/` | `planetaryescape/cognitive-memory-benchmarks` | Eval scripts, run results, paper.tex, experiment logs |
+| SDK | `~/code/bhekanik/cognitive-memory/cognitive-memory-sdk/` | `planetaryescape/cognitive-memory` | Published TS+Python SDK + Astro docs site |
+| Benchmarks | `~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/` | `planetaryescape/cognitive-memory-benchmarks` | Eval scripts, run results, paper.tex, experiment logs |
 
 Plus one loose file:
 - `~/code/bhekanik/cognitive-memory-sdk-v6-implementation-spec.md` — the v6 spec doc (185 lines). Reference for what got built in PR #1; not part of either repo. Could be copied into either repo's docs if you want it canonical.
 
-## 2. SDK repo (`cognitive-memory/`)
+## 2. SDK repo (`cognitive-memory-sdk/`)
 
 ```
-cognitive-memory/
+cognitive-memory-sdk/
 ├── README.md
 ├── LICENSE
 ├── Makefile
-├── package.json              # NB: untracked, just `{}` — abandoned npm init cruft, safe to delete
-├── package-lock.json         # untracked
 ├── release-please-config.json
 ├── docs/                     # PUBLIC Astro docs site (NOT operator notes)
 │   ├── astro.config.mjs
@@ -36,7 +34,7 @@ cognitive-memory/
     ├── typescript/
     │   ├── package.json      # NB: untracked package-lock.json
     │   ├── src/              # Source (see sdk-internals.md)
-    │   ├── tests/
+    │   ├── __tests__/
     │   ├── dist/
     │   └── ...
     └── python/
@@ -109,7 +107,7 @@ cognitive-memory-benchmarks/
 │   ├── monte_carlo.pdf
 │   ├── cold_storage.pdf
 │   ├── cognitive-memory-arxiv-paper.pdf      # Mar 4 build (kept for diff)
-│   └── cognitive-memory-arxiv-paper-v2.pdf   # 5 May 2026 build, 24 pages, 241 KB
+│   └── cognitive-memory-arxiv-paper-v2.pdf   # current v2 build; see docs/paper.md for page count and source bundle
 ├── shared/                    # Cross-benchmark utilities
 │   ├── adapter.py             # MemoryAdapter implementations (CognitiveMemoryAdapter, NaiveRAGAdapter, ...)
 │   ├── memory_adapter.py      # Compatibility re-export (TS-style import path)
@@ -200,9 +198,9 @@ There's significant uncommitted research work here. Whether to commit it depends
 ### Benchmarks venv
 
 ```bash
-cd ~/code/bhekanik/cognitive-memory-benchmarks
+cd ~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks
 uv venv --python 3.14 .venv
-uv pip install -e . -e ../cognitive-memory/sdks/python
+uv pip install -e . -e ../cognitive-memory-sdk/sdks/python
 ```
 
 The venv was rebuilt fresh on 2026-05-05 because the previous `.venv` had hardcoded `~/repos/...` paths from before the move.
@@ -212,7 +210,7 @@ Python: 3.14.4 from `/opt/homebrew/opt/python@3.14`.
 ### Paper
 
 ```bash
-cd ~/code/bhekanik/cognitive-memory-benchmarks/paper
+cd ~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/paper
 tectonic paper.tex
 ```
 
@@ -224,29 +222,29 @@ Figure PDFs (`boosting_divergence.pdf`, `monte_carlo.pdf`, `cold_storage.pdf`) l
 
 ```bash
 # SDK
-~/code/bhekanik/cognitive-memory/sdks/typescript/src/core/engine.ts          # The retrieval pipeline
-~/code/bhekanik/cognitive-memory/sdks/typescript/src/core/types.ts           # Schema + DEFAULT_CONFIG
-~/code/bhekanik/cognitive-memory/sdks/python/src/cognitive_memory/core.py    # Python equivalent
-~/code/bhekanik/cognitive-memory/spec/memory-schema.md                       # Canonical schema
-~/code/bhekanik/cognitive-memory/spec/adapter-interface.md                   # Adapter contract
+~/code/bhekanik/cognitive-memory/cognitive-memory-sdk/sdks/typescript/src/core/engine.ts          # The retrieval pipeline
+~/code/bhekanik/cognitive-memory/cognitive-memory-sdk/sdks/typescript/src/core/types.ts           # Schema + DEFAULT_CONFIG
+~/code/bhekanik/cognitive-memory/cognitive-memory-sdk/sdks/python/src/cognitive_memory/core.py    # Python equivalent
+~/code/bhekanik/cognitive-memory/cognitive-memory-sdk/spec/memory-schema.md                       # Canonical schema
+~/code/bhekanik/cognitive-memory/cognitive-memory-sdk/spec/adapter-interface.md                   # Adapter contract
 
 # Benchmarks
-~/code/bhekanik/cognitive-memory-benchmarks/experimentlog.md                 # Full run registry
-~/code/bhekanik/cognitive-memory-benchmarks/experimentlog_v2.md              # "Remaining work" tracker
-~/code/bhekanik/cognitive-memory-benchmarks/paper/paper.tex                  # Paper source
-~/code/bhekanik/cognitive-memory-benchmarks/paper/paper-update-plan.md       # Paper update plan
-~/code/bhekanik/cognitive-memory-benchmarks/paper/cognitive-memory-arxiv-paper-v2.pdf  # Latest build
-~/code/bhekanik/cognitive-memory-benchmarks/lti/lti_bench.py                 # LTI-Bench (recently refactored)
-~/code/bhekanik/cognitive-memory-benchmarks/shared/metrics.py                # llm_judge lives here
-~/code/bhekanik/cognitive-memory-benchmarks/shared/adapter.py                # Bench adapters
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/experimentlog.md                 # Full run registry
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/experimentlog_v2.md              # "Remaining work" tracker
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/paper/paper.tex                  # Paper source
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/paper/paper-update-plan.md       # Paper update plan
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/paper/cognitive-memory-arxiv-paper-v2.pdf  # Latest build
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/lti/lti_bench.py                 # LTI-Bench (recently refactored)
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/shared/metrics.py                # llm_judge lives here
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/shared/adapter.py                # Bench adapters
 
 # Run results (LoCoMo)
-~/code/bhekanik/cognitive-memory-benchmarks/locomo/results/v6/parallel/conv{0..9}.json
-~/code/bhekanik/cognitive-memory-benchmarks/locomo/results/v6/ablations/{baseline,h_hybrid_on,i_hops0,j_rerank_off}.json
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/locomo/results/v6/parallel/conv{0..9}.json
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/locomo/results/v6/ablations/{baseline,h_hybrid_on,i_hops0,j_rerank_off}.json
 
 # Run results (LongMemEval)
-~/code/bhekanik/cognitive-memory-benchmarks/longmemeval/results/v6/primary.json
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/longmemeval/results/v6/primary.json
 
 # Run results (LTI)
-~/code/bhekanik/cognitive-memory-benchmarks/lti/results/v6_run_l_v2.json
+~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks/lti/results/v6_run_l_v2.json
 ```

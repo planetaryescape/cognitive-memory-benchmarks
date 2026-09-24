@@ -17,6 +17,10 @@ These are **operator notes**, not the public-facing docs. The public Astro docs 
 | [`paper.md`](./paper.md) | Paper status, build pipeline (tectonic), section map, what's done vs pending. |
 | [`lessons-and-gotchas.md`](./lessons-and-gotchas.md) | Captured learnings from working on this: things that bit us, principles to apply next time. |
 | [`next-steps.md`](./next-steps.md) | Queued work — explicit handoff so future sessions don't waste cycles re-discovering. |
+| [`milestones/phase-12-local-architecture-control.md`](./milestones/phase-12-local-architecture-control.md) | Off-spec local-model LoCoMo architecture controls and resume/checkpointing fixes. |
+| [`milestones/phase-13-retrieval-evidence-plan.md`](./milestones/phase-13-retrieval-evidence-plan.md) | Retrieval-evidence controls: MRR, Recall@k, Complete@k, and judge reliability. |
+| [`milestones/phase-14-temporal-reconstruction.md`](./milestones/phase-14-temporal-reconstruction.md) | Temporal reconstruction A/B, category-label correction, and extraction-yield diagnosis. |
+| [`milestones/phase-15-naive-rag-baseline.md`](./milestones/phase-15-naive-rag-baseline.md) | Full in-house NaiveRAG LoCoMo baseline and lifecycle-specific interpretation. |
 | [`context/reviewer-feedback-memory-lifecycle.md`](./context/reviewer-feedback-memory-lifecycle.md) | Reviewer/context capture on never-delete framing, cold-storage TTL, SDK scope, benchmark canon rules. |
 | [`context/talk-paper-origin-and-positioning.md`](./context/talk-paper-origin-and-positioning.md) | Origin narrative for the work talk/paper, positioning, deep recall docs guidance, and claim guardrails. |
 | [`context/v6-paper-review-and-competitors.md`](./context/v6-paper-review-and-competitors.md) | v6 paper-review fixes, final framing language, canonical result caveats, and Supermemory competitor notes. |
@@ -27,6 +31,7 @@ These are **operator notes**, not the public-facing docs. The public Astro docs 
 - **"Where is X in the code?"** → `sdk-internals.md` or `repo-layout.md`
 - **"What's the state of the paper?"** → `paper.md`
 - **"What benchmark numbers do we have?"** → `benchmarks-overview.md`
+- **"What did we learn after the paper draft?"** → milestone docs for phases 12–15
 - **"Why is the LTI scenario set up this way?"** → `lti-bench.md`
 - **"What did we learn the hard way?"** → `lessons-and-gotchas.md`
 - **"What should I work on next?"** → `next-steps.md`

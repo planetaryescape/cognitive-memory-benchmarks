@@ -1,6 +1,6 @@
 # Phase 14 - Temporal Reconstruction Experiment
 
-Status: CLOSED 2026-05-26. Full held-out-split paired A/B run with bootstrap CI; mean temporal delta +0.75pp but 95% CI [-1.05pp, +2.83pp] crosses zero, and per-conv deltas are heterogeneous (3 positive, 2 negative). **Do not adopt; default stays OFF.** Classifier precision fix (SDK `ee3015a`) is kept — it's a precision bug fix valuable independent of adoption.
+Status: CLOSED 2026-05-26. Full held-out-split paired A/B run with bootstrap CI; mean temporal delta +0.75pp but 95% CI [-1.05pp, +2.83pp] crosses zero, and per-conv deltas are heterogeneous (3 positive, 2 negative). **Do not adopt; default stays OFF.** Classifier precision fix (SDK `ee3015a`) is kept — it's a precision bug fix valuable independent of adoption. A 2026-06-15 post-prompt-fix rerun attempt is blocked until `OPENAI_API_KEY` is available for OpenAI embeddings.
 
 ## Hypothesis
 
@@ -321,3 +321,19 @@ no longer starved. **Whether to re-run the full held-out-split A/B is a fresh
 decision** — Phase 14 was closed with the prior extraction; the gate could plausibly
 flip now. A re-run of `analysis/temporal_ab_full_split.py` against the fixed
 SDK would say. Not auto-initiated here.
+
+## Submission-cleanup rerun attempt (2026-06-15)
+
+Planned artifact:
+`tuning/runs/phase14-temporal-reconstruction/full_split_ab_after_prompt_yield_fix.json`.
+
+Outcome: blocked before the first conversation completed. LM Studio was reachable
+and `openai/gpt-oss-120b` was loaded, but the benchmark shell lacked
+`OPENAI_API_KEY`, so OpenAI `text-embedding-3-small` embeddings could not run.
+No after-fix JSON artifact was produced. Failed-start logs are preserved as:
+
+- `full_split_ab_after_prompt_yield_fix.failed_model_load.log`
+- `full_split_ab_after_prompt_yield_fix.blocked_missing_openai_key.log`
+
+Do not substitute hash or local embeddings and cite the result as the same
+experiment. Resume only after the OpenAI embedding key is available.

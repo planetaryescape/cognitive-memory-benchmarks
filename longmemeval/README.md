@@ -30,10 +30,13 @@ Current-refresh canonical result, completed 2026-05-07. Historical Run B from 20
 | Full-context baseline | 56.2% | Published |
 | **cognitive-memory (ours)** | **71.6%** | Current-refresh CR-B, default v6 config, no benchmark-specific tuning |
 | ENGRAM | 71.4% | Concurrent baseline at run time |
-| TiMem | 76.88% | Post-dating system, multi-stage architecture |
-| EverMemOS | 83.0% | Post-dating system, engram-inspired lifecycle |
+| TiMem | 76.88% | Recent comparison, multi-stage architecture |
+| EverMemOS | 83.0% | Recent comparison, engram-inspired lifecycle |
+| MAGMA | higher / not table-aligned | Query-adaptive graph retrieval; see paper for positioning |
+| Hindsight | higher / different settings | Structured reasoning substrate; not treated as a controlled LongMemEval-S row |
+| All-Mem | adjacent, not table-aligned | Non-destructive topology memory with bounded visible surface |
 
-We are within 0.2pp of ENGRAM (the strongest single-stage baseline at run time) without benchmark-specific tuning. Newer multi-stage systems (TiMem, EverMemOS) exceed our result; we acknowledge this in the paper rather than over-claiming.
+We are within 0.2pp of ENGRAM (the strongest single-stage baseline at run time) without benchmark-specific tuning. More recent or differently configured systems now exceed or complicate the comparison. The paper frames this as competitive single-stage memory performance, not a leaderboard claim.
 
 ## Reproduction
 

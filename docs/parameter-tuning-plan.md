@@ -1,5 +1,7 @@
 # Parameter Tuning Plan
 
+> Historical plan. The tuning campaign this planned has completed; current defaults are recorded in `docs/milestones/campaign-summary-2026-05.md` and `docs/benchmarks-overview.md`. Values below describe the pre-tuning search setup, not current SDK truth.
+
 ## Why
 
 Every value in `CognitiveMemoryConfig` (and the daemon's `LifecycleConfig` /

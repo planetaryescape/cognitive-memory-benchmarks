@@ -1,8 +1,8 @@
 # SDK Internals — File Map and Pipeline Walkthrough
 
-This is the code-level companion to [`architecture.md`](./architecture.md). It maps each architectural concept to specific files, classes, and line numbers. Line refs are accurate as of SDK v0.3.0 (post-`905aba7`).
+This is the code-level companion to [`architecture.md`](./architecture.md). It maps each architectural concept to specific files and classes. Line refs are approximate; the current source truth is SDK v0.5.1.
 
-The SDK lives in `~/code/bhekanik/cognitive-memory/sdks/{typescript,python}/`. Both SDKs implement the same architecture; the canonical contracts are in `~/code/bhekanik/cognitive-memory/spec/`.
+The SDK lives in `~/code/bhekanik/cognitive-memory/cognitive-memory-sdk/sdks/{typescript,python}/`. Both SDKs implement the same architecture; the canonical contracts are in `~/code/bhekanik/cognitive-memory/cognitive-memory-sdk/spec/`.
 
 ## 1. Top-level layout
 
@@ -81,10 +81,10 @@ Key defaults to memorise:
 | `regularRetentionFloor` | `0.02` | Eq. 1 floor for regular |
 | `retrievalScoreExponent` | `0.3` | α in `score = relevance · retention^α` |
 | `directBoost` | `0.1` | Direct retrieval stability increment |
-| `associativeBoost` | `0.03` | Associative retrieval stability increment |
+| `associativeBoost` | `0.05` | Associative retrieval stability increment in v0.5 defaults |
 | `coreAccessThreshold` | `10` | Promotion criterion 1 |
 | `coreStabilityThreshold` | `0.85` | Promotion criterion 2 |
-| `coreSessionThreshold` | `3` | Promotion criterion 3 (cross-session test) |
+| `coreSessionThreshold` | `2` | Promotion criterion 3 (cross-session test) |
 | `associationRetrievalThreshold` | `0.3` | Below this weight, association won't be followed at retrieval |
 | `associationDecayConstantDays` | `90` | Exponential association decay |
 | `consolidationRetentionThreshold` | `0.20` | Below this, candidate for consolidation |
@@ -96,7 +96,12 @@ Key defaults to memorise:
 | `hybridSearch` | `false` | v6; turn on for BM25 + dense union |
 | `kSparse` | `30` | BM25 candidate count |
 | `rerankEnabled` | `false` | v6; turn on for LLM rerank |
-| `kRerank` | `10` | Top-k sent to rerank LLM |
+| `kRerank` | `10` | Minimum candidate pool when rerank is enabled |
+| `rerankFactor` | `1` | Multiplier for the query-time candidate pool before rerank |
+| `temporalQueryMode` | `"off"` | Phase 14 temporal reconstruction path; kept default-off |
+| `temporalCandidateK` | `80` | Candidate floor for temporal queries |
+| `temporalFinalK` | `20` | Max chronological evidence items returned |
+| `temporalDecayAlpha` | `0.25` | Softer retention exponent for temporal queries |
 | `graphExpansionHops` | `1` | v6; 0 = disabled |
 | `bridgeDiscovery` | `false` | v6 |
 | `runMaintenanceDuringIngestion` | `true` | If false, must call `tick()` manually |
@@ -108,7 +113,7 @@ Decay rates per category (TS: `core/types.ts:557`):
 
 ```
 episodic:   45 days
-semantic:   120 days
+semantic:   240 days
 procedural: ∞ (no decay; updated only by correction)
 core:       120 days
 ```
@@ -161,11 +166,12 @@ The 760-line `engine.ts` is the centre of gravity. The retrieval pipeline runs f
 |---|---|---|---|
 | Hybrid candidates | `search()` | 347–382 | `vectorSearch()` + optional `searchLexical()` union, dedupe, compute dense sim for lexical-only |
 | Score + filter | `search()` | 384–432 | `computeRetention()`, score = `relevance · retention^α`, deep-recall penalty, expired-transient filter, sort |
-| LLM rerank | `search()` → `rerankCandidates()` | 437–478 | Optional; sends top kRerank to LLM, reorders; tokens to trace |
+| LLM rerank | `search()` → `rerankCandidates()` | 437–478 | Optional; fetches `max(topK * rerankFactor, kRerank)` candidates, reranks the expanded pool, then slices to top-k; tokens to trace |
+| Temporal evidence | `search()` temporal helpers | varies | Optional default-off path; classifies temporal queries, applies temporal boosts, and emits chronological evidence |
 | Direct selection | `search()` | 481 | `scored.slice(0, topK)` |
-| Associative + graph | `search()` → `getAssociatedMemories()` / `expandGraph()` | 483–541 | Decay association weights, fetch linked, optional multi-hop BFS, optional bridge discovery |
+| Associative + graph | `search()` → `getAssociatedMemories()` / `expandGraph()` | 483–541 | Decay association weights, fetch linked through adapter-backed lookup, optional multi-hop BFS, optional bridge discovery |
 | Boost + promote | `search()` → `applyDirectBoost()` / `applyAssociativeBoost()` / `checkCorePromotion()` / `strengthenAssociation()` | 543–586 | Stability+, hot migration if cold, core promotion check, association strengthening, **persist via `adapter.updateMemory()` lines 578–585** |
-| Combine + return | `search()` | 588–606 | Merge direct + associative, sort, top-k, attach evidence chains |
+| Combine + return | `search()` | 588–606 | Merge direct + associative, sort, top-k, attach evidence chains and optional temporal evidence |
 
 ### Other key functions in `engine.ts`
 
@@ -192,7 +198,7 @@ The 760-line `engine.ts` is the centre of gravity. The retrieval pipeline runs f
 | `store(input)` | ~100 | Add a single memory directly (pre-extracted) |
 | `extractAndStore(text, sessionId, llm)` | 122 | Full ingestion pipeline (extraction → embed → store → conflict queue → synaptic tagging → optional tick) |
 | `search(query, llm?)` | ~300 | Retrieval; calls `engine.search()` |
-| `retrieve(query)` | ~390 | Backwards-compatible simpler search; no rerank |
+| `retrieve(query)` | ~390 | Backwards-compatible wrapper over `search()`; maps `SearchResult` back to `ScoredMemory[]` |
 | `tick(llm?)` | 470 | Maintenance: `resolveConflictQueue()` + `engine.tick()` |
 | `resolveConflictQueue(llm)` | 489 | Process up to 50 queued pairs, LLM-classify, supersede contradictions |
 
@@ -321,13 +327,13 @@ These divergences should converge over time. The Python SDK has been the testbed
 
 ## 9. Tests and benchmarks
 
-The SDK has tests at `cognitive-memory/sdks/typescript/tests/` and `cognitive-memory/sdks/python/tests/`. Benchmarks live in the *other* repo (`cognitive-memory-benchmarks/`) and are described in [`benchmarks-overview.md`](./benchmarks-overview.md).
+The SDK has tests at `cognitive-memory-sdk/sdks/typescript/__tests__/` and `cognitive-memory-sdk/sdks/python/tests/`. Benchmarks live in the sibling repo (`cognitive-memory-benchmarks/`) and are described in [`benchmarks-overview.md`](./benchmarks-overview.md).
 
 The benchmarks repo imports the SDK in editable mode:
 
 ```bash
-cd cognitive-memory-benchmarks
-uv pip install -e . -e ../cognitive-memory/sdks/python
+cd ~/code/bhekanik/cognitive-memory/cognitive-memory-benchmarks
+uv pip install -e . -e ../cognitive-memory-sdk/sdks/python
 ```
 
 For dev work that mixes SDK changes with benchmark runs, the editable install means you don't need to bump versions or re-publish — just edit and re-run.

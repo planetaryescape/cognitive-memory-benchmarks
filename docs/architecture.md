@@ -35,7 +35,7 @@ Where:
 - `Δt` = days since last access
 - `S` = stability (0..1, grows with retrievals via spaced repetition)
 - `B` = importance boost = `min(3.0, 1 + 2·importance)`
-- `β_c` = category-specific base decay rate (episodic 45 days, semantic 120 days, core 120 days, procedural ∞)
+- `β_c` = category-specific base decay rate (episodic 45 days, semantic 240 days, core 120 days, procedural ∞ in v0.5 defaults; older paper-faithful configs used semantic 120)
 - `floor` = 0.60 if core, else 0.02
 
 There's also a **power-law variant** (Equation 1'):
@@ -46,7 +46,7 @@ R(m) = max(floor, (1 + Δt / (S · B · β_c))^(-γ))
 
 where `γ = 1/ln(2) ≈ 1.4427`. The power-law variant fits long-horizon human memory better and gave +3.6pp F1 over exponential on LoCoMo conv 0 (Run C). Exponential remains the SDK default; power-law is opt-in via `decayModel: "power"`.
 
-**Why floors matter.** Without a floor, faint memories vanish. With a floor, even a six-month-old once-mentioned fact is recoverable when the right cue arrives. This mirrors Tulving's *availability vs accessibility* distinction in cognitive science: a memory can be unavailable for retrieval (decayed past usable score) without being erased.
+**Why floors still matter as design, but not as proven cause.** Without a floor, faint memories eventually vanish. With a floor, very old facts remain recoverable when the right cue arrives. Phase 8 narrowed the empirical claim: on LTI-Bench's 30-day window, turning floors off did not reduce critical-fact retention. The load-bearing mechanism there appears to be stability accumulation plus softened retrieval scoring (`R^0.3`), with longer-horizon floor tests still open.
 
 ### 2.2 Emergent core memory promotion
 
@@ -57,9 +57,9 @@ A memory becomes "core" through one of two paths:
 2. **Emergent promotion through use.** A memory not initially tagged as core is promoted when *all three* of these criteria hold:
    - `accessCount ≥ coreAccessThreshold` (default 10)
    - `stability ≥ coreStabilityThreshold` (default 0.85)
-   - `sessionIds.length ≥ coreSessionThreshold` (default 3 distinct sessions)
+   - `sessionIds.length ≥ coreSessionThreshold` (default 2 distinct sessions in v0.5; older configs used 3)
 
-The third criterion is the important one. A memory that's accessed 10 times all in one session isn't necessarily important — it's just topically relevant *right now*. A memory that surfaces across 3 separate sessions has demonstrated cross-context relevance.
+The third criterion is the important one. A memory that's accessed 10 times all in one session isn't necessarily important — it's just topically relevant *right now*. A memory that surfaces across 2 separate sessions has demonstrated cross-context relevance under the v0.5 tuned defaults.
 
 When promoted, the memory's category changes to `core` and its retention floor jumps from 2% → 60%. Future decay can never push it below the 60% line. It also stops being a candidate for cold-tier migration and TTL expiry.
 
@@ -70,7 +70,7 @@ In the paper's Figure 1 (Monte Carlo analysis), 76.8% of *directly retrieved* me
 When a memory is retrieved, it gets a *stability* boost. The boost size depends on whether the memory was retrieved directly or pulled in associatively:
 
 - **Direct retrieval boost** (default 0.1): Applied to memories that were the primary semantic match for a query.
-- **Associative retrieval boost** (default 0.03): Applied to memories that came along for the ride because they were associatively linked to a directly retrieved memory.
+- **Associative retrieval boost** (default 0.05): Applied to memories that came along for the ride because they were associatively linked to a directly retrieved memory.
 
 The boost scales with *spaced repetition factor*: `min(maxMultiplier, daysSinceLastAccess / spacedRepIntervalDays)`. A memory accessed today and last accessed 14 days ago gets a 2× multiplier (the cap). Closer accesses get smaller boosts.
 
@@ -95,7 +95,7 @@ Associations decay too. Each link has a `lastCoRetrieval` timestamp and an effec
 Memories live in one of three tiers:
 
 - **Hot**: indexed in the vector store, fully searchable.
-- **Cold**: out of the vector index but still in the database. Reachable only via deep recall or association traversal.
+- **Cold**: out of the hot vector index but still in the database with full content and embeddings retained. Reachable only via deep recall or association traversal.
 - **Stub**: lightweight pointer (id + summary content + association references), no embedding. Used for memories absorbed into a consolidation summary or expired from cold storage after TTL.
 
 A memory migrates hot → cold when it has spent N consecutive maintenance cycles at the retention floor (default 7 days). The hot index size therefore stays bounded — the paper's Figure 3 shows hot index converging to 7–11% of total memories across six different access patterns over a simulated year.
@@ -106,7 +106,7 @@ A memory migrates cold → stub after `coldStorageTtlDays` without reactivation 
 
 **Deep recall** is a query mode that:
 - includes superseded memories (normally filtered out)
-- searches across hot AND cold tiers
+- searches across hot and cold tiers by expanding the candidate set beyond the hot index
 - applies a `deepRecallPenalty` (default 0.5×) to scores so deep-recalled memories don't outrank hot direct matches
 
 Deep recall is the computational analogue of "silent engrams" in neuroscience — memories that exist in storage but are inaccessible through normal cues, recoverable only through artificial stimulation.
@@ -149,20 +149,21 @@ A memory is represented with the following key fields (full schema in [`spec/mem
 | `isStub` | bool | Lightweight pointer state (post-consolidation) |
 | `validFrom`, `validUntil`, `ttlSeconds` | temporal validity (v6) | For plans and transient state |
 | `sourceTurnIds` | string[] | Provenance; ties memory back to original conversation turns |
+| `temporal`, `eventFrame` | structured temporal metadata | Experimental default-off support for event time, validity status, raw time expressions, and event frames |
 
 ### Two orthogonal classification axes
 
-`category` is *temporal*: it determines decay rate and retention floor. It also captures whether the memory is identity-critical (`core`).
+`category` is the decay axis: it determines decay rate and retention floor. It also captures whether the memory is identity-critical (`core`).
 
 `semanticType` (added in v6) is *content type*: facts, preferences, plans, transient states. It's used to enable selective expiry — `transient_state` memories with explicit `validUntil` get filtered out of normal retrieval after expiry, but stay accessible via deep recall.
 
-These two axes are independent. A `core` memory can be a `fact` ("My name is Alex") or a `preference` ("I prefer dark mode"). A `semantic` memory could be a `plan` ("Helios deadline is March 15") that becomes invalid at a specific point.
+These two axes are independent. A `core` memory can be a `fact` ("My name is Alex") or a `preference` ("I prefer dark mode"). A `semantic` memory could be a `plan` ("Helios deadline is March 15") that becomes invalid at a specific point. The Phase 14 temporal experiment added a third, experimental axis: `temporal` and `eventFrame` metadata that separates mention time, event time, and valid time for sequence questions.
 
 ## 4. The retrieval pipeline (v6)
 
 When a query comes in, it runs through six sequential stages, with optional rerank:
 
-1. **Hybrid candidate generation.** Run dense vector search via `adapter.vectorSearch()`, collecting up to `topK · 3` candidates. If `hybridSearch: true`, also run BM25 lexical search via `adapter.searchLexical()` (a default `topK · 2` candidates), then union with the dense results, dedupe by id, and compute dense similarity for any lexical-only candidates.
+1. **Hybrid candidate generation.** Run dense vector search via `adapter.vectorSearch()`, collecting an expanded candidate pool when reranking or temporal routing needs it. If `hybridSearch: true`, also run BM25 lexical search via `adapter.searchLexical()` (`kSparse`, default 30), then union with the dense results, dedupe by id, and compute dense similarity for any lexical-only candidates.
 
 2. **Retention scoring + validity filtering.** For each candidate, compute current retention (Equation 1, accounting for power-law if configured), then compute the combined score:
 
@@ -174,13 +175,15 @@ When a query comes in, it runs through six sequential stages, with optional rera
 
 3. **LLM rerank** (optional). If `rerankEnabled: true`, send the top `kRerank` candidates plus the query to an LLM (defaults to extraction model) for relevance reranking. The LLM returns an ordering; tokens are tracked in the trace. Run A used `kRerank=10`, factor 3.
 
+   If `temporal_query_mode="auto"` and the query is classified as temporal, the engine also builds a chronological `temporal_evidence` block. Phase 14 kept this path default-off after a held-out A/B failed to clear the adoption gate.
+
 4. **Direct results selection.** Take the top-k from the (re)ranked list. These are the *direct* results — they get the full direct-retrieval boost.
 
 5. **Associative + graph expansion.** For each direct result, fetch associated memories via `adapter.getLinkedMemories()`, apply association decay (90-day exponential), filter by `associationRetrievalThreshold` (default 0.3). If `graphExpansionHops > 0`, also do a multi-hop BFS from the direct results, accumulating bridge memories (with multiplied edge weights). If `bridgeDiscovery: true`, find multi-path chains between top results.
 
-6. **Boost, promote, persist.** Apply direct boost (default +0.1) to direct results' stability, scaled by the spaced-repetition factor. Apply associative boost (default +0.03) to associative results. Update `accessCount`, `lastAccessed`, `sessionIds`. Migrate cold memories to hot if they were retrieved. Check core promotion thresholds; promote any memory that newly qualifies. Strengthen associations between co-retrieved direct memories. **Persist all mutations** via `adapter.updateMemory()`.
+6. **Boost, promote, persist.** Apply direct boost (default +0.1) to direct results' stability, scaled by the spaced-repetition factor. Apply associative boost (default +0.05) to associative results. Update `accessCount`, `lastAccessed`, `sessionIds`. Migrate cold memories to hot if they were retrieved. Check core promotion thresholds; promote any memory that newly qualifies. Strengthen associations between co-retrieved direct memories. **Persist all mutations** via `adapter.updateMemory()`.
 
-7. **Combine + return.** Merge direct + associative results, sort by combined score, take final top-k. Attach evidence chains (the bridge paths, if any) to the response. Return `SearchResponse` with results, chains, and an optional per-stage trace.
+7. **Combine + return.** Merge direct + associative results, sort by combined score, take final top-k. Attach evidence chains (the bridge paths, if any) and temporal evidence (if temporal auto mode fired) to the response. Return `SearchResponse` with results, chains, and an optional per-stage trace.
 
 The trace is the v6 instrumentation: each stage records `wallMs`, `candidateCount`, `promptTokens`, `completionTokens`, plus stage-specific metadata. This is what the benchmarks read out of for efficiency tables (Run F).
 
@@ -188,7 +191,7 @@ The trace is the v6 instrumentation: each stage records `wallMs`, `candidateCoun
 
 When a conversation turn or batch comes in, ingestion runs through three stages:
 
-1. **LLM extraction.** Send the conversation text to the extraction LLM (default `gpt-4o-mini`) with a prompt that asks for a JSON array of memories with `content`, `category`, `importance`, `memory_type`, optional `valid_from`/`valid_until`/`ttl_seconds`, and `source_turn_ids`. Parse the response (robust to markdown fencing). For each extracted memory, embed it via the embedding provider (default `text-embedding-3-small`, 1536 dims) and `adapter.create()` it. Initial stability is `0.1 + importance · 0.3` so important memories start with a head start.
+1. **LLM extraction.** Send the conversation text to the extraction LLM (default `gpt-4o-mini`) with a prompt that asks for a JSON array of memories with `content`, `category`, `importance`, `memory_type`, validity fields, source turn IDs, temporal metadata, and event frames. Parse the response (robust to markdown fencing). For each extracted memory, embed it via the embedding provider (default `text-embedding-3-small`, 1536 dims) and `adapter.create()` it. Initial stability is `0.1 + importance · 0.3` so important memories start with a head start.
 
    Two non-LLM modes exist:
    - `extractionMode: "raw"` — store each turn verbatim as an episodic memory with fixed importance 0.5 and stability 0.2.
@@ -274,14 +277,16 @@ The paper is honest about the cognitive-science framing being motivating rather 
 Based on the empirical evaluation in the paper:
 
 **Strengths.**
-- 100% retention of identity-critical facts across a 30-day mixed-access window (LTI-Bench v2) vs FadeMem 82.1%.
+- 100% retention of identity-critical facts across a 30-day mixed-access window (LTI-Bench v2). Phase 8 shows this is not evidence that decay floors alone caused the result on that distribution.
 - Multi-hop F1 of 51.3% on LoCoMo, ~1.8x Mem0's 28.4%. The v0.4 paper-faithful row was 48.5%, so the tuned defaults improve the strongest category without changing the benchmark adapter.
 - Power-law decay has the largest positive point estimate in the single-conversation ablation runner (+3.2pp) and the separate isolated decay-shape sensitivity run (+4.6pp), but both need full-corpus validation.
 - 71.6% task-averaged accuracy on LongMemEval-S, within 0.2pp of ENGRAM (the strongest concurrent single-stage baseline at the time of running) without any benchmark-specific tuning.
+- Retrieval-evidence controls now support a narrower mechanism claim: the full architecture improves evidence ranking on a 100-question stratified LoCoMo sample, especially compared with vector-only and no-consolidation/deep-recall conditions.
 
 **Weaknesses.**
 - **Associative retrieval is partial.** LTI-Bench v2 shows the system returning 1 of 3 family-related facts when queried with "what do you know about my family?". A direct probe for any individual fact succeeds; the failure is specifically in cross-fact / cluster recall.
-- **Hybrid search hurts on conversational text** (-1.1pp on conv 0). BM25 introduces noise on natural-language turns that dense embeddings handle better. Hybrid is off by default.
+- **Naive RAG remains competitive on simple lookup.** The in-house LoCoMo NaiveRAG run shows Cognitive Memory's large advantage on temporal questions, but NaiveRAG is better on single-hop, multi-hop, and open-domain token F1 under that setup. The architecture is not a universal replacement for vector retrieval.
+- **Hybrid search is mixed.** An older conv-0 pilot was negative, while the current ablation table reports a small positive point estimate (+1.7pp). Hybrid remains off by default because the full-corpus effect is not settled.
 - **Behind newer multi-stage architectures.** TiMem (76.88%) and EverMemOS (83.0%) post-date our run window and exceed our LongMemEval-S accuracy. We're competitive with single-stage memory systems; we are not benchmark-leading on LongMemEval-S as of mid-2026.
 - **Single-session-preference is the weak task on LongMemEval-S** (46.7%). Suggests preference extraction in short windows is a capability gap distinct from the long-horizon retention story.
 

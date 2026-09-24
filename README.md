@@ -6,12 +6,14 @@ Benchmark suite for [cognitive-memory](https://github.com/planetaryescape/cognit
 
 | Benchmark | Status | Our Result | Comparison |
 |---|---|---|---|
-| **LoCoMo** (10 conv, 1540 QA) | Complete | **46.2% overall F1, 51.3% multi-hop F1** | Mem0 28.4% multi-hop; v0.4 paper-faithful row 44.4% overall / 48.5% multi-hop; 72% of LoCoMo oracle evidence context condition (63.9% F1) |
+| **LoCoMo** (10 conv, 1540 QA) | Complete | **46.2% overall F1** | v0.4 paper-faithful row 44.4% overall; 72% of LoCoMo oracle evidence context condition (63.9% F1). Phase 14 corrected category labels; use relabelled artifacts for per-category claims. |
 | **LongMemEval-S** (500 questions) | Complete | **71.6% task-averaged accuracy, 72.6% overall accuracy** | ENGRAM 71.4% (concurrent) · Full-context 56.2% · TiMem 76.88% / EverMemOS 83.0% (post-dating) |
-| **LTI-Bench v2** (controlled, 42 probes) | Complete | **88.1% accuracy, 69.7% F1, 100% critical-fact retention** | FadeMem 82.1% critical retention |
+| **LTI-Bench v2** (controlled, 42 probes) | Complete | **88.1% accuracy, 69.7% F1, 100% critical-fact retention** | FadeMem reports 82.1% on a similar synthetic decay scenario; Phase 8 shows floors alone do not explain the 100% result |
 | **MemoryBench** (2025) | Scaffolded | — | Future work |
 
 Auxiliary current-refresh measurements: **LoCoMo oracle evidence context condition 63.9% F1** (61.1% under Mem0 scoring), **evidence Recall@60 35.6%**, **decay model power-law +3.2pp over exponential**, **rerank +1.9pp**, **hybrid search +1.7pp**, **judge agreement 94% (Cohen's kappa 0.879)**.
+
+Post-paper controls sharpen the interpretation rather than replacing the headline scores. A local-model LoCoMo architecture-control sweep (`openai/gpt-oss-120b` via LM Studio, OpenAI embeddings, token F1 only) found the full system ahead of vector-only, heuristic defaults, and no-consolidation/deep-recall, while reinforcement, graph, core-promotion, and retention-weighting ablations were mixed. A separate retrieval-evidence study found the full system leading MRR, Recall@10, Complete@10, Recall@20, and Complete@20. A full in-house NaiveRAG run shows the architecture's clearest advantage is temporal/lifecycle recall, not universal replacement of vector retrieval. See `docs/milestones/phase-{12,13,15}-*.md`.
 
 ## v0.5 Empirical Default Tuning (Phase 0g→5, 2026-05)
 
@@ -115,6 +117,7 @@ docs/             # Operator notes (architecture walkthrough, lessons, next step
 | Runs | SDK | Provenance |
 |---|---|---|
 | Phase 5 LoCoMo v0.4/v0.5 head-to-head | Python SDK v0.5.0 tuned defaults, SDK commit `707758d`; benchmark commit `82f08c2` | `tuning/runs/phase5/v05_tuned/aggregate.json`, `tuning/runs/phase5/summary.json`, `experimentlog_v2.md`, and `docs/milestones/phase-5-full-locomo.md` |
+| Phase 8+ post-paper controls | Python SDK v0.5.1 where configurable decay floors were needed; later runs record exact SDK state in `runs.jsonl` and milestone docs | `docs/milestones/phase-8-decay-floor-ablation.md`, `phase-12-local-architecture-control.md`, `phase-13-retrieval-evidence-plan.md`, `phase-14-temporal-reconstruction.md`, `phase-15-naive-rag-baseline.md` |
 | `current_sdk_20260505` (LoCoMo baseline, LongMemEval-S, LTI-Bench v2, oracle, ablations, decay, recall, judge reliability) | package version `0.3.0` from editable `../cognitive-memory-sdk/sdks/python` | See `experimentlog.md` and `docs/current-refresh-20260505.md` for exact commands, timestamps, output paths, and worktree state |
 | LongMemEval-S 500-question headline | current-refresh completed artifact | `longmemeval/results/current_sdk_20260505/primary.json` |
 | Historical March runs (`v6/` namespace) | v0.2.0 / v0.3.0 snapshots | Retained for provenance only |

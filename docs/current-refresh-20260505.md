@@ -2,6 +2,8 @@
 
 This is the repeatability map for the May 2026 current-refresh artifacts. `experimentlog.md` remains the full chronological audit log; this file is the condensed operator view. The active paper still uses these artifacts for LongMemEval-S, LTI-Bench, oracle, retrieval, and ablations; the LoCoMo headline is superseded by the Phase 5 v0.5 tuned-default run in `tuning/runs/phase5/v05_tuned/aggregate.json`.
 
+Later milestones add mechanism evidence but do not change what this namespace means. Phase 8 narrows the LTI-Bench attribution by showing decay floors are not load-bearing on the 30-day setup. Phase 12/13/15 add off-spec local-model controls, retrieval-evidence controls, and a NaiveRAG baseline.
+
 ## Source of truth
 
 | Field | Value |

@@ -1,6 +1,6 @@
 # LTI-Bench — Long-Term Interaction Benchmark
 
-LTI-Bench is a hand-authored controlled benchmark designed to exercise the architectural claims of the cognitive-memory paper directly. Unlike LoCoMo and LongMemEval which measure end-to-end QA on real conversational data, LTI-Bench probes specific lifecycle properties: decay floors, emergent core promotion, conflict-driven supersession, revival of faint memories, time-aware retrieval, associative recall.
+LTI-Bench is a hand-authored controlled benchmark designed to exercise the architectural claims of the cognitive-memory paper directly. Unlike LoCoMo and LongMemEval which measure end-to-end QA on real conversational data, LTI-Bench probes specific lifecycle properties: decay behavior, emergent core promotion, conflict-driven supersession, revival of faint memories, time-aware retrieval, and associative recall.
 
 This doc walks the design, the v1→v2 evolution, and the limitations.
 
@@ -165,26 +165,28 @@ Overall F1: 69.7%
 
 Per category:
   core_persistence       : accuracy=100.0%  F1=93.3%   (n=8)
-  decay_trivial          : accuracy=100.0%  F1=61.4%   (n=6)
+  decay_trivial          : accuracy=100.0%  F1=64.2%   (n=6)
   contextual_retention   : accuracy=100.0%  F1=84.5%   (n=6)
   temporal_before_update : accuracy=100.0%  F1=85.0%   (n=4)
   temporal_after_update  : accuracy=100.0%  F1=67.7%   (n=4)
-  conflict               : accuracy=75.0%   F1=80.0%   (n=4)
-  revival                : accuracy=80.0%   F1=42.9%   (n=5)
-  associative            : accuracy=60.0%   F1=35.0%   (n=5)
+  conflict               : accuracy=75.0%   F1=67.7%   (n=4)
+  revival                : accuracy=60.0%   F1=42.9%   (n=5)
+  associative            : accuracy=60.0%   F1=38.7%   (n=5)
 
 Storage:
   Total memories: 85
-  Hot: 85, Cold: 0, Core: 67 (78%)
+  Hot: 85, Cold: 0, Core: 66 (78%)
 
-Critical fact retention: 100.0% (FadeMem: 82.1%)
+Critical fact retention: 100.0% (FadeMem reports 82.1% on a similar synthetic decay scenario)
 ```
+
+Phase 8 later tested whether the 100% critical-retention result depended on decay floors. It did not on this 30-day distribution: a floors-off ablation also retained 100% of critical facts. That keeps the retention result real, but changes the attribution. The evidence now points to repeated direct retrieval increasing stability plus the softened scoring term `sim(m,q)R(m)^0.3`, not floor-clamping alone.
 
 ## 6. Failure analysis (v2)
 
-4 failures total. 2 are judge artifacts; 2 are real partial-recall issues.
+5 failures total. One is a likely judge artifact; the rest are real retrieval or partial-recall issues.
 
-### Judge artifacts (2)
+### Likely judge artifact (1)
 
 **revival weather**:
 - Q: "Was there anything about the weather I mentioned once?"
@@ -192,17 +194,11 @@ Critical fact retention: 100.0% (FadeMem: 82.1%)
 - Got: "The weather was really nice on the morning of January 5, 2024."
 - Judge: WRONG (substantively correct — judge over-strict on temporal phrasing)
 
-**conflict Helios deadline**:
-- Q: "When is the Helios project deadline?"
-- Expected: "April 1st"
-- Got: "April 1, 2024."
-- Judge: WRONG (substantively correct — same date)
+This is not an architectural failure. The memory system retrieved correctly; the judge marked it wrong on phrasing. Adjusting judge strictness or the reference answer format would push this to passing.
 
-These are not architectural failures. The memory system retrieved correctly; the judge marked them wrong on phrasing. Adjusting judge strictness or the reference answer format would push these to passing.
+### Real failures (4)
 
-### Real failures (2)
-
-Both in the `associative` category.
+One is in `conflict`, one is in `revival`, and two are in `associative`. The exact examples vary by artifact, but the pattern is stable enough to matter: the system is better at direct probes than broad cluster recall.
 
 **associative family**:
 - Q: "What do you know about my family?"
@@ -230,11 +226,11 @@ What v2 results say about each architectural claim:
 
 | Claim | Evidence | Result |
 |---|---|---|
-| Decay floors hold (regular memories never reach zero) | decay_trivial 100% | **Supported.** All 6 unaccessed trivial facts recovered when probed directly at day 30. |
-| Critical retention via core-memory mechanism | core_persistence 100% | **Supported.** All 8 critical facts retrieved at day 30. Better than FadeMem 82.1%. |
+| Decay floors hold (regular memories never reach zero) | decay_trivial 100%; Phase 8 floors-off null | **Mechanism not isolated.** All 6 unaccessed trivial facts were recovered at day 30, but floors-off did not change the tested outcomes. A longer 90/180-day scenario is needed. |
+| Critical retention via core-memory mechanism | core_persistence 100%; Phase 8 floors-off null | **Retention supported, attribution narrowed.** All 8 critical facts retrieved at day 30, but this run does not prove the floor clamp caused it. |
 | Emergent core promotion through use | 66/85 stored memories core | **Supported but possibly over-fires.** 78% promotion rate is high; threshold tuning candidate. |
 | Conflict-driven supersession | conflict 75% (1 judge artifact), temporal_before 100%, temporal_after 100% | **Supported.** Updated facts return new version; original facts return at the time they were current. |
-| Revival of faint memories | revival 80% (1 judge artifact) | **Supported.** 4/5 memories mentioned once, never re-accessed, retrieved correctly via oblique cues. |
+| Revival of faint memories | revival 60% (1 likely judge artifact) | **Partially supported.** Direct probes work better than oblique cues. |
 | Time-aware retrieval | temporal_before 100% / temporal_after 100% | **Supported** under time-stepped ingestion. |
 | Associative retrieval | associative 60% | **Partially supported.** Direct probes work; cross-fact cluster queries return subsets. |
 | Cold-tier migration | 0 cold memories | **Untested.** 30 days insufficient to trigger; would need a longer scenario. |
@@ -253,7 +249,7 @@ If we wanted to make this paper-stronger:
 
 1. **Expand to ~150 probes.** 4× the current size, n=15–20 per category. Add more conflict/supersession patterns, more associative cluster types, more time-points for temporal probes.
 
-2. **Add a 90-day scenario.** Long enough to actually trigger cold-tier migration. Tests an architectural claim that v2's 30-day scenario can't.
+2. **Add a 90-day or 180-day scenario.** Long enough to push memories past the floor-clamping point and trigger cold-tier migration. This is now the right test for decay floors after the Phase 8 null.
 
 3. **Add multi-seed runs.** 3–5 seeds with different fact ordering / session construction. Would convert per-category results from point estimates to intervals.
 
@@ -261,12 +257,12 @@ If we wanted to make this paper-stronger:
 
 5. **Add a NaiveRAG comparison column.** Wire `NaiveRAGAdapter` (already exists in `shared/adapter.py`) through the harness; compare per-category accuracy. NaiveRAG should fail revival (no decay floors), fail conflict (no supersession), fail temporal_before (no time-aware retrieval), and pass core_persistence + contextual + recent associative. Would give a direct architectural-mechanism contrast.
 
-For the current paper version (v1 of arXiv submission), v2 results as-is are sufficient as a confirmatory test alongside LoCoMo + LongMemEval-S. The 88.1% headline + 100% critical retention claim is paper-worthy. The 60% associative is honestly flagged as a known weakness in the paper's Future Work and Limitations.
+For the current paper version (v1 of arXiv submission), v2 results as-is are sufficient as a confirmatory test alongside LoCoMo + LongMemEval-S. The 88.1% headline + 100% critical retention claim is paper-worthy. The 60% revival and associative categories are honestly flagged as known weaknesses in the paper's Future Work and Limitations.
 
 ## 10. Implementation notes (current state)
 
 - **Code**: `lti/lti_bench.py` (current version is v2 with both fixes applied; v1 was overwritten in place but its outputs are preserved in `lti/results/v6_run_l.json`).
-- **Output**: `lti/results/v6_run_l_v2.json` is canonical; `v6_run_l.json` is the superseded v1.
+- **Output**: `lti/results/current_sdk_20260505/run_l_v2.json` is the current-refresh paper artifact; `lti/results/v6_run_l_v2.json` is a historical v2 artifact with slightly different judge outcomes.
 - **Bug fixed during this session**: `lti/lti_bench.py:357` had `from memory_adapter import` (broken); changed to `from shared.memory_adapter import` (correct). This fix is uncommitted.
 - **Time to run**: ~5 minutes wall, ~500k tokens, single seed.
 - **Reproduction**:
@@ -276,5 +272,5 @@ For the current paper version (v1 of arXiv submission), v2 results as-is are suf
     --adapter cognitive_memory \
     --model gpt-4o-mini \
     --judge-model gpt-4o-2024-08-06 \
-    --output lti/results/v6_run_l_v2.json
+    --output lti/results/current_sdk_20260505/run_l_v2.json
   ```
